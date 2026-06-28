@@ -4,20 +4,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 /* Body & Typography */
 body {
-  background: linear-gradient(270deg, red, yellow, green, blue);
-  background-size: 800% 800%;
-  animation: rainbowShift 15s ease infinite;
+  background: linear-gradient(135deg, #0a3d62, #1e5f74, #3c6382);
+  background-attachment: fixed;
+  background-size: cover;
   min-height: 100vh;
-  margin: 0;
   font-family: Arial, sans-serif;
-}
-
-@keyframes rainbowShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  color: #333;
+  line-height: 1.6;
 }
 
 /* Header */
@@ -34,7 +30,7 @@ header p {
   font-size: 1.1em;
 }
 
-/* Navigation */
+/* Navigation (Top Bar) */
 nav {
   background-color: #1e5f74;
   text-align: center;
@@ -54,11 +50,14 @@ nav a:hover {
 /* Container */
 .container {
   max-width: 1200px;
-  margin: auto;
+  margin: 80px auto;
   padding: 40px 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* Services */
+/* Services Section */
 .services {
   display: flex;
   flex-wrap: wrap;
@@ -84,7 +83,7 @@ nav a:hover {
 
 /* Contact Form */
 form {
-  background: #8ec3d8;
+  background: #f0f6f9;
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -99,6 +98,10 @@ form input, form textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+form input:focus, form textarea:focus {
+  border-color: #1e5f74;
+  outline: none;
+}
 form button {
   background-color: #1e5f74;
   color: #fff;
@@ -107,27 +110,95 @@ form button {
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.1em;
+  transition: background-color 0.3s ease;
 }
 form button:hover {
   background-color: #0a3d62;
 }
 
-/* Call to Action */
-.cta {
-  text-align: center;
-  margin: 40px 0;
-}
-.cta a {
-  background-color: #1e5f74;
+/* WhatsApp Button (inside contact section) */
+.container a {
+  display: inline-block;
+  background-color: #25D366;
   color: #fff;
   padding: 12px 25px;
   border-radius: 5px;
   text-decoration: none;
   font-size: 1.1em;
+  font-weight: bold;
   transition: background-color 0.3s ease;
 }
-.cta a:hover {
-  background-color: #0a3d62;
+.container a:hover {
+  background-color: #128C7E;
+}
+
+/* Floating WhatsApp Button */
+a[href*="wa.me"] {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+a[href*="wa.me"]:hover {
+  background-color: #128C7E;
+}
+
+/* Floating Sidebar (Desktop) */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  background: rgba(30,95,116,0.9);
+  border-radius: 10px;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  padding: 10px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar ul li {
+  margin: 15px 0;
+}
+.sidebar ul li a {
+  color: #fff;
+  font-size: 22px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+.sidebar ul li a:hover {
+  color: #ffd32a;
+}
+
+/* Bottom Nav (Mobile) */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #1e5f74;
+  padding: 10px 0;
+  text-align: center;
+}
+.bottom-nav a {
+  color: #fff;
+  font-size: 22px;
+  margin: 0 15px;
+  text-decoration: none;
+}
+.bottom-nav a:hover {
+  color: #ffd32a;
 }
 
 /* Footer */
@@ -141,99 +212,15 @@ footer {
 footer p {
   margin: 5px 0;
 }
-/* Floating Sidebar */
-.sidebar {
-  position: fixed;
-  top: 50%;
-  left: 5px; /* floats slightly inward from the edge */
-  transform: translateY(-50%);
-  .sidebar {
-  background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
- 
-}
-  border-radius: 10px;
-  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: auto; /* shrink to fit content */
-}
-
-/* Navigation */
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar ul li {
-  margin: 10px 0;
-  text-align: center;
-}
-
-.sidebar a, .sidebar button {
-  color: none;
-  text-decoration: none;
-  font-weight: bold;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px; /* close to icon size */
-  height: 40px; /* square shape */
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-/* Hover effect */
-.sidebar a:hover, .sidebar button:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px){}
-  .sidebar {
-    left: 10px;}
-     /* slightly inward */
-    .sidebar {
-  background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
-  padding: 5px; /* smaller padding */
-}
-
-
-  .sidebar a, .sidebar button {
-    width: 35px;
-    height: 35px;
-    font-size: 14px;
-  }
-
-@media (max-width: 480px) {} 
- .sidebar {
-    left: 8px; /* more inward for small screens */
-    background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
-    padding: 5px;
-  }
-/* Bottom Nav (Mobile) */
-.bottom-nav {
-  position: fixed;
-  bottom: 10px; left: 50%;
-  transform: translateX(-50%);
- .sidebar {
-  background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
-}
-  border-radius: 30px;
-  display: flex; justify-content: space-around;
-  width: 90%; max-width: 400px;
-  padding: 10px;
-}
-.bottom-nav a, .bottom-nav button {
-  color:none; font-size: 20px;
-  background: none; border: none;
-}
 
 /* Responsive */
-@media (min-width: 768px) { .bottom-nav { display: none; } }
-@media (max-width: 767px) { .sidebar, .floating-sidebar { display: none; } }
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .bottom-nav {
+    display: block;
+  }
+}
+
 
