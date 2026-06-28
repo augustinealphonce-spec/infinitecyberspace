@@ -1,0 +1,66 @@
+header img { height: 50px; }
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+/* Policy Page Styling */
+.policy {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+.policy h1 {
+  font-size: 2rem;
+  color: #1a3c6e;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.policy h2 {
+  font-size: 1.4rem;
+  color: #333;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border-left: 4px solid #1a3c6e;
+  padding-left: 10px;
+}
+
+.policy p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.policy ul {
+  margin: 10px 0 20px 20px;
+  padding: 0;
+}
+
+.policy ul li {
+  margin-bottom: 8px;
+  color: #444;
+}
+
+/* Footer links */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1a3c6e;
+  color: #fff;
+}
+
+footer a {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,240 @@
+/* General Page Styling */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f6f2e9;
+  background-size: 400% 400%;
+  color: #333;
+  animation: fadeInPage 1.7s ease-in-out;
+}
+h2 {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  /* Gradient background */
+  background: linear-gradient(90deg, #e8bfef, #dda0e6, #d180de,#c660d6 );
+  /* Standard property */
+  background-clip: text;
+
+  /* Vendor-specific for WebKit browsers */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  
+}
+
+/* Services Section */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.service {
+  background: #ede4d6;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  padding: 25px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUp 1s ease forwards;
+}
+
+.service:nth-child(1) { animation-delay: 0.3s; }
+.service:nth-child(2) { animation-delay: 0.6s; }
+.service:nth-child(3) { animation-delay: 0.9s; }
+.service:nth-child(4) { animation-delay: 1.2s; }
+
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.service:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+.service h3 {
+  margin-bottom: 15px;
+  color: #0077cc;
+  font-size: 1.4em;
+}
+
+.service p {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.service button {
+  background: #0077cc;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.service button a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.service button:hover {
+  background: #005fa3;
+}
+
+/* Repair Animation */
+.repair-animation {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+  gap: 20px;
+}
+
+.tool {
+  font-size: 2.5em;
+}
+
+.wrench { animation: moveWrench 4s infinite linear; }
+.screwdriver { animation: moveScrewdriver 5s infinite ease-in-out; }
+.gear { animation: spinGear 6s infinite linear; }
+
+@keyframes moveWrench {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(40px, -15px); }
+  50% { transform: translate(0, -30px); }
+  75% { transform: translate(-40px, -15px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes moveScrewdriver {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(50px, 15px) rotate(20deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes spinGear {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
+  padding: 8px;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 12px 0;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  color: #fff;
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* Bottom Nav (Mobile) */
+.bottom-nav {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.15);
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  max-width: 420px;
+  padding: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+.bottom-nav a {
+  font-size: 22px;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .bottom-nav { display: none; }
+}
+
+@media (max-width: 767px) {
+  .sidebar { display: none; }
+}
+
+/* Floating settings panel */
+.floating-menu {
+  display: none;
+  position: fixed;
+  top: 50%;       
+  left: 50%;      
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 1000;
+}
+
+.floating-menu h3 {
+  margin: 0 0 15px;
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+}
+
+.floating-menu button {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0, 120, 215, 0.7);
+  color: white;
+  font-size: 15px;
+  text-align: left;
+  transition: background 0.3s ease;
+}
+
+.floating-menu button:hover {
+  background: rgba(0, 90, 158, 0.9);
+}

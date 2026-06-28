@@ -1,0 +1,332 @@
+/* Base */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f8f9fa;
+  color: #333;
+}
+/* Find Your Plan Button */
+.findmyPlan-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #0078d4, #005a9e);
+  color: #fff;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3);
+}
+
+.findmyPlan-btn:hover {
+  background: linear-gradient(135deg, #005a9e, #003f6b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 90, 158, 0.4);
+}
+
+.findmyPlan-btn i {
+  margin-right: 8px;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 10px 20px;
+  box-shadow: 0 2px 10px rgba(0, 188, 212, 0.5);
+}
+
+header img { height: 50px; }
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 40px;
+  background: #ffb347;
+}
+.hero-text { max-width: 50%; }
+.hero-text h1 { font-size: 2.5em; margin-bottom: 10px; }
+.hero-text p { font-size: 1.2em; margin-bottom: 20px; }
+.hero-text a {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.hero img {
+  width: 40%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+button {
+  background-color: #007BFF; /* Blue background */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button a {
+  color: white; /* White text */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+.btn {
+  display: inline-block;
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Sections */
+section { padding: 40px; text-align: center; }
+.latest-updates { background: #f1f1f1; }
+.updates {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.update-box {
+  background: #fff;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 40%;
+}
+.update-box h3 { color: #007bff; }
+/* Button Quote*/
+.getQuote-btn {
+  background-color: #0077b5; /* LinkedIn blue */
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 24px; /* pill shape */
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none; /* remove underline */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* space between icon and text */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.getQuote-btn:hover {
+  background-color: #005582; /* darker blue */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.getQuote-btn i {
+  font-size: 16px;
+}
+
+
+/* Footer Styling */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #333a34;
+  color: #fff;
+}
+
+footer a {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-links a { color: #fff; margin: 0 10px; text-decoration: none; }
+.social-icons img { height: 25px; margin: 0 5px; }
+
+/* Floating Sidebar */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  background: transparent; /* fully transparent background */
+  border-radius: 10px;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40px; /* wider sidebar */
+  min-width: 70px;
+}
+
+/* Logo */
+.sidebar .logo {
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+/* Floating Sidebar */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  left: 5px; /* floats slightly inward from the edge */
+  transform: translateY(-50%);
+  .sidebar {
+  background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
+ 
+}
+  border-radius: 10px;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto; /* shrink to fit content */
+}
+
+/* Navigation */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.sidebar a, .sidebar button {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* close to icon size */
+  height: 40px; /* square shape */
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.sidebar a:hover, .sidebar button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px){}
+  .sidebar {
+    left: 10px; /* slightly inward */
+    .sidebar {
+  background:transparent;
+  padding: 5px; /* smaller padding */
+}
+
+
+  .sidebar a, .sidebar button {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    left: 8px; /* more inward for small screens */
+    background: transparent;
+    padding: 5px;
+  }
+
+  .sidebar a, .sidebar button {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+}
+/* Bottom Nav (Mobile) */
+.bottom-nav {
+  position: fixed;
+  bottom: 10px; left: 50%;
+  transform: translateX(-50%);
+ .sidebar {
+  background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
+}
+  border-radius: 30px;
+  display: flex; justify-content: space-around;
+  width: 90%; max-width: 400px;
+  padding: 10px;
+}
+.bottom-nav a, .bottom-nav button {
+  color: #fff; font-size: 20px;
+  background: none; border: none;
+}
+
+/* Responsive */
+@media (min-width: 768px) { .bottom-nav { display: none; } }
+@media (max-width: 767px) { .sidebar, .floating-sidebar { display: none; } }
+
+/* Floating settings panel */
+.floating-menu {
+  display: none; /* hidden until clicked */
+  position: fixed;
+  top: 50%;       
+  left: 50%;      
+  transform: translate(-50%, -50%); /* center on screen */
+  width: 300px;
+  background: rgba(255, 255, 255, 0.2); /* translucent background */
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  backdrop-filter: blur(15px); /* blur effect */
+  -webkit-backdrop-filter: blur(15px); /* Safari support */
+  z-index: 1000;
+}
+
+.floating-menu h3 {
+  margin: 0 0 15px;
+  font-size: 18px;
+  text-align: center;
+  color: #fff; /* white text for contrast */
+}
+
+.floating-menu button {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0, 120, 215, 0.7); /* semi-transparent blue */
+  color: white;
+  font-size: 15px;
+  text-align: left;
+  transition: background 0.3s ease;
+}
+
+.floating-menu button:hover {
+  background: rgba(0, 90, 158, 0.9);
+}

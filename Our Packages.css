@@ -1,0 +1,104 @@
+/* Our Packages.css */
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f7fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.pricing {
+  max-width: 1200px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.pricing h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #0a3d62;
+}
+
+.package {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 20px;
+  display: inline-block;
+  width: 260px;
+  vertical-align: top;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.package:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.package h3 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: #1e3799;
+}
+
+.package p {
+  font-size: 0.95rem;
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+.package strong {
+  color: #0a3d62;
+}
+
+.package:nth-child(2) {
+  border: 2px solid #1e3799;
+}
+
+.package:nth-child(3) {
+  border: 2px solid #38ada9;
+}
+
+.package:nth-child(4) {
+  border: 2px solid #e58e26;
+}
+.package:nth-child(5) {
+  border: 2px solid #c660d6;
+}
+
+@media (max-width: 768px) {
+  .package {
+    width: 90%;
+    margin: 15px auto;
+    display: block;
+  }
+}
+/*Js*/
+.recommended {
+  border: 3px solid #38ada9;
+  box-shadow: 0 0 15px rgba(56,173,169,0.5);
+}
+
+.expanded {
+  background: #f0f9ff;
+  transform: scale(1.05);
+}
+
+.compare-btn {
+  margin-top: 30px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  background: #1e3799;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.compare-btn:hover {
+  background: #0a3d62;
+}
