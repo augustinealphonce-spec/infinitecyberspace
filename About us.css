@@ -72,46 +72,41 @@ section {
   background: rgba(255, 248, 220, 0.3); /* light beige hover */
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .sidebar {
-    left: 10px;
-    padding: 5px;
-  }
-
-  .sidebar a, .sidebar button {
-    width: 35px;
-    height: 35px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) { 
-  .sidebar {
-    left: 8px;
-    padding: 5px;
-  }
-}
-
 /* Bottom Nav (Mobile) */
 .bottom-nav {
   position: fixed;
-  bottom: 10px; left: 50%;
+  bottom: 10px; 
+  left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(135deg, rgba(121,85,72,0.6), rgba(188,170,164,0.6));
   border-radius: 30px;
-  display: flex; justify-content: space-around;
-  width: 90%; max-width: 400px;
+  display: flex; 
+  justify-content: space-around;
+  width: 90%; 
+  max-width: 400px;
   padding: 10px;
 }
 
 .bottom-nav a, .bottom-nav button {
   color: #3e2723; 
   font-size: 20px;
-  background: none; border: none;
+  background: none; 
+  border: none;
 }
 
-/* Responsive */
-@media (min-width: 768px) { 
-  .bottom-nav { display: none; } 
+/* Responsive rules */
+
+/* Hide sidebar on mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none; /* completely hide sidebar */
+  }
 }
+
+/* Hide bottom nav on desktop */
+@media (min-width: 768px) { 
+  .bottom-nav { 
+    display: none; 
+  } 
+}
+
