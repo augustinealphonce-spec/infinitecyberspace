@@ -1,0 +1,108 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  background-color: #fff;
+}
+
+/* Hero Header */
+header {
+  background: url('YOUR_IMAGE_URL_HERE') no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+header div {
+  position: relative;
+  z-index: 1;
+}
+
+header h1 {
+  font-size: 3.5em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+header p {
+  font-size: 1.3em;
+  max-width: 700px;
+  margin: auto;
+}
+
+/* Section Styling */
+section {
+  padding: 60px 20px;
+}
+
+/* About Section */
+#about {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+
+#about img {
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#about div {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px;
+}
+
+#about h2 {
+  font-size: 2.5em;
+  color: #0a3d62;
+  margin-bottom: 20px;
+}
+
+#about p {
+  font-size: 1.2em;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Vision Section */
+#vision {
+  background: linear-gradient(to right, #0a3d62, #1e5799);
+  color: #fff;
+  text-align: center;
+}
+
+#vision h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+#vision p {
+  max-width: 800px;
+  margin: auto;
+  font-size: 1.2em;
+  line-height: 1.6;
+}
