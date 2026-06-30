@@ -30,3 +30,19 @@ document.addEventListener("DOMContentLoaded", () => {
     `);
   });
 });
+<script>
+function payWithMpesa(amount) {
+  const phone = prompt("Enter your M-Pesa phone number (e.g. 2547XXXXXXXX):");
+  if (!phone) return;
+
+  fetch("/stkpush", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone, amount })
+  })
+  .then(res => res.json())
+  .then(data => alert(data.message))
+  .catch(err => alert("Payment failed"));
+}
+</script>
+
