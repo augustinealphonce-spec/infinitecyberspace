@@ -1,133 +1,56 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Body & Typography */
 body {
-  background-color: #0a3d62; /* Premium deep navy */
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  color: #333;
-  line-height: 1.6;
-}
-
-/* Header */
-header {
-  background-color: #1e5f74;
+  background-color: #111;
   color: #fff;
-  text-align: center;
-  padding: 25px 15px;
-}
-header h1 {
-  margin-bottom: 5px;
-}
-header p {
-  font-size: 1.1em;
-}
-
-/* Navigation (Top Bar) */
-nav {
-  background-color: #1e5f74;
-  text-align: center;
-  padding: 12px;
-}
-nav a {
-  color: #fff;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-nav a:hover {
-  color: #ffd32a;
-}
-
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 80px auto;
-  padding: 40px 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* Services Section */
-.services {
+  font-family: 'Segoe UI', sans-serif;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
-.service-card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  flex: 1 1 280px;
-  padding: 20px;
+
+.contact-section {
   text-align: center;
-  transition: transform 0.3s ease;
-}
-.service-card:hover {
-  transform: translateY(-5px);
-}
-.service-card h3 {
-  color: #0a3d62;
-  margin-bottom: 10px;
 }
 
-/* Contact Form */
-form {
-  background: #f0f6f9;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+.hand {
+  font-size: 3rem;
+  animation: bounce 1.5s infinite;
 }
-form label {
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+.title {
+  font-size: 3rem;
   font-weight: bold;
+  margin: 20px 0;
+  color: #ff6600;
 }
-form input, form textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+
+.icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
-form input:focus, form textarea:focus {
-  border-color: #1e5f74;
-  outline: none;
-}
-form button {
-  background-color: #1e5f74;
-  color: #fff;
-  padding: 12px 25px;
+
+.icon {
+  background-color: #222;
   border: none;
-  border-radius: 5px;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1.1em;
-  transition: background-color 0.3s ease;
-}
-form button:hover {
-  background-color: #0a3d62;
+  transition: 0.3s;
 }
 
-/* WhatsApp Button (inside contact section) */
-.container a {
-  display: inline-block;
-  background-color: #25D366;
-  color: #fff;
-  padding: 12px 25px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 1.1em;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-.container a:hover {
-  background-color: #128C7E;
+.icon:hover {
+  background-color: #ff6600;
+  transform: scale(1.1);
 }
 
 /* Floating WhatsApp Button */
