@@ -1,5 +1,4 @@
-document.querySelectorAll('.icon').forEach(button => {
-  button.addEventListener('click', () => {
-    alert(`Opening ${button.textContent.trim()}...`);
-  });
-});
+function openLink(url) {
+  window.open(url, '_blank');
+}
+
