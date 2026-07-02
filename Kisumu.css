@@ -48,18 +48,14 @@ nav a {
 
 /* Hero Section */
 .hero {
-  position: relative;
-  background-image: url("your-photo.jpg");
-  background-size: cover;
+.hero {
+  height: calc(100vh - 70px); /* account for header height */
+  margin-top: 70px;           /* push below header */
+  background-size: cover;     /* fill area without shrinking */
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
 }
+
 .hero .overlay {
   position: absolute;
   top: 0; left: 0;
