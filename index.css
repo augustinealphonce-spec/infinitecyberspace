@@ -10,7 +10,7 @@ body {
 }
 
 /* ===========================
-   Floating Logo & Packages Button
+   Floating Logo & Find Your Plan Button
 =========================== */
 .logo {
   position: fixed;
@@ -24,13 +24,13 @@ body {
   display: block;
 }
 
-.find-packages {
+.find-plan {
   position: fixed;
   top: 15px;
   right: 20px;   /* stays on right-hand side */
   z-index: 2000;
 }
-.find-packages a {
+.find-plan a {
   display: inline-block;
   background: linear-gradient(135deg, #0078d4, #005a9e);
   color: #fff;
@@ -41,7 +41,7 @@ body {
   transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3);
 }
-.find-packages a:hover {
+.find-plan a:hover {
   background: linear-gradient(135deg, #005a9e, #003f6b);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 90, 158, 0.4);
@@ -245,5 +245,3 @@ footer a:hover {
     display: none;
   }
 }
-
-
