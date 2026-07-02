@@ -48,13 +48,17 @@ nav a {
   color: #fff;           /* white text so it’s visible on hero image */
   font-weight: bold;
 }
-
+/*Hero*/
 .hero {
-  background-image: url("Infinite Cyberspace Logo.jpg"); /* your actual image */
-  background-size: contain;   /* shows the whole image */
+  position: relative;
+  width: 100%;
+  height: 100vh; /* full viewport height */
+  background-image: url("Infinite Cyberspace Logo.jpg");
+  background-size: cover;   /* fills the container */
   background-position: center center;
   background-repeat: no-repeat;
 }
+
 
 
 .hero .overlay {
