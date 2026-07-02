@@ -46,21 +46,21 @@ nav a {
   font-weight: bold;
 }
 
-/* Hero Section */
 .hero {
-  height: 100vh;
+  height: calc(100vh - 70px);   /* full viewport minus header */
+  margin-top: 70px;             /* push below fixed header */
   background-image: url("your-photo.jpg");
-  background-size: cover;       /* fills nicely */
-  background-position: center;
+  background-size: cover;       /* fills area */
+  background-position: center center; /* perfectly centered */
   background-repeat: no-repeat;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+  align-items: center;          /* center content vertically */
+  justify-content: center;      /* center content horizontally */
   text-align: center;
-  padding-top: 70px;            /* offset header height */
+  color: white;
   position: relative;
 }
+
 .hero .overlay {
   position: absolute;
   top: 0; left: 0;
