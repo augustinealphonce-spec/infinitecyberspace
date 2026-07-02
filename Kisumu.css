@@ -1,21 +1,26 @@
-/* Base */
+/* ===========================
+   Base Styles
+=========================== */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
   background: #f8f9fa;
   color: #333;
+  line-height: 1.6;
 }
 
-/* Find Your Plan Button */
+/* ===========================
+   Buttons
+=========================== */
 .findmyPlan-btn {
   display: inline-block;
   background: linear-gradient(135deg, #0078d4, #005a9e);
   color: #fff;
-  font-weight: bold;
-  padding: 12px 20px;
+  font-weight: 600;
+  padding: 12px 24px;
   border-radius: 6px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3);
 }
 .findmyPlan-btn:hover {
@@ -24,67 +29,9 @@ body {
   box-shadow: 0 6px 12px rgba(0, 90, 158, 0.4);
 }
 .findmyPlan-btn i {
-  margin-right:13px;
-}
-/* Header */
-header {
-  position: fixed;       /* floats on top */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;         /* above hero */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: transparent; /* fully transparent */
-  padding: 10px 20px;
-  box-shadow: none;      /* remove shadow if you want it clean */
+  margin-right: 10px;
 }
 
-nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #fff;           /* white text so it’s visible on hero image */
-  font-weight: bold;
-}
-/*Hero*/
-.hero {
-  position: relative;
-  width: 100%;
-  height: 100vh; /* full viewport height */
-  background-image: url("Infinite Cyberspace Logo.jpg");
-  background-size: cover;   /* fills the container */
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-.hero .overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-}
-.hero-text {
-  position: relative;
-  z-index: 1;
-}
-.hero-text h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-.hero-text p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-.hero-text .btn {
-  margin: 0 10px;
-  padding: 10px 20px;
-  background: #0078d7;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-/* Quote Button */
 .getQuote-btn {
   background-color: #0077b5;
   color: #fff;
@@ -106,7 +53,76 @@ nav a {
   font-size: 16px;
 }
 
-/* Footer */
+/* ===========================
+   Header & Navigation
+=========================== */
+header {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  padding: 12px 24px;
+}
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+nav a:hover {
+  color: #ffd700;
+}
+
+/* ===========================
+   Hero Section
+=========================== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("Infinite Cyberspace Logo.jpg") center/cover no-repeat;
+}
+.hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+.hero-text {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  padding-top: 20%;
+}
+.hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.hero-text .btn {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background: #0078d7;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+.hero-text .btn:hover {
+  background: #005a9e;
+}
+
+/* ===========================
+   Footer
+=========================== */
 footer {
   text-align: center;
   padding: 20px;
@@ -116,6 +132,7 @@ footer {
 footer a {
   color: #ffd700;
   text-decoration: none;
+  transition: text-decoration 0.3s ease;
 }
 footer a:hover {
   text-decoration: underline;
@@ -130,20 +147,22 @@ footer a:hover {
   margin: 0 5px;
 }
 
-/* Floating Sidebar */
+/* ===========================
+   Sidebar
+=========================== */
 .sidebar {
   position: fixed;
   top: 50%;
-  left: 5px;
+  left: 10px;
   transform: translateY(-50%);
-  z-index: 1000; /* ensures it floats above hero */
-  background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
+  z-index: 1000;
+  background: linear-gradient(135deg, rgba(100,100,100,0.7), rgba(180,180,180,0.7));
   border-radius: 10px;
   box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: auto;
+  padding: 10px;
 }
 .sidebar ul {
   list-style: none;
@@ -152,12 +171,11 @@ footer a:hover {
 }
 .sidebar ul li {
   margin: 10px 0;
-  text-align: center;
 }
 .sidebar a, .sidebar button {
   color: #fff;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -166,20 +184,22 @@ footer a:hover {
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 5px;
-  transition: all 0.3s ease;
+  border-radius: 6px;
+  transition: background 0.3s ease;
 }
 .sidebar a:hover, .sidebar button:hover {
   background: rgba(255,255,255,0.2);
 }
 
-/* Bottom Nav (Mobile) */
+/* ===========================
+   Bottom Navigation (Mobile)
+=========================== */
 .bottom-nav {
   position: fixed;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
+  background: linear-gradient(135deg, rgba(100,100,100,0.7), rgba(180,180,180,0.7));
   border-radius: 30px;
   display: flex;
   justify-content: space-around;
@@ -194,29 +214,16 @@ footer a:hover {
   border: none;
 }
 
-/* Responsive */
-@media (min-width: 768px) {
-  .bottom-nav { display: none; }
-}
-@media (max-width: 767px) {
-  .sidebar { display: none; }
-}
-@media (max-width: 480px) {
-  .sidebar a, .sidebar button {
-    width: 30px;
-    height: 30px;
-    font-size: 12px;
-  }
-}
-
-/* Floating Settings Panel */
+/* ===========================
+   Floating Settings Panel
+=========================== */
 .floating-menu {
   display: none;
   position: fixed;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 20px;
@@ -238,8 +245,8 @@ footer a:hover {
   padding: 12px;
   border: none;
   border-radius: 8px;
-  background: rgba(0, 120, 215, 0.7);
-  color: white;
+  background: rgba(0, 120, 215, 0.8);
+  color: #fff;
   font-size: 15px;
   text-align: left;
   transition: background 0.3s ease;
@@ -247,5 +254,23 @@ footer a:hover {
 .floating-menu button:hover {
   background: rgba(0, 90, 158, 0.9);
 }
+
+/* ===========================
+   Responsive
+=========================== */
+@media (min-width: 768px) {
+  .bottom-nav { display: none; }
+}
+@media (max-width: 767px) {
+  .sidebar { display: none; }
+}
+@media (max-width: 480px) {
+  .sidebar a, .sidebar button {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+}
+
 
 
