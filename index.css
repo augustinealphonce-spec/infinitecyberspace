@@ -27,7 +27,7 @@ body {
 .find-packages {
   position: fixed;
   top: 15px;
-  right: 20px;
+  right: 20px;   /* stays on right-hand side */
   z-index: 2000;
 }
 .find-packages a {
@@ -45,75 +45,6 @@ body {
   background: linear-gradient(135deg, #005a9e, #003f6b);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 90, 158, 0.4);
-}
-
-/* ===========================
-   Buttons
-=========================== */
-.findmyPlan-btn {
-  display: inline-block;
-  background: linear-gradient(135deg, #0078d4, #005a9e);
-  color: #fff;
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3);
-}
-.findmyPlan-btn:hover {
-  background: linear-gradient(135deg, #005a9e, #003f6b);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 90, 158, 0.4);
-}
-.findmyPlan-btn i {
-  margin-right: 30px;
-}
-
-.getQuote-btn {
-  background-color: #0077b5;
-  color: #fff;
-  padding: 10px 22px;
-  border-radius: 24px;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-.getQuote-btn:hover {
-  background-color: #005582;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-.getQuote-btn i {
-  font-size: 16px;
-}
-
-/* ===========================
-   Header & Navigation
-=========================== */
-header {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: transparent;
-  padding: 12px 24px;
-}
-nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-nav a:hover {
-  color: #ffd700;
 }
 
 /* ===========================
@@ -293,4 +224,26 @@ footer a:hover {
 .floating-menu button:hover {
   background: rgba(0, 90, 158, 0.9);
 }
+
+/* ===========================
+   Responsive
+=========================== */
+@media (min-width: 768px) {
+  /* Hide bottom nav on tablets/PC */
+  .bottom-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Show bottom nav on phones */
+  .bottom-nav {
+    display: flex;
+  }
+  /* Hide sidebar on phones */
+  .sidebar {
+    display: none;
+  }
+}
+
 
