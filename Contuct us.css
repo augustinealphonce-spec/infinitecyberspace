@@ -120,7 +120,46 @@ footer {
 footer p {
   margin: 5px 0;
 }
-
+/* ===========================
+   Floating Settings Panel
+=========================== */
+.floating-menu {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 1000;
+}
+.floating-menu h3 {
+  margin: 0 0 15px;
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+}
+.floating-menu button {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0, 120, 215, 0.8);
+  color: #fff;
+  font-size: 15px;
+  text-align: left;
+  transition: background 0.3s ease;
+}
+.floating-menu button:hover {
+  background: rgba(0, 90, 158, 0.9);
+}
 /* Responsive */
 @media (max-width: 768px) {
   .sidebar {
