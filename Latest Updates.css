@@ -146,33 +146,30 @@ body {
   .sidebar { display: none; }
 }
 
-/* Floating settings panel */
+/* ===========================
+   Floating Settings Panel
+=========================== */
 .floating-menu {
-  display: none; /* hidden until triggered */
+  display: none;
   position: fixed;
-  top: 50%;       
-  left: 50%;      
-  transform: translate(-50%, -50%); /* center on screen */
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
   width: 300px;
-  background: rgba(255, 255, 255, 0.2); /* translucent background */
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 20px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  backdrop-filter: blur(15px); /* blur effect */
-  -webkit-backdrop-filter: blur(15px); /* Safari support */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   z-index: 1000;
-  animation: fadeIn 0.4s ease; /* smooth entry */
 }
-
 .floating-menu h3 {
   margin: 0 0 15px;
   font-size: 18px;
   text-align: center;
-  color: #fff; /* white text for contrast */
-  letter-spacing: 1px;
+  color: #fff;
 }
-
 .floating-menu button {
   display: block;
   width: 100%;
@@ -180,21 +177,14 @@ body {
   padding: 12px;
   border: none;
   border-radius: 8px;
-  background: rgba(0, 120, 215, 0.7); /* semi-transparent blue */
-  color: white;
+  background: rgba(0, 120, 215, 0.8);
+  color: #fff;
   font-size: 15px;
   text-align: left;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease;
 }
-
 .floating-menu button:hover {
   background: rgba(0, 90, 158, 0.9);
-  transform: scale(1.03);
-}
-
-.floating-menu button:active {
-  transform: scale(0.97);
 }
 
 /* Fade-in animation */
