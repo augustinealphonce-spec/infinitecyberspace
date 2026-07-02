@@ -16,7 +16,7 @@ body {
   position: fixed;
   top: 15px;
   left: 20px;
-  z-index: 1100;
+  z-index: 2000;
 }
 .logo img {
   height: 50px;
@@ -28,7 +28,7 @@ body {
   position: fixed;
   top: 15px;
   right: 20px;
-  z-index: 1100;
+  z-index: 2000;
 }
 .find-packages a {
   display: inline-block;
@@ -230,7 +230,7 @@ footer a:hover {
 }
 
 /* ===========================
-   Bottom Navigation (Mobile)
+   Bottom Navigation (Mobile Only)
 =========================== */
 .bottom-nav {
   position: fixed;
@@ -244,6 +244,7 @@ footer a:hover {
   width: 90%;
   max-width: 400px;
   padding: 10px;
+  z-index: 1500;
 }
 .bottom-nav a, .bottom-nav button {
   color: #fff;
@@ -292,10 +293,4 @@ footer a:hover {
 .floating-menu button:hover {
   background: rgba(0, 90, 158, 0.9);
 }
-
-/* ===========================
-   Responsive
-=========================== */
-@media (min-width: 768px) {
-  .bottom-nav {
 
