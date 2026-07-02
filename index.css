@@ -10,6 +10,44 @@ body {
 }
 
 /* ===========================
+   Floating Logo & Packages Button
+=========================== */
+.logo {
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  z-index: 1100;
+}
+.logo img {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+.find-packages {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  z-index: 1100;
+}
+.find-packages a {
+  display: inline-block;
+  background: linear-gradient(135deg, #0078d4, #005a9e);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3);
+}
+.find-packages a:hover {
+  background: linear-gradient(135deg, #005a9e, #003f6b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 90, 158, 0.4);
+}
+
+/* ===========================
    Buttons
 =========================== */
 .findmyPlan-btn {
@@ -259,18 +297,5 @@ footer a:hover {
    Responsive
 =========================== */
 @media (min-width: 768px) {
-  .bottom-nav { display: none; }
-}
-@media (max-width: 767px) {
-  .sidebar { display: none; }
-}
-@media (max-width: 480px) {
-  .sidebar a, .sidebar button {
-    width: 30px;
-    height: 30px;
-    font-size: 12px;
-  }
-}
-
-
+  .bottom-nav {
 
