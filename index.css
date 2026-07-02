@@ -224,6 +224,29 @@ footer a:hover {
 .floating-menu button:hover {
   background: rgba(0, 90, 158, 0.9);
 }
+/* Hide settings menu by default */
+.floating-menu {
+  display: none;
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Show when active */
+.floating-menu.active {
+  display: block;
+}
+
+/* Dark mode */
+body.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
 
 /* ===========================
    Responsive
