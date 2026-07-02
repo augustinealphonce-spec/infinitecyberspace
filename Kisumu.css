@@ -26,18 +26,12 @@ body {
 .findmyPlan-btn i {
   margin-right: 8px;
 }
-
 /* Header */
 header {
-  position: fixed;       /* floats on top */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;         /* above hero */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(241, 241, 241, 0.9);
+  background-color: #f1f1f1;
   padding: 10px 20px;
   box-shadow: 0 2px 10px rgba(0, 188, 212, 0.5);
 }
