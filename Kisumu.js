@@ -1,68 +1,95 @@
-// script.js
-document.addEventListener("DOMContentLoaded", () => {
-  /* -------- Training Hub Tabs -------- */
-  const buttons = document.querySelectorAll(".hub-tabs button");
-  const content = document.getElementById("tab-content");
+// ===========================
+// Utility Functions
+// ===========================
 
-  const tabData = {
-    guides: "📘 Quick Guides: Step-by-step cybersecurity tips.",
-    videos: "🎥 Video Tutorials: Learn visually with guided lessons.",
-    scripts: "💾 Download Scripts: Ready-to-use automation scripts."
-  };
-
-  buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const tab = btn.getAttribute("data-tab");
-      content.innerHTML = `<p>${tabData[tab]}</p>`;
-    });
-  });
-
-  /* -------- Service Box Repair Animation -------- */
-  document.querySelectorAll(".service-box button").forEach(button => {
-    button.addEventListener("click", (e) => {
-      const animationBox = e.target.closest(".service-box").querySelector(".repair-animation");
-      animationBox.classList.add("active");
-      alert("Repair animation running for this service!");
-
-      setTimeout(() => {
-        animationBox.classList.remove("active");
-      }, 5000);
-    });
-  });
-
-  /* -------- Settings Modal -------- */
-  const modal = document.getElementById("settings-modal");
-  const openBtns = [document.getElementById("settings-btn"), document.getElementById("settings-btn-mobile")];
-  const closeBtn = document.getElementById("close-settings");
-
-  openBtns.forEach(btn => {
-    btn.addEventListener("click", () => modal.classList.add("open"));
-  });
-
-  closeBtn.addEventListener("click", () => modal.classList.remove("open"));
-
-  document.getElementById("save-settings").addEventListener("click", () => {
-    const theme = document.getElementById("theme-selector").value;
-    const fontSize = document.getElementById("font-size").value;
-
-    document.body.className = theme;
-    document.body.style.fontSize =
-      fontSize === "small" ? "14px" :
-      fontSize === "large" ? "18px" : "16px";
-
-    alert("Settings saved!");
-  });
-});
-const settingsBtn = document.getElementById("settingsBtn");
-const settingsBtnMobile = document.getElementById("settingsBtnMobile");
-const settingsMenu = document.getElementById("settingsMenu");
-
-// Toggle floating menu
-function toggleMenu(e) {
-  e.preventDefault(); // stop link navigation
-  settingsMenu.style.display = 
-    (settingsMenu.style.display === "block") ? "none" : "block";
+// Toggle element visibility
+function toggleVisibility(selector) {
+  const el = document.querySelector(selector);
+  if (el) {
+    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+  }
 }
 
-settingsBtn.addEventListener("click", toggleMenu);
-settingsBtnMobile.addEventListener("click", toggleMenu);
+// Smooth scroll to target
+function smoothScroll(targetId) {
+  const target = document.getElementById(targetId);
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// ===========================
+// Floating Menu Controls
+// ===========================
+const settingsBtn = document.querySelector('.settings-btn');
+const floatingMenu = document.querySelector('.floating-menu');
+
+if (settingsBtn && floatingMenu) {
+  settingsBtn.addEventListener('click', () => {
+    toggleVisibility('.floating-menu');
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (floatingMenu.style.display === 'block' && !floatingMenu.contains(e.target) && e.target !== settingsBtn) {
+      floatingMenu.style.display = 'none';
+    }
+  });
+}
+
+// ===========================
+// Hero Buttons
+// ===========================
+document.querySelectorAll('.hero-text .btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = btn.getAttribute('data-target');
+    if (targetId) smoothScroll(targetId);
+  });
+});
+
+// ===========================
+// Sidebar Navigation
+// ===========================
+document.querySelectorAll('.sidebar a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href').replace('#', '');
+    smoothScroll(targetId);
+  });
+});
+
+// ===========================
+// Bottom Navigation (Mobile)
+// ===========================
+document.querySelectorAll('.bottom-nav a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href').replace('#', '');
+    smoothScroll(targetId);
+  });
+});
+
+// ===========================
+// Button Ripple Effect
+// ===========================
+function addRippleEffect(button) {
+  button.addEventListener('click', function (e) {
+    const circle = document.createElement('span');
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${e.clientX - button.offsetLeft - radius}px`;
+    circle.style.top = `${e.clientY - button.offsetTop - radius}px`;
+    circle.classList.add('ripple');
+
+    const ripple = button.getElementsByClassName('ripple')[0];
+    if (ripple) ripple.remove();
+
+    button.appendChild(circle);
+  });
+}
+
+document.querySelectorAll('.findmyPlan-btn, .getQuote-btn, .hero-text .btn').forEach(addRippleEffect);
+
