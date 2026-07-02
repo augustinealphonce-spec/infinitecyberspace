@@ -50,19 +50,12 @@ nav a {
 }
 
 .hero {
-  height: calc(100vh - 70px);   /* full viewport minus header */
-  margin-top: 70px;             /* push below fixed header */
-  background-image: url("your-photo.jpg");
-  background-size: cover;       /* fills area */
-  background-position: center center; /* perfectly centered */
+  background-image: url("Infinite Cyberspace Logo.jpg"); /* your actual image */
+  background-size: contain;   /* shows the whole image */
+  background-position: center center;
   background-repeat: no-repeat;
-  display: flex;
-  align-items: center;          /* center content vertically */
-  justify-content: center;      /* center content horizontally */
-  text-align: center;
-  color: white;
-  position: relative;
 }
+
 
 .hero .overlay {
   position: absolute;
