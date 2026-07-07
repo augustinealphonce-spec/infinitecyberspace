@@ -44,5 +44,32 @@ function payWithMpesa(amount) {
   .then(data => alert(data.message))
   .catch(err => alert("Payment failed"));
 }
+
+.recommended {
+  border: 3px solid #38ada9;
+  box-shadow: 0 0 15px rgba(56,173,169,0.5);
+}
+
+.expanded {
+  background: #f0f9ff;
+  transform: scale(1.05);
+}
+
+.compare-btn {
+  margin-top: 30px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  background: #1e3799;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.compare-btn:hover {
+  background: #0a3d62;
+}
+
 </script>
 
