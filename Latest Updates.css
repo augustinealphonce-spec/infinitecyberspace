@@ -1,20 +1,21 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: linear-gradient (135deg, #e8bfef,#dda0e6) ;
-  color: #333;
+  background: linear-gradient(135deg, #800000, #a52a2a); /* maroon gradient */
+  color: #f5f5f5; /* light text for contrast */
 }
 
 /* Latest Updates Section */
 .latest-updates {
   padding: 20px;
-  background: linear-gradient(135deg, #e8bfef,#dda0e6,);
+  background: linear-gradient(135deg, #800000, #a52a2a);
 }
 
 .latest-updates h2 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.8em;
+  color: #ffd700; /* gold accent */
 }
 
 .updates {
@@ -27,10 +28,10 @@ body {
 .update-box {
   flex: 1 1 300px;
   max-width: 400px;
-  background: #fafafa;
+  background: #fffafa; /* very light background for readability */
   border-radius: 8px;
   padding: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -42,18 +43,19 @@ body {
 .update-box h3 {
   margin-bottom: 10px;
   font-size: 1.3em;
-  color: #007bff;
+  color: #800000; /* maroon accent */
 }
 
 .update-box p {
   margin-bottom: 15px;
   font-size: 1em;
+  color: #333;
 }
 
 .read-more {
   display: inline-block;
   padding: 8px 15px;
-  background: #007bff;
+  background: #800000;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
@@ -61,7 +63,7 @@ body {
 }
 
 .read-more:hover {
-  background: #0056b3;
+  background: #4d0000; /* darker maroon on hover */
 }
 
 /* Responsive adjustments */
