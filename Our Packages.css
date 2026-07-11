@@ -77,6 +77,74 @@ body {
   }
 }
 /* ===========================
+   Sidebar
+=========================== */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  z-index: 1000;
+  background: linear-gradient(135deg, rgba(100,100,100,0.7), rgba(180,180,180,0.7));
+  border-radius: 10px;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar ul li {
+  margin: 10px 0;
+}
+.sidebar a, .sidebar button {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+.sidebar a:hover, .sidebar button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* ===========================
+   Bottom Navigation (Mobile Only)
+=========================== */
+.bottom-nav {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, rgba(100,100,100,0.7), rgba(180,180,180,0.7));
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  max-width: 400px;
+  padding: 10px;
+  z-index: 1500;
+}
+.bottom-nav a, .bottom-nav button {
+  color: #fff;
+  font-size: 20px;
+  background: none;
+  border: none;
+}
+
+/* ===========================
    Floating Settings Panel
 =========================== */
 .floating-menu {
@@ -137,4 +205,26 @@ body {
 body.dark-mode {
   background-color: #121212;
   color: #f1f1f1;
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+@media (min-width: 768px) {
+  /* Hide bottom nav on tablets/PC */
+  .bottom-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Show bottom nav on phones */
+  .bottom-nav {
+    display: flex;
+  }
+  /* Hide sidebar on phones */
+  .sidebar {
+    display: none;
+  }
 }
