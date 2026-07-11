@@ -217,6 +217,7 @@ body.dark-mode {
     display: none;
   }
 }
+
 @media (max-width: 767px) {
   /* Show bottom nav on phones */
   .bottom-nav {
