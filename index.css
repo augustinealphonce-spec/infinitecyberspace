@@ -4,8 +4,8 @@
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
-  background: #f8f9fa;
-  color: #333;
+  background: #0f1116; /* darker tech background */
+  color: #eaeaea;
   line-height: 1.6;
 }
 
@@ -19,32 +19,36 @@ body {
   z-index: 2000;
 }
 .logo img {
-  height: 50px;
-  width: auto;
+  height: 55px;
+  width: 55px;       /* make it square */
+  border-radius: 50%; /* fully rounded */
   display: block;
+  object-fit: cover;  /* ensures the image fills the circle */
+  box-shadow: 0 0 8px rgba(0,200,255,0.6);
 }
+
 
 .find-plan {
   position: fixed;
   top: 15px;
-  right: 20px;   /* stays on right-hand side */
+  right: 20px;
   z-index: 2000;
 }
 .find-plan a {
   display: inline-block;
-  background: linear-gradient(135deg, #0078d4, #005a9e);
+  background: linear-gradient(135deg, #00c8ff, #0078d4);
   color: #fff;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: 6px;
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 200, 255, 0.4);
 }
 .find-plan a:hover {
-  background: linear-gradient(135deg, #005a9e, #003f6b);
+  background: linear-gradient(135deg, #0078d4, #005a9e);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 90, 158, 0.4);
+  box-shadow: 0 6px 14px rgba(0, 120, 212, 0.5);
 }
 
 /* ===========================
@@ -54,12 +58,12 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url("your-photo.jpg") center/cover no-repeat;
+  background: url("Infinite.jpg") center/cover no-repeat; /* use your uploaded photo */
 }
 .hero .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.55);
 }
 .hero-text {
   position: relative;
@@ -69,24 +73,28 @@ body {
   padding-top: 20%;
 }
 .hero-text h1 {
-  font-size: 3rem;
+  font-size: 3.2rem;
   margin-bottom: 1rem;
+  text-shadow: 0 0 12px rgba(0,200,255,0.7);
 }
 .hero-text p {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 2rem;
+  color: #cce7ff;
 }
 .hero-text .btn {
-  margin: 0 10px;
-  padding: 10px 20px;
-  background: #0078d7;
+  margin: 0 12px;
+  padding: 12px 24px;
+  background: #00c8ff;
   color: #fff;
   text-decoration: none;
-  border-radius: 5px;
-  transition: background 0.3s ease;
+  border-radius: 6px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,200,255,0.4);
 }
 .hero-text .btn:hover {
-  background: #005a9e;
+  background: #0078d4;
+  transform: translateY(-2px);
 }
 
 /* ===========================
@@ -95,25 +103,16 @@ body {
 footer {
   text-align: center;
   padding: 20px;
-  background: #333a34;
+  background: #1a1d24;
   color: #fff;
 }
 footer a {
-  color: #ffd700;
+  color: #00c8ff;
   text-decoration: none;
   transition: text-decoration 0.3s ease;
 }
 footer a:hover {
   text-decoration: underline;
-}
-.footer-links a {
-  color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
-}
-.social-icons img {
-  height: 25px;
-  margin: 0 5px;
 }
 
 /* ===========================
@@ -125,13 +124,13 @@ footer a:hover {
   left: 10px;
   transform: translateY(-50%);
   z-index: 1000;
-  background: linear-gradient(135deg, rgba(100,100,100,0.7), rgba(180,180,180,0.7));
-  border-radius: 10px;
-  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
+  border-radius: 12px;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 12px;
 }
 .sidebar ul {
   list-style: none;
@@ -139,7 +138,7 @@ footer a:hover {
   margin: 0;
 }
 .sidebar ul li {
-  margin: 10px 0;
+  margin: 12px 0;
 }
 .sidebar a, .sidebar button {
   color: #fff;
@@ -151,13 +150,14 @@ footer a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-  transition: background 0.3s ease;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 .sidebar a:hover, .sidebar button:hover {
-  background: rgba(255,255,255,0.2);
+  background: rgba(0,200,255,0.25);
+  transform: scale(1.1);
 }
 
 /* ===========================
@@ -165,23 +165,27 @@ footer a:hover {
 =========================== */
 .bottom-nav {
   position: fixed;
-  bottom: 10px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, rgba(100,100,100,0.7), rgba(180,180,180,0.7));
+  background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
   border-radius: 30px;
   display: flex;
   justify-content: space-around;
   width: 90%;
-  max-width: 400px;
-  padding: 10px;
+  max-width: 420px;
+  padding: 12px;
   z-index: 1500;
 }
 .bottom-nav a, .bottom-nav button {
   color: #fff;
-  font-size: 20px;
+  font-size: 22px;
   background: none;
   border: none;
+  transition: transform 0.2s ease;
+}
+.bottom-nav a:hover, .bottom-nav button:hover {
+  transform: scale(1.2);
 }
 
 /* ===========================
@@ -192,14 +196,14 @@ footer a:hover {
   position: fixed;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  background: rgba(255, 255, 255, 0.25);
+  width: 320px;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 1000;
 }
 .floating-menu h3 {
@@ -211,32 +215,19 @@ footer a:hover {
 .floating-menu button {
   display: block;
   width: 100%;
-  margin: 8px 0;
+  margin: 10px 0;
   padding: 12px;
   border: none;
   border-radius: 8px;
-  background: rgba(0, 120, 215, 0.8);
+  background: rgba(0, 200, 255, 0.8);
   color: #fff;
   font-size: 15px;
   text-align: left;
   transition: background 0.3s ease;
 }
 .floating-menu button:hover {
-  background: rgba(0, 90, 158, 0.9);
+  background: rgba(0, 120, 212, 0.9);
 }
-/* Hide settings menu by default */
-.floating-menu {
-  display: none;
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* Show when active */
 .floating-menu.active {
   display: block;
 }
@@ -247,24 +238,21 @@ body.dark-mode {
   color: #f1f1f1;
 }
 
-
 /* ===========================
    Responsive
 =========================== */
 @media (min-width: 768px) {
-  /* Hide bottom nav on tablets/PC */
   .bottom-nav {
     display: none;
   }
 }
 
 @media (max-width: 767px) {
-  /* Show bottom nav on phones */
   .bottom-nav {
     display: flex;
   }
-  /* Hide sidebar on phones */
   .sidebar {
     display: none;
   }
 }
+
