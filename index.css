@@ -58,7 +58,7 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url("Infinite.jpg") center/cover no-repeat; /* use your uploaded photo */
+  background: url("Infinite-home.png") center/cover no-repeat; /* use your uploaded photo */
 }
 .hero .overlay {
   position: absolute;
