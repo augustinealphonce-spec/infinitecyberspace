@@ -61,9 +61,7 @@ body {
   background: url("Infinite-home.png") center/cover no-repeat; /* use your uploaded photo */
 }
 .hero .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.35); /* lighter overlay so photo is visible */
+  display: none;
 }
 .hero-text {
   position: relative;
