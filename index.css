@@ -63,7 +63,7 @@ body {
 .hero .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.35); /* lighter overlay so photo is visible */
 }
 .hero-text {
   position: relative;
