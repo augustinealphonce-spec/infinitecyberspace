@@ -1,293 +1,252 @@
-/* ===========================
-Base Styles
-=========================== */
+/* ===== Global Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #00b4d8;
+  --secondary: #0096c7;
+  --dark-bg: #0d1117;
+  --card-bg: rgba(22, 27, 34, 0.85);
+  --text-light: #e6edf3;
+  --text-muted: #8b949e;
+  --shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
 body {
-  /* Premium dark base */
-  background: #0f2027;  
-  /* Gradient overlay with luxury accents */
-  background: linear-gradient(
-    135deg, 
-    #0f2027,   /* deep navy */
-    #203a43,   /* steel blue */
-    #2c5364,   /* teal-gray */
-    #1c1c1c    /* charcoal for depth */
-  );
-  
-  /* Add a subtle texture effect */
-  background-attachment: fixed;
-  background-size: cover;
-
-  color: #f5f5f5; /* softer white for elegance */
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-
-  /* Premium text accents */
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--dark-bg);
+  color: var(--text-light);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-
-/* ===========================
-   Floating Logo & Find Your Plan Button
-=========================== */
-.logo {
+/* ===== Sidebar Navigation ===== */
+.sidebar {
   position: fixed;
-  top: 15px;
+  top: 50%;
   left: 20px;
-  z-index: 2000;
-}
-.logo img {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 12px rgba(0,200,255,0.7);
-  transition: transform 0.3s ease;
-}
-.logo img:hover {
-  transform: rotate(8deg) scale(1.05);
+  transform: translateY(-50%);
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: var(--shadow);
+  transition: transform 0.4s ease;
 }
 
-.find-plan {
-  position: fixed;
-  top: 15px;
-  right: 20px;
-  z-index: 2000;
+.sidebar:hover {
+  transform: translateY(-50%) scale(1.05);
 }
-.find-plan a {
-  display: inline-block;
-  background: linear-gradient(135deg, #00c8ff, #0078d4);
-  color: #fff;
-  font-weight: 600;
-  padding: 12px 26px;
-  border-radius: 8px;
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  font-size: 1.5rem;
+  color: var(--text-light);
   text-decoration: none;
-  letter-spacing: 0.5px;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 14px rgba(0, 200, 255, 0.4);
-}
-.find-plan a:hover {
-  background: linear-gradient(135deg, #0078d4, #005a9e);
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 18px rgba(0, 120, 212, 0.6);
 }
 
-/* ===========================
-   Hero Section
-=========================== */
+.sidebar ul li a:hover {
+  color: var(--primary);
+  text-shadow: 0 0 8px var(--primary);
+}
+
+/* ===== Bottom Navigation (Mobile) ===== */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  padding: 12px 0;
+  text-align: center;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+}
+
+.bottom-nav a {
+  margin: 0 15px;
+  font-size: 1.4rem;
+  color: var(--text-light);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.bottom-nav a:hover {
+  color: var(--primary);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .bottom-nav { display: flex; justify-content: space-around; }
+}
+
+/* ===== Floating Settings Menu ===== */
+.floating-menu {
+  position: fixed;
+  top: 20%;
+  right: 20px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  display: none;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.floating-menu h3 {
+  margin-bottom: 15px;
+  color: var(--primary);
+}
+
+.floating-menu button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.floating-menu button:hover {
+  background: var(--primary);
+  color: var(--dark-bg);
+  box-shadow: 0 0 12px var(--primary);
+}
+
+/* ===== Header ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+}
+
+.logo img {
+  height: 65px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.find-plan a {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--dark-bg);
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.find-plan a:hover {
+  background: var(--secondary);
+  color: var(--text-light);
+  box-shadow: 0 0 15px var(--primary);
+}
+
+/* ===== Hero Section ===== */
 .hero {
   position: relative;
-  width: 100%;
-  height: 100vh;
+  height: 90vh;
+  background: url('cyber-bg.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: hidden;
 }
+
+.hero .overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(13,17,23,0.85);
+  animation: pulseOverlay 8s infinite alternate;
+}
+
+@keyframes pulseOverlay {
+  from { background: rgba(13,17,23,0.85); }
+  to { background: rgba(13,17,23,0.65); }
+}
+
 .hero-text {
-  z-index: 1;
-  color: #fff;
-  max-width: 800px;
-  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+  color: var(--text-light);
+  animation: fadeUp 1.2s ease forwards;
 }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .hero-text h1 {
   font-size: 3.5rem;
-  margin-bottom: 1rem;
-  text-shadow: 0 0 20px rgba(0,200,255,0.8);
-  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--primary);
+  text-shadow: 0 0 12px var(--primary);
 }
+
 .hero-text p {
-  font-size: 1.4rem;
-  margin-bottom: 2rem;
-  color: #d6ecff;
+  font-size: 1.3rem;
+  margin-bottom: 35px;
+  color: var(--text-muted);
 }
+
 .hero-text .btn {
-  margin: 0 14px;
+  margin: 0 12px;
   padding: 14px 28px;
-  background: linear-gradient(135deg, #00c8ff, #0078d4);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 14px rgba(0,200,255,0.4);
-}
-.hero-text .btn:hover {
-  background: linear-gradient(135deg, #0078d4, #005a9e);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,120,212,0.6);
-}
-
-/* ===========================
-   Sidebar
-=========================== */
-.sidebar {
-  position: fixed;
-  top: 50%;
-  left: 15px;
-  transform: translateY(-50%);
-  z-index: 1000;
-  background: rgba(0, 200, 255, 0.15);
-  border-radius: 14px;
-  box-shadow: 2px 6px 16px rgba(0,0,0,0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 14px;
-  backdrop-filter: blur(12px);
-}
-.sidebar a {
-  color: #fff;
-  font-size: 22px;
-  margin: 14px 0;
-  transition: all 0.3s ease;
-}
-.sidebar a:hover {
-  color: #00c8ff;
-  transform: scale(1.2);
-}
-
-/* ===========================
-   Bottom Navigation (Mobile)
-=========================== */
-.bottom-nav {
-  position: fixed;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 200, 255, 0.15);
-  border-radius: 30px;
-  display: flex;
-  justify-content: space-around;
-  width: 92%;
-  max-width: 420px;
-  padding: 14px;
-  z-index: 1500;
-  backdrop-filter: blur(12px);
-}
-.bottom-nav a {
-  color: #fff;
-  font-size: 24px;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-.bottom-nav a:hover {
-  color: #00c8ff;
-  transform: scale(1.3);
-}
-
-/* ===========================
-   Floating Settings Panel
-=========================== */
-.floating-menu {
-  display: none;
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 340px;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 22px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.4);
-  backdrop-filter: blur(22px);
-  z-index: 1000;
-}
-.floating-menu h3 {
-  margin: 0 0 18px;
-  font-size: 20px;
-  text-align: center;
-  color: #fff;
-}
-.floating-menu button {
-  display: block;
-  width: 100%;
-  margin: 12px 0;
-  padding: 14px;
-  border: none;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--dark-bg);
   border-radius: 10px;
-  background: rgba(0, 200, 255, 0.85);
-  color: #fff;
-  font-size: 16px;
-  text-align: left;
-  transition: background 0.3s ease;
-}
-.floating-menu button:hover {
-  background: rgba(0, 120, 212, 0.95);
-}
-.floating-menu.active {
-  display: block;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-/* ===========================
-   Footer
-=========================== */
+.hero-text .btn:hover {
+  background: var(--secondary);
+  color: var(--text-light);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--primary);
+}
+
+/* ===== Footer ===== */
 footer {
   text-align: center;
-  padding: 24px;
-  background: #11151c;
-  color: #fff;
-  font-size: 14px;
-  letter-spacing: 0.3px;
+  padding: 25px;
+  background: var(--card-bg);
+  color: var(--text-muted);
+  backdrop-filter: blur(8px);
+  transition: background 0.3s ease;
 }
+
+footer:hover {
+  background: rgba(31,41,55,0.9);
+}
+
 footer a {
-  color: #00c8ff;
+  color: var(--primary);
   text-decoration: none;
-  transition: color 0.3s ease;
 }
+
 footer a:hover {
-  color: #0078d4;
+  text-decoration: underline;
 }
-
-/* ===========================
-   Dark Mode
-=========================== */
-body.dark-mode {
-  background: linear-gradient(to bottom, #121212, #000000);
-  color: #f1f1f1;
-}
-
-/* ===========================
-   Responsive
-=========================== */
-@media (min-width: 768px) {
-  .bottom-nav { display: none; }
-}
-@media (max-width: 767px) {
-  .bottom-nav { display: flex; }
-  .sidebar { display: none; }
-}
-
-/* ===========================
-   Testimonial Section
-=========================== */
-.testimonial-section {
-  padding: 60px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  text-align: center;
-  color: #fff;
-}
-.testimonial-section h2 {
-  font-size: 2.2rem;
-  margin-bottom: 40px;
-  text-shadow: 0 0 12px rgba(0,200,255,0.6);
-}
-
-/* Slider container */
-.testimonial-slider {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  gap: 20px;
-  padding: 0 10px;
-}
-.testimonial-slider::-webkit-scrollbar {
-  display: none; /* hide scrollbar for clean look */
-}
-
-/* Individual testimonial */
-.testimonial {
-  flex: 0 0 80%;
-  max-width: 500px;
-  background: rgba(0, 200, 255, 0.12);
-  border-radius: 14
 
 
