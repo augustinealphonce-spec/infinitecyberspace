@@ -11,7 +11,7 @@ body {
     #D8A7B1    /* dusty rose accent */
   );
   background-size: 400% 400%;
- color: #fff;
+ color: #333;
   animation: fadeInPage 1.7s ease-in-out;
 }
 h2 {
