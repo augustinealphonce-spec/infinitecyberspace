@@ -9,12 +9,30 @@ function toggleSettingsMenu() {
 
 settingsBtn.addEventListener("click", toggleSettingsMenu);
 settingsBtnMobile.addEventListener("click", toggleSettingsMenu);
+// ===== Dark Mode Toggle =====
+const darkModeBtn = document.querySelector("#settingsMenu button:first-of-type");
 
-// ✅ Dark Mode Toggle
-const darkModeBtn = settingsMenu.querySelector("button:nth-child(2)"); // 🌙 Dark Mode button
+// Apply saved theme on load
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+});
 
-darkModeBtn.addEventListener("click", () => {
+// Toggle dark mode when button is clicked
+darkModeBtn?.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
+
+  // Save preference
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("theme", "dark");
+    darkModeBtn.textContent = "☀️ Light Mode";
+  } else {
+    localStorage.setItem("theme", "light");
+    darkModeBtn.textContent = "🌙 Dark Mode";
+  }
+});
 });
 
 // ✅ Notifications Toggle
