@@ -271,30 +271,7 @@ header {
   transform: translateY(-3px);
 }
 
-/* ===== Packages Section ===== */
-.packages {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-  padding: 50px;
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue), var(--accent-pink));
-  background-size: 300% 300%;
-  animation: gradientFlow 15s ease infinite;
-  color: #222;
-}
 
-.package-card {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 14px;
-  padding: 30px;
-  width: 300px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.package-card:hover {
-  transform: translateY(-10px)
 
 
 
