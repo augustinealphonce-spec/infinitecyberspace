@@ -17,21 +17,51 @@
   --text-light: #f5f5f5;
   --card-bg: rgba(255, 255, 255, 0.95);
 }
-
 /* ===== Body Styling ===== */
 body {
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  background: radial-gradient(circle at 25% 25%, var(--accent-purple), transparent 40%),
-              radial-gradient(circle at 75% 20%, var(--accent-blue), transparent 40%),
-              radial-gradient(circle at 50% 80%, var(--accent-pink), transparent 40%),
-              linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
-  background-size: 300% 300%;
-  animation: galaxyFlow 60s ease infinite;
+  background: transparent; /* fully transparent base */
   color: var(--text-light);
   line-height: 1.7;
   min-height: 100vh;
   overflow-x: hidden;
 }
+
+/* ===== Galaxy Gradient Layers ===== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 25% 25%, var(--accent-purple), transparent 40%),
+              radial-gradient(circle at 75% 20%, var(--accent-blue), transparent 40%),
+              radial-gradient(circle at 50% 80%, var(--accent-pink), transparent 40%);
+  background-size: 300% 300%;
+  animation: galaxyFlow 60s ease infinite;
+  opacity: 0.6; /* adjust transparency so stars show through */
+  z-index: -3;
+}
+
+/* ===== Starfield Layers ===== */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  opacity: 0.35;
+  animation: twinkle 10s ease-in-out infinite;
+  z-index: -2;
+}
+
+.star-drift {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  opacity: 0.2;
+  animation: drift 120s linear infinite;
+  z-index: -1;
+}
+
 
 /* ===== Starfield Layers ===== */
 body::before {
