@@ -4,7 +4,7 @@
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
-  background: #0f1116; /* darker tech background */
+  background: linear-gradient(to bottom, lightSkyBlue, midnightBlue); 
   color: #eaeaea;
   line-height: 1.6;
 }
@@ -20,13 +20,12 @@ body {
 }
 .logo img {
   height: 55px;
-  width: 55px;       /* make it square */
-  border-radius: 50%; /* fully rounded */
+  width: 55px;
+  border-radius: 50%;
   display: block;
-  object-fit: cover;  /* ensures the image fills the circle */
+  object-fit: cover;
   box-shadow: 0 0 8px rgba(0,200,255,0.6);
 }
-
 
 .find-plan {
   position: fixed;
@@ -58,7 +57,7 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url("Infinite-home.png") center/cover no-repeat; /* use your uploaded photo */
+  background: url("Infinite-home.png") center/cover no-repeat;
 }
 .hero .overlay {
   display: none;
@@ -232,7 +231,7 @@ footer a:hover {
 
 /* Dark mode */
 body.dark-mode {
-  background-color: #121212;
+  background: linear-gradient(to bottom, #121212, #000000);
   color: #f1f1f1;
 }
 
