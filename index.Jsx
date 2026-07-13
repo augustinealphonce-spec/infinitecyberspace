@@ -93,16 +93,26 @@ function CameraController() {
 /* --- Main Exported Component --- */
 export default function SpaceBackground() {
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
+
+  // Dark mode toggle
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   return (
     <div className="app-container">
       {/* 3D Canvas */}
-      <Canvas
-        camera={{ position: [0, 0, 500], fov: 75 }}
-        onCreated={({ gl }) => {
-          gl.setClearColor("black");
-        }}
-      >
+      <Canvas camera={{ position: [0, 0, 500], fov: 75 }} onCreated={({ gl }) => {
+        gl.setClearColor("black");
+      }}>
         <Starfield />
         <ShootingStar />
         <CameraController />
@@ -126,12 +136,7 @@ export default function SpaceBackground() {
           <li><a href="Login.html">🛡️</a></li>
           <li><a href="Contact.html">📞</a></li>
           <li>
-            <button
-              className="icon-btn"
-              onClick={() => setSettingsOpen(!settingsOpen)}
-            >
-              ⚙️
-            </button>
+            <button className="icon-btn" onClick={() => setSettingsOpen(!settingsOpen)}>⚙️</button>
           </li>
         </ul>
       </nav>
@@ -142,20 +147,21 @@ export default function SpaceBackground() {
         <a href="Latest Updates.html">📰</a>
         <a href="Login.html">🛡️</a>
         <a href="Contact.html">📞</a>
-        <button
-          className="icon-btn"
-          onClick={() => setSettingsOpen(!settingsOpen)}
-        >
-          ⚙️
-        </button>
+        <button className="icon-btn" onClick={() => setSettingsOpen(!settingsOpen)}>⚙️</button>
       </nav>
 
       {/* Floating Settings Panel */}
       <div className={`settings-panel ${settingsOpen ? "open" : ""}`}>
         <h3>⚙️ Settings</h3>
-        <button>🌙 Dark Mode</button>
-        <button>🔔 Notifications</button>
-        <button>🛡️ Privacy</button>
+        <button onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+        </button>
+        <button onClick={() => alert("🔔 Notifications feature coming soon!")}>
+          🔔 Notifications
+        </button>
+        <button onClick={() => (window.location.href = "Privacy Policy.html")}>
+          🛡️ Privacy
+        </button>
       </div>
 
       {/* Footer */}
@@ -163,6 +169,7 @@ export default function SpaceBackground() {
     </div>
   );
 }
+
 
 
       
