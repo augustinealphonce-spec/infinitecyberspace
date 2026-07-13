@@ -1,14 +1,20 @@
 /* ===========================
-   Premium Base Styles
+Base Styles
 =========================== */
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  margin: 0;
-  background: linear-gradient(to bottom, #87cefa, #191970); /* sky blue → midnight blue */
-  color: #eaeaea;
-  line-height: 1.6;
-  overflow-x: hidden;
+  /* Dark base for professionalism */
+  background: #0f2027;  
+  /* Gradient overlay for tech vibe */
+  background: linear-gradient(
+    to right, 
+    #0f2027,  /* deep navy */
+    #203a43,  /* steel blue */
+    #2c5364   /* teal-gray */
+  );
+  color: #ffffff; /* text stands out clearly */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
 
 /* ===========================
    Floating Logo & Find Your Plan Button
