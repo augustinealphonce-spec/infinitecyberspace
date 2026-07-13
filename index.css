@@ -4,6 +4,69 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* ===== Root Variables ===== */
+:root {
+  --bg-dark: #050509;
+  --bg-mid: #0d0d12;
+  --bg-light: #1a1a1f;
+  --accent-blue: #4da6ff;
+  --accent-purple: #b366ff;
+  --accent-pink: #ff4da6;
+  --accent-gold: #ffd966;
+  --text-light: #f5f5f5;
+  --card-bg: rgba(255, 255, 255, 0.95);
+}
+
+/* ===== Body Styling ===== */
+body {
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: radial-gradient(circle at 25% 25%, var(--accent-purple), transparent 40%),
+              radial-gradient(circle at 75% 20%, var(--accent-blue), transparent 40%),
+              radial-gradient(circle at 50% 80%, var(--accent-pink), transparent 40%),
+              linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
+  background-size: 300% 300%;
+  animation: galaxyFlow 60s ease infinite;
+  color: var(--text-light);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== Starfield Layers ===== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  opacity: 0.35;
+  animation: twinkle 10s ease-in-out infinite;
+  z-index: -1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  opacity: 0.2;
+  animation: drift 120s linear infinite;
+  z-index: -2;
+}
+
+/* ===== Shooting Stars (Optional) ===== */
+.shooting-star {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 80px;
+  background: linear-gradient(to bottom, white, transparent);
+  opacity: 0;
+  animation: shootingStar 5s linear infinite;
+  z-index: -1;
+}
+
 /* ===== Logo Styling ===== */
 .logo {
   position: absolute;
@@ -24,29 +87,6 @@
 .logo img:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 25px rgba(0,0,0,0.35);
-}
-
-/* ===== Root Variables ===== */
-:root {
-  --bg-dark: #0d0d0f;
-  --bg-mid: #1a1a1d;
-  --bg-light: #2a2a2d;
-  --accent-blue: #4da6ff;
-  --accent-purple: #b366ff;
-  --accent-pink: #ff4da6;
-  --accent-gold: #ffd966;
-  --text-light: #f5f5f5;
-  --card-bg: rgba(255, 255, 255, 0.95);
-}
-
-/* ===== Body Styling ===== */
-body {
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  background: linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
-  color: var(--text-light);
-  line-height: 1.7;
-  min-height: 100vh;
-  overflow-x: hidden;
 }
 
 /* ===== Sidebar Navigation ===== */
@@ -162,12 +202,6 @@ header {
   padding: 25px 40px;
 }
 
-.logo img {
-  height: 60px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-}
-
 .find-plan a {
   background: var(--accent-gold);
   color: #222;
@@ -237,118 +271,6 @@ header {
   transform: translateY(-3px);
 }
 
-/* ===== Footer ===== */
-footer {
-  background: var(--bg-mid);
-  color: var(--text-light);
-  text-align: center;
-  padding: 25px;
-}
-
-footer a {
-  color: var(--accent-gold);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-footer a:hover {
-  color: #fff;
-}
-
-/* ===== Animations ===== */
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ===== Root Variables ===== */
-:root {
-  --bg-dark: #0d0d0f;
-  --bg-mid: #1a1a1d;
-  --bg-light: #2a2a2d;
-  --accent-blue: #4da6ff;
-  --accent-purple: #b366ff;
-  --accent-pink: #ff4da6;
-  --accent-gold: #ffd966;
-  --text-light: #f5f5f5;
-}
-
-/* ===== Body Styling ===== */
-body {
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  background: radial-gradient(circle at 25% 25%, var(--accent-purple), transparent 40%),
-              radial-gradient(circle at 75% 20%, var(--accent-blue), transparent 40%),
-              radial-gradient(circle at 50% 80%, var(--accent-pink), transparent 40%),
-              linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
-  background-size: 250% 250%;
-  animation: galaxyFlow 40s ease infinite;
-  color: var(--text-light);
-  line-height: 1.7;
-  overflow-x: hidden;
-  min-height: 100vh;
-}
-
-/* ===== Starfield Layer ===== */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
-  opacity: 0.3;
-  animation: twinkle 8s ease-in-out infinite;
-  z-index: -1;
-}
-
-/* ===== Parallax Stars Layer ===== */
-body::after {
-  content: "";
-  position: fixed;
-  inset: -50%;
-  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
-  opacity: 0.15;
-  animation: drift 90s linear infinite;
-  z-index: -2;
-}
-
-/* ===== Navigation ===== */
-nav {
-  background: rgba(20, 20, 25, 0.9);
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  backdrop-filter: blur(6px);
-}
-
-nav a {
-  color: var(--text-light);
-  text-decoration: none;
-  margin: 0 20px;
-  font-weight: 500;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-nav a::after {
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: var(--accent-gold);
-  transition: width 0.3s ease;
-}
-
-nav a:hover {
-  color: var(--accent-gold);
-}
-
-nav a:hover::after {
-  width: 100%;
-}
-
 /* ===== Packages Section ===== */
 .packages {
   display: flex;
@@ -372,103 +294,7 @@ nav a:hover::after {
 }
 
 .package-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 12px 35px rgba(0,0,0,0.35);
-}
-
-.package-card h3 {
-  font-size: 1.6em;
-  margin-bottom: 12px;
-  color: var(--accent-purple);
-}
-
-.package-card p {
-  font-size: 1em;
-  color: #333;
-  line-height: 1.6;
-}
-
-.package-card .price {
-  font-size: 1.4em;
-  font-weight: bold;
-  color: var(--accent-gold);
-  margin-top: 18px;
-}
-
-.package-card button {
-  margin-top: 22px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  background: var(--accent-blue);
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.3s ease;
-}
-
-.package-card button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255,255,255,0.25);
-  transition: left 0.4s ease;
-}
-
-.package-card button:hover {
-  background: var(--accent-purple);
-}
-
-.package-card button:hover::before {
-  left: 0;
-}
-
-/* ===== Footer ===== */
-footer {
-  background: var(--bg-mid);
-  color: var(--text-light);
-  text-align: center;
-  padding: 25px;
-}
-
-footer a {
-  color: var(--accent-gold);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-footer a:hover {
-  color: #fff;
-}
-
-/* ===== Animations ===== */
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes galaxyFlow {
-  0% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
-  100% { background-position: 0% 0%; }
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
-}
-
-@keyframes drift {
-  0% { transform: translate(0,0); }
-  100% { transform: translate(-250px,-250px); }
-}
-
+  transform: translateY(-10px)
 
 
 
