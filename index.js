@@ -45,50 +45,123 @@ settingsMenu.querySelector("button:nth-child(4)")?.addEventListener("click", () 
   window.location.href = "Privacy Policy.html";
 });
 
-/* ===== Page Effects ===== */
-// Fade in on load
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.style.opacity = 0;
-  document.body.style.transition = "opacity 1.5s ease";
-  requestAnimationFrame(() => document.body.style.opacity = 1);
-});
+ // Scene, Camera, Renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      2000
+    );
+    camera.position.z = 500;
 
-// Ripple effect for package buttons
-document.querySelectorAll(".package-card button").forEach(button => {
-  button.addEventListener("click", (e) => {
-    const ripple = document.createElement("span");
-    ripple.className = "ripple";
-    button.appendChild(ripple);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-    const rect = button.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    ripple.style.width = ripple.style.height = `${size}px`;
-    ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
-    ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+    // Stars
+    const starGeometry = new THREE.BufferGeometry();
+    const starCount = 5000;
+    const positions = [];
+    for (let i = 0; i < starCount; i++) {
+      positions.push(
+        (Math.random() - 0.5) * 2000,
+        (Math.random() - 0.5) * 2000,
+        (Math.random() - 0.5) * 2000
+      );
+    }
+    starGeometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(positions, 3)
+    );
+    const starMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 1.5,
+      transparent: true,
+      opacity: 0.8
+    });
+    const stars = new THREE.Points(starGeometry, starMaterial);
+    scene.add(stars);
 
-    setTimeout(() => ripple.remove(), 600);
-  });
-});
+    // Shooting star setup
+    let shootingStar;
+    let shootingStarTrail = [];
+    const trailLength = 50;
+    const shootingStarMaterial = new THREE.MeshBasicMaterial({ color: 0xfffaaa });
+    const shootingStarGeometry = new THREE.SphereGeometry(3, 8, 8);
 
-// Ripple CSS
-const rippleStyle = document.createElement("style");
-rippleStyle.textContent = `
-  .package-card button { position: relative; overflow: hidden; }
-  .ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.5);
-    transform: scale(0);
-    animation: rippleEffect 0.6s linear;
-    pointer-events: none;
-  }
-  @keyframes rippleEffect { to { transform: scale(4); opacity: 0; } }
-`;
-document.head.appendChild(rippleStyle);
+    function spawnShootingStar() {
+      shootingStar = new THREE.Mesh(shootingStarGeometry, shootingStarMaterial);
+      shootingStar.position.set(
+        -1000,
+        (Math.random() - 0.5) * 600,
+        (Math.random() - 0.5) * 600
+      );
+      scene.add(shootingStar);
+      shootingStarTrail = [];
+    }
 
-// Parallax background on scroll
-window.addEventListener("scroll", () => {
-  document.body.style.backgroundPosition = `${window.scrollY / 10}px ${window.scrollY / 15}px`;
-});
+    let lastSpawn = 0;
+    const spawnInterval = 5000; // every 5 seconds
 
+    // Cursor tracking (parallax)
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener("mousemove", (event) => {
+      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    // Animation loop
+    function animate(time) {
+      requestAnimationFrame(animate);
+
+      // Parallax effect
+      camera.position.x += (mouseX * 100 - camera.position.x) * 0.05;
+      camera.position.y += (mouseY * 100 - camera.position.y) * 0.05;
+      camera.lookAt(scene.position);
+
+      // Shooting star logic
+      if (!shootingStar && time - lastSpawn > spawnInterval) {
+        spawnShootingStar();
+        lastSpawn = time;
+      }
+      if (shootingStar) {
+        shootingStar.position.x += 15;
+        shootingStar.position.y -= 5;
+
+        // Trail effect
+        shootingStarTrail.push(shootingStar.position.clone());
+        if (shootingStarTrail.length > trailLength) shootingStarTrail.shift();
+
+        const trailGeometry = new THREE.BufferGeometry().setFromPoints(shootingStarTrail);
+        const trailMaterial = new THREE.LineBasicMaterial({
+          color: 0xfffaaa,
+          transparent: true,
+          opacity: 0.6
+        });
+        const trail = new THREE.Line(trailGeometry, trailMaterial);
+        scene.add(trail);
+
+        // Remove old trails
+        if (shootingStarTrail.length === trailLength) {
+          scene.remove(trail);
+        }
+
+        // Remove shooting star when out of view
+        if (shootingStar.position.x > 1000 || shootingStar.position.y < -1000) {
+          scene.remove(shootingStar);
+          shootingStar = null;
+        }
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Responsive resize
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 
