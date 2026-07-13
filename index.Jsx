@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
+/* --- Starfield Component --- */
 function Starfield() {
   const ref = useRef();
   const starCount = 5000;
@@ -25,17 +26,21 @@ function Starfield() {
   );
 }
 
+/* --- Shooting Star Component --- */
 function ShootingStar() {
   const [star, setStar] = useState(null);
-  const trailRef = useRef();
   const { scene } = useThree();
 
   useEffect(() => {
-    let interval = setInterval(() => {
+    const interval = setInterval(() => {
       const geometry = new THREE.SphereGeometry(3, 8, 8);
       const material = new THREE.MeshBasicMaterial({ color: 0xfffaaa });
       const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(-1000, (Math.random() - 0.5) * 600, (Math.random() - 0.5) * 600);
+      mesh.position.set(
+        -1000,
+        (Math.random() - 0.5) * 600,
+        (Math.random() - 0.5) * 600
+      );
       scene.add(mesh);
       setStar(mesh);
     }, 5000);
@@ -58,6 +63,7 @@ function ShootingStar() {
   return null;
 }
 
+/* --- Camera Controller Component --- */
 function CameraController() {
   const { camera } = useThree();
   const mouse = useRef({ x: 0, y: 0 });
@@ -72,25 +78,88 @@ function CameraController() {
   }, []);
 
   useFrame(() => {
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, mouse.current.x * 100, 0.05);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, mouse.current.y * 100, 0.05);
+    camera.position.x = THREE.MathUtils.lerp(
+      camera.position.x,
+      mouse.current.x * 100,
+      0.05
+    );
+    camera.position.y = THREE.MathUtils.lerp(
+      camera.position.y,
+      mouse.current.y * 100,
+      0.05
+    );
     camera.lookAt(0, 0, 0);
   });
 
   return null;
 }
 
+/* --- Main Exported Component --- */
 export default function SpaceBackground() {
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
   return (
-    <Canvas
-      camera={{ position: [0, 0, 500], fov: 75 }}
-      onCreated={({ gl }) => {
-        gl.setClearColor("black");
-      }}
-    >
-      <Starfield />
-      <ShootingStar />
-      <CameraController />
-    </Canvas>
+    <div className="app-container">
+      {/* 3D Canvas */}
+      <Canvas
+        camera={{ position: [0, 0, 500], fov: 75 }}
+        onCreated={({ gl }) => {
+          gl.setClearColor("black");
+        }}
+      >
+        <Starfield />
+        <ShootingStar />
+        <CameraController />
+      </Canvas>
+
+      {/* Sidebar (desktop) */}
+      <nav className="sidebar">
+        <ul>
+          <li><a href="index.html">🏠</a></li>
+          <li><a href="Latest Updates.html">📰</a></li>
+          <li><a href="Login.html">🛡️</a></li>
+          <li><a href="Contact.html">📞</a></li>
+          <li>
+            <button
+              className="icon-btn"
+              onClick={() => setSettingsOpen(!settingsOpen)}
+            >
+              ⚙️
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Bottom nav (mobile) */}
+      <nav className="bottom-nav">
+        <a href="index.html">🏠</a>
+        <a href="Latest Updates.html">📰</a>
+        <a href="Login.html">🛡️</a>
+        <a href="Contact.html">📞</a>
+        <button
+          className="icon-btn"
+          onClick={() => setSettingsOpen(!settingsOpen)}
+        >
+          ⚙️
+        </button>
+      </nav>
+
+      {/* Floating Settings Panel */}
+      <div className={`settings-panel ${settingsOpen ? "open" : ""}`}>
+        <h3>⚙️ Settings</h3>
+        <button>🌙 Dark Mode</button>
+        <button>🔔 Notifications</button>
+        <button>🛡️ Privacy</button>
+      </div>
+
+      {/* Footer */}
+      <footer>
+        <p>
+          © 2026 All Rights Reserved |{" "}
+          <a href="Privacy Policy.html">Privacy Policy</a>
+        </p>
+      </footer>
+    </div>
   );
 }
+
