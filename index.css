@@ -54,7 +54,7 @@ body::after {
   z-index: -2;
 }
 
-/* ===== Shooting Stars (Optional) ===== */
+/* ===== Shooting Stars ===== */
 .shooting-star {
   position: fixed;
   top: 0;
@@ -101,6 +101,12 @@ body::after {
   box-shadow: 0 8px 25px rgba(0,0,0,0.4);
   backdrop-filter: blur(6px);
   z-index: 1000;
+  transition: opacity 0.6s ease;
+}
+
+.sidebar.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .sidebar ul {
@@ -123,7 +129,7 @@ body::after {
   transform: scale(1.2);
 }
 
-/* ===== Bottom Navigation (Mobile) ===== */
+/* ===== Bottom Navigation (Mobile Only) ===== */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -149,6 +155,13 @@ body::after {
 .bottom-nav a:hover {
   color: var(--accent-blue);
   transform: translateY(-4px);
+}
+
+/* Hide bottom nav on desktop */
+@media (min-width: 768px) {
+  .bottom-nav {
+    display: none;
+  }
 }
 
 /* ===== Floating Settings Panel ===== */
@@ -241,17 +254,22 @@ header {
   position: relative;
   z-index: 1;
   color: var(--text-light);
+  animation: floatText 8s ease-in-out infinite;
 }
 
 .hero-text h1 {
   font-size: 3em;
   margin-bottom: 20px;
   color: var(--accent-gold);
+  text-shadow: 0 0 12px rgba(255,255,255,0.6),
+               0 0 24px rgba(255,255,255,0.4),
+               0 0 36px rgba(255,255,255,0.2);
 }
 
 .hero-text p {
   font-size: 1.3em;
   margin-bottom: 25px;
+  text-shadow: 0 0 8px rgba(255,255,255,0.5);
 }
 
 .hero-text .btn {
@@ -270,6 +288,10 @@ header {
   background: var(--accent-purple);
   transform: translateY(-3px);
 }
+
+/* ===== Animations ===== */
+@keyframes floatText {
+  0
 
 
 
