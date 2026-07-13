@@ -1,11 +1,17 @@
 /* General Page Styling */
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
   margin: 0;
   padding: 0;
-  background: #f6f2e9;
+  background: linear-gradient(
+    135deg,
+    #E75480,   /* dark premium pink */
+    #FFC0CB,   /* soft light pink */
+    #D8A7B1    /* dusty rose accent */
+  );
   background-size: 400% 400%;
-  color: #333;
+ color: #fff;
   animation: fadeInPage 1.7s ease-in-out;
 }
 h2 {
