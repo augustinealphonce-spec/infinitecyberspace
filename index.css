@@ -1,3 +1,177 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #000; /* dark background for space theme */
+  color: #fff;
+}
+
+/* Sidebar Navigation (Desktop) */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  background: rgba(20, 20, 20, 0.85);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin: 12px 0;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+  color: #00d4ff;
+  transform: scale(1.2);
+}
+
+/* Bottom Navigation (Mobile) */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(20, 20, 20, 0.95);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.bottom-nav a {
+  font-size: 1.4rem;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.bottom-nav a:hover {
+  color: #00d4ff;
+  transform: translateY(-3px);
+}
+
+/* Buttons */
+.btn, .find-plan a, .floating-menu button {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00d4ff, #0077ff);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover, .find-plan a:hover, .floating-menu button:hover {
+  background: linear-gradient(135deg, #0077ff, #00d4ff);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(20, 20, 20, 0.9);
+  font-size: 0.9rem;
+  color: #aaa;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+footer a {
+  color: #00d4ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+/* Responsive Behavior */
+@media (min-width: 768px) {
+  .bottom-nav {
+    display: none; /* hide bottom nav on desktop */
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    display: none; /* hide sidebar on mobile */
+  }
+}
+/* Reset and full-screen setup */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: black; /* fallback background */
+  font-family: sans-serif;
+}
+
+/* Canvas from React Three Fiber */
+canvas {
+  display: block;
+  position: fixed; /* keep it pinned */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Optional overlay content styling */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* allow clicks to pass through */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.overlay h1 {
+  font-size: 3rem;
+  text-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+.overlay p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
 
 
 
