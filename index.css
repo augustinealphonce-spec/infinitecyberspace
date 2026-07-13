@@ -239,6 +239,60 @@ body.dark-mode {
   .bottom-nav { display: flex; }
   .sidebar { display: none; }
 }
+/* ===========================
+   Testimonial Section
+=========================== */
+.testimonial-section {
+  padding: 60px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  text-align: center;
+  color: #fff;
+}
+.testimonial-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+  text-shadow: 0 0 12px rgba(0,200,255,0.6);
+}
+
+/* Slider container */
+.testimonial-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 0 10px;
+}
+.testimonial-slider::-webkit-scrollbar {
+  display: none; /* hide scrollbar for clean look */
+}
+
+/* Individual testimonial */
+.testimonial {
+  flex: 0 0 80%;
+  max-width: 500px;
+  background: rgba(0, 200, 255, 0.12);
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  scroll-snap-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.testimonial:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,200,255,0.4);
+}
+.testimonial p {
+  font-size: 1.2rem;
+  margin-bottom: 18px;
+  color: #e6f7ff;
+}
+.testimonial span {
+  font-size: 0.95rem;
+  color: #cce7ff;
+  font-style: italic;
+}
+
 
 
 
