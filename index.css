@@ -15,15 +15,18 @@ html, body, #root, .app-container {
 }
 
 /* Canvas fills screen */
-canvas {
+canvas.background-canvas {
   position: fixed;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0; /* background */
 }
+
+.header, .sidebar, .bottom-nav, footer {
+  position: relative;
+  z-index: 10; /* sits above canvas */
+}
+
 
 /* Sidebar Navigation (Desktop) */
 .sidebar {
