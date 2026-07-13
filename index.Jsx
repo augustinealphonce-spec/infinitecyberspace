@@ -8,11 +8,9 @@ function Starfield() {
   const ref = useRef();
   const starCount = 5000;
   const positions = new Float32Array(starCount * 3);
-
   for (let i = 0; i < starCount * 3; i++) {
     positions[i] = (Math.random() - 0.5) * 2000;
   }
-
   return (
     <Points ref={ref} positions={positions}>
       <PointMaterial
@@ -44,7 +42,6 @@ function ShootingStar() {
       scene.add(mesh);
       setStar(mesh);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [scene]);
 
@@ -52,7 +49,6 @@ function ShootingStar() {
     if (star) {
       star.position.x += 15;
       star.position.y -= 5;
-
       if (star.position.x > 1000 || star.position.y < -1000) {
         scene.remove(star);
         setStar(null);
@@ -112,6 +108,16 @@ export default function SpaceBackground() {
         <CameraController />
       </Canvas>
 
+      {/* Header with Logo & Button */}
+      <header className="header">
+        <div className="logo">
+          <img src="Infinite.jpg" alt="Logo" />
+        </div>
+        <div className="find-plan">
+          <a href="Our Packages.html">Find Your Plan</a>
+        </div>
+      </header>
+
       {/* Sidebar (desktop) */}
       <nav className="sidebar">
         <ul>
@@ -151,23 +157,12 @@ export default function SpaceBackground() {
         <button>🔔 Notifications</button>
         <button>🛡️ Privacy</button>
       </div>
-<div className="app-container">
-  <Canvas className="background-canvas"> ... </Canvas>
 
-  {/* Overlay UI */}
-  <header className="header">
-    <div className="logo">
-      <img src="Infinite.jpg" alt="Logo" />
+      {/* Footer */}
+      <footer>© 2026 All Rights Reserved</footer>
     </div>
-    <div className="find-plan">
-      <a href="Our Packages.html">Find Your Plan</a>
-    </div>
-  </header>
-
-  <nav className="sidebar"> ... </nav>
-  <nav className="bottom-nav"> ... </nav>
-  <footer>© 2026 All Rights Reserved</footer>
-</div>
+  );
+}
 
 
       
