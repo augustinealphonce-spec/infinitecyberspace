@@ -5,293 +5,224 @@
   box-sizing: border-box;
 }
 
+/* ===== Root Variables ===== */
 :root {
-  --primary: #00b4d8;
-  --secondary: #0096c7;
-  --dark-bg: #0d1117;
-  --card-bg: rgba(22, 27, 34, 0.85);
-  --text-light: #e6edf3;
-  --text-muted: #8b949e;
-  --shadow: 0 8px 30px rgba(0,0,0,0.6);
+  --primary-grey-dark: #2c2c2c;
+  --primary-grey-mid: #4a4a4a;
+  --primary-grey-light: #6e6e6e;
+  --text-light: #f5f5f5;
+  --accent-gold: #d4af37;
+  --accent-pink-dark: #E75480;
+  --accent-pink-light: #FFC0CB;
+  --accent-pink-dusty: #D8A7B1;
 }
 
+/* ===== Body Styling ===== */
 body {
-  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: var(--dark-bg);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: radial-gradient(circle at 20% 20%, var(--accent-pink-dark), transparent 40%),
+              radial-gradient(circle at 80% 30%, var(--accent-pink-light), transparent 40%),
+              radial-gradient(circle at 50% 80%, var(--accent-pink-dusty), transparent 40%),
+              linear-gradient(135deg, var(--primary-grey-dark), var(--primary-grey-mid), var(--primary-grey-light));
+  background-size: 200% 200%;
+  animation: galaxyShift 30s ease infinite;
   color: var(--text-light);
   line-height: 1.6;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* ===== Floating Stars Animation ===== */
-.stars {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none; /* don’t block clicks */
-  z-index: 0; /* behind everything */
-  background: transparent;
   overflow: hidden;
 }
 
-.stars::before,
-.stars::after {
+/* ===== Starfield Layer ===== */
+body::before {
   content: "";
-  position: absolute;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  opacity: 0.4;
+  animation: starTwinkle 6s linear infinite;
+  z-index: -1;
+}
+
+/* ===== Parallax Stars Layer ===== */
+body::after {
+  content: "";
+  position: fixed;
   top: 0; left: 0;
   width: 200%; height: 200%;
-  background: radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-              radial-gradient(2px 2px at 100px 150px, #fff, transparent),
-              radial-gradient(2px 2px at 200px 80px, #fff, transparent),
-              radial-gradient(2px 2px at 300px 200px, #fff, transparent),
-              radial-gradient(2px 2px at 400px 120px, #fff, transparent),
-              radial-gradient(2px 2px at 500px 300px, #fff, transparent),
-              radial-gradient(2px 2px at 600px 180px, #fff, transparent),
-              radial-gradient(2px 2px at 700px 250px, #fff, transparent);
-  background-repeat: repeat;
-  animation: moveStars 60s linear infinite;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  opacity: 0.2;
+  animation: starDrift 60s linear infinite;
+  z-index: -2;
 }
 
-.stars::after {
-  animation-duration: 120s; /* slower layer for depth */
-  opacity: 0.6;
-}
-
-@keyframes moveStars {
-  from { transform: translateY(0); }
-  to { transform: translateY(-50%); }
-}
-
-/* ===== Sidebar Navigation ===== */
-.sidebar {
-  position: fixed;
-  top: 50%;
-  left: 20px;
-  transform: translateY(-50%);
-  background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 15px;
-  box-shadow: var(--shadow);
-  transition: transform 0.4s ease;
-  z-index: 10; /* ensure above stars/overlay */
-}
-
-.sidebar:hover {
-  transform: translateY(-50%) scale(1.05);
-}
-
-.sidebar ul {
-  list-style: none;
-}
-
-.sidebar ul li {
-  margin: 20px 0;
-}
-
-.sidebar ul li a {
-  font-size: 1.5rem;
-  color: var(--text-light);
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.sidebar ul li a:hover {
-  color: var(--primary);
-  text-shadow: 0 0 8px var(--primary);
-}
-
-/* ===== Bottom Navigation (Mobile) ===== */
-.bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  padding: 12px 0;
-  text-align: center;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
-  z-index: 10; /* ensure clickable */
-}
-
-.bottom-nav a {
-  margin: 0 15px;
-  font-size: 1.4rem;
-  color: var(--text-light);
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.bottom-nav a:hover {
-  color: var(--primary);
-  transform: translateY(-3px);
-}
-
-@media (max-width: 768px) {
-  .sidebar { display: none; }
-  .bottom-nav { display: flex; justify-content: space-around; }
-}
-
-/* ===== Floating Settings Menu ===== */
-.floating-menu {
-  position: fixed;
-  top: 20%;
-  right: 20px;
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: var(--shadow);
-  display: none;
-  animation: fadeIn 0.6s ease forwards;
-  z-index: 15; /* above everything */
-}
-
-.floating-menu h3 {
-  margin-bottom: 15px;
-  color: var(--primary);
-}
-
-.floating-menu button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 12px;
-  background: transparent;
-  border: 1px solid var(--primary);
-  border-radius: 10px;
-  color: var(--text-light);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.floating-menu button:hover {
-  background: var(--primary);
-  color: var(--dark-bg);
-  box-shadow: 0 0 12px var(--primary);
-}
-
-/* ===== Header ===== */
-header {
+/* ===== Navigation ===== */
+nav {
+  background: var(--primary-grey-dark);
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px;
-  z-index: 10;
-  position: relative;
 }
 
-.logo img {
-  height: 65px;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-}
-
-.find-plan a {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: var(--dark-bg);
-  padding: 12px 24px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-.find-plan a:hover {
-  background: var(--secondary);
+nav a {
   color: var(--text-light);
-  box-shadow: 0 0 15px var(--primary);
-}
-
-/* ===== Hero Section ===== */
-.hero {
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 500;
   position: relative;
-  height: 90vh;
-  background: url('cyber-bg.jpg') center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-  z-index: 5;
+  transition: color 0.3s ease;
 }
 
-.hero .overlay {
+nav a::after {
+  content: "";
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(13,17,23,0.85);
-  animation: pulseOverlay 8s infinite alternate;
-  z-index: 1;
+  width: 0%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--accent-gold);
+  transition: width 0.3s ease;
 }
 
-@keyframes pulseOverlay {
-  from { background: rgba(13,17,23,0.85); }
-  to { background: rgba(13,17,23,0.65); }
+nav a:hover {
+  color: var(--accent-gold);
 }
 
-.hero-text {
-  position: relative;
-  z-index: 2;
-  color: var(--text-light);
-  animation: fadeUp 1.2s ease forwards;
+nav a:hover::after {
+  width: 100%;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ===== Packages Section ===== */
+.packages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
+  background: linear-gradient(
+    135deg,
+    var(--accent-pink-dark),
+    var(--accent-pink-light),
+    var(--accent-pink-dusty)
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  color: #2c2c2c;
 }
 
-.hero-text h1 {
-  font-size: 3.5rem;
-  margin-bottom: 20px;
-  color: var(--primary);
-  text-shadow: 0 0 12px var(--primary);
+.package-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 25px;
+  width: 280px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hero-text p {
-  font-size: 1.3rem;
-  margin-bottom: 35px;
-  color: var(--text-muted);
+.package-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-.hero-text .btn {
-  margin: 0 12px;
-  padding: 14px 28px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: var(--dark-bg);
-  border-radius: 10px;
-  text-decoration: none;
+.package-card h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: var(--accent-pink-dark);
+}
+
+.package-card p {
+  font-size: 0.95em;
+  color: #333;
+  line-height: 1.5;
+}
+
+.package-card .price {
+  font-size: 1.3em;
   font-weight: bold;
-  transition: all 0.3s ease;
+  color: var(--accent-gold);
+  margin-top: 15px;
 }
 
-.hero-text .btn:hover {
-  background: var(--secondary);
-  color: var(--text-light);
-  transform: scale(1.1);
-  box-shadow: 0 0 15px var(--primary);
+.package-card button {
+  margin-top: 20px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent-pink-dark);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+.package-card button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.2);
+  transition: left 0.4s ease;
+}
+
+.package-card button:hover {
+  background: #c44568;
+}
+
+.package-card button:hover::before {
+  left: 0;
 }
 
 /* ===== Footer ===== */
 footer {
+  background: var(--primary-grey-mid);
+  color: var(--text-light);
   text-align: center;
-  padding: 25px;
-  background: var(--card-bg);
-  color: var(--text-muted);
-  backdrop-filter: blur(8px);
-  transition: background 0.3s ease;
-  z-index: 10;
-  position: relative;
-}
-
-footer:hover {
-  background: rgba(31,41,55,0.9);
+  padding: 20px;
 }
 
 footer a {
-  color: var(--primary);
+  color: var(--accent-gold);
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes galaxyShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes starDrift {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(-200px,-200px); }
+}
+
 
 
 
