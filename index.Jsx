@@ -151,15 +151,23 @@ export default function SpaceBackground() {
         <button>🔔 Notifications</button>
         <button>🛡️ Privacy</button>
       </div>
+<div className="app-container">
+  <Canvas className="background-canvas"> ... </Canvas>
 
-      {/* Footer */}
-      <footer>
-        <p>
-          © 2026 All Rights Reserved |{" "}
-          <a href="Privacy Policy.html">Privacy Policy</a>
-        </p>
-      </footer>
+  {/* Overlay UI */}
+  <header className="header">
+    <div className="logo">
+      <img src="Infinite.jpg" alt="Logo" />
     </div>
-  );
-}
+    <div className="find-plan">
+      <a href="Our Packages.html">Find Your Plan</a>
+    </div>
+  </header>
 
+  <nav className="sidebar"> ... </nav>
+  <nav className="bottom-nav"> ... </nav>
+  <footer>© 2026 All Rights Reserved</footer>
+</div>
+
+
+      
