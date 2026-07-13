@@ -2,17 +2,26 @@
 Base Styles
 =========================== */
 body {
-  /* Dark base for professionalism */
+  /* Premium dark base */
   background: #0f2027;  
-  /* Gradient overlay for tech vibe */
+  /* Gradient overlay with luxury accents */
   background: linear-gradient(
-    to right, 
-    #0f2027,  /* deep navy */
-    #203a43,  /* steel blue */
-    #2c5364   /* teal-gray */
+    135deg, 
+    #0f2027,   /* deep navy */
+    #203a43,   /* steel blue */
+    #2c5364,   /* teal-gray */
+    #1c1c1c    /* charcoal for depth */
   );
-  color: #ffffff; /* text stands out clearly */
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  
+  /* Add a subtle texture effect */
+  background-attachment: fixed;
+  background-size: cover;
+
+  color: #f5f5f5; /* softer white for elegance */
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* Premium text accents */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
 
 
