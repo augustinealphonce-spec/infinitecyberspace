@@ -21,6 +21,46 @@ body {
   color: var(--text-light);
   line-height: 1.6;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* ===== Floating Stars Animation ===== */
+.stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; /* don’t block clicks */
+  z-index: 0; /* behind everything */
+  background: transparent;
+  overflow: hidden;
+}
+
+.stars::before,
+.stars::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%; height: 200%;
+  background: radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+              radial-gradient(2px 2px at 100px 150px, #fff, transparent),
+              radial-gradient(2px 2px at 200px 80px, #fff, transparent),
+              radial-gradient(2px 2px at 300px 200px, #fff, transparent),
+              radial-gradient(2px 2px at 400px 120px, #fff, transparent),
+              radial-gradient(2px 2px at 500px 300px, #fff, transparent),
+              radial-gradient(2px 2px at 600px 180px, #fff, transparent),
+              radial-gradient(2px 2px at 700px 250px, #fff, transparent);
+  background-repeat: repeat;
+  animation: moveStars 60s linear infinite;
+}
+
+.stars::after {
+  animation-duration: 120s; /* slower layer for depth */
+  opacity: 0.6;
+}
+
+@keyframes moveStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
 }
 
 /* ===== Sidebar Navigation ===== */
@@ -35,6 +75,7 @@ body {
   padding: 15px;
   box-shadow: var(--shadow);
   transition: transform 0.4s ease;
+  z-index: 10; /* ensure above stars/overlay */
 }
 
 .sidebar:hover {
@@ -72,6 +113,7 @@ body {
   padding: 12px 0;
   text-align: center;
   box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+  z-index: 10; /* ensure clickable */
 }
 
 .bottom-nav a {
@@ -102,6 +144,7 @@ body {
   box-shadow: var(--shadow);
   display: none;
   animation: fadeIn 0.6s ease forwards;
+  z-index: 15; /* above everything */
 }
 
 .floating-menu h3 {
@@ -134,6 +177,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 25px;
+  z-index: 10;
+  position: relative;
 }
 
 .logo img {
@@ -168,6 +213,7 @@ header {
   justify-content: center;
   text-align: center;
   overflow: hidden;
+  z-index: 5;
 }
 
 .hero .overlay {
@@ -176,6 +222,7 @@ header {
   width: 100%; height: 100%;
   background: rgba(13,17,23,0.85);
   animation: pulseOverlay 8s infinite alternate;
+  z-index: 1;
 }
 
 @keyframes pulseOverlay {
@@ -234,6 +281,8 @@ footer {
   color: var(--text-muted);
   backdrop-filter: blur(8px);
   transition: background 0.3s ease;
+  z-index: 10;
+  position: relative;
 }
 
 footer:hover {
@@ -243,10 +292,6 @@ footer:hover {
 footer a {
   color: var(--primary);
   text-decoration: none;
-}
 
-footer a:hover {
-  text-decoration: underline;
-}
 
 
