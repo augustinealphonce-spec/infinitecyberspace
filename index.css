@@ -210,9 +210,13 @@ body::after {
 header {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end; /* push content to the right */
   align-items: center;
   padding: 25px 40px;
+}
+
+.find-plan {
+  margin-right: 0; /* hug the right edge */
 }
 
 .find-plan a {
@@ -230,6 +234,7 @@ header {
   color: #fff;
   transform: translateY(-3px);
 }
+
 
 /* ===== Hero Section ===== */
 .hero {
