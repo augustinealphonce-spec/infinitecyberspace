@@ -27,6 +27,42 @@ canvas.background-canvas {
   z-index: 10; /* sits above canvas */
 }
 
+/* Logo (Top Left Floating) */
+.logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 15;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #00d4ff;
+  text-decoration: none;
+}
+
+/* Find Your Plan Button (Top Right Floating) */
+.find-plan {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 15;
+}
+.find-plan a {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00d4ff, #0077ff);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.find-plan a:hover {
+  background: linear-gradient(135deg, #0077ff, #00d4ff);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
 
 /* Sidebar Navigation (Desktop) */
 .sidebar {
@@ -124,7 +160,7 @@ canvas.background-canvas {
 }
 
 /* Buttons (general use) */
-.btn, .find-plan a {
+.btn {
   display: inline-block;
   padding: 10px 20px;
   border-radius: 8px;
@@ -136,7 +172,7 @@ canvas.background-canvas {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.btn:hover, .find-plan a:hover {
+.btn:hover {
   background: linear-gradient(135deg, #0077ff, #00d4ff);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
@@ -167,6 +203,8 @@ footer a:hover { color: #fff; }
 }
 @media (max-width: 767px) {
   .sidebar { display: none; }
+  .logo { font-size: 1.2rem; } /* shrink logo on mobile */
+  .find-plan a { padding: 8px 16px; font-size: 0.9rem; }
 }
 
 
