@@ -1,14 +1,28 @@
-/* General Reset */
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+html, body, #root, .app-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: #000; /* dark background for space theme */
   color: #fff;
+}
+
+/* Canvas fills screen */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 /* Sidebar Navigation (Desktop) */
@@ -17,32 +31,21 @@ body {
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
-  background: rgba(20, 20, 20, 0.85);
+  background: rgba(20,20,20,0.85);
   border-radius: 12px;
   padding: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  z-index: 1000;
+  z-index: 10;
 }
-
-.sidebar ul {
-  list-style: none;
-}
-
-.sidebar li {
-  margin: 12px 0;
-}
-
-.sidebar a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.sidebar ul { list-style: none; }
+.sidebar li { margin: 12px 0; }
+.sidebar a, .sidebar .icon-btn {
   font-size: 1.4rem;
   color: #fff;
   text-decoration: none;
   transition: all 0.3s ease;
 }
-
-.sidebar a:hover {
+.sidebar a:hover, .sidebar .icon-btn:hover {
   color: #00d4ff;
   transform: scale(1.2);
 }
@@ -53,28 +56,72 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(20, 20, 20, 0.95);
+  background: rgba(20,20,20,0.95);
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
   box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
-  z-index: 1000;
+  z-index: 10;
 }
-
-.bottom-nav a {
+.bottom-nav a, .bottom-nav .icon-btn {
   font-size: 1.4rem;
   color: #fff;
   text-decoration: none;
   transition: color 0.3s ease, transform 0.3s ease;
 }
-
-.bottom-nav a:hover {
+.bottom-nav a:hover, .bottom-nav .icon-btn:hover {
   color: #00d4ff;
   transform: translateY(-3px);
 }
 
-/* Buttons */
-.btn, .find-plan a, .floating-menu button {
+/* Icon Button (Settings Toggle) */
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Floating Settings Panel */
+.settings-panel {
+  position: fixed;
+  top: 50%;
+  right: -260px; /* hidden by default */
+  transform: translateY(-50%);
+  width: 240px;
+  background: rgba(20,20,20,0.95);
+  border-radius: 12px 0 0 12px;
+  padding: 20px;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.5);
+  transition: right 0.4s ease;
+  z-index: 20;
+}
+.settings-panel.open { right: 0; }
+.settings-panel h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #00d4ff;
+}
+.settings-panel button {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00d4ff, #0077ff);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.settings-panel button:hover {
+  background: linear-gradient(135deg, #0077ff, #00d4ff);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Buttons (general use) */
+.btn, .find-plan a {
   display: inline-block;
   padding: 10px 20px;
   border-radius: 8px;
@@ -86,8 +133,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
-.btn:hover, .find-plan a:hover, .floating-menu button:hover {
+.btn:hover, .find-plan a:hover {
   background: linear-gradient(135deg, #0077ff, #00d4ff);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
@@ -95,83 +141,31 @@ body {
 
 /* Footer */
 footer {
+  position: fixed;
+  bottom: 50px; /* sits above bottom nav */
+  width: 100%;
   text-align: center;
-  padding: 20px;
-  background: rgba(20, 20, 20, 0.9);
+  padding: 10px;
+  background: rgba(20,20,20,0.8);
   font-size: 0.9rem;
   color: #aaa;
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  z-index: 10;
 }
-
 footer a {
   color: #00d4ff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
-
-footer a:hover {
-  color: #fff;
-}
+footer a:hover { color: #fff; }
 
 /* Responsive Behavior */
 @media (min-width: 768px) {
-  .bottom-nav {
-    display: none; /* hide bottom nav on desktop */
-  }
+  .bottom-nav { display: none; }
 }
-
 @media (max-width: 767px) {
-  .sidebar {
-    display: none; /* hide sidebar on mobile */
-  }
-}
-/* Reset and full-screen setup */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  background: black; /* fallback background */
-  font-family: sans-serif;
+  .sidebar { display: none; }
 }
 
-/* Canvas from React Three Fiber */
-canvas {
-  display: block;
-  position: fixed; /* keep it pinned */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* Optional overlay content styling */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* allow clicks to pass through */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-}
-
-.overlay h1 {
-  font-size: 3rem;
-  text-shadow: 0 0 10px rgba(255,255,255,0.8);
-}
-
-.overlay p {
-  font-size: 1.2rem;
-  opacity: 0.8;
-}
 
 
 
