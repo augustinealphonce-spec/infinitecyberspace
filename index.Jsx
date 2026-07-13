@@ -24,9 +24,10 @@ function Starfield() {
   );
 }
 
-/* --- Shooting Star Component --- */
+/* --- Shooting Star with Trail --- */
 function ShootingStar() {
   const [star, setStar] = useState(null);
+  const [trail, setTrail] = useState([]);
   const { scene } = useThree();
 
   useEffect(() => {
@@ -41,6 +42,7 @@ function ShootingStar() {
       );
       scene.add(mesh);
       setStar(mesh);
+      setTrail([]);
     }, 5000);
     return () => clearInterval(interval);
   }, [scene]);
@@ -49,14 +51,35 @@ function ShootingStar() {
     if (star) {
       star.position.x += 15;
       star.position.y -= 5;
+
+      // Update trail
+      setTrail((prev) => {
+        const newTrail = [...prev, star.position.clone()];
+        if (newTrail.length > 50) newTrail.shift();
+        return newTrail;
+      });
+
+      // Remove star when out of view
       if (star.position.x > 1000 || star.position.y < -1000) {
         scene.remove(star);
         setStar(null);
+        setTrail([]);
       }
     }
   });
 
-  return null;
+  // Render trail as a line
+  return trail.length > 1 ? (
+    <line>
+      <bufferGeometry attach="geometry" setFromPoints={trail} />
+      <lineBasicMaterial
+        attach="material"
+        color={0xfffaaa}
+        transparent
+        opacity={0.6}
+      />
+    </line>
+  ) : null;
 }
 
 /* --- Camera Controller Component --- */
