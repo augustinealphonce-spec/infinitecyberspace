@@ -103,7 +103,9 @@ body.dark-mode {
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 80px;
+  width: 60px;       /* smaller size */
+  height: auto;      /* keeps aspect ratio */
+  max-width: 100%;   /* prevents overflow */
   filter: drop-shadow(0 0 10px #00eaff);
   z-index: 1000;
 }
@@ -170,6 +172,11 @@ body.dark-mode {
   transform: scale(1.1);
   background: #0077aa;
   color: #fff;
+}
+@media (max-width: 768px) {
+  .logo img {
+    width: 45px;
+  }
 }
 
 /* Footer */
