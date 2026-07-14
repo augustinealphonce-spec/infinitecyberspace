@@ -60,6 +60,31 @@ export default function App() {
           <a href="Services.html" className="btn">Get Started</a>
         </div>
       </section>
+import { useEffect } from "react";
+
+function useScrollNav() {
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    const bottomNav = document.querySelector(".bottom-nav");
+
+    function handleScroll() {
+      if (!bottomNav) return;
+      if (window.scrollY > lastScrollY) {
+        // scrolling down → hide
+        bottomNav.style.transform = "translateY(100%)";
+      } else {
+        // scrolling up → show
+        bottomNav.style.transform = "translateY(0)";
+      }
+      lastScrollY = window.scrollY;
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+}
+
+export default useScrollNav;
 
       {/* Footer */}
       <footer>
