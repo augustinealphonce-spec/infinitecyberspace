@@ -1,3 +1,6 @@
+renderer.domElement.classList.add("background-canvas");
+document.body.prepend(renderer.domElement);
+
 /* ===== Settings Menu ===== */
 const settingsBtn = document.getElementById("settingsBtn");
 const settingsBtnMobile = document.getElementById("settingsBtnMobile");
