@@ -82,6 +82,7 @@ body.dark-mode {
   display: flex;
   justify-content: space-around;
   box-shadow: 0 -2px 10px rgba(0, 255, 255, 0.4);
+  transition: transform 0.3s ease;
 }
 .bottom-nav a {
   font-size: 1.5rem;
