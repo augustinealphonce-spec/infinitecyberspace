@@ -10,31 +10,35 @@ body::before {
   position: fixed;
   inset: 0;
   background: radial-gradient(circle at center, #001f33, #0a0a0f 80%);
-  z-index: -2; /* sits behind canvas */
+  z-index: -2;
 }
 
+/* Canvas background */
 .background-canvas {
   position: fixed;
-  inset: 0; /* shorthand for top:0, right:0, bottom:0, left:0 */
+  inset: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* ensures it's behind all UI */
-  pointer-events: none; /* prevents blocking clicks */
+  z-index: 0; /* visible behind UI */
+  pointer-events: none;
 }
 
+/* UI layering */
 .sidebar, .bottom-nav, .floating-menu, header, .hero, footer {
   position: relative;
   z-index: 10;
 }
+
+/* Hero overlay */
 .hero .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6); /* darkens background for clarity */
+  background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 .hero-text {
   position: relative;
-  z-index: 2; /* ensures text is above overlay */
+  z-index: 2;
 }
 
 /* Dark Mode */
@@ -54,12 +58,8 @@ body.dark-mode {
   padding: 10px;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
-.sidebar ul {
-  list-style: none;
-}
-.sidebar li {
-  margin: 15px 0;
-}
+.sidebar ul { list-style: none; }
+.sidebar li { margin: 15px 0; }
 .sidebar a {
   font-size: 1.5rem;
   color: #00eaff;
@@ -76,8 +76,8 @@ body.dark-mode {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: rgba(20, 20, 30, 0.6); /* semi-transparent */
-  backdrop-filter: blur(10px);       /* modern blur effect */
+  background: rgba(20, 20, 30, 0.6);
+  backdrop-filter: blur(10px);
   padding: 10px;
   display: flex;
   justify-content: space-around;
@@ -85,21 +85,16 @@ body.dark-mode {
   transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 10;
 }
-
-@media (min-width: 769px) {
-  .bottom-nav {
-    display: none !important; /* hide on desktop */
-  }
-}
-
 .bottom-nav a {
   font-size: 1.5rem;
   color: #00eaff;
   text-decoration: none;
 }
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+}
 
-
-/* Settings Menu */
+/* Floating Settings Menu */
 .floating-menu {
   position: fixed;
   top: 80px;
@@ -112,9 +107,7 @@ body.dark-mode {
   gap: 10px;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
 }
-.floating-menu.active {
-  display: flex;
-}
+.floating-menu.active { display: flex; }
 .floating-menu button {
   background: #00eaff;
   border: none;
@@ -129,19 +122,21 @@ body.dark-mode {
   color: #fff;
 }
 
-/* Logo Top Left */
+/* Logo */
 .logo img {
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 60px;       /* smaller size */
-  height: auto;      /* keeps aspect ratio */
-  max-width: 100%;   /* prevents overflow */
+  width: 60px;
+  height: auto;
   filter: drop-shadow(0 0 10px #00eaff);
   z-index: 1000;
 }
+@media (max-width: 768px) {
+  .logo img { width: 45px; }
+}
 
-/* Find Your Plan Top Right */
+/* Find Plan Button */
 .find-plan {
   position: fixed;
   top: 20px;
@@ -170,24 +165,12 @@ body.dark-mode {
   justify-content: center;
   text-align: center;
 }
-.hero .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-}
-.hero-text {
-  position: relative;
-  z-index: 2;
-}
 .hero-text h1 {
   font-size: 3rem;
   color: #00eaff;
   text-shadow: 0 0 20px #00eaff;
 }
-.hero-text p {
-  margin: 15px 0;
-  font-size: 1.2rem;
-}
+.hero-text p { margin: 15px 0; font-size: 1.2rem; }
 .hero-text .btn {
   display: inline-block;
   margin: 10px;
@@ -204,11 +187,6 @@ body.dark-mode {
   background: #0077aa;
   color: #fff;
 }
-@media (max-width: 768px) {
-  .logo img {
-    width: 45px;
-  }
-}
 
 /* Footer */
 footer {
@@ -217,29 +195,8 @@ footer {
   background: rgba(20, 20, 30, 0.9);
   font-size: 0.9rem;
 }
-footer a {
-  color: #00eaff;
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
- @media (min-width: 769px) {
-  .bottom-nav {
-    display: none !important;
-  }
-}
-  .find-plan {
-    font-size: 1rem;
-    padding: 8px 14px;
-  }
-}
+footer a { color: #00eaff; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
 
 
 
