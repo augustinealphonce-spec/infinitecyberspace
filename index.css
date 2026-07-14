@@ -73,25 +73,31 @@ body.dark-mode {
 
 /* Bottom Nav (Mobile) */
 .bottom-nav {
-  display: none;
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: rgba(20, 20, 30, 0.95);
+  background: rgba(20, 20, 30, 0.6); /* semi-transparent */
+  backdrop-filter: blur(10px);       /* modern blur effect */
   padding: 10px;
   display: flex;
   justify-content: space-around;
   box-shadow: 0 -2px 10px rgba(0, 255, 255, 0.4);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 10;
 }
+
+@media (min-width: 769px) {
+  .bottom-nav {
+    display: none !important; /* hide on desktop */
+  }
+}
+
 .bottom-nav a {
   font-size: 1.5rem;
   color: #00eaff;
   text-decoration: none;
 }
-.bottom-nav a:hover {
-  color: #fff;
-}
+
 
 /* Settings Menu */
 .floating-menu {
