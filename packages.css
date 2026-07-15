@@ -3,94 +3,48 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", "Poppins", sans-serif;
 }
 
 body {
-  background: #0f172a; /* Deep navy background */
-  color: #e2e8f0;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* Animated Gradient Background */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: linear-gradient(-45deg, #0f172a, #1e293b, #0ea5e9, #38bdf8);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-  z-index: -2;
-}
-
-/* Floating Particles */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-image: radial-gradient(circle, rgba(56, 189, 248, 0.3) 2px, transparent 2px);
-  background-size: 100px 100px;
-  animation: particleFloat 20s linear infinite;
-  z-index: -1;
-  opacity: 0.4;
-}
-
-/* Highlight class */
-.highlight {
-  color: #ffcc80; /* warm golden highlight */
-  font-weight: bold;
-}
-/* ===========================
-   Sidebar
-=========================== */
-.sidebar {
-  position: fixed;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  z-index: 1000;
-  background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
-  border-radius: 12px;
-  box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px;
-}
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.sidebar ul li {
-  margin: 12px 0;
-}
-.sidebar a, .sidebar button {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 8px;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-.sidebar a:hover, .sidebar button:hover {
-  background: rgba(0,200,255,0.25);
-  transform: scale(1.1);
 }
 
-/* ===========================
-   Bottom Navigation (Mobile Only)
-=========================== */
+/* Sidebar Navigation */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin: 15px 0;
+}
+
+.sidebar a {
+  font-size: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Bottom Navigation (Mobile Only) */
 .bottom-nav {
   position: fixed;
   bottom: 12px;
@@ -105,281 +59,163 @@ body::after {
   padding: 12px;
   z-index: 1500;
 }
+
 .bottom-nav a, .bottom-nav button {
   color: #fff;
-  font-size: 22px;
+  font-size: 1.5rem;
   background: none;
   border: none;
   transition: transform 0.2s ease;
 }
-.bottom-nav a:hover, .bottom-nav button:hover {
-  transform: scale(1.2);
-}
-
-/* ===========================
-   Floating Settings Panel
-=========================== */
-.floating-menu {
+/* ===== Responsive ===== */
+.bottom-nav {
   display: none;
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 320px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  z-index: 1000;
-}
-.floating-menu h3 {
-  margin: 0 0 15px;
-  font-size: 18px;
-  text-align: center;
-  color: #fff;
-}
-.floating-menu button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background: rgba(0, 200, 255, 0.8);
-  color: #fff;
-  font-size: 15px;
-  text-align: left;
-  transition: background 0.3s ease;
-}
-.floating-menu button:hover {
-  background: rgba(0, 120, 212, 0.9);
-}
-.floating-menu.active {
-  display: block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Dark mode */
-body.dark-mode {
-  background-color: #121212;
-  color: #f1f1f1;
-}
-
-/* ===========================
-   Responsive
-=========================== */
-@media (min-width: 768px) {
-  .bottom-nav {
-    display: none;
-  }
-}
-
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .bottom-nav {
     display: flex;
+    transform: translateY(100%); /* hidden by default */
+    opacity: 0;
   }
-  .sidebar {
-    display: none;
+  .bottom-nav.show {
+    transform: translateY(0); /* slide up into view */
+    opacity: 1;
   }
 }
 
-/* Hover effect */
-.sidebar a:hover, .sidebar button:hover {
-  background: rgba(255, 248, 220, 0.3); /* light beige hover */
-}
-
-/* Bottom Nav (Mobile) */
-.bottom-nav {
-  position: fixed;
-  bottom: 10px; 
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, rgba(121,85,72,0.6), rgba(188,170,164,0.6));
-  border-radius: 30px;
-  display: flex; 
-  justify-content: space-around;
-  width: 90%; 
-  max-width: 400px;
-  padding: 10px;
-}
-
-.bottom-nav a, .bottom-nav button {
-  color: #3e2723; 
-  font-size: 20px;
-  background: none; 
-  border: none;
-}
-/* ===========================
-   Floating Settings Panel
-=========================== */
-.floating-menu {
-  display: none;
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  z-index: 1000;
-}
-.floating-menu h3 {
-  margin: 0 0 15px;
-  font-size: 18px;
-  text-align: center;
+/* Remove hover effects completely */
+.sidebar a:hover, 
+.bottom-nav a:hover {
   color: #fff;
+  transform: none;
+  text-shadow: none;
+  animation: none;
 }
+
+/* Click (Active) Effects */
+.sidebar a:active, 
+.bottom-nav a:active {
+  color: #ffd700;
+  text-shadow: 0 0 15px #ffd700, 0 0 30px #ff8c00;
+  animation: pulse 0.3s;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Floating Settings Menu */
+.floating-menu {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  display: none;
+}
+
+.floating-menu.show {
+  display: block;
+}
+
+.floating-menu h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #00e0ff;
+}
+
 .floating-menu button {
   display: block;
   width: 100%;
   margin: 8px 0;
-  padding: 12px;
+  padding: 10px;
   border: none;
-  border-radius: 8px;
-  background: rgba(0, 120, 215, 0.8);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00e0ff, #0077ff);
   color: #fff;
-  font-size: 15px;
-  text-align: left;
-  transition: background 0.3s ease;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
+
 .floating-menu button:hover {
-  background: rgba(0, 90, 158, 0.9);
-}
-/* Hide settings menu by default */
-.floating-menu {
-  display: none;
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* Show when active */
-.floating-menu.active {
-  display: block;
-}
-
-/* Dark mode */
-body.dark-mode {
-  background-color: #121212;
-  color: #f1f1f1;
-}
-
-/* Hide sidebar on mobile */
-@media (max-width: 768px) {
-  .sidebar {
-    display: none; /* completely hide sidebar */
-  }
-}
-
-/* Hide bottom nav on desktop */
-@media (min-width: 768px) { 
-  .bottom-nav { 
-    display: none; 
-  } 
+  background: linear-gradient(135deg, #0077ff, #00e0ff);
+  transform: scale(1.05);
 }
 
 /* Pricing Section */
 .pricing {
   max-width: 1200px;
-  margin: 80px auto;
-  padding: 20px;
+  margin: 100px auto;
   text-align: center;
 }
 
 .pricing h2 {
   font-size: 2.5rem;
   margin-bottom: 40px;
-  color: #38bdf8;
-  text-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
+  color: #00e0ff;
+  text-shadow: 0 0 15px rgba(0,224,255,0.6);
 }
 
-/* Glassmorphism Package Cards */
 .package {
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
   padding: 30px;
-  margin: 20px auto;
-  max-width: 600px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.2);
+  margin: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s forwards;
 }
 
 .package:hover {
   transform: translateY(-10px);
-  box-shadow: 0 12px 40px rgba(250, 204, 21, 0.4);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
 }
 
 .package h3 {
   font-size: 1.8rem;
   margin-bottom: 15px;
-  color: #facc15;
+  color: #ffd700;
 }
 
-.package p { margin: 8px 0; }
+.package p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #ddd;
+}
 
-/* Premium Glass Buttons */
 .package button {
   margin-top: 15px;
   padding: 12px 20px;
-  background: rgba(56, 189, 248, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  color: #e2e8f0;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  color: #000;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4),
-              inset 0 0 10px rgba(56, 189, 248, 0.2);
+  transition: 0.3s;
 }
 
 .package button:hover {
-  background: rgba(250, 204, 21, 0.3);
-  color: #0f172a;
-  border: 1px solid rgba(250, 204, 21, 0.6);
-  box-shadow: 0 6px 25px rgba(250, 204, 21, 0.5),
-              inset 0 0 12px rgba(250, 204, 21, 0.3);
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff8c00, #ffd700);
+  transform: scale(1.1);
 }
 
-/* Keyframes */
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes particleFloat {
-  from { background-position: 0 0; }
-  to { background-position: 100px 100px; }
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-  .sidebar { display: none; }
-  .bottom-nav { display: flex; }
+  .sidebar {
+    display: none;
+  }
+  .bottom-nav {
+    display: flex;
+  }
 }
 
