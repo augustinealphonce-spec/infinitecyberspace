@@ -111,6 +111,21 @@ document.addEventListener("click", (event) => {
     settingsMenu.classList.remove("active");
   }
 });
+let lastScrollY = window.scrollY;
+const bottomNav = document.querySelector('.bottom-nav');
+
+window.addEventListener('scroll', () => {
+  if (window.innerWidth <= 768) { // only mobile
+    if (window.scrollY < lastScrollY) {
+      // scrolling up → show nav
+      bottomNav.classList.add('show');
+    } else {
+      // scrolling down → hide nav
+      bottomNav.classList.remove('show');
+    }
+    lastScrollY = window.scrollY;
+  }
+});
 
 </script>
 
