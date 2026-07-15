@@ -16,7 +16,7 @@ body {
 /* ===== Galaxy Background ===== */
 #galaxy-container {
   position: fixed;
-  inset: 0; /* shorthand for top, right, bottom, left */
+  inset: 0;
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at center, #0d1117 0%, #000 100%);
@@ -53,7 +53,7 @@ body {
   position: relative;
 }
 
-/* ===== Bottom Navigation (Mobile Only) ===== */
+/* ===== Bottom Navigation ===== */
 .bottom-nav {
   position: fixed;
   bottom: 12px;
@@ -61,12 +61,13 @@ body {
   transform: translateX(-50%);
   background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
   border-radius: 30px;
-  display: flex;
+  display: none; /* hidden by default */
   justify-content: space-around;
   width: 90%;
   max-width: 420px;
   padding: 12px;
   z-index: 1500;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .bottom-nav a,
@@ -146,12 +147,10 @@ body {
 }
 
 /* ===== Responsive ===== */
-.bottom-nav {
-  display: none;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
 @media (max-width: 768px) {
+  .sidebar {
+    display: none; /* hide sidebar on mobile */
+  }
   .bottom-nav {
     display: flex;
     transform: translateY(100%); /* hidden by default */
@@ -162,8 +161,6 @@ body {
     opacity: 1;
   }
 }
-
-
 
 /* ===== Header ===== */
 header {
@@ -311,7 +308,6 @@ body.light-mode {
   color: #1a1a1a;
 }
 
-/* Hero Section (Light Mode) */
 body.light-mode .hero {
   background: url('cyber-bg-light.jpg') no-repeat center center/cover;
 }
@@ -334,29 +330,14 @@ body.light-mode .hero-text .btn:hover {
   color: #fff;
 }
 
-/* Services Section (Light Mode) */
 body.light-mode .services h2 {
   color: #0078d7;
 }
 
 body.light-mode .service-card {
   background: #ffffff;
-  border: 1px solid #ddd;
 }
 
-body.light-mode .service-card:hover {
-  background: #f9f9f9;
-}
-
-body.light-mode .service-card h3 {
-  color: #0078d7;
-}
-
-/* Footer (Light Mode) */
-body.light-mode footer {
-  background: #ffffff;
-  border-top: 1px solid 
-}
 
 
 
