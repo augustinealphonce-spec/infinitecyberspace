@@ -115,26 +115,30 @@ darkModeBtn.addEventListener("click", () => {
 
 // === Bottom Navigation Scroll Behavior ===
 let lastScrollY = window.scrollY;
-const bottomNav = document.querySelector('.bottom-nav');
+const bottomNav = document.querySelector(".bottom-nav");
 
-window.addEventListener('scroll', () => {
+window.addEventListener("scroll", () => {
   if (window.innerWidth <= 768) { // only mobile
     if (window.scrollY > lastScrollY) {
-      // scrolling down → show nav
-      bottomNav.classList.add('show');
+      // scrolling down → hide nav
+      bottomNav.classList.remove("show");
     } else {
-      // scrolling up → hide nav
-      bottomNav.classList.remove('show');
+      // scrolling up → show nav
+      bottomNav.classList.add("show");
     }
 
     // keep nav visible when at very top
     if (window.scrollY === 0) {
-      bottomNav.classList.add('show');
+      bottomNav.classList.add("show");
     }
 
     lastScrollY = window.scrollY;
+  } else {
+    // desktop → always hide
+    bottomNav.classList.remove("show");
   }
 });
+
 
 
 
