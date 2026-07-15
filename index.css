@@ -53,21 +53,25 @@ body {
   position: relative;
 }
 
-/* ===== Bottom Navigation ===== */
+/* Bottom Navigation (Mobile Only) */
 .bottom-nav {
-  position: fixed;
-  bottom: 12px;
+ position: fixed;
+ bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateY(100%);
   background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
   border-radius: 30px;
-  display: none; /* hidden by default */
+  display: flex;
   justify-content: space-around;
-  width: 90%;
+  width: 100%;
   max-width: 420px;
   padding: 12px;
   z-index: 1500;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.bottom-nav.show {
+  transform: translateY(0);
 }
 
 .bottom-nav a,
