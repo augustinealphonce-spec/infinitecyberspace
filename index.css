@@ -16,8 +16,7 @@ body {
 /* ===== Galaxy Background ===== */
 #galaxy-container {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0; /* shorthand for top, right, bottom, left */
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at center, #0d1117 0%, #000 100%);
@@ -27,98 +26,144 @@ body {
 /* ===== Sidebar Navigation ===== */
 .sidebar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 70px;
-  height: 100%;
-  background: #161b22;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 1rem;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
 }
 
 .sidebar ul {
   list-style: none;
+  padding: 0;
 }
 
-.sidebar ul li {
-  margin: 1.5rem 0;
+.sidebar li {
+  margin: 15px 0;
 }
 
-.sidebar ul li a {
+.sidebar a {
   font-size: 1.5rem;
-  color: #e6edf3;
-  transition: color 0.3s ease;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  position: relative;
 }
 
-.sidebar ul li a:hover {
-  color: #58a6ff;
-}
-
-/* ===== Bottom Navigation (Mobile) ===== */
+/* ===== Bottom Navigation (Mobile Only) ===== */
 .bottom-nav {
-  display: none;
   position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #161b22;
-  padding: 0.5rem 0;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
+  border-radius: 30px;
+  display: flex;
   justify-content: space-around;
+  width: 90%;
+  max-width: 420px;
+  padding: 12px;
+  z-index: 1500;
 }
 
-.bottom-nav a {
+.bottom-nav a,
+.bottom-nav button {
+  color: #fff;
   font-size: 1.5rem;
-  color: #e6edf3;
-  transition: color 0.3s ease;
+  background: none;
+  border: none;
+  transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
+/* Remove hover effects completely */
+.sidebar a:hover,
 .bottom-nav a:hover {
-  color: #58a6ff;
+  color: #fff;
+  transform: none;
+  text-shadow: none;
+  animation: none;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-  .bottom-nav {
-    display: flex;
-  }
+/* Click (Active) Effects */
+.sidebar a:active,
+.bottom-nav a:active {
+  color: #ffd700;
+  text-shadow: 0 0 15px #ffd700, 0 0 30px #ff8c00;
+  animation: pulse 0.3s;
 }
 
-/* ===== Settings Panel ===== */
+/* Pulse Animation */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ===== Floating Settings Menu ===== */
 .floating-menu {
   position: fixed;
-  top: 80px;
   right: 20px;
-  background: #161b22;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  top: 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
   display: none;
+}
+
+.floating-menu.show {
+  display: block;
 }
 
 .floating-menu h3 {
-  margin-bottom: 1rem;
-  color: #58a6ff;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #00e0ff;
 }
 
 .floating-menu button {
   display: block;
   width: 100%;
-  margin: 0.5rem 0;
-  padding: 0.6rem;
-  background: #21262d;
+  margin: 8px 0;
+  padding: 10px;
   border: none;
-  border-radius: 6px;
-  color: #e6edf3;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00e0ff, #0077ff);
+  color: #fff;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: transform 0.3s, background 0.3s;
 }
 
 .floating-menu button:hover {
-  background: #30363d;
+  background: linear-gradient(135deg, #0077ff, #00e0ff);
+  transform: scale(1.05);
 }
+
+/* ===== Responsive ===== */
+.bottom-nav {
+  display: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .bottom-nav {
+    display: flex;
+    transform: translateY(100%); /* hidden by default */
+    opacity: 0;
+  }
+  .bottom-nav.show {
+    transform: translateY(0); /* slide up into view */
+    opacity: 1;
+  }
+}
+
+
 
 /* ===== Header ===== */
 header {
@@ -141,7 +186,7 @@ header .cta-button a {
   border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 header .cta-button a:hover {
@@ -162,10 +207,7 @@ header .cta-button a:hover {
 
 .hero .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(13,17,23,0.8);
 }
 
@@ -194,7 +236,7 @@ header .cta-button a:hover {
   color: #e6edf3;
   border-radius: 6px;
   text-decoration: none;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .hero-text .btn:hover {
@@ -269,69 +311,7 @@ body.light-mode {
   color: #1a1a1a;
 }
 
-/* Sidebar */
-body.light-mode .sidebar {
-  background: #ffffff;
-  border-right: 1px solid #ddd;
-}
-
-body.light-mode .sidebar ul li a {
-  color: #1a1a1a;
-}
-
-body.light-mode .sidebar ul li a:hover {
-  color: #0078d7;
-}
-
-/* Bottom Navigation */
-body.light-mode .bottom-nav {
-  background: #ffffff;
-  border-top: 1px solid #ddd;
-}
-
-body.light-mode .bottom-nav a {
-  color: #1a1a1a;
-}
-
-body.light-mode .bottom-nav a:hover {
-  color: #0078d7;
-}
-
-/* Settings Panel */
-body.light-mode .floating-menu {
-  background: #ffffff;
-  border: 1px solid #ddd;
-}
-
-body.light-mode .floating-menu h3 {
-  color: #0078d7;
-}
-
-body.light-mode .floating-menu button {
-  background: #f0f0f0;
-  color: #1a1a1a;
-}
-
-body.light-mode .floating-menu button:hover {
-  background: #e0e0e0;
-}
-
-/* Header */
-body.light-mode header {
-  background: #ffffff;
-  border-bottom: 1px solid #ddd;
-}
-
-body.light-mode header .cta-button a {
-  background: #0078d7;
-  color: #fff;
-}
-
-body.light-mode header .cta-button a:hover {
-  background: #005a9e;
-}
-
-/* Hero Section */
+/* Hero Section (Light Mode) */
 body.light-mode .hero {
   background: url('cyber-bg-light.jpg') no-repeat center center/cover;
 }
@@ -354,7 +334,7 @@ body.light-mode .hero-text .btn:hover {
   color: #fff;
 }
 
-/* Services Section */
+/* Services Section (Light Mode) */
 body.light-mode .services h2 {
   color: #0078d7;
 }
@@ -372,11 +352,11 @@ body.light-mode .service-card h3 {
   color: #0078d7;
 }
 
-/* Footer */
+/* Footer (Light Mode) */
 body.light-mode footer {
   background: #ffffff;
-  border-top: 1px solid #ddd;
-  color: #1a1a1a;
+  border-top: 1px solid 
+}
 
 
 
