@@ -94,5 +94,22 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsBtnMobile = document.getElementById("settingsBtnMobile");
+const settingsMenu = document.getElementById("settingsMenu");
+
+// Toggle settings menu
+[settingsBtn, settingsBtnMobile].forEach(btn => {
+  btn.addEventListener("click", () => {
+    settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
+  });
+});
+
+// Dark/Light mode toggle
+const darkModeBtn = settingsMenu.querySelector("button:first-child");
+darkModeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+});
+
 
 
