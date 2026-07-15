@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HF94F9W6ME"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,79 +15,108 @@
   <title>Infinite Cyberspace Hub</title>
   <link rel="stylesheet" href="index.css" />
 
- <!-- favicon setup -->
-<link rel="icon" href="favicon.png" type="image/png">
-<link rel="shortcut icon" href="favicon.png" type="image/png">
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="shortcut icon" href="favicon.png" type="image/png">
 
-
+  <!-- Site Verification -->
   <meta name="google-site-verification" content="-gZ_k5ayjtWL344XKkvi_QP8BiDfSrcG4UIctpIlUwo" />
 </head>
 
 <body>
-  <!-- Floating Sidebar for PC -->
+  <!-- Sidebar Navigation (Desktop) -->
   <nav class="sidebar">
     <ul>
-      <li><a href="index.html">🏠</a></li>
-      <li><a href="Latest Updates.html">📰</a></li>
-      <li><a href="Login.html">🛡️</a></li>
-      <li><a href="Contuct us.html">📞</a></li>
-      <li><a href="#" id="settingsBtn">⚙️</a></li>
+      <li><a href="index.html" title="Home">🏠</a></li>
+      <li><a href="updates.html" title="Latest Updates">📰</a></li>
+      <li><a href="login.html" title="Login">🛡️</a></li>
+      <li><a href="contact.html" title="Contact Us">📞</a></li>
+      <li><a href="#" id="settingsBtn" title="Settings">⚙️</a></li>
     </ul>
   </nav>
 
-  <!-- Floating Bottom Nav for Mobile -->
+  <!-- Bottom Navigation (Mobile) -->
   <nav class="bottom-nav">
     <a href="index.html">🏠</a>
-    <a href="Latest Updates.html">📰</a>
-    <a href="Login.html">🛡️</a>
-    <a href="Contuct us.html">📞</a>
+    <a href="updates.html">📰</a>
+    <a href="login.html">🛡️</a>
+    <a href="contact.html">📞</a>
     <a href="#" id="settingsBtnMobile">⚙️</a>
   </nav>
 
-  <!-- Floating Settings Panel -->
+  <!-- Settings Panel -->
   <div class="floating-menu" id="settingsMenu">
     <h3>⚙️ Settings</h3>
     <button>🌙 Dark Mode</button>
     <button>🔔 Notifications</button>
     <button>🛡️ Privacy</button>
   </div>
-<header>
-  <!-- Floating logo -->
-  <div class="logo">
-    <img src="Infinite.jpg" alt="Infinite-Cyberspace-Hub-Logo">
-  </div>
 
-  <!-- Floating button -->
-  <div class="find-plan">
-    <a href="Our Packages.html">
-      <i class="fas fa-sign-in-alt"></i> Find Your Plan
-    </a>
-  </div>
-</header>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="Infinite.jpg" alt="Infinite Cyberspace Hub Logo">
+    </div>
+    <div class="cta-button">
+      <a href="packages.html">
+        <i class="fas fa-shield-alt"></i> Find Your Plan
+      </a>
+    </div>
+  </header>
 
-
-  <!-- ✅ Hero Section with Background -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="overlay"></div>
     <div class="hero-text">
-      <h1>Protecting Your Enterprise.</h1>
-      <p>Affordable Cybersecurity Solutions for SMEs.</p>
-      <a href="About us.html" class="btn">Learn More</a>
-      <a href="Services.html" class="btn">Get Started</a>
+      <h1>Securing SMEs, Empowering Innovation</h1>
+      <p>Affordable, reliable cybersecurity solutions built for small and medium enterprises.</p>
+      <a href="about.html" class="btn">Learn More</a>
+      <a href="services.html" class="btn">Get Started</a>
     </div>
   </section>
 
+  <!-- Services Section -->
+  <section class="services">
+    <h2>Our Core Services</h2>
+    <div class="service-grid">
+      <div class="service-card">
+        <h3>🔒 Cybersecurity Solutions</h3>
+        <p>Threat detection, firewalls, and endpoint protection tailored for SMEs.</p>
+      </div>
+      <div class="service-card">
+        <h3>🌍 Innovation Hub</h3>
+        <p>Collaborate, test new ideas, and access shared cyberspace resources.</p>
+      </div>
+      <div class="service-card">
+        <h3>📞 IT Support</h3>
+        <p>Remote troubleshooting, training, and customer care frameworks.</p>
+      </div>
+      <div class="service-card">
+        <h3>📊 Consulting & Training</h3>
+        <p>Workshops and resilience building for SME growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    <p>© 2026 All Rights Reserved | 
-      <a href="Privacy Policy.html">Privacy Policy</a>
+    <p>© 2026 Infinite Cyberspace Hub | All Rights Reserved</p>
+    <p>
+      <a href="privacy.html">Privacy Policy</a> | 
+      <a href="#">LinkedIn</a> | 
+      <a href="#">Twitter</a> | 
+      <a href="#">YouTube</a>
     </p>
   </footer>
-  <!-- React will mount here -->
+
+  <!-- React Mount -->
   <div id="root"></div>
-<!-- Three.js CDN -->
+
+  <!-- Three.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
   <script src="index.js"></script>
 </body>
 </html>
+
 
 
