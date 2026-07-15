@@ -1,5 +1,4 @@
-// Our Packages.js
-
+// === Our Packages.js ===
 document.addEventListener("DOMContentLoaded", () => {
   const packages = document.querySelectorAll(".package");
 
@@ -30,7 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     `);
   });
 });
-<script>
+
+// === M-Pesa Payment ===
 function payWithMpesa(amount) {
   const phone = prompt("Enter your M-Pesa phone number (e.g. 2547XXXXXXXX):");
   if (!phone) return;
@@ -40,116 +40,75 @@ function payWithMpesa(amount) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ phone, amount })
   })
-  .then(res => res.json())
-  .then(data => alert(data.message))
-  .catch(err => alert("Payment failed"));
+    .then(res => res.json())
+    .then(data => alert(data.message))
+    .catch(() => alert("Payment failed"));
 }
 
-.recommended {
-  border: 3px solid #38ada9;
-  box-shadow: 0 0 15px rgba(56,173,169,0.5);
-}
-
-.expanded {
-  background: #f0f9ff;
-  transform: scale(1.05);
-}
-
-.compare-btn {
-  margin-top: 30px;
-  padding: 12px 20px;
-  font-size: 1rem;
-  background: #1e3799;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.compare-btn:hover {
-  background: #0a3d62;
-}
-// ✅ Toggle Settings Menu (Desktop & Mobile)
-const settingsBtn = document.getElementById("settingsBtn");
-const settingsBtnMobile = document.getElementById("settingsBtnMobile");
-const settingsMenu = document.getElementById("settingsMenu");
-
-function toggleSettingsMenu() {
-  settingsMenu.classList.toggle("active"); // Add/remove "active" class
-}
-
-settingsBtn.addEventListener("click", toggleSettingsMenu);
-settingsBtnMobile.addEventListener("click", toggleSettingsMenu);
-
-// ✅ Dark Mode Toggle
-const darkModeBtn = settingsMenu.querySelector("button:nth-child(2)"); // 🌙 Dark Mode button
-
-darkModeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-});
-
-// ✅ Notifications Toggle
-const notificationsBtn = settingsMenu.querySelector("button:nth-child(3)");
-
-notificationsBtn.addEventListener("click", () => {
-  alert("🔔 Notifications feature coming soon!");
-});
-
-// ✅ Privacy Button
-const privacyBtn = settingsMenu.querySelector("button:nth-child(4)");
-
-privacyBtn.addEventListener("click", () => {
-  window.location.href = "Privacy Policy.html"; // Redirect to Privacy Policy
-});
-
-// ✅ Close menu when clicking outside
-document.addEventListener("click", (event) => {
-  if (!settingsMenu.contains(event.target) && 
-      event.target !== settingsBtn && 
-      event.target !== settingsBtnMobile) {
-    settingsMenu.classList.remove("active");
-  }
-});
 // === Settings Menu ===
 const settingsBtn = document.getElementById("settingsBtn");
 const settingsBtnMobile = document.getElementById("settingsBtnMobile");
 const settingsMenu = document.getElementById("settingsMenu");
 
-// Toggle settings menu
+function toggleSettingsMenu() {
+  settingsMenu.classList.toggle("active");
+}
+
 [settingsBtn, settingsBtnMobile].forEach(btn => {
-  btn.addEventListener("click", () => {
-    settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
-  });
+  if (btn) btn.addEventListener("click", toggleSettingsMenu);
 });
 
-// Dark/Light mode toggle
-const darkModeBtn = settingsMenu.querySelector("button:first-child");
+// Dark Mode Toggle
+const darkModeBtn = settingsMenu.querySelector("button:nth-child(2)");
 darkModeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
+  document.body.classList.toggle("dark-mode");
+});
+
+// Notifications Toggle
+const notificationsBtn = settingsMenu.querySelector("button:nth-child(3)");
+notificationsBtn.addEventListener("click", () => {
+  alert("🔔 Notifications feature coming soon!");
+});
+
+// Privacy Button
+const privacyBtn = settingsMenu.querySelector("button:nth-child(4)");
+privacyBtn.addEventListener("click", () => {
+  window.location.href = "Privacy Policy.html";
+});
+
+// Close menu when clicking outside
+document.addEventListener("click", (event) => {
+  if (!settingsMenu.contains(event.target) &&
+      event.target !== settingsBtn &&
+      event.target !== settingsBtnMobile) {
+    settingsMenu.classList.remove("active");
+  }
 });
 
 // === Bottom Navigation Scroll Behavior ===
 let lastScrollY = window.scrollY;
-const bottomNav = document.querySelector('.bottom-nav');
+const bottomNav = document.querySelector(".bottom-nav");
 
-window.addEventListener('scroll', () => {
+window.addEventListener("scroll", () => {
   if (window.innerWidth <= 768) { // only mobile
-    if (window.scrollY > lastScrollY) {
-      // scrolling down → show nav
-      bottomNav.classList.add('show');
+    if (window.scrollY < lastScrollY) {
+      // scrolling up → show nav
+      bottomNav.classList.add("show");
     } else {
-      // scrolling up → hide nav
-      bottomNav.classList.remove('show');
+      // scrolling down → hide nav
+      bottomNav.classList.remove("show");
     }
 
     // keep nav visible when at very top
     if (window.scrollY === 0) {
-      bottomNav.classList.add('show');
+      bottomNav.classList.add("show");
     }
 
     lastScrollY = window.scrollY;
+  } else {
+    // desktop → always hide
+    bottomNav.classList.remove("show");
   }
 });
-</script>
+
 
