@@ -1,120 +1,383 @@
-/* Galaxy Background Container */
-#galaxy-container {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* behind everything */
+/* ===== Global Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* General Styles */
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #0a0f1c;
-  color: #f5f5f5;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #0d1117;
+  color: #e6edf3;
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* Sidebar Navigation */
+/* ===== Galaxy Background ===== */
+#galaxy-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #0d1117 0%, #000 100%);
+  z-index: -1;
+}
+
+/* ===== Sidebar Navigation ===== */
 .sidebar {
   position: fixed;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  background: rgba(20, 30, 50, 0.9);
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(77,184,255,0.4);
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 100%;
+  background: #161b22;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
 }
 
-.sidebar ul { list-style: none; }
-.sidebar li { margin: 15px 0; }
-.sidebar a {
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin: 1.5rem 0;
+}
+
+.sidebar ul li a {
   font-size: 1.5rem;
-  color: #4db8ff;
-  text-decoration: none;
+  color: #e6edf3;
+  transition: color 0.3s ease;
 }
-.sidebar a:hover { color: #fff; }
 
-/* Bottom Nav (Mobile) */
+.sidebar ul li a:hover {
+  color: #58a6ff;
+}
+
+/* ===== Bottom Navigation (Mobile) ===== */
 .bottom-nav {
   display: none;
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: rgba(20, 30, 50, 0.95);
-  padding: 10px;
-  text-align: center;
+  background: #161b22;
+  padding: 0.5rem 0;
+  justify-content: space-around;
 }
-.bottom-nav a {
-  margin: 0 15px;
-  font-size: 1.5rem;
-  color: #4db8ff;
-  text-decoration: none;
-}
-.bottom-nav a:hover { color: #fff; }
 
-/* Settings Panel */
-.floating-menu {
-  display: none;
-  position: fixed;
-  top: 20%;
-  right: 20px;
-  background: #1e2a47;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(77,184,255,0.5);
+.bottom-nav a {
+  font-size: 1.5rem;
+  color: #e6edf3;
+  transition: color 0.3s ease;
 }
-.floating-menu h3 { margin-bottom: 15px; color: #4db8ff; }
+
+.bottom-nav a:hover {
+  color: #58a6ff;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .bottom-nav {
+    display: flex;
+  }
+}
+
+/* ===== Settings Panel ===== */
+.floating-menu {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: #161b22;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  display: none;
+}
+
+.floating-menu h3 {
+  margin-bottom: 1rem;
+  color: #58a6ff;
+}
+
 .floating-menu button {
   display: block;
-  margin: 10px 0;
-  padding: 10px;
-  background: #4db8ff;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.6rem;
+  background: #21262d;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  color: #e6edf3;
   cursor: pointer;
-  color: #0a0f1c;
-  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
-/* Header */
+.floating-menu button:hover {
+  background: #30363d;
+}
+
+/* ===== Header ===== */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  background: rgba(20, 30, 50, 0.9);
-  box-shadow: 0 0 15px rgba(77,184,255,0.3);
+  padding: 1rem 2rem;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
 }
-.logo img { height: 50px; }
-.cta-button a {
-  background: #4db8ff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  color: #0a0f1c;
+
+header .logo img {
+  height: 50px;
+}
+
+header .cta-button a {
+  background: #58a6ff;
+  color: #0d1117;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
+  transition: background 0.3s ease;
 }
-.cta-button a:hover { background: #fff; color: #0a0f1c; }
 
-/* Hero Section */
+header .cta-button a:hover {
+  background: #1f6feb;
+  color: #fff;
+}
+
+/* ===== Hero Section ===== */
 .hero {
   position: relative;
-  height: 100vh;
-  text-align: center;
+  height: 80vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: url('cyber-bg.jpg') no-repeat center center/cover;
 }
+
 .hero .overlay {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(10, 15, 28, 0.4); /* transparent so galaxy shows */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13,17,23,0.8);
 }
+
 .hero-text {
-  position
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.hero-text h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: #58a6ff;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero-text .btn {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: #21262d;
+  color: #e6edf3;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.hero-text .btn:hover {
+  background: #58a6ff;
+  color: #0d1117;
+}
+
+/* ===== Services Section ===== */
+.services {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.services h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #58a6ff;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background: #161b22;
+  padding: 2rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  background: #21262d;
+}
+
+.service-card h3 {
+  margin-bottom: 1rem;
+  color: #58a6ff;
+}
+
+.service-card p {
+  font-size: 0.95rem;
+}
+
+/* ===== Footer ===== */
+footer {
+  background: #161b22;
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid #30363d;
+}
+
+footer p {
+  margin: 0.5rem 0;
+}
+
+footer a {
+  color: #58a6ff;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Light Mode Variant ===== */
+body.light-mode {
+  background: #f5f7fa;
+  color: #1a1a1a;
+}
+
+/* Sidebar */
+body.light-mode .sidebar {
+  background: #ffffff;
+  border-right: 1px solid #ddd;
+}
+
+body.light-mode .sidebar ul li a {
+  color: #1a1a1a;
+}
+
+body.light-mode .sidebar ul li a:hover {
+  color: #0078d7;
+}
+
+/* Bottom Navigation */
+body.light-mode .bottom-nav {
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+}
+
+body.light-mode .bottom-nav a {
+  color: #1a1a1a;
+}
+
+body.light-mode .bottom-nav a:hover {
+  color: #0078d7;
+}
+
+/* Settings Panel */
+body.light-mode .floating-menu {
+  background: #ffffff;
+  border: 1px solid #ddd;
+}
+
+body.light-mode .floating-menu h3 {
+  color: #0078d7;
+}
+
+body.light-mode .floating-menu button {
+  background: #f0f0f0;
+  color: #1a1a1a;
+}
+
+body.light-mode .floating-menu button:hover {
+  background: #e0e0e0;
+}
+
+/* Header */
+body.light-mode header {
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+body.light-mode header .cta-button a {
+  background: #0078d7;
+  color: #fff;
+}
+
+body.light-mode header .cta-button a:hover {
+  background: #005a9e;
+}
+
+/* Hero Section */
+body.light-mode .hero {
+  background: url('cyber-bg-light.jpg') no-repeat center center/cover;
+}
+
+body.light-mode .hero .overlay {
+  background: rgba(255,255,255,0.8);
+}
+
+body.light-mode .hero-text h1 {
+  color: #0078d7;
+}
+
+body.light-mode .hero-text .btn {
+  background: #f0f0f0;
+  color: #1a1a1a;
+}
+
+body.light-mode .hero-text .btn:hover {
+  background: #0078d7;
+  color: #fff;
+}
+
+/* Services Section */
+body.light-mode .services h2 {
+  color: #0078d7;
+}
+
+body.light-mode .service-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+}
+
+body.light-mode .service-card:hover {
+  background: #f9f9f9;
+}
+
+body.light-mode .service-card h3 {
+  color: #0078d7;
+}
+
+/* Footer */
+body.light-mode footer {
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+  color: #1a1a1a;
+
 
 
 
