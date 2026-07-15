@@ -84,19 +84,18 @@ document.addEventListener("click", (event) => {
     settingsMenu.classList.remove("active");
   }
 });
-
 // === Bottom Navigation Scroll Behavior ===
 let lastScrollY = window.scrollY;
 const bottomNav = document.querySelector(".bottom-nav");
 
 window.addEventListener("scroll", () => {
   if (window.innerWidth <= 768) { // only mobile
-    if (window.scrollY < lastScrollY) {
-      // scrolling up → show nav
-      bottomNav.classList.add("show");
-    } else {
+    if (window.scrollY > lastScrollY) {
       // scrolling down → hide nav
       bottomNav.classList.remove("show");
+    } else {
+      // scrolling up → show nav
+      bottomNav.classList.add("show");
     }
 
     // keep nav visible when at very top
@@ -110,5 +109,4 @@ window.addEventListener("scroll", () => {
     bottomNav.classList.remove("show");
   }
 });
-
 
