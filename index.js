@@ -94,6 +94,8 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+// === Settings Menu ===
 const settingsBtn = document.getElementById("settingsBtn");
 const settingsBtnMobile = document.getElementById("settingsBtnMobile");
 const settingsMenu = document.getElementById("settingsMenu");
@@ -110,6 +112,30 @@ const darkModeBtn = settingsMenu.querySelector("button:first-child");
 darkModeBtn.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
 });
+
+// === Bottom Navigation Scroll Behavior ===
+let lastScrollY = window.scrollY;
+const bottomNav = document.querySelector('.bottom-nav');
+
+window.addEventListener('scroll', () => {
+  if (window.innerWidth <= 768) { // only mobile
+    if (window.scrollY > lastScrollY) {
+      // scrolling down → show nav
+      bottomNav.classList.add('show');
+    } else {
+      // scrolling up → hide nav
+      bottomNav.classList.remove('show');
+    }
+
+    // keep nav visible when at very top
+    if (window.scrollY === 0) {
+      bottomNav.classList.add('show');
+    }
+
+    lastScrollY = window.scrollY;
+  }
+});
+
 
 
 
