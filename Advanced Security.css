@@ -83,137 +83,145 @@ body.dark-mode .security-box {
   50% { transform: translateY(-10px); }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .sidebar { display: none; }
-  .bottom-nav { display: flex; }
-  .advanced-security { margin: 40px 20px; }
-}
-/* Floating Sidebar */
+/* ===== Sidebar Navigation ===== */
 .sidebar {
   position: fixed;
   top: 50%;
-  left: 5px;
+  left: 20px;
   transform: translateY(-50%);
-  background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
-  border-radius: 10px;
-  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: auto;
-  padding: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar ul li {
-  margin: 10px 0;
-  text-align: center;
-}
+.sidebar ul { list-style: none; padding: 0; }
+.sidebar li { margin: 15px 0; }
 
 .sidebar a {
-  color: #fff;
+  font-size: 1.2rem;
+  color: #e6edf3;
   text-decoration: none;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  transition: all 0.3s ease;
+  position: relative;
+  transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .sidebar a:hover {
-  background: rgba(255,255,255,0.2);
+  color: #58a6ff;
+  text-shadow: 0 0 8px rgba(88,166,255,0.6);
+  transform: scale(1.05);
 }
 
-/* Bottom Nav (Mobile) */
+/* Ripple Effect */
+.sidebar a:active::after,
+.bottom-nav a:active::after,
+.bottom-nav button:active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 215, 0, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% { width: 0; height: 0; opacity: 0.8; }
+  100% { width: 120px; height: 120px; opacity: 0; }
+}
+/* ===========================
+   Bottom Navigation (Mobile Only)
+=========================== */
 .bottom-nav {
   position: fixed;
-  bottom: 10px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, rgba(100,100,100,0.6), rgba(180,180,180,0.6));
+  background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
+  backdrop-filter: blur(12px);
   border-radius: 30px;
   display: flex;
   justify-content: space-around;
   width: 90%;
-  max-width: 400px;
-  padding: 10px;
+  max-width: 420px;
+  padding: 12px;
+  z-index: 1500;
+  opacity: 1; /* ✅ Make it visible by default */
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.bottom-nav a {
-  color: #fff;
+.bottom-nav.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Bottom Nav Links */
+.bottom-nav a,
+.bottom-nav button {
+  color: #e6edf3;
   font-size: 20px;
+  background: none;
+  border: none;
+  position: relative;
   text-decoration: none;
+  transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
 }
-/* ===========================
-   Floating Settings Panel
-=========================== */
+
+.bottom-nav a:hover,
+.bottom-nav button:hover {
+  color: #58a6ff;
+  text-shadow: 0 0 8px rgba(88,166,255,0.6);
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (min-width: 769px) {
+  .bottom-nav { display: none; } /* Hide bottom nav on desktop */
+}
+
+@media (max-width: 768px) {
+  .sidebar { display: none; } /* Hide sidebar on mobile */
+}
+
+
+/* Floating Settings Menu */
 .floating-menu {
-  display: none;
   position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  top: 20%;
+  right: 20px;
+  background: rgba(255,255,255,0.08);
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  z-index: 1000;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  display: none;
 }
+
 .floating-menu h3 {
-  margin: 0 0 15px;
-  font-size: 18px;
-  text-align: center;
-  color: #fff;
+  margin-bottom: 15px;
+  color: #e0b84c;
 }
+
 .floating-menu button {
   display: block;
   width: 100%;
-  margin: 8px 0;
+  margin: 10px 0;
   padding: 12px;
   border: none;
-  border-radius: 8px;
-  background: rgba(0, 120, 215, 0.8);
-  color: #fff;
-  font-size: 15px;
-  text-align: left;
-  transition: background 0.3s ease;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #e0b84c, #c49a2c);
+  color: #0f0f0f;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
 }
+
 .floating-menu button:hover {
-  background: rgba(0, 90, 158, 0.9);
-}
-/* Hide settings menu by default */
-.floating-menu {
-  display: none;
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* Show when active */
-.floating-menu.active {
-  display: block;
-}
-
-/* Dark mode */
-body.dark-mode {
-  background-color: #121212;
-  color: #f1f1f1;
+  background: linear-gradient(135deg, #ffffff, #e0b84c);
+  color: #000;
 }
 
 /* Responsive */
