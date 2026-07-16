@@ -69,6 +69,77 @@ header p {
 }
 
 /* Bottom Navigation (Mobile) */
+/* CEO Profile.css */
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Body Styling */
+body {
+  background: #0d0d0d; /* deep luxury black */
+  color: #e6e6e6; /* soft white */
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #111, #1a1a1a);
+  border-bottom: 2px solid #d4af37; /* gold accent */
+}
+
+header h1 {
+  font-size: 3rem;
+  color: #d4af37; /* premium gold */
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: #bfbfbf;
+  margin-top: 10px;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  font-size: 1.5rem;
+  color: #d4af37;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+  color: #ffffff;
+}
+
+/* Bottom Navigation (Mobile) */
 .bottom-nav {
   display: none;
   position: fixed;
@@ -126,6 +197,55 @@ header p {
   background: #d4af37;
   color: #0d0d0d;
 }
+
+/* Sections */
+section {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+section h2 {
+  font-size: 2rem;
+  color: #d4af37;
+  margin-bottom: 20px;
+}
+
+section p {
+  margin-bottom: 15px;
+  color: #cccccc;
+}
+
+/* About Section */
+#about {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+}
+
+#about img {
+  max-width: 300px;
+  border-radius: 12px;
+  border: 3px solid #d4af37;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .bottom-nav {
+    display: flex;
+    justify-content: center;
+  }
+  #about {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
 
 /* Sections */
 section {
