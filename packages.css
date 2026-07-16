@@ -15,75 +15,182 @@ body {
   align-items: center;
 }
 
+/* CEO Profile.css */
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Body Styling */
+body {
+  background: #0d0d0d; /* deep luxury black */
+  color: #e6e6e6; /* soft white */
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #111, #1a1a1a);
+  border-bottom: 2px solid #d4af37; /* gold accent */
+}
+
+header h1 {
+  font-size: 3rem;
+  color: #d4af37; /* premium gold */
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: #bfbfbf;
+  margin-top: 10px;
+}
+
 /* Sidebar Navigation */
 .sidebar {
   position: fixed;
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border-radius: 15px;
+  background: #1a1a1a;
+  border-radius: 12px;
   padding: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
 .sidebar ul {
   list-style: none;
 }
 
-.sidebar li {
-  margin: 15px 0;
+.sidebar ul li {
+  margin: 20px 0;
 }
 
-.sidebar a {
+.sidebar ul li a {
   font-size: 1.5rem;
-  color: #fff;
+  color: #d4af37;
   text-decoration: none;
-  transition: all 0.2s ease;
-  position: relative;
-}
-/* ===========================
-   Bottom Navigation (Mobile Only)
-=========================== */
-.bottom-nav {
-  position: fixed;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
-  border-radius: 30px;
-  display: flex;
-  justify-content: space-around;
-  width: 90%;
-  max-width: 420px;
-  padding: 12px;
-  z-index: 1500;
-}
-.bottom-nav a, .bottom-nav button {
-  color: #fff;
-  font-size: 22px;
-  background: none;
-  border: none;
-  transition: transform 0.2s ease;
-}
-.bottom-nav a:hover, .bottom-nav button:hover {
-  transform: scale(1.2);
+  transition: color 0.3s ease;
 }
 
-/* ===== Responsive ===== */
+.sidebar ul li a:hover {
+  color: #ffffff;
+}
+
+/* Bottom Navigation (Mobile) */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #1a1a1a;
+  padding: 10px 0;
+  text-align: center;
+  border-top: 2px solid #d4af37;
+}
+
+.bottom-nav a {
+  margin: 0 15px;
+  font-size: 1.5rem;
+  color: #d4af37;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.bottom-nav a:hover {
+  color: #ffffff;
+}
+
+/* Floating Settings Menu */
+.floating-menu {
+  display: none;
+  position: fixed;
+  top: 20%;
+  right: 20px;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.floating-menu h3 {
+  color: #d4af37;
+  margin-bottom: 15px;
+}
+
+.floating-menu button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  background: #0d0d0d;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.floating-menu button:hover {
+  background: #d4af37;
+  color: #0d0d0d;
+}
+
+/* Sections */
+section {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+section h2 {
+  font-size: 2rem;
+  color: #d4af37;
+  margin-bottom: 20px;
+}
+
+section p {
+  margin-bottom: 15px;
+  color: #cccccc;
+}
+
+/* About Section */
+#about {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+}
+
+#about img {
+  max-width: 300px;
+  border-radius: 12px;
+  border: 3px solid #d4af37;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
   .bottom-nav {
     display: flex;
-    transform: translateY(100%); /* hidden by default */
-    opacity: 0;
+    justify-content: center;
   }
-  .bottom-nav.show {
-    transform: translateY(0); /* slide up into view */
-    opacity: 1;
+  #about {
+    flex-direction: column;
+    text-align: center;
   }
 }
-
 /* Click (Active) Effects */
 .sidebar a:active, 
 .bottom-nav a:active {
