@@ -1,128 +1,148 @@
+/* CEO Profile.css */
+
 /* Global Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
-/*Augustine profile*/
-  body {
-      margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      color: #333;
-      line-height: 1.6;
-    }
-    header {
-      background: url('Augustine.png') no-repeat center center/cover;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      position: relative;
-    }
-    header::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-    }
-    header div {
-      position: relative;
-      z-index: 1;
-    }
-    header h1 {
-      font-size: 3.5em;
-      margin-bottom: 20px;
-    }
-    header p {
-      font-size: 1.3em;
-      max-width: 700px;
-      margin: auto;
-    }
-    section {
-      padding: 60px 20px;
-    }
-    #about {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      background-color: #f9f9f9;
-    }
-    #about img {
-      width: 80%;
-      max-width: 400px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-    #about div {
-      flex: 1;
-      min-width: 300px;
-      padding: 20px;
-    }
-    #about h2, #vision h2 {
-      font-size: 2.5em;
-      color: #0a3d62;
-      margin-bottom: 20px;
-    }
-    #vision {
-      background: linear-gradient(to right, #0a3d62, #1e5799);
-      color: #fff;
-      text-align: center;
-    }
-    #vision p {
-      max-width: 800px;
-      margin: auto;
-      font-size: 1.2em;
-    }
-/* Body */
+
+/* Body Styling */
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  color: #333;
+  background: #0d0d0d; /* deep luxury black */
+  color: #e6e6e6; /* soft white */
   line-height: 1.6;
-  background-color: #fff;
+  font-size: 16px;
 }
 
-/* Hero Header */
+/* Header */
 header {
-  background: url('YOUR_IMAGE_URL_HERE') no-repeat center center/cover;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
-  color: #fff;
-  position: relative;
-}
-
-header::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.6);
-}
-
-header div {
-  position: relative;
-  z-index: 1;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #111, #1a1a1a);
+  border-bottom: 2px solid #d4af37; /* gold accent */
 }
 
 header h1 {
-  font-size: 3.5em;
-  margin-bottom: 20px;
-  font-weight: bold;
+  font-size: 3rem;
+  color: #d4af37; /* premium gold */
+  letter-spacing: 2px;
+  font-weight: 700;
 }
 
 header p {
-  font-size: 1.3em;
-  max-width: 700px;
-  margin: auto;
+  font-size: 1.2rem;
+  color: #bfbfbf;
+  margin-top: 10px;
 }
 
-/* Section Styling */
+/* Sidebar Navigation */
+.sidebar {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  font-size: 1.5rem;
+  color: #d4af37;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+  color: #ffffff;
+}
+
+/* Bottom Navigation (Mobile) */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #1a1a1a;
+  padding: 10px 0;
+  text-align: center;
+  border-top: 2px solid #d4af37;
+}
+
+.bottom-nav a {
+  margin: 0 15px;
+  font-size: 1.5rem;
+  color: #d4af37;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.bottom-nav a:hover {
+  color: #ffffff;
+}
+
+/* Floating Settings Menu */
+.floating-menu {
+  display: none;
+  position: fixed;
+  top: 20%;
+  right: 20px;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.floating-menu h3 {
+  color: #d4af37;
+  margin-bottom: 15px;
+}
+
+.floating-menu button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  background: #0d0d0d;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.floating-menu button:hover {
+  background: #d4af37;
+  color: #0d0d0d;
+}
+
+/* Sections */
 section {
-  padding: 60px 20px;
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+section h2 {
+  font-size: 2rem;
+  color: #d4af37;
+  margin-bottom: 20px;
+}
+
+section p {
+  margin-bottom: 15px;
+  color: #cccccc;
 }
 
 /* About Section */
@@ -130,198 +150,28 @@ section {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  background-color: #f9f9f9;
+  gap: 40px;
 }
 
 #about img {
-  width: 80%;
-  max-width: 400px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  max-width: 300px;
+  border-radius: 12px;
+  border: 3px solid #d4af37;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
-#about div {
-  flex: 1;
-  min-width: 300px;
-  padding: 20px;
-}
-
-#about h2 {
-  font-size: 2.5em;
-  color: #0a3d62;
-  margin-bottom: 20px;
-}
-
-#about p {
-  font-size: 1.2em;
-  color: #333;
-  line-height: 1.6;
-}
-
-/* Vision Section */
-#vision {
-  background: linear-gradient(to right, #0a3d62, #1e5799);
-  color: #fff;
-  text-align: center;
-}
-
-#vision h2 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-}
-
-#vision p {
-  max-width: 800px;
-  margin: auto;
-  font-size: 1.2em;
-  line-height: 1.6;
-}
-/* Floating Sidebar */
-.sidebar {
-  position: fixed;
-  top: 50%;
-  left: 5px;
-  transform: translateY(-50%);
-  background: linear-gradient(135deg, rgba(121,85,72,0.6), rgba(188,170,164,0.6)); /* brown gradient */
-  border-radius: 10px;
-  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 70px; /* fixed width */
-}
-
-/* Navigation */
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar ul li {
-  margin: 10px 0;
-  text-align: center;
-}
-
-.sidebar a, .sidebar button {
-  color: #3e2723; /* dark brown text */
-  text-decoration: none;
-  font-weight: bold;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  transition: none; /* removed hover transition */
-}
-
-/* Hover effect */
-.sidebar a:hover, .sidebar button:hover {
-  background: rgba(255, 248, 220, 0.3); /* light beige hover */
-}
-
-/* Bottom Nav (Mobile) */
-.bottom-nav {
-  position: fixed;
-  bottom: 10px; 
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, rgba(121,85,72,0.6), rgba(188,170,164,0.6));
-  border-radius: 30px;
-  display: flex; 
-  justify-content: space-around;
-  width: 90%; 
-  max-width: 400px;
-  padding: 10px;
-}
-
-.bottom-nav a, .bottom-nav button {
-  color: #3e2723; 
-  font-size: 20px;
-  background: none; 
-  border: none;
-}
-/* ===========================
-   Floating Settings Panel
-=========================== */
-.floating-menu {
-  display: none;
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  z-index: 1000;
-}
-.floating-menu h3 {
-  margin: 0 0 15px;
-  font-size: 18px;
-  text-align: center;
-  color: #fff;
-}
-.floating-menu button {
-  display: block;
-  width: 100%;
-  margin: 8px 0;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background: rgba(0, 120, 215, 0.8);
-  color: #fff;
-  font-size: 15px;
-  text-align: left;
-  transition: background 0.3s ease;
-}
-.floating-menu button:hover {
-  background: rgba(0, 90, 158, 0.9);
-}
-/* Hide settings menu by default */
-.floating-menu {
-  display: none;
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* Show when active */
-.floating-menu.active {
-  display: block;
-}
-
-/* Dark mode */
-body.dark-mode {
-  background-color: #121212;
-  color: #f1f1f1;
-}
-
-
-/* Responsive rules */
-
-/* Hide sidebar on mobile */
+/* Responsive Design */
 @media (max-width: 768px) {
   .sidebar {
-    display: none; /* completely hide sidebar */
+    display: none;
+  }
+  .bottom-nav {
+    display: flex;
+    justify-content: center;
+  }
+  #about {
+    flex-direction: column;
+    text-align: center;
   }
 }
 
-/* Hide bottom nav on desktop */
-@media (min-width: 768px) { 
-  .bottom-nav { 
-    display: none; 
-  } 
-}
