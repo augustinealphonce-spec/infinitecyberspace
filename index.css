@@ -53,45 +53,34 @@ body {
   position: relative;
 }
 
-/* Bottom Navigation (Mobile Only) */
+/* ===========================
+   Bottom Navigation (Mobile Only)
+=========================== */
 .bottom-nav {
- position: fixed;
- bottom: 0;
+  position: fixed;
+  bottom: 12px;
   left: 50%;
-  transform: translateY(100%);
+  transform: translateX(-50%);
   background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
   border-radius: 30px;
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 90%;
   max-width: 420px;
   padding: 12px;
   z-index: 1500;
-  transition: transform 0.3s ease;
 }
-
-.bottom-nav.show {
-  transform: translateY(0);
-}
-
-.bottom-nav a,
-.bottom-nav button {
+.bottom-nav a, .bottom-nav button {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 22px;
   background: none;
   border: none;
   transition: transform 0.2s ease;
-  cursor: pointer;
+}
+.bottom-nav a:hover, .bottom-nav button:hover {
+  transform: scale(1.2);
 }
 
-/* Remove hover effects completely */
-.sidebar a:hover,
-.bottom-nav a:hover {
-  color: #fff;
-  transform: none;
-  text-shadow: none;
-  animation: none;
-}
 
 /* Click (Active) Effects */
 .sidebar a:active,
