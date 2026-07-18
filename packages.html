@@ -3,83 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Packages</title>
+  <title>Pricing Packages - Infinite Cyberspace Hub</title>
   <link rel="stylesheet" href="packages.css" />
-  <!-- Use the same image for favicon -->
   <link rel="icon" type="image/jpeg" href="Infinite.jpg" />
-  <link rel="shortcut icon" type="image/jpeg" href="Infinite.jpg" />
 </head>
 <body>
-  <!-- Floating Sidebar for PC -->
-  <nav class="sidebar">
-    <ul>
-      <li><a href="index.html">🏠</a></li>
-      <li><a href="Latest Updates.html">📰</a></li>
-      <li><a href="Login.html">🛡️</a></li>
-      <li><a href="Contuct us.html">📞</a></li>
-      <li><a href="#" id="settingsBtn">⚙️</a></li>
-    </ul>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="Latest Updates.html">📰 Updates</a>
+    <a href="Services.html">🛡️ Services</a>
+    <a href="packages.html">💰 Packages</a>
+    <a href="CEO Profile.html">👤 CEO</a>
+    <a href="contact-us.html">📞 Contact</a>
   </nav>
 
-  <!-- Floating Bottom Nav for Mobile -->
-  <nav class="bottom-nav">
-    <a href="index.html">🏠</a>
-    <a href="Latest Updates.html">📰</a>
-    <a href="Login.html">🛡️</a>
-    <a href="Contuct us.html">📞</a>
-    <a href="#" id="settingsBtnMobile">⚙️</a>
-  </nav>
+  <!-- Hero -->
+  <header class="pricing-hero">
+    <h1>Choose Your Protection Plan</h1>
+    <p>Affordable, scalable cybersecurity solutions for Kenyan businesses</p>
+  </header>
 
-  <!-- Floating Settings Panel -->
-  <div class="floating-menu" id="settingsMenu">
-    <h3>⚙️ Settings</h3>
-    <button>🌙 Dark Mode</button>
-    <button>🔔 Notifications</button>
-    <button>🛡️ Privacy</button>
-  </div>
-  <section class="pricing">
-    <h2>Our Packages</h2>
-
-    <div class="package">
-      <h3>Basic – $99/month</h3>
-      <p>✔ Network security essentials</p>
-      <p>✔ Firewall configuration & monitoring</p>
-      <p>✔ Basic malware detection</p>
-      <p>✔ Monthly security reports</p>
-      <p><strong>Best for:</strong> Small businesses starting their cybersecurity journey.</p>
-      <button onclick="payWithMpesa(99)">Subscribe</button>
+  <!-- Pricing Cards -->
+  <section class="pricing-container">
+    <div class="package-card">
+      <h3>Basic</h3>
+      <div class="price">$99<span>/month</span></div>
+      <ul>
+        <li>✔ Network security essentials</li>
+        <li>✔ Firewall configuration & monitoring</li>
+        <li>✔ Basic malware detection</li>
+        <li>✔ Monthly security reports</li>
+      </ul>
+      <p><strong>Best for:</strong> Small businesses</p>
+      <a href="contact-us.html" class="package-btn">Choose Basic</a>
     </div>
 
-    <div class="package">
-      <h3>Standard – $199/month</h3>
-      <p>✔ Everything in Basic</p>
-      <p>✔ Endpoint protection (PCs, laptops, mobile devices)</p>
-      <p>✔ Email security & phishing defense</p>
-      <p>✔ 24/7 monitoring & incident response</p>
-      <p><strong>Best for:</strong> Growing companies needing stronger protection across devices.</p>
-      <button onclick="payWithMpesa(199)">Subscribe</button>
+    <div class="package-card popular">
+      <div class="popular-badge">Most Popular</div>
+      <h3>Standard</h3>
+      <div class="price">$199<span>/month</span></div>
+      <ul>
+        <li>✔ Everything in Basic</li>
+        <li>✔ Endpoint protection (all devices)</li>
+        <li>✔ Email security & anti-phishing</li>
+        <li>✔ 24/7 monitoring & response</li>
+      </ul>
+      <p><strong>Best for:</strong> Growing companies</p>
+      <a href="contact-us.html" class="package-btn">Choose Standard</a>
     </div>
 
-    <div class="package">
-      <h3>Premium – $299/month</h3>
-      <p>✔ Everything in Standard</p>
-      <p>✔ Full penetration testing & vulnerability assessments</p>
-      <p>✔ Employee cybersecurity awareness training</p>
-      <p>✔ Advanced threat intelligence integration</p>
-      <p>✔ Priority support & dedicated account manager</p>
-      <p><strong>Best for:</strong> Enterprises requiring comprehensive, proactive defense.</p>
-      <button onclick="payWithMpesa(299)">Subscribe</button>
+    <div class="package-card">
+      <h3>Premium</h3>
+      <div class="price">$299<span>/month</span></div>
+      <ul>
+        <li>✔ Everything in Standard</li>
+        <li>✔ Penetration testing</li>
+        <li>✔ Employee training programs</li>
+        <li>✔ Advanced threat intelligence</li>
+        <li>✔ Priority support</li>
+      </ul>
+      <p><strong>Best for:</strong> Established businesses</p>
+      <a href="contact-us.html" class="package-btn">Choose Premium</a>
     </div>
 
-    <div class="package">
-      <h3>Enterprise – Custom Pricing</h3>
-      <p>✔ Tailored cybersecurity strategy</p>
-      <p>✔ Compliance support (ISO, GDPR, HIPAA)</p>
-      <p>✔ Cloud security & data encryption</p>
-      <p>✔ On-site audits & consulting</p>
-      <p><strong>Best for:</strong> Large organizations with complex IT infrastructures.</p>
+    <div class="package-card">
+      <h3>Enterprise</h3>
+      <div class="price">Custom</div>
+      <ul>
+        <li>✔ Tailored security strategy</li>
+        <li>✔ Compliance & audits</li>
+        <li>✔ Cloud & data encryption</li>
+        <li>✔ Dedicated account manager</li>
+      </ul>
+      <p><strong>Best for:</strong> Large organizations</p>
+      <a href="contact-us.html" class="package-btn">Contact Sales</a>
     </div>
   </section>
+
+  <footer>
+    <p>&copy; 2026 Infinite Cyberspace Hub • Kisumu, Kenya</p>
+  </footer>
 </body>
 </html>
 
