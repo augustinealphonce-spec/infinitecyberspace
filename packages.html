@@ -7,10 +7,47 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  
+  <style>
+    .pricing-card {
+      background: #1f2937;
+      border: 1px solid #475569;
+      border-radius: 24px;
+      padding: 40px 30px;
+      transition: all 0.4s ease;
+    }
+    .pricing-card:hover {
+      border-color: #67e8f9;
+      transform: translateY(-12px);
+      box-shadow: 0 25px 50px -12px rgba(103, 232, 249, 0.2);
+    }
+    .pricing-card.popular {
+      border: 2px solid #67e8f9;
+      position: relative;
+    }
+    .pricing-card.popular::before {
+      content: "MOST POPULAR";
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #67e8f9;
+      color: #0a0a0a;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 24px;
+      border-radius: 9999px;
+    }
+    .price {
+      font-size: 3.8rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+  </style>
 </head>
 <body class="bg-[#0a0a0a]">
 
-  <!-- ==================== NAVBAR ==================== -->
+  <!-- Navbar -->
   <nav class="navbar py-5">
     <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
       <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
@@ -30,77 +67,76 @@
   </nav>
 
   <!-- Hero -->
-  <section class="py-20 bg-gradient-to-b from-[#0a0a0a] to-[#18181b] text-center">
+  <section class="py-20 text-center bg-gradient-to-b from-[#0a0a0a] to-[#1e2937]">
     <div class="max-w-4xl mx-auto px-6">
       <h1 class="text-5xl md:text-6xl font-bold mb-6 cyber-glow">Choose Your Protection Plan</h1>
-      <p class="text-xl text-zinc-400">
-        Affordable and powerful cybersecurity solutions for Kenyan businesses
+      <p class="text-xl text-[#cbd5e1]">
+        Affordable, powerful cybersecurity solutions for Kenyan businesses
       </p>
     </div>
   </section>
 
-  <!-- Pricing Section -->
+  <!-- Pricing Cards -->
   <section class="py-20">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-        <!-- Basic Plan -->
+        <!-- Basic -->
         <div class="pricing-card">
-          <h3 class="text-2xl font-semibold mb-1">Basic</h3>
-          <div class="price mb-8">$99<span>/month</span></div>
-          <ul class="feature-list space-y-4 mb-10 text-zinc-300">
-            <li><i class="fas fa-check"></i> Network security essentials</li>
-            <li><i class="fas fa-check"></i> Firewall configuration & monitoring</li>
-            <li><i class="fas fa-check"></i> Basic malware detection</li>
-            <li><i class="fas fa-check"></i> Monthly security reports</li>
+          <h3 class="text-2xl font-semibold mb-2">Basic</h3>
+          <div class="price mb-8">$99<span class="text-base font-normal text-[#94a3b8]">/month</span></div>
+          <ul class="space-y-4 mb-10 text-[#cbd5e1]">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Network security essentials</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Firewall configuration</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Basic malware protection</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Monthly reports</li>
           </ul>
-          <a href="contact.html" class="block w-full text-center py-4 border border-zinc-600 rounded-2xl hover:bg-zinc-800 transition font-medium">
+          <a href="contact.html" class="block w-full text-center py-4 border border-slate-600 rounded-2xl hover:bg-slate-700 transition font-medium">
             Choose Basic
           </a>
         </div>
 
-        <!-- Standard Plan (Popular) -->
+        <!-- Standard - Popular -->
         <div class="pricing-card popular">
-          <h3 class="text-2xl font-semibold mb-1">Standard</h3>
-          <div class="price mb-8">$199<span>/month</span></div>
-          <ul class="feature-list space-y-4 mb-10 text-zinc-300">
-            <li><i class="fas fa-check"></i> Everything in Basic</li>
-            <li><i class="fas fa-check"></i> Endpoint protection for all devices</li>
-            <li><i class="fas fa-check"></i> Email security & anti-phishing</li>
-            <li><i class="fas fa-check"></i> 24/7 monitoring & response</li>
+          <h3 class="text-2xl font-semibold mb-2">Standard</h3>
+          <div class="price mb-8">$199<span class="text-base font-normal text-[#94a3b8]">/month</span></div>
+          <ul class="space-y-4 mb-10 text-[#cbd5e1]">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Everything in Basic</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Endpoint protection</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Email security</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> 24/7 monitoring</li>
           </ul>
-          <a href="contact.html" class="block w-full text-center py-4 bg-gradient-to-r from-blue-500 to-cyan-400 text-black rounded-2xl font-semibold hover:brightness-110 transition">
+          <a href="contact.html" class="block w-full text-center py-4 bg-gradient-to-r from-blue-500 to-cyan-400 text-black font-semibold rounded-2xl hover:brightness-110 transition">
             Choose Standard
           </a>
         </div>
 
-        <!-- Premium Plan -->
+        <!-- Premium -->
         <div class="pricing-card">
-          <h3 class="text-2xl font-semibold mb-1">Premium</h3>
-          <div class="price mb-8">$299<span>/month</span></div>
-          <ul class="feature-list space-y-4 mb-10 text-zinc-300">
-            <li><i class="fas fa-check"></i> Everything in Standard</li>
-            <li><i class="fas fa-check"></i> Penetration testing</li>
-            <li><i class="fas fa-check"></i> Employee training programs</li>
-            <li><i class="fas fa-check"></i> Advanced threat intelligence</li>
-            <li><i class="fas fa-check"></i> Priority support</li>
+          <h3 class="text-2xl font-semibold mb-2">Premium</h3>
+          <div class="price mb-8">$299<span class="text-base font-normal text-[#94a3b8]">/month</span></div>
+          <ul class="space-y-4 mb-10 text-[#cbd5e1]">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Everything in Standard</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Penetration testing</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Employee training</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Priority support</li>
           </ul>
-          <a href="contact.html" class="block w-full text-center py-4 border border-zinc-600 rounded-2xl hover:bg-zinc-800 transition font-medium">
+          <a href="contact.html" class="block w-full text-center py-4 border border-slate-600 rounded-2xl hover:bg-slate-700 transition font-medium">
             Choose Premium
           </a>
         </div>
 
-        <!-- Enterprise Plan -->
+        <!-- Enterprise -->
         <div class="pricing-card">
-          <h3 class="text-2xl font-semibold mb-1">Enterprise</h3>
-          <div class="price mb-8 text-4xl">Custom</div>
-          <ul class="feature-list space-y-4 mb-10 text-zinc-300">
-            <li><i class="fas fa-check"></i> Tailored security strategy</li>
-            <li><i class="fas fa-check"></i> Compliance & audits</li>
-            <li><i class="fas fa-check"></i> Cloud & data encryption</li>
-            <li><i class="fas fa-check"></i> Dedicated account manager</li>
+          <h3 class="text-2xl font-semibold mb-2">Enterprise</h3>
+          <div class="price text-4xl mb-8">Custom</div>
+          <ul class="space-y-4 mb-10 text-[#cbd5e1]">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Tailored security strategy</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Compliance & audits</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Cloud encryption</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Dedicated manager</li>
           </ul>
-          <a href="contact.html" class="block w-full text-center py-4 border border-zinc-600 rounded-2xl hover:bg-zinc-800 transition font-medium">
+          <a href="contact.html" class="block w-full text-center py-4 border border-slate-600 rounded-2xl hover:bg-slate-700 transition font-medium">
             Contact Sales
           </a>
         </div>
