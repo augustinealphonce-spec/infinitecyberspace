@@ -1,67 +1,105 @@
 /* ============================================= */
-/* SERVICES PAGE - CYBER STYLE                   */
+/* MAIN CSS - BETTER VISIBILITY & CONTRAST       */
 /* ============================================= */
 
-.services-hero {
-  background: linear-gradient(135deg, #0a0a0a, #1e2937);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --primary: #3b82f6;
+  --accent: #67e8f9;
+  --dark: #0a0a0a;
+  --card: #1f2937;           /* Better card background */
+  --text-main: #f1f5f9;
+  --text-light: #cbd5e1;
 }
 
-.service-card {
-  background: #18181b;
-  border: 1px solid #3f3f46;
-  border-radius: 24px;
-  padding: 40px 32px;
-  transition: all 0.4s ease;
-  height: 100%;
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--dark);
+  color: var(--text-main);
+  line-height: 1.7;
 }
 
-.service-card:hover {
-  border-color: #22d3ee;
-  transform: translateY(-12px);
-  box-shadow: 0 25px 50px -12px rgba(34, 211, 238, 0.15);
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #f8fafc;
 }
 
-.service-card i {
-  font-size: 3rem;
-  background: linear-gradient(135deg, #3b82f6, #22d3ee);
+/* Navbar */
+.navbar {
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(103, 232, 249, 0.25);
+}
+
+.logo {
+  font-size: 1.9rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #3b82f6, #67e8f9);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 1.5rem;
 }
 
-.service-card h3 {
-  font-size: 1.75rem;
-  margin-bottom: 1rem;
-  color: white;
+.nav-link {
+  color: #e2e8f0;
+  font-weight: 500;
 }
 
-.feature-list {
-  list-style: none;
-  margin-top: 1.5rem;
+.nav-link:hover {
+  color: var(--accent);
 }
 
-.feature-list li {
-  padding: 10px 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+/* Cards - Fixed Visibility */
+.service-card,
+.pricing-card,
+.contact-card,
+.ceo-card,
+.plan-card {
+  background: var(--card) !important;
+  border: 1px solid #475569;
+  border-radius: 24px;
+  color: var(--text-main);
 }
 
-.feature-list li i {
-  color: #22c55e;
-  margin-top: 3px;
+.service-card:hover,
+.pricing-card:hover,
+.contact-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px rgba(103, 232, 249, 0.15);
 }
 
-/* Service Category Badges */
-.category-badge {
-  display: inline-block;
-  padding: 6px 18px;
-  background: rgba(34, 211, 238, 0.1);
-  color: #22d3ee;
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(90deg, #3b82f6, #67e8f9);
+  color: #0f172a;
+  font-weight: 700;
+  padding: 14px 32px;
   border-radius: 9999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
 }
 
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(103, 232, 249, 0.6);
+}
+
+.btn-outline {
+  border: 2px solid #67e8f9;
+  color: #67e8f9;
+  padding: 12px 28px;
+  border-radius: 9999px;
+}
+
+.btn-outline:hover {
+  background: #67e8f9;
+  color: #0a0a0a;
+}
+
+/* Text Improvements */
+p, li {
+  color: var(--text-light);
+}
+
+.cyber-glow {
+  text-shadow: 0 0 15px var(--accent);
+}
 
