@@ -1,207 +1,38 @@
-/* Global Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", "Segoe UI", sans-serif;
+/* ============================================= */
+/* ABOUT US PAGE - CYBER STYLE                   */
+/* ============================================= */
+
+.about-hero {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1e3a8a 100%);
 }
 
-/* Body */
-body {
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-  color: #f5f5f5;
-  line-height: 1.7;
-  font-size: 16px;
-  padding: 20px;
+.ceo-card {
+  background: #18181b;
+  border: 1px solid #3f3f46;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.4s ease;
 }
 
-/* Highlight Class */
-.highlight {
-  color: #e0b84c;
-  font-weight: 600;
-}
-/* ===== Sidebar Navigation ===== */
-.sidebar {
-  position: fixed;
-  top: 50%;
-  left: 20px;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+.ceo-card:hover {
+  border-color: #22d3ee;
+  transform: translateY(-8px);
 }
 
-.sidebar ul { list-style: none; padding: 0; }
-.sidebar li { margin: 15px 0; }
-
-.sidebar a {
-  font-size: 1.2rem;
-  color: #e6edf3;
-  text-decoration: none;
-  position: relative;
-  transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
-}
-
-.sidebar a:hover {
-  color: #58a6ff;
-  text-shadow: 0 0 8px rgba(88,166,255,0.6);
-  transform: scale(1.05);
-}
-
-/* Ripple Effect */
-.sidebar a:active::after,
-.bottom-nav a:active::after,
-.bottom-nav button:active::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 215, 0, 0.6);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: ripple 0.6s ease-out;
-}
-
-@keyframes ripple {
-  0% { width: 0; height: 0; opacity: 0.8; }
-  100% { width: 120px; height: 120px; opacity: 0; }
-}
-/* ===========================
-   Bottom Navigation (Mobile Only)
-=========================== */
-.bottom-nav {
-  position: fixed;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,120,212,0.2));
-  backdrop-filter: blur(12px);
-  border-radius: 30px;
-  display: flex;
-  justify-content: space-around;
-  width: 90%;
-  max-width: 420px;
-  padding: 12px;
-  z-index: 1500;
-  opacity: 1; /* ✅ Make it visible by default */
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-.bottom-nav.show {
-  transform: translateX(-50%) translateY(0);
-}
-
-/* Bottom Nav Links */
-.bottom-nav a,
-.bottom-nav button {
-  color: #e6edf3;
-  font-size: 20px;
-  background: none;
-  border: none;
-  position: relative;
-  text-decoration: none;
-  transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
-}
-
-.bottom-nav a:hover,
-.bottom-nav button:hover {
-  color: #58a6ff;
-  text-shadow: 0 0 8px rgba(88,166,255,0.6);
-  transform: scale(1.05);
-}
-
-/* Responsive */
-@media (min-width: 769px) {
-  .bottom-nav { display: none; } /* Hide bottom nav on desktop */
-}
-
-@media (max-width: 768px) {
-  .sidebar { display: none; } /* Hide sidebar on mobile */
-}
-
-
-/* Floating Settings Menu */
-.floating-menu {
-  position: fixed;
-  top: 20%;
-  right: 20px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(15px);
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-  display: none;
-}
-
-.floating-menu h3 {
-  margin-bottom: 15px;
-  color: #e0b84c;
-}
-
-.floating-menu button {
-  display: block;
+.ceo-image {
   width: 100%;
-  margin: 10px 0;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #e0b84c, #c49a2c);
-  color: #0f0f0f;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
+  height: 320px;
+  object-fit: cover;
+  border-bottom: 3px solid #22d3ee;
 }
 
-.floating-menu button:hover {
-  background: linear-gradient(135deg, #ffffff, #e0b84c);
-  color: #000;
+.stats-box {
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  border-radius: 16px;
 }
 
-/* Sections */
-section {
-  margin: 60px auto;
-  max-width: 900px;
-  padding: 30px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-}
-
-section h1, section h2 {
-  color: #e0b84c;
-  margin-bottom: 15px;
-  font-weight: 700;
-}
-
-section p {
-  margin-bottom: 15px;
-  color: #ddd;
-}
-
-/* Quote Section */
-.quote-section {
-  text-align: center;
-  font-size: 20px;
-  font-style: italic;
-  color: #e0b84c;
-  margin-top: 40px;
-  padding: 20px;
-  border-left: 4px solid #e0b84c;
-  background: rgba(255,255,255,0.05);
-  border-radius: 12px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-  .bottom-nav {
-    display: flex;
-  }
+.mission-box {
+  background: linear-gradient(145deg, #1e2937, #0f172a);
+  border-left: 5px solid #22d3ee;
 }
