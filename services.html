@@ -6,8 +6,33 @@
   <title>Services - Infinite Cyberspace Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/services.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  
+  <style>
+    .service-card {
+      background: #1f2937;
+      border: 1px solid #475569;
+      border-radius: 24px;
+      padding: 40px 32px;
+      transition: all 0.4s ease;
+      height: 100%;
+    }
+    .service-card:hover {
+      border-color: #67e8f9;
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px -12px rgba(103, 232, 249, 0.2);
+    }
+    .service-card i {
+      font-size: 3.2rem;
+      color: #67e8f9;
+      margin-bottom: 1.5rem;
+    }
+    .service-card h3 {
+      color: #f1f5f9;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body class="bg-[#0a0a0a]">
 
@@ -31,11 +56,11 @@
   </nav>
 
   <!-- Hero -->
-  <section class="services-hero py-24 text-center">
+  <section class="py-24 text-center bg-gradient-to-b from-[#0a0a0a] to-[#1e2937]">
     <div class="max-w-4xl mx-auto px-6">
-      <h1 class="text-5xl md:text-6xl font-bold mb-6 cyber-glow">Our Cybersecurity Services</h1>
-      <p class="text-xl text-zinc-400 max-w-2xl mx-auto">
-        Protecting Kenyan businesses with world-class cybersecurity and IT solutions
+      <h1 class="text-5xl md:text-6xl font-bold mb-6">Our Services</h1>
+      <p class="text-xl text-[#cbd5e1]">
+        Professional cybersecurity and IT solutions for Kenyan businesses
       </p>
     </div>
   </section>
@@ -45,80 +70,46 @@
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <!-- Service 1 -->
         <div class="service-card">
           <i class="fas fa-shield-alt"></i>
-          <span class="category-badge">Core Protection</span>
           <h3>Cybersecurity Solutions</h3>
-          <p class="text-zinc-400">
-            Advanced threat detection, firewalls, endpoint protection, and real-time monitoring tailored for Kenyan SMEs.
+          <p class="text-[#cbd5e1]">
+            Advanced threat detection, firewalls, endpoint protection, and real-time monitoring.
           </p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check"></i> 24/7 Threat Monitoring</li>
-            <li><i class="fas fa-check"></i> Firewall & Network Security</li>
-            <li><i class="fas fa-check"></i> Endpoint Protection</li>
-            <li><i class="fas fa-check"></i> Vulnerability Scanning</li>
+          <ul class="mt-6 space-y-3 text-[#cbd5e1]">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> 24/7 Threat Monitoring</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Firewall & Network Security</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Endpoint Protection</li>
           </ul>
         </div>
 
-        <!-- Service 2 -->
         <div class="service-card">
           <i class="fas fa-headset"></i>
-          <span class="category-badge">Support</span>
           <h3>IT Support & Maintenance</h3>
-          <p class="text-zinc-400">
-            Reliable remote and on-site IT support with fast response times and staff training.
+          <p class="text-[#cbd5e1]">
+            Reliable remote and on-site support with fast response times.
           </p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check"></i> Remote Technical Support</li>
-            <li><i class="fas fa-check"></i> Hardware & Software Maintenance</li>
-            <li><i class="fas fa-check"></i> Staff IT Training</li>
-            <li><i class="fas fa-check"></i> System Optimization</li>
+          <ul class="mt-6 space-y-3 text-[#cbd5e1]">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Remote Technical Support</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Hardware & Software Maintenance</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Staff Training</li>
           </ul>
         </div>
 
-        <!-- Service 3 -->
         <div class="service-card">
           <i class="fas fa-graduation-cap"></i>
-          <span class="category-badge">Training</span>
           <h3>Cybersecurity Training</h3>
-          <p class="text-zinc-400">
-            Build a strong security culture with employee awareness programs and phishing simulations.
+          <p class="text-[#cbd5e1]">
+            Build security awareness with practical training and simulations.
           </p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check"></i> Phishing Simulation Exercises</li>
-            <li><i class="fas fa-check"></i> Security Awareness Workshops</li>
-            <li><i class="fas fa-check"></i> E-learning Modules</li>
-            <li><i class="fas fa-check"></i> Certification Preparation</li>
-          </ul>
-        </div>
-
-        <!-- Service 4 -->
-        <div class="service-card">
-          <i class="fas fa-search"></i>
-          <span class="category-badge">Expert</span>
-          <h3>Consulting & Audits</h3>
-          <p class="text-zinc-400">
-            Professional security audits, penetration testing, and compliance consulting.
-          </p>
-          <ul class="feature-list">
-            <li><i class="fas fa-check"></i> Penetration Testing</li>
-            <li><i class="fas fa-check"></i> Risk Assessment</li>
-            <li><i class="fas fa-check"></i> Compliance Support (KE-CIRT, GDPR)</li>
-            <li><i class="fas fa-check"></i> Security Strategy Development</li>
+          <ul class="mt-6 space-y-3 text-[#cbd5e1]">
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Phishing Simulations</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> Employee Workshops</li>
+            <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-400"></i> E-learning Modules</li>
           </ul>
         </div>
 
       </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="py-16 bg-gradient-to-r from-blue-900/20 to-cyan-900/20 border-t border-b border-blue-500/30">
-    <div class="max-w-4xl mx-auto text-center px-6">
-      <h2 class="text-4xl font-bold mb-4">Ready to secure your business?</h2>
-      <p class="text-zinc-400 mb-8">Book a free consultation with our cybersecurity experts today.</p>
-      <a href="contact.html" class="btn-primary text-lg px-12 py-5">Get Free Consultation</a>
     </div>
   </section>
 
