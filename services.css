@@ -47,6 +47,29 @@ h1, h2, h3, h4 {
   color: #00ffcc;
 }
 
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+}
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #00ffcc;
+  color: #0f0f0f;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.btn:hover {
+  background: #00cc99;
+}
+
 /* Cards - Fixed Visibility */
 .service-card,
 .pricing-card,
