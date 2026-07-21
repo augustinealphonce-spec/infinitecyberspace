@@ -1,64 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Infinite Cyberspace Hub - Professional Cybersecurity and IT Solutions for SMEs in Kenya. Protect your business with confidence.">
-  <meta name="keywords" content="cybersecurity Kenya, IT support Kisumu, SME security, firewall, antivirus, digital training">
-  <meta name="author" content="Augustine Ouma">
-
-  <title>Infinite Cyberspace Hub | Cybersecurity & IT Solutions</title>
-  
-  <link rel="icon" type="image/jpeg" href="Infinite.jpg" />
-  <link rel="stylesheet" href="index.css" />
+  <title>Infinite Cyberspace Hub | Cybersecurity Kenya</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .cyber-glow { text-shadow: 0 0 15px rgb(59 130 246); }
+    .hero-bg {
+      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), 
+                  url('https://source.unsplash.com/random/1920x1080/?cybersecurity') center/cover;
+    }
+  </style>
 </head>
-<body>
-  <!-- Main Navigation -->
-  <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="latest-updates.html">📰 Updates</a>
-    <a href="services.html">🛡️ Services</a>
-    <a href="packages.html">💰 Packages</a>
-    <a href="CEO Profile.html">👤 CEO</a>
-    <a href="contact-us.html">📞 Contact</a>
+<body class="bg-zinc-950 text-zinc-100">
+
+  <!-- Navbar -->
+  <nav class="bg-black/80 backdrop-blur-md border-b border-blue-500/20 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold tracking-tight cyber-glow text-blue-400">INFINITE<span class="text-white">CYBER</span></h1>
+      <div class="flex gap-8 text-sm font-medium">
+        <a href="index.html" class="hover:text-blue-400 transition">Home</a>
+        <a href="services.html" class="hover:text-blue-400 transition">Services</a>
+        <a href="packages.html" class="hover:text-blue-400 transition">Packages</a>
+        <a href="about.html" class="hover:text-blue-400 transition">About Us</a>
+        <a href="contact.html" class="hover:text-blue-400 transition">Contact</a>
+      </div>
+    </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <h1>Welcome to Infinite Cyberspace Hub</h1>
-    <p>Securing the Future of Kenyan Businesses</p>
-    <p><strong>Cybersecurity • IT Support • Digital Innovation</strong></p>
-    <a href="packages.html" class="cta-button">Find Your Plan</a>
-    <a href="contact-us.html" class="cta-button secondary">Get Free Consultation</a>
-  </header>
-
-  <!-- Core Services -->
-  <section class="services">
-    <h2>Our Core Services</h2>
-    
-    <div class="service-grid">
-      <div class="service-card">
-        <h3>🔒 Cybersecurity Solutions</h3>
-        <p>Threat detection, firewalls, endpoint protection for SMEs.</p>
-      </div>
-      <div class="service-card">
-        <h3>🌍 Innovation Hub</h3>
-        <p>Collaborate and test new ideas in a secure digital space.</p>
-      </div>
-      <div class="service-card">
-        <h3>📞 IT Support</h3>
-        <p>Reliable remote support and training.</p>
-      </div>
-      <div class="service-card">
-        <h3>📊 Consulting & Training</h3>
-        <p>Build resilience with expert workshops.</p>
+  <!-- Hero -->
+  <section class="hero-bg h-screen flex items-center">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+        Securing Kenya's<br>Digital Future
+      </h2>
+      <p class="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto">
+        Professional Cybersecurity • IT Support • Digital Innovation for Kenyan businesses
+      </p>
+      <div class="flex gap-4 justify-center">
+        <a href="packages.html" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-semibold text-lg transition">Get Protected Now</a>
+        <a href="contact.html" class="border border-blue-500 hover:bg-blue-500/10 px-8 py-4 rounded-xl font-semibold text-lg transition">Free Consultation</a>
       </div>
     </div>
   </section>
 
-  <footer>
-    <p>&copy; 2026 Infinite Cyberspace Hub • Kisumu, Kenya</p>
-  </footer>
+  <!-- Rest of sections (Services, Stats, Testimonials, CTA) ... -->
+
 </body>
 </html>
 
