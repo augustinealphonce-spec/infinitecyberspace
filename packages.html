@@ -1,89 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pricing Packages - Infinite Cyberspace Hub</title>
-  <link rel="stylesheet" href="packages.css" />
-  <link rel="icon" type="image/jpeg" href="Infinite.jpg" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Packages - Infinite Cyberspace Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
-<body>
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="Latest Updates.html">📰 Updates</a>
-    <a href="Services.html">🛡️ Services</a>
-    <a href="packages.html">💰 Packages</a>
-    <a href="CEO Profile.html">👤 CEO</a>
-    <a href="contact-us.html">📞 Contact</a>
+<body class="bg-[#0a0a0a]">
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar py-5">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
+      
+      <div class="flex items-center gap-8 text-sm">
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="packages.html" class="nav-link">Packages</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="packages.html" class="btn-primary">Get Protected Now</a>
+        <a href="contact.html" class="btn-outline">Free Consultation</a>
+      </div>
+    </div>
   </nav>
 
   <!-- Hero -->
-  <header class="pricing-hero">
-    <h1>Choose Your Protection Plan</h1>
-    <p>Affordable, scalable cybersecurity solutions for Kenyan businesses</p>
-  </header>
-
-  <!-- Pricing Cards -->
-  <section class="pricing-container">
-    <div class="package-card">
-      <h3>Basic</h3>
-      <div class="price">$99<span>/month</span></div>
-      <ul>
-        <li>✔ Network security essentials</li>
-        <li>✔ Firewall configuration & monitoring</li>
-        <li>✔ Basic malware detection</li>
-        <li>✔ Monthly security reports</li>
-      </ul>
-      <p><strong>Best for:</strong> Small businesses</p>
-      <a href="contact-us.html" class="package-btn">Choose Basic</a>
-    </div>
-
-    <div class="package-card popular">
-      <div class="popular-badge">Most Popular</div>
-      <h3>Standard</h3>
-      <div class="price">$199<span>/month</span></div>
-      <ul>
-        <li>✔ Everything in Basic</li>
-        <li>✔ Endpoint protection (all devices)</li>
-        <li>✔ Email security & anti-phishing</li>
-        <li>✔ 24/7 monitoring & response</li>
-      </ul>
-      <p><strong>Best for:</strong> Growing companies</p>
-      <a href="contact-us.html" class="package-btn">Choose Standard</a>
-    </div>
-
-    <div class="package-card">
-      <h3>Premium</h3>
-      <div class="price">$299<span>/month</span></div>
-      <ul>
-        <li>✔ Everything in Standard</li>
-        <li>✔ Penetration testing</li>
-        <li>✔ Employee training programs</li>
-        <li>✔ Advanced threat intelligence</li>
-        <li>✔ Priority support</li>
-      </ul>
-      <p><strong>Best for:</strong> Established businesses</p>
-      <a href="contact-us.html" class="package-btn">Choose Premium</a>
-    </div>
-
-    <div class="package-card">
-      <h3>Enterprise</h3>
-      <div class="price">Custom</div>
-      <ul>
-        <li>✔ Tailored security strategy</li>
-        <li>✔ Compliance & audits</li>
-        <li>✔ Cloud & data encryption</li>
-        <li>✔ Dedicated account manager</li>
-      </ul>
-      <p><strong>Best for:</strong> Large organizations</p>
-      <a href="contact-us.html" class="package-btn">Contact Sales</a>
+  <section class="py-20 bg-gradient-to-b from-[#0a0a0a] to-[#18181b] text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 cyber-glow">Choose Your Protection Plan</h1>
+      <p class="text-xl text-zinc-400">
+        Affordable and powerful cybersecurity solutions for Kenyan businesses
+      </p>
     </div>
   </section>
 
-  <footer>
-    <p>&copy; 2026 Infinite Cyberspace Hub • Kisumu, Kenya</p>
-  </footer>
+  <!-- Pricing Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- Basic Plan -->
+        <div class="pricing-card">
+          <h3 class="text-2xl font-semibold mb-1">Basic</h3>
+          <div class="price mb-8">$99<span>/month</span></div>
+          <ul class="feature-list space-y-4 mb-10 text-zinc-300">
+            <li><i class="fas fa-check"></i> Network security essentials</li>
+            <li><i class="fas fa-check"></i> Firewall configuration & monitoring</li>
+            <li><i class="fas fa-check"></i> Basic malware detection</li>
+            <li><i class="fas fa-check"></i> Monthly security reports</li>
+          </ul>
+          <a href="contact.html" class="block w-full text-center py-4 border border-zinc-600 rounded-2xl hover:bg-zinc-800 transition font-medium">
+            Choose Basic
+          </a>
+        </div>
+
+        <!-- Standard Plan (Popular) -->
+        <div class="pricing-card popular">
+          <h3 class="text-2xl font-semibold mb-1">Standard</h3>
+          <div class="price mb-8">$199<span>/month</span></div>
+          <ul class="feature-list space-y-4 mb-10 text-zinc-300">
+            <li><i class="fas fa-check"></i> Everything in Basic</li>
+            <li><i class="fas fa-check"></i> Endpoint protection for all devices</li>
+            <li><i class="fas fa-check"></i> Email security & anti-phishing</li>
+            <li><i class="fas fa-check"></i> 24/7 monitoring & response</li>
+          </ul>
+          <a href="contact.html" class="block w-full text-center py-4 bg-gradient-to-r from-blue-500 to-cyan-400 text-black rounded-2xl font-semibold hover:brightness-110 transition">
+            Choose Standard
+          </a>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="pricing-card">
+          <h3 class="text-2xl font-semibold mb-1">Premium</h3>
+          <div class="price mb-8">$299<span>/month</span></div>
+          <ul class="feature-list space-y-4 mb-10 text-zinc-300">
+            <li><i class="fas fa-check"></i> Everything in Standard</li>
+            <li><i class="fas fa-check"></i> Penetration testing</li>
+            <li><i class="fas fa-check"></i> Employee training programs</li>
+            <li><i class="fas fa-check"></i> Advanced threat intelligence</li>
+            <li><i class="fas fa-check"></i> Priority support</li>
+          </ul>
+          <a href="contact.html" class="block w-full text-center py-4 border border-zinc-600 rounded-2xl hover:bg-zinc-800 transition font-medium">
+            Choose Premium
+          </a>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="pricing-card">
+          <h3 class="text-2xl font-semibold mb-1">Enterprise</h3>
+          <div class="price mb-8 text-4xl">Custom</div>
+          <ul class="feature-list space-y-4 mb-10 text-zinc-300">
+            <li><i class="fas fa-check"></i> Tailored security strategy</li>
+            <li><i class="fas fa-check"></i> Compliance & audits</li>
+            <li><i class="fas fa-check"></i> Cloud & data encryption</li>
+            <li><i class="fas fa-check"></i> Dedicated account manager</li>
+          </ul>
+          <a href="contact.html" class="block w-full text-center py-4 border border-zinc-600 rounded-2xl hover:bg-zinc-800 transition font-medium">
+            Contact Sales
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>
 
