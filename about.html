@@ -6,8 +6,26 @@
   <title>About Us - Infinite Cyberspace Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/about.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  
+  <style>
+    .ceo-card {
+      background: #1f2937;
+      border: 1px solid #64748b;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .ceo-image {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+    }
+    .stats-box {
+      background: #1f2937;
+      border: 1px solid #64748b;
+      border-radius: 16px;
+    }
+  </style>
 </head>
 <body class="bg-[#0a0a0a]">
 
@@ -31,11 +49,11 @@
   </nav>
 
   <!-- Hero -->
-  <section class="about-hero py-24 text-center">
+  <section class="py-24 text-center bg-gradient-to-b from-[#0a0a0a] to-[#1e2937]">
     <div class="max-w-4xl mx-auto px-6">
-      <h1 class="text-5xl md:text-6xl font-bold mb-6 cyber-glow">About Infinite Cyberspace Hub</h1>
-      <p class="text-2xl text-zinc-300">
-        Securing the future of Kenyan businesses in the digital age
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 cyber-glow">About Us</h1>
+      <p class="text-xl text-[#cbd5e1]">
+        Securing the digital future of Kenyan businesses
       </p>
     </div>
   </section>
@@ -43,72 +61,45 @@
   <!-- Mission -->
   <section class="py-20">
     <div class="max-w-5xl mx-auto px-6">
-      <div class="mission-box p-10 md:p-16 rounded-3xl">
+      <div class="bg-[#1f2937] border border-[#475569] p-12 md:p-16 rounded-3xl">
         <h2 class="text-4xl font-bold mb-6">Our Mission</h2>
-        <p class="text-lg text-zinc-300 leading-relaxed">
+        <p class="text-[#cbd5e1] text-lg leading-relaxed">
           To provide world-class cybersecurity and IT solutions that empower Kenyan businesses 
-          to thrive safely in the digital economy. We believe every Kenyan company — from startups 
-          to enterprises — deserves enterprise-grade protection at affordable prices.
+          to operate safely and confidently in the digital world. We make enterprise-grade protection 
+          accessible to businesses of all sizes.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- CEO Profile -->
+  <!-- CEO -->
   <section class="py-20 bg-[#111113]">
-    <div class="max-w-5xl mx-auto px-6">
-      <h2 class="text-4xl font-bold text-center mb-12">Meet Our Founder & CEO</h2>
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-12">Meet Our CEO</h2>
       
       <div class="ceo-card max-w-2xl mx-auto">
-        <img src="https://via.placeholder.com/800x400/1e3a8a/ffffff?text=Augustine+Alphonce" 
-             alt="Augustine Alphonce - CEO" 
-             class="ceo-image">
+        <img src="https://via.placeholder.com/800x400/1e40af/ffffff?text=Augustine+Alphonce+-+CEO" 
+             alt="CEO" class="ceo-image">
         
         <div class="p-10">
           <h3 class="text-3xl font-semibold mb-1">Augustine Alphonce</h3>
-          <p class="text-cyan-400 font-medium mb-6">Founder & CEO</p>
+          <p class="text-[#67e8f9] mb-6">Founder & CEO</p>
           
-          <p class="text-zinc-400 leading-relaxed mb-8">
-            With over 8 years of experience in cybersecurity and IT infrastructure, 
-            Augustine is passionate about making high-quality digital protection accessible 
-            to Kenyan businesses. He has helped numerous organizations strengthen their 
-            security posture and recover from cyber incidents.
+          <p class="text-[#cbd5e1] leading-relaxed mb-8">
+            Experienced cybersecurity professional with a passion for protecting Kenyan businesses. 
+            Dedicated to delivering practical, affordable, and effective security solutions.
           </p>
 
-          <div class="flex gap-6 text-sm">
+          <div class="grid grid-cols-2 gap-6 text-sm">
             <div>
-              <span class="block text-zinc-500">Expertise</span>
-              <span class="font-medium">Cyber Defense • Ethical Hacking • IT Strategy</span>
+              <span class="block text-[#94a3b8]">Expertise</span>
+              <span class="font-medium">Cyber Defense • IT Strategy • Training</span>
             </div>
             <div>
-              <span class="block text-zinc-500">Based in</span>
+              <span class="block text-[#94a3b8]">Location</span>
               <span class="font-medium">Nairobi, Kenya</span>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats -->
-  <section class="py-20">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div class="stats-box p-8">
-          <h4 class="text-5xl font-bold text-cyan-400 mb-2">500+</h4>
-          <p class="text-zinc-400">Businesses Protected</p>
-        </div>
-        <div class="stats-box p-8">
-          <h4 class="text-5xl font-bold text-cyan-400 mb-2">98%</h4>
-          <p class="text-zinc-400">Client Retention</p>
-        </div>
-        <div class="stats-box p-8">
-          <h4 class="text-5xl font-bold text-cyan-400 mb-2">24/7</h4>
-          <p class="text-zinc-400">Support Available</p>
-        </div>
-        <div class="stats-box p-8">
-          <h4 class="text-5xl font-bold text-cyan-400 mb-2">5+</h4>
-          <p class="text-zinc-400">Years Experience</p>
         </div>
       </div>
     </div>
