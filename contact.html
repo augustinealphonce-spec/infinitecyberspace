@@ -4,69 +4,136 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us - Infinite Cyberspace Hub</title>
-  <link rel="stylesheet" href="contact-us.css" />
-  <link rel="icon" type="image/jpeg" href="Infinite.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/contact.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
-<body>
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="latest updates.html">📰 Updates</a>
-    <a href="services.html">🛡️ Services</a>
-    <a href="packages.html">💰 Packages</a>
-    <a href="CEO Profile.html">👤 CEO</a>
-    <a href="contact-us.html">📞 Contact</a>
+<body class="bg-[#0a0a0a]">
+
+  <!-- Navbar -->
+  <nav class="navbar py-5">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
+      
+      <div class="flex items-center gap-8 text-sm">
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="packages.html" class="nav-link">Packages</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="packages.html" class="btn-primary">Get Protected Now</a>
+        <a href="contact.html" class="btn-outline">Free Consultation</a>
+      </div>
+    </div>
   </nav>
 
-  <section class="contact-section">
-    <h1>Get In Touch</h1>
-    <p>We'd love to hear from you. Send us a message and we'll respond within 24 hours.</p>
-
-    <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone">
-      </div>
-      
-      <div class="form-group">
-        <label for="service">Service Interested In</label>
-        <select id="service" name="service">
-          <option value="">Select a service</option>
-          <option value="Basic">Basic Protection</option>
-          <option value="Standard">Standard Protection</option>
-          <option value="Premium">Premium Protection</option>
-          <option value="Training">Cybersecurity Training</option>
-          <option value="Consulting">Consulting & Audit</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="6" required></textarea>
-      </div>
-      
-      <button type="submit" class="submit-btn">Send Message</button>
-    </form>
-
-    <div class="contact-info">
-      <p><strong>Phone:</strong> <a href="tel:+254768741052">+254 768 741052</a></p>
-      <p><strong>Email:</strong> <a href="mailto:infinitecyberspace.info@gmail.com">infinitecyberspace.info@gmail.com</a></p>
-      <p><strong>Location:</strong> Kisumu County, Kenya</p>
+  <!-- Hero -->
+  <section class="contact-hero py-20 text-center">
+    <div class="max-w-3xl mx-auto px-6">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 cyber-glow">Get In Touch</h1>
+      <p class="text-xl text-zinc-400">
+        Ready to secure your business? Let's talk.
+      </p>
     </div>
   </section>
 
-  <footer>
-    <p>&copy; 2026 Infinite Cyberspace Hub • Kisumu, Kenya</p>
-  </footer>
+  <div class="max-w-7xl mx-auto px-6 pb-20">
+    <div class="grid md:grid-cols-5 gap-10">
+
+      <!-- Contact Form -->
+      <div class="md:col-span-3">
+        <div class="contact-card">
+          <h2 class="text-3xl font-semibold mb-8">Send Us a Message</h2>
+          
+          <form action="#" method="POST">
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-sm text-zinc-400 mb-2">Full Name</label>
+                <input type="text" class="form-input" placeholder="John Doe" required>
+              </div>
+              <div>
+                <label class="block text-sm text-zinc-400 mb-2">Company Name</label>
+                <input type="text" class="form-input" placeholder="Your Company Ltd">
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="block text-sm text-zinc-400 mb-2">Email Address</label>
+              <input type="email" class="form-input" placeholder="you@company.co.ke" required>
+            </div>
+
+            <div class="mb-6">
+              <label class="block text-sm text-zinc-400 mb-2">Phone Number</label>
+              <input type="tel" class="form-input" placeholder="+254 700 000 000">
+            </div>
+
+            <div class="mb-8">
+              <label class="block text-sm text-zinc-400 mb-2">How can we help you?</label>
+              <textarea class="form-input h-40 resize-y" placeholder="Describe your security needs..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn w-full text-lg">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="md:col-span-2 space-y-8">
+        
+        <div class="contact-card">
+          <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+          
+          <div class="space-y-8">
+            <div class="flex gap-5 contact-info">
+              <i class="fas fa-envelope mt-1"></i>
+              <div>
+                <p class="font-medium">Email</p>
+                <a href="mailto:info@infinitecyberspace.co.ke" class="text-zinc-400 hover:text-cyan-400">
+                  info@infinitecyberspace.co.ke
+                </a>
+              </div>
+            </div>
+
+            <div class="flex gap-5 contact-info">
+              <i class="fas fa-phone mt-1"></i>
+              <div>
+                <p class="font-medium">Phone</p>
+                <a href="tel:+254700000000" class="text-zinc-400 hover:text-cyan-400">
+                  +254 700 000 000
+                </a>
+              </div>
+            </div>
+
+            <div class="flex gap-5 contact-info">
+              <i class="fas fa-map-marker-alt mt-1"></i>
+              <div>
+                <p class="font-medium">Location</p>
+                <p class="text-zinc-400">Nairobi, Kenya</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Response -->
+        <div class="contact-card">
+          <h3 class="text-xl font-semibold mb-4">Response Time</h3>
+          <p class="text-zinc-400">
+            We usually respond within <span class="text-cyan-400 font-medium">2 hours</span> during business hours.
+          </p>
+          <p class="text-sm text-zinc-500 mt-6">
+            Monday - Friday: 8:00 AM - 6:00 PM<br>
+            Saturday: 9:00 AM - 2:00 PM
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
