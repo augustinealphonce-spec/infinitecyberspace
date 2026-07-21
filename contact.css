@@ -1,51 +1,67 @@
-/* ============================================= */
-/* CONTACT PAGE - CYBER STYLE                    */
-/* ============================================= */
+/* ============================================= */ 
+/* CONTACT PAGE - PREMIUM CYBER STYLE            */ 
+/* ============================================= */ 
 
-.contact-hero {
-  background: linear-gradient(135deg, #0a0a0a, #1e2937);
+.contact-hero { 
+  background: radial-gradient(circle at top right, #11141a, #07080a); 
+} 
+
+.contact-card { 
+  background: rgba(15, 17, 23, 0.75); 
+  border: 1px solid rgba(255, 255, 255, 0.08); 
+  border-radius: 20px; 
+  padding: 48px; 
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+} 
+
+.form-input { 
+  background: rgba(30, 35, 45, 0.4); 
+  border: 1px solid rgba(255, 255, 255, 0.12); 
+  color: #f4f4f5; 
+  border-radius: 10px; 
+  padding: 16px 20px; 
+  width: 100%; 
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+} 
+
+.form-input:focus { 
+  background: rgba(30, 35, 45, 0.7);
+  border-color: #06b6d4; 
+  outline: none; 
+  box-shadow: 0 0 0 1px #06b6d4, 0 0 20px rgba(6, 182, 212, 0.15); 
+} 
+
+.submit-btn { 
+  background: #ffffff; 
+  color: #000000; 
+  font-weight: 600; 
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 16px 44px; 
+  border-radius: 8px; 
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+} 
+
+.submit-btn:hover { 
+  background: transparent;
+  color: #06b6d4;
+  border-color: #06b6d4;
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.25); 
+} 
+
+/* Contact Info */ 
+.contact-info i { 
+  font-size: 1.25rem; 
+  color: #06b6d4; 
+  text-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
 }
 
-.contact-card {
-  background: #18181b;
-  border: 1px solid #3f3f46;
-  border-radius: 24px;
-  padding: 40px;
-}
-
-.form-input {
-  background: #27272a;
-  border: 1px solid #52525b;
-  color: white;
-  border-radius: 12px;
-  padding: 14px 18px;
-  width: 100%;
-  transition: all 0.3s ease;
-}
-
-.form-input:focus {
-  border-color: #22d3ee;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
-}
-
-.submit-btn {
-  background: linear-gradient(90deg, #3b82f6, #22d3ee);
-  color: black;
-  font-weight: 700;
-  padding: 16px 40px;
-  border-radius: 9999px;
-  transition: all 0.4s ease;
-}
-
-.submit-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(34, 211, 238, 0.7);
-}
-
-/* Contact Info */
-.contact-info i {
-  font-size: 1.5rem;
-  color: #22
 
 
