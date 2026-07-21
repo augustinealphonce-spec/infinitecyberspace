@@ -2,116 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Viewport for responsiveness -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Infinite Cyberspace Hub</title>
-  <link rel="stylesheet" href="About us.css" />
-   <!-- Use the same image for favicon -->
-  <link rel="icon" type="image/jpeg" href="Infinite.jpg" />
-  <link rel="shortcut icon" type="image/jpeg" href="Infinite.jpg" />
+  <title>About Us - Infinite Cyberspace Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/about.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
-<body>
-  <!-- Floating Sidebar for PC -->
-  <nav class="sidebar">
-    <ul>
-      <li><a href="index.html">🏠</a></li>
-      <li><a href="latest updates.html">📰</a></li>
-      <li><a href="login.html">🛡️</a></li>
-      <li><a href="contact us.html">📞</a></li>
-      <li><a href="#" id="settingsBtn">⚙️</a></li>
-    </ul>
+<body class="bg-[#0a0a0a]">
+
+  <!-- Navbar -->
+  <nav class="navbar py-5">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
+      
+      <div class="flex items-center gap-8 text-sm">
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="packages.html" class="nav-link">Packages</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="packages.html" class="btn-primary">Get Protected Now</a>
+        <a href="contact.html" class="btn-outline">Free Consultation</a>
+      </div>
+    </div>
   </nav>
 
-  <!-- Floating Bottom Nav for Mobile -->
-  <nav class="bottom-nav">
-    <a href="index.html">🏠</a>
-    <a href="latest updates.html">📰</a>
-    <a href="login.html">🛡️</a>
-    <a href="contact us.html">📞</a>
-    <a href="#" id="settingsBtnMobile">⚙️</a>
-  </nav>
-
-  <!-- Floating Settings Panel -->
-  <div class="floating-menu" id="settingsMenu">
-    <h3>⚙️ Settings</h3>
-    <button>🌙 Dark Mode</button>
-    <button>🔔 Notifications</button>
-    <button>🛡️ Privacy</button>
-  </div>
-
-  <!-- About Us Section -->
-  <section class="about-section">
-    <h1>About Us</h1>
-   <p>
-  Welcome to the <span class="highlight">Infinite Cyberspace Hub</span>, 
-  proudly founded in <span class="highlight">2024</span> by 
-  <a href="CEO Profile.html" class="highlight">Augustine Ouma</a>.
-</p>
-<p>
-  Born from a bold vision, we are ready to redefine Kisumu’s digital future — 
-  an innovation hub where SMEs, entrepreneurs, and individuals connect to 
-  technology, cyberspace, and the digital economy. 
-  Here, ideas turn into opportunities, and readiness meets innovation to drive growth 
-  across Kisumu County and beyond.
-</p>
-
-    <!-- Mission & Vision Section -->
-    <section class="mission-vision">
-      <h2>Our Mission</h2>
-      <p>
-       To secure, connect, and empower Kenyan's digital future by providing modern cybersecurity 
-       solutions, hands-on training, mentorship, and awareness programs that help businesses and 
-       individuals thrive online. 
+  <!-- Hero -->
+  <section class="about-hero py-24 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 cyber-glow">About Infinite Cyberspace Hub</h1>
+      <p class="text-2xl text-zinc-300">
+        Securing the future of Kenyan businesses in the digital age
       </p>
-      <h2>Our Vision</h2>
-      <p>
-  To create a safe, inclusive digital environment — an innovation hub that connects SMEs,
-   entrepreneurs, and individuals in Kisumu County and beyond to technology, cybersecurity,
-    and online business opportunities. 
-      </p>
-    </section>
-
-    <!-- Values Section -->
-    <section class="values-section">
-      <h2>Our Values</h2>
-      <p>
-        We believe that <span class="highlight">protection</span> is the foundation of trust. 
-        That’s why we focus on safeguarding sensitive data, preventing cyber threats, 
-        and building resilience in the digital economy.
-      </p>
-     <p>
-  Beyond security, we are committed to <span class="highlight">unlocking potential</span>. 
-  By partnering with SMEs and guiding young talent, we nurture digital skills that bring out the best in every individual. 
-  This approach not only equips businesses with capable professionals but also opens doors to new opportunities in cyberspace, the digital economy, and innovation.
-</p>
-     </section>
-
-    <!-- Impact Section -->
-<section class="impact-section">
-  <h2>Our Impact</h2>
-  <p>
-    Kisumu Cyberspace Hub is laying the foundation to train SMEs, empower youth with IT skills, 
-    and build partnerships that will strengthen Kisumu’s digital resilience. 
-    Every solution we plan is also a step toward addressing unemployment challenges in our community.
-  </p>
-</section>
-
- 
-<!-- Call to Action Section -->
-<section class="cta-section">
-  <h2>Join Us</h2>
-  <p>
-    Don’t just learn — transform. Subscribe today and gain instant access to our tailored packages, 
-    premium training programs, and exclusive offers built to strengthen your skills, grow your business, 
-    and secure Kisumu’s digital future and beyond. Why settle for less when you can unlock more with us?
-  </p>
-</section>
-
-  <!-- Separate Quote Section -->
-  <section class="quote-section">
-   We will create a civilization of the Mind in Cyberspace. May it be more humane and fair than the world your governments have made before. — John Perry Barlow
+    </div>
   </section>
-  <script src="About us.js"></script>
+
+  <!-- Mission -->
+  <section class="py-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="mission-box p-10 md:p-16 rounded-3xl">
+        <h2 class="text-4xl font-bold mb-6">Our Mission</h2>
+        <p class="text-lg text-zinc-300 leading-relaxed">
+          To provide world-class cybersecurity and IT solutions that empower Kenyan businesses 
+          to thrive safely in the digital economy. We believe every Kenyan company — from startups 
+          to enterprises — deserves enterprise-grade protection at affordable prices.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CEO Profile -->
+  <section class="py-20 bg-[#111113]">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-12">Meet Our Founder & CEO</h2>
+      
+      <div class="ceo-card max-w-2xl mx-auto">
+        <img src="https://via.placeholder.com/800x400/1e3a8a/ffffff?text=Augustine+Alphonce" 
+             alt="Augustine Alphonce - CEO" 
+             class="ceo-image">
+        
+        <div class="p-10">
+          <h3 class="text-3xl font-semibold mb-1">Augustine Alphonce</h3>
+          <p class="text-cyan-400 font-medium mb-6">Founder & CEO</p>
+          
+          <p class="text-zinc-400 leading-relaxed mb-8">
+            With over 8 years of experience in cybersecurity and IT infrastructure, 
+            Augustine is passionate about making high-quality digital protection accessible 
+            to Kenyan businesses. He has helped numerous organizations strengthen their 
+            security posture and recover from cyber incidents.
+          </p>
+
+          <div class="flex gap-6 text-sm">
+            <div>
+              <span class="block text-zinc-500">Expertise</span>
+              <span class="font-medium">Cyber Defense • Ethical Hacking • IT Strategy</span>
+            </div>
+            <div>
+              <span class="block text-zinc-500">Based in</span>
+              <span class="font-medium">Nairobi, Kenya</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="stats-box p-8">
+          <h4 class="text-5xl font-bold text-cyan-400 mb-2">500+</h4>
+          <p class="text-zinc-400">Businesses Protected</p>
+        </div>
+        <div class="stats-box p-8">
+          <h4 class="text-5xl font-bold text-cyan-400 mb-2">98%</h4>
+          <p class="text-zinc-400">Client Retention</p>
+        </div>
+        <div class="stats-box p-8">
+          <h4 class="text-5xl font-bold text-cyan-400 mb-2">24/7</h4>
+          <p class="text-zinc-400">Support Available</p>
+        </div>
+        <div class="stats-box p-8">
+          <h4 class="text-5xl font-bold text-cyan-400 mb-2">5+</h4>
+          <p class="text-zinc-400">Years Experience</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </body>
 </html>
