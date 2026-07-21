@@ -25,27 +25,19 @@ h1, h2, h3, h4 {
   color: #f8fafc;
 }
 
-/* Navbar */
+/* Navbar - Fixed Visibility & Contrast */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: #1a1a1a;
+  background-color: var(--card); /* Replaced #1a1a1a with your brighter card color */
+  border-bottom: 1px solid #475569; /* Adds a clear bottom boundary line */
+  position: sticky; /* Keeps the navbar visible at the top while scrolling */
+  top: 0;
+  z-index: 1000; /* Ensures it stays on top of other content */
 }
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-}
-.nav-links a {
-  color: #f0f0f0;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-.nav-links a:hover {
-  color: #00ffcc;
-}
+
 
 /* Cards - Fixed Visibility */
 .service-card,
