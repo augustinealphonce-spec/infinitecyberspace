@@ -27,26 +27,24 @@ h1, h2, h3, h4 {
 
 /* Navbar */
 .navbar {
-  background: rgba(10, 10, 10, 0.98);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(103, 232, 249, 0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #1a1a1a;
 }
-
-.logo {
-  font-size: 1.9rem;
-  font-weight: 700;
-  background: linear-gradient(90deg, #3b82f6, #67e8f9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
 }
-
-.nav-link {
-  color: #e2e8f0;
-  font-weight: 500;
+.nav-links a {
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: color 0.3s;
 }
-
-.nav-link:hover {
-  color: var(--accent);
+.nav-links a:hover {
+  color: #00ffcc;
 }
 
 /* Cards - Fixed Visibility */
