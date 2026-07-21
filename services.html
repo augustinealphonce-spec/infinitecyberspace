@@ -1,78 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Services - Infinite Cyberspace Hub</title>
-  <link rel="stylesheet" href="Services.css" />
-  <link rel="icon" type="image/jpeg" href="Infinite.jpg" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services - Infinite Cyberspace Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/services.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
-<body>
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="Latest Updates.html">📰 Updates</a>
-    <a href="Services.html">🛡️ Services</a>
-    <a href="CEO Profile.html">👤 CEO</a>
-    <a href="contact-us.html">📞 Contact</a>
+<body class="bg-[#0a0a0a]">
+
+  <!-- Navbar -->
+  <nav class="navbar py-5">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
+      
+      <div class="flex items-center gap-8 text-sm">
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="packages.html" class="nav-link">Packages</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="packages.html" class="btn-primary">Get Protected Now</a>
+        <a href="contact.html" class="btn-outline">Free Consultation</a>
+      </div>
+    </div>
   </nav>
 
   <!-- Hero -->
-  <header class="services-hero">
-    <h1>Our Services</h1>
-    <p>Protecting your business with reliable cybersecurity and IT solutions</p>
-  </header>
-
-  <!-- Services Grid -->
-  <section class="services-container">
-    <div class="service-card">
-      <h3>Basic Protection</h3>
-      <ul>
-        <li>✔ Password setup & antivirus installation</li>
-        <li>✔ Basic device security checks</li>
-        <li>✔ Monthly system health reports</li>
-      </ul>
-      <p><strong>Best for:</strong> Individuals and small offices</p>
-      <a href="Basic Protection.html" class="service-btn">Learn More</a>
-    </div>
-
-    <div class="service-card">
-      <h3>Advanced Security</h3>
-      <ul>
-        <li>✔ Everything in Basic Protection</li>
-        <li>✔ Network & data encryption</li>
-        <li>✔ Secure cloud storage setup</li>
-        <li>✔ 24/7 monitoring & quick response</li>
-      </ul>
-      <p><strong>Best for:</strong> Growing businesses</p>
-      <a href="Advanced Security.html" class="service-btn">Learn More</a>
-    </div>
-
-    <div class="service-card">
-      <h3>Cybersecurity Training</h3>
-      <ul>
-        <li>✔ Employee awareness workshops</li>
-        <li>✔ Phishing simulation exercises</li>
-        <li>✔ E-learning modules & certification</li>
-      </ul>
-      <p><strong>Best for:</strong> Teams building security culture</p>
-      <a href="Cybersecurity Training.html" class="service-btn">Learn More</a>
-    </div>
-
-    <div class="service-card">
-      <h3>Consulting & Audits</h3>
-      <ul>
-        <li>✔ Tailored security strategy</li>
-        <li>✔ Compliance support</li>
-        <li>✔ On-site audits & penetration testing</li>
-      </ul>
-      <p><strong>Best for:</strong> Organizations with complex needs</p>
-      <a href="Consulting.html" class="service-btn">Learn More</a>
+  <section class="services-hero py-24 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 cyber-glow">Our Cybersecurity Services</h1>
+      <p class="text-xl text-zinc-400 max-w-2xl mx-auto">
+        Protecting Kenyan businesses with world-class cybersecurity and IT solutions
+      </p>
     </div>
   </section>
 
-  <footer>
-    <p>&copy; 2026 Infinite Cyberspace Hub • Kisumu, Kenya</p>
-  </footer>
+  <!-- Services Grid -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Service 1 -->
+        <div class="service-card">
+          <i class="fas fa-shield-alt"></i>
+          <span class="category-badge">Core Protection</span>
+          <h3>Cybersecurity Solutions</h3>
+          <p class="text-zinc-400">
+            Advanced threat detection, firewalls, endpoint protection, and real-time monitoring tailored for Kenyan SMEs.
+          </p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check"></i> 24/7 Threat Monitoring</li>
+            <li><i class="fas fa-check"></i> Firewall & Network Security</li>
+            <li><i class="fas fa-check"></i> Endpoint Protection</li>
+            <li><i class="fas fa-check"></i> Vulnerability Scanning</li>
+          </ul>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card">
+          <i class="fas fa-headset"></i>
+          <span class="category-badge">Support</span>
+          <h3>IT Support & Maintenance</h3>
+          <p class="text-zinc-400">
+            Reliable remote and on-site IT support with fast response times and staff training.
+          </p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check"></i> Remote Technical Support</li>
+            <li><i class="fas fa-check"></i> Hardware & Software Maintenance</li>
+            <li><i class="fas fa-check"></i> Staff IT Training</li>
+            <li><i class="fas fa-check"></i> System Optimization</li>
+          </ul>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card">
+          <i class="fas fa-graduation-cap"></i>
+          <span class="category-badge">Training</span>
+          <h3>Cybersecurity Training</h3>
+          <p class="text-zinc-400">
+            Build a strong security culture with employee awareness programs and phishing simulations.
+          </p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check"></i> Phishing Simulation Exercises</li>
+            <li><i class="fas fa-check"></i> Security Awareness Workshops</li>
+            <li><i class="fas fa-check"></i> E-learning Modules</li>
+            <li><i class="fas fa-check"></i> Certification Preparation</li>
+          </ul>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card">
+          <i class="fas fa-search"></i>
+          <span class="category-badge">Expert</span>
+          <h3>Consulting & Audits</h3>
+          <p class="text-zinc-400">
+            Professional security audits, penetration testing, and compliance consulting.
+          </p>
+          <ul class="feature-list">
+            <li><i class="fas fa-check"></i> Penetration Testing</li>
+            <li><i class="fas fa-check"></i> Risk Assessment</li>
+            <li><i class="fas fa-check"></i> Compliance Support (KE-CIRT, GDPR)</li>
+            <li><i class="fas fa-check"></i> Security Strategy Development</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-gradient-to-r from-blue-900/20 to-cyan-900/20 border-t border-b border-blue-500/30">
+    <div class="max-w-4xl mx-auto text-center px-6">
+      <h2 class="text-4xl font-bold mb-4">Ready to secure your business?</h2>
+      <p class="text-zinc-400 mb-8">Book a free consultation with our cybersecurity experts today.</p>
+      <a href="contact.html" class="btn-primary text-lg px-12 py-5">Get Free Consultation</a>
+    </div>
+  </section>
+
 </body>
 </html>
