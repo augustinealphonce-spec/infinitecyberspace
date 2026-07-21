@@ -1,114 +1,108 @@
-/* PACKAGES PAGE - CYBER STYLE                  */
+/* ============================================= */
+/* FINAL CSS - MAXIMUM READABILITY               */
+/* ============================================= */
 
-.packages-hero {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --primary: #3b82f6;
+  --accent: #67e8f9;
+  --dark: #0a0a0a;
+  --card: #1f2937;
+  --text: #f8fafc;
+  --text-light: #e2e8f0;
 }
 
-.pricing-card {
-  background: #18181b;
-  border: 1px solid #3f3f46;
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--dark);
+  color: var(--text);
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #f8fafc;
+  font-weight: 700;
+}
+
+/* Navbar */
+.navbar {
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(103, 232, 249, 0.3);
+}
+
+.logo {
+  font-size: 1.95rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #3b82f6, #67e8f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+  color: #e2e8f0;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+/* Cards - High Contrast */
+.service-card,
+.pricing-card,
+.contact-card,
+.ceo-card,
+.plan-card {
+  background: #1f2937 !important;
+  border: 1px solid #64748b;
   border-radius: 24px;
-  padding: 40px 30px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
+  color: var(--text);
 }
 
+.service-card:hover,
 .pricing-card:hover {
-  transform: translateY(-15px);
-  border-color: #22d3ee;
-  box-shadow: 0 30px 60px -15px rgba(34, 211, 238, 0.2);
+  border-color: #67e8f9;
+  box-shadow: 0 20px 40px rgba(103, 232, 249, 0.2);
 }
 
-/* Most Popular Badge */
-.pricing-card.popular {
-  border: 2px solid #22d3ee;
-  transform: scale(1.06);
-}
-
-.pricing-card.popular::before {
-  content: "MOST POPULAR";
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #22d3ee;
-  color: #0a0a0a;
-  font-size: 13px;
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(90deg, #3b82f6, #67e8f9);
+  color: #0f172a;
   font-weight: 700;
-  padding: 6px 28px;
-  border-radius: 50px;
-  letter-spacing: 1px;
-  box-shadow: 0 10px 15px rgba(34, 211, 238, 0.3);
-}
-
-/* Price Styling */
-.price-amount {
-  font-size: 3.8rem;
-  font-weight: 700;
-  line-height: 1;
-  color: white;
-}
-
-.price-amount span {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #a3a3a3;
-}
-
-/* Features */
-.feature-list {
-  list-style: none;
-}
-
-.feature-list li {
-  padding: 12px 0;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  color: #d4d4d8;
-  border-bottom: 1px solid #27272a;
-}
-
-.feature-list li:last-child {
-  border-bottom: none;
-}
-
-.feature-list i {
-  color: #22c55e;
-  font-size: 1.1rem;
-}
-
-/* Button Styles */
-.package-btn {
-  width: 100%;
-  padding: 16px;
+  padding: 14px 32px;
   border-radius: 9999px;
-  font-weight: 600;
-  text-align: center;
-  transition: all 0.3s ease;
-  margin-top: 20px;
 }
 
-.package-btn-primary {
-  background: linear-gradient(90deg, #3b82f6, #22d3ee);
-  color: black;
-  border: none;
-}
-
-.package-btn-primary:hover {
+.btn-primary:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(34, 211, 238, 0.6);
+  box-shadow: 0 0 30px rgba(103, 232, 249, 0.7);
 }
 
-.package-btn-outline {
-  border: 2px solid #64748b;
-  color: #e4e4e7;
+.btn-outline {
+  border: 2px solid #67e8f9;
+  color: #67e8f9;
+  padding: 12px 28px;
+  border-radius: 9999px;
 }
 
-.package-btn-outline:hover {
-  border-color: #22d3ee;
-  color: #22d3ee;
-  background: rgba(34, 211, 238, 0.1);
+.btn-outline:hover {
+  background: #67e8f9;
+  color: #0a0a0a;
+}
+
+/* Text */
+p, li {
+  color: var(--text-light);
+}
+
+.price {
+  color: #f1f5f9;
+}
+
+/* Glow */
+.cyber-glow {
+  text-shadow: 0 0 20px var(--accent);
 }
 
