@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Consultation - Infinite Cyberspace Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/consultation.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body class="bg-[#0a0a0a]">
+
+  <!-- Navbar -->
+  <nav class="navbar py-5">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
+      
+      <div class="flex items-center gap-8 text-sm">
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="packages.html" class="nav-link">Packages</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="consult-hero">
+    <div class="max-w-4xl mx-auto px-6 w-full">
+      <div class="form-container mx-auto max-w-2xl">
+        
+        <div class="text-center mb-10">
+          <h1 class="text-5xl font-bold mb-4">Free Security Consultation</h1>
+          <p class="text-zinc-400 text-lg">
+            Let's assess your current security and build a protection plan tailored for your business
+          </p>
+        </div>
+
+        <form action="#" method="POST">
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">Full Name *</label>
+              <input type="text" class="input-field" placeholder="John Doe" required>
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2">Company Name</label>
+              <input type="text" class="input-field" placeholder="Your Company Ltd">
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-sm text-zinc-400 mb-2">Business Email *</label>
+            <input type="email" class="input-field" placeholder="you@company.co.ke" required>
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-sm text-zinc-400 mb-2">Phone Number *</label>
+            <input type="tel" class="input-field" placeholder="+254 712 345 678" required>
+          </div>
+
+          <div class="mb-8">
+            <label class="block text-sm text-zinc-400 mb-2">What are your biggest security concerns?</label>
+            <textarea class="input-field h-32 resize-y" placeholder="E.g., Ransomware protection, employee training, cloud security, etc..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-consult w-full flex items-center justify-center gap-3">
+            <i class="fas fa-shield-alt"></i>
+            Book My Free Consultation
+          </button>
+
+          <p class="text-center text-xs text-zinc-500 mt-6">
+            Your information is secure. We respect your privacy.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
