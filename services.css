@@ -8,7 +8,7 @@
   --primary: #3b82f6;
   --accent: #67e8f9;
   --dark: #0a0a0a;
-  --card: #1f2937;           /* Better card background */
+  --card: #1f2937;           
   --text-main: #f1f5f9;
   --text-light: #cbd5e1;
 }
@@ -20,26 +20,40 @@ body {
   line-height: 1.7;
 }
 
+/* Headings - Stronger visibility */
 h1, h2, h3, h4 {
   font-family: 'Space Grotesk', sans-serif;
-  color: #f8fafc;
+  color: #ffffff; /* Pure white for clarity */
+  text-shadow: 0 0 12px rgba(103, 232, 249, 0.6); /* Glow effect */
 }
 
-/* Navbar - Fixed Visibility & Contrast */
+/* Navbar - Enhanced visibility */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--card); /* Replaced #1a1a1a with your brighter card color */
-  border-bottom: 1px solid #475569; /* Adds a clear bottom boundary line */
-  position: sticky; /* Keeps the navbar visible at the top while scrolling */
+  background: linear-gradient(90deg, #1f2937, #0f172a); /* Gradient for depth */
+  border-bottom: 2px solid var(--accent); /* Brighter boundary */
+  position: sticky;
   top: 0;
-  z-index: 1000; /* Ensures it stays on top of other content */
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(103, 232, 249, 0.25); /* Glow shadow */
 }
 
+.navbar a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
 
-/* Cards - Fixed Visibility */
+.navbar a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px var(--accent);
+}
+
+/* Cards */
 .service-card,
 .pricing-card,
 .contact-card,
@@ -55,7 +69,7 @@ h1, h2, h3, h4 {
 .pricing-card:hover,
 .contact-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 20px 40px rgba(103, 232, 249, 0.15);
+  box-shadow: 0 20px 40px rgba(103, 232, 249, 0.25);
 }
 
 /* Buttons */
@@ -65,6 +79,7 @@ h1, h2, h3, h4 {
   font-weight: 700;
   padding: 14px 32px;
   border-radius: 9999px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-primary:hover {
@@ -77,6 +92,7 @@ h1, h2, h3, h4 {
   color: #67e8f9;
   padding: 12px 28px;
   border-radius: 9999px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .btn-outline:hover {
@@ -92,4 +108,5 @@ p, li {
 .cyber-glow {
   text-shadow: 0 0 15px var(--accent);
 }
+
 
