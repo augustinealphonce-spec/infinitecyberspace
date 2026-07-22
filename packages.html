@@ -7,44 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="packages.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  
-  <style>
-    .pricing-card {
-      background: #1f2937;
-      border: 1px solid #475569;
-      border-radius: 24px;
-      padding: 40px 30px;
-      transition: all 0.4s ease;
-    }
-    .pricing-card:hover {
-      border-color: #67e8f9;
-      transform: translateY(-12px);
-      box-shadow: 0 25px 50px -12px rgba(103, 232, 249, 0.2);
-    }
-    .pricing-card.popular {
-      border: 2px solid #67e8f9;
-      position: relative;
-    }
-    .pricing-card.popular::before {
-      content: "MOST POPULAR";
-      position: absolute;
-      top: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #67e8f9;
-      color: #0a0a0a;
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 6px 24px;
-      border-radius: 9999px;
-    }
-    .price {
-      font-size: 3.8rem;
-      font-weight: 700;
-      color: #f1f5f9;
-    }
-  </style>
-</head>
+   </head>
 <body class="bg-[#0a0a0a]">
 <!-- Navbar -->
   <nav class="bg-black/80 backdrop-blur-md border-b border-blue-500/20 sticky top-0 z-50">
@@ -56,6 +19,10 @@
         <a href="packages.html" class="hover:text-blue-400 transition">Packages</a>
         <a href="about.html" class="hover:text-blue-400 transition">About Us</a>
         <a href="contact.html" class="hover:text-blue-400 transition">Contact</a>
+      </div>
+    <div class="flex items-center gap-4">
+        <a href="packages.html" class="btn-primary">Get Protected Now</a>
+        <a href="contact.html" class="btn-outline">Free Consultation</a>
       </div>
     </div>
   </nav>
