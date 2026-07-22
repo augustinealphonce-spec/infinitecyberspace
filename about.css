@@ -1,6 +1,5 @@
-/* ============================================= */ 
+
 /* GLOBAL - PREMIUM CYBER STYLE                  */ 
-/* ============================================= */ 
 
 body {
   font-family: 'Inter', sans-serif;
@@ -10,96 +9,90 @@ body {
   padding: 0;
 }
 
-/* ============================================= */ 
-/* NAV BAR                                       */ 
-/* ============================================= */ 
-
-.navbar { 
-  background: rgba(10, 12, 18, 0.95); 
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.25);
-  position: fixed;
+/* Navbar */
+.navbar {
+  background: var(--card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 30px rgba(6, 182, 212, 0.25);
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 999;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 800;
-  color: #06b6d4;
-  text-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
+  color: var(--primary);
+  text-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
 }
 
-.nav-link { 
-  color: #f4f4f5; 
-  font-weight: 600; 
-  letter-spacing: 0.05em;
+/* Nav Links */
+.nav-link {
+  color: var(--text-main);
+  font-weight: 600;
   text-transform: uppercase;
-  text-decoration: none; 
-  transition: all 0.3s ease; 
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
   position: relative;
 }
 
-.nav-link:hover { 
-  color: #06b6d4; 
+.nav-link:hover {
+  color: var(--primary);
   text-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
 }
 
-.nav-link::after { 
-  content: ""; 
-  position: absolute; 
-  left: 0; 
-  bottom: -6px; 
-  width: 100%; 
-  height: 2px; 
-  background: #06b6d4; 
-  transform: scaleX(0); 
-  transition: transform 0.3s ease; 
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
 }
 
-.nav-link:hover::after, 
-.nav-link.active::after { 
-  transform: scaleX(1); 
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
 }
 
-/* Buttons in Navbar */
+/* Buttons */
 .btn-primary {
-  background: #06b6d4;
-  color: #000;
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  color: #0f172a;
   font-weight: 700;
-  padding: 10px 20px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+  padding: 12px 28px;
+  border-radius: 9999px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
 }
 
 .btn-primary:hover {
-  background: transparent;
-  color: #06b6d4;
-  border: 1px solid #06b6d4;
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
 }
 
 .btn-outline {
-  background: transparent;
-  color: #f4f4f5;
-  border: 1px solid #f4f4f5;
-  padding: 10px 20px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  padding: 12px 28px;
+  border-radius: 9999px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .btn-outline:hover {
-  color: #06b6d4;
-  border-color: #06b6d4;
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+  background: var(--primary);
+  color: var(--dark);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
 }
 
-/* ============================================= */ 
 /* HERO SECTION                                  */ 
-/* ============================================= */ 
 
 .contact-hero { 
   background: radial-gradient(circle at top right, #0a0d14, #000000); 
