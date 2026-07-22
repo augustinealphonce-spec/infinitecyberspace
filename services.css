@@ -1,44 +1,114 @@
-/* Navbar - Enhanced Visibility */
+/* ============================================= */
+/* MAIN CSS - BETTER VISIBILITY & CONTRAST       */
+/* ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --primary: #3b82f6;
+  --accent: #67e8f9;
+  --dark: #0a0a0a;
+  --card: #1f2937;           
+  --text-main: #f1f5f9;
+  --text-light: #cbd5e1;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+
+/* Headings - Stronger visibility */
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #ffffff; /* Pure white for clarity */
+  text-shadow: 0 0 12px rgba(103, 232, 249, 0.6); /* Glow effect */
+}
+
+/* Navbar - Enhanced visibility */
 .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
   background: linear-gradient(90deg, #1f2937, #0f172a); /* Gradient for depth */
-  border-bottom: 2px solid #67e8f9; /* Brighter boundary */
+  border-bottom: 2px solid var(--accent); /* Brighter boundary */
   position: sticky;
   top: 0;
   z-index: 1000;
   box-shadow: 0 4px 20px rgba(103, 232, 249, 0.25); /* Glow shadow */
 }
 
-/* Logo */
-.logo {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #67e8f9;
-  text-shadow: 0 0 10px rgba(103, 232, 249, 0.6);
-}
-
-/* Navbar Links */
-.nav-link {
-  color: #cbd5e1;
+.navbar a {
+  color: var(--accent);
   font-weight: 600;
+  text-decoration: none;
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.nav-link:hover {
+.navbar a:hover {
   color: #ffffff;
-  text-shadow: 0 0 8px #67e8f9;
+  text-shadow: 0 0 10px var(--accent);
 }
 
-/* Hero Section - Stronger Header */
-section h1 {
-  color: #ffffff;
-  text-shadow: 0 0 15px rgba(103, 232, 249, 0.7);
+/* Cards */
+.service-card,
+.pricing-card,
+.contact-card,
+.ceo-card,
+.plan-card {
+  background: var(--card) !important;
+  border: 1px solid #475569;
+  border-radius: 24px;
+  color: var(--text-main);
 }
 
-section p {
-  color: #cbd5e1;
-  font-size: 1.25rem;
+.service-card:hover,
+.pricing-card:hover,
+.contact-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px rgba(103, 232, 249, 0.25);
 }
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(90deg, #3b82f6, #67e8f9);
+  color: #0f172a;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 9999px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(103, 232, 249, 0.6);
+}
+
+.btn-outline {
+  border: 2px solid #67e8f9;
+  color: #67e8f9;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: #67e8f9;
+  color: #0a0a0a;
+}
+
+/* Text Improvements */
+p, li {
+  color: var(--text-light);
+}
+
+.cyber-glow {
+  text-shadow: 0 0 15px var(--accent);
+}
+
 
 
 
