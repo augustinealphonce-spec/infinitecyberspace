@@ -15,27 +15,25 @@ body {
 /* ============================================= */ 
 
 .navbar { 
-  background: rgba(10, 12, 18, 0.9); 
+  background: rgba(10, 12, 18, 0.95); 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 4px 20px rgba(6, 182, 212, 0.25);
-  padding: 16px 32px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 999;
 }
 
-.navbar ul { 
-  list-style: none; 
-  display: flex; 
-  gap: 32px; 
-  margin: 0; 
-  padding: 0;
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #06b6d4;
+  text-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
 }
 
-.navbar a { 
+.nav-link { 
   color: #f4f4f5; 
   font-weight: 600; 
   letter-spacing: 0.05em;
@@ -45,12 +43,12 @@ body {
   position: relative;
 }
 
-.navbar a:hover { 
+.nav-link:hover { 
   color: #06b6d4; 
   text-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
 }
 
-.navbar a::after { 
+.nav-link::after { 
   content: ""; 
   position: absolute; 
   left: 0; 
@@ -62,20 +60,61 @@ body {
   transition: transform 0.3s ease; 
 }
 
-.navbar a:hover::after, 
-.navbar a.active::after { 
+.nav-link:hover::after, 
+.nav-link.active::after { 
   transform: scaleX(1); 
+}
+
+/* Buttons in Navbar */
+.btn-primary {
+  background: #06b6d4;
+  color: #000;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: #06b6d4;
+  border: 1px solid #06b6d4;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #f4f4f5;
+  border: 1px solid #f4f4f5;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  color: #06b6d4;
+  border-color: #06b6d4;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+/* ============================================= */ 
+/* HERO SECTION                                  */ 
+/* ============================================= */ 
+
+.contact-hero { 
+  background: radial-gradient(circle at top right, #0a0d14, #000000); 
+  padding: 140px 20px 60px;
+  text-align: center;
+}
+
+.cyber-glow {
+  color: #06b6d4;
+  text-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
 }
 
 /* ============================================= */ 
 /* CONTACT PAGE                                  */ 
 /* ============================================= */ 
-
-.contact-hero { 
-  background: radial-gradient(circle at top right, #0a0d14, #000000); 
-  padding: 120px 20px 60px;
-  text-align: center;
-}
 
 .contact-card { 
   background: rgba(15, 17, 23, 0.9); 
@@ -85,8 +124,6 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 28px 70px rgba(0, 255, 255, 0.25);
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 /* Inputs */
@@ -117,12 +154,12 @@ body {
   font-weight: 700; 
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 1rem;
   padding: 16px 48px; 
   border-radius: 8px; 
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+  transition: all 0.3s ease; 
   box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
 }
 
@@ -140,6 +177,7 @@ body {
   text-shadow: 0 0 18px rgba(6, 182, 212, 0.8);
   margin-right: 12px;
 }
+
 
 
 
