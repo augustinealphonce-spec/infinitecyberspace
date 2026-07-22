@@ -1,93 +1,86 @@
-/* assets/css/style.css */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-
 :root {
-  --primary: #3b82f6;
-  --accent: #22d3ee;
-  --dark: #0a0a0a;
-  --gray: #27272a;
+  --primary: #3b82f6;   /* Bright blue */
+  --accent: #22d3ee;    /* Cyan glow */
+  --dark: #0a0a0a;      /* Deep black */
+  --gray: #1e293b;      /* Sleek dark gray */
+  --glass: rgba(255, 255, 255, 0.05);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Body */
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--dark);
-  color: #e4e4e7;
-  line-height: 1.6;
+  color: #f9fafb;
+  line-height: 1.7;
 }
 
+/* Headings */
 h1, h2, h3, h4 {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: 0.5px;
 }
 
-/* Cyber Glow Effects */
+/* Cyber Glow */
 .cyber-glow {
   text-shadow: 
-    0 0 10px var(--primary),
     0 0 20px var(--primary),
-    0 0 40px rgba(59, 130, 246, 0.5);
+    0 0 40px rgba(59, 130, 246, 0.8),
+    0 0 80px rgba(59, 130, 246, 0.6);
 }
 
-.neon-text {
-  color: var(--accent);
-  text-shadow: 0 0 15px var(--accent);
-}
-
-/* Navbar */
+/* Navbar - modern glass effect */
 .navbar {
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
 }
 
 /* Hero */
 .hero {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(0, 0, 0, 0.95)),
-              url('https://source.unsplash.com/random/1920x1080/?hacker,cyber') center/cover no-repeat;
+              url('https://source.unsplash.com/random/1920x1080/?cybersecurity,futuristic') center/cover no-repeat;
   min-height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-/* Cards */
+/* Cards - glassmorphism style */
 .service-card, .pricing-card {
-  background: var(--gray);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: var(--glass);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
   transition: all 0.4s ease;
 }
 
 .service-card:hover, .pricing-card:hover {
-  transform: translateY(-10px);
-  border-color: var(--primary);
-  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+  transform: translateY(-12px) scale(1.05);
+  border-color: var(--accent);
+  box-shadow: 0 25px 60px rgba(34, 211, 238, 0.4);
 }
 
-/* Buttons */
+/* Buttons - modern gradient pill */
 .btn-primary {
   background: linear-gradient(90deg, #3b82f6, #22d3ee);
   color: white;
-  font-weight: 600;
-  padding: 14px 32px;
+  font-weight: 700;
+  padding: 16px 40px;
   border-radius: 9999px;
   transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
 }
 
 .btn-primary:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(34, 211, 238, 0.6);
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.9);
 }
 
-/* Scanline Animation */
-.scanline {
-  position: relative;
-}
-
+/* Scanline Animation - sleek */
 .scanline::after {
   content: '';
   position: absolute;
@@ -95,8 +88,8 @@ h1, h2, h3, h4 {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(transparent, rgba(255,255,255,0.3), transparent);
-  animation: scan 4s linear infinite;
+  background: linear-gradient(transparent, rgba(255,255,255,0.7), transparent);
+  animation: scan 2.5s linear infinite;
 }
 
 @keyframes scan {
