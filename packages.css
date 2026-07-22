@@ -1,4 +1,4 @@
-/* === SERVICES PAGE PREMIUM STYLE === */
+/* === PACKAGES PAGE PREMIUM STYLE === */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
@@ -40,125 +40,98 @@ body {
   text-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
 }
 
-/* Nav Links */
-.nav-link {
-  color: var(--text-main);
-  font-weight: 600;
-  text-transform: uppercase;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.nav-link:hover {
+/* Hero */
+.cyber-glow {
   color: var(--primary);
-  text-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
+  text-shadow: 0 0 25px rgba(6, 182, 212, 0.9);
 }
 
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 100%;
-  height: 2px;
-  background: var(--primary);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-  transform: scaleX(1);
-}
-
-/* Buttons */
-.btn-primary {
-  background: linear-gradient(90deg, var(--secondary), var(--primary));
-  color: #0f172a;
-  font-weight: 700;
-  padding: 12px 28px;
-  border-radius: 9999px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
-}
-
-.btn-primary:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
-}
-
-.btn-outline {
-  border: 2px solid var(--primary);
-  color: var(--primary);
-  padding: 12px 28px;
-  border-radius: 9999px;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.btn-outline:hover {
-  background: var(--primary);
-  color: var(--dark);
-  box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
-}
-
-/* Services Section */
-section {
-  background: linear-gradient(180deg, #0a0a0a, #111827);
-}
-
-/* Service Cards */
-.service-card {
+/* Pricing Cards */
+.pricing-card {
   background: var(--card);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  padding: 30px;
+  border-radius: 24px;
+  padding: 32px;
   backdrop-filter: blur(12px);
   transition: all 0.4s ease;
-  text-align: center;
 }
 
-.service-card i {
-  font-size: 2.5rem;
-  color: var(--primary);
-  margin-bottom: 16px;
-  text-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
-}
-
-.service-card h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--text-main);
-}
-
-.service-card p {
-  color: var(--text-light);
-  font-size: 0.95rem;
-}
-
-.service-card:hover {
+.pricing-card:hover {
   transform: translateY(-12px) scale(1.05);
   border-color: var(--primary);
   box-shadow: 0 25px 60px rgba(6, 182, 212, 0.4);
 }
 
-/* List Items */
-.service-card ul li {
-  font-size: 0.9rem;
+.pricing-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+
+.price {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Popular Card */
+.pricing-card.popular {
+  border: 2px solid var(--primary);
+  position: relative;
+}
+
+.pricing-card.popular::before {
+  content: "MOST POPULAR";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: #0a0a0a;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 24px;
+  border-radius: 9999px;
+}
+
+/* Buttons */
+.pricing-card a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 14px;
+  border-radius: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.pricing-card a:hover {
+  transform: scale(1.05);
+}
+
+.pricing-card .btn-primary {
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  color: #0f172a;
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+}
+
+.pricing-card .btn-outline {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.pricing-card .btn-outline:hover {
+  background: var(--primary);
+  color: var(--dark);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+}
+
+/* Text */
+p, li {
   color: var(--text-light);
 }
 
-.service-card ul li i {
-  color: #22c55e; /* Emerald checkmark */
-}
-
-/* Glow Text */
-.cyber-glow {
-  color: var(--primary);
-  text-shadow: 0 0 25px rgba(6, 182, 212, 0.9);
-}
 
 
