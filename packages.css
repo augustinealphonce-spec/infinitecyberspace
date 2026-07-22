@@ -10,7 +10,7 @@
   --text-light: #d1d5db;
 }
 
-/* Global */
+
 body {
   font-family: 'Inter', sans-serif;
   background: var(--dark);
