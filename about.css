@@ -1,24 +1,10 @@
-/* ============================================= */
-/* FINAL CSS - MAXIMUM READABILITY & CONTRAST    */
-/* ============================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-
-:root {
-  --primary: #3b82f6;
-  --accent: #67e8f9;
-  --dark: #0a0a0a;
-  --card: #1f2937;
-  --text: #f8fafc;
-  --text-light: #e2e8f0;
-  --border: #64748b;
-}
-
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--dark);
   color: var(--text);
   line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4 {
@@ -27,11 +13,10 @@ h1, h2, h3, h4 {
   font-weight: 700;
 }
 
-/* Navbar */
 .navbar {
   background: rgba(10, 10, 10, 0.98);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(103, 232, 249, 0.35);
+  border-bottom: 1px solid rgba(103, 232, 249, 0.6);
 }
 
 .logo {
@@ -45,13 +30,15 @@ h1, h2, h3, h4 {
 .nav-link {
   color: #e2e8f0;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus {
   color: var(--accent);
+  outline: none;
 }
 
-/* Cards - High Visibility */
 .service-card,
 .pricing-card,
 .contact-card,
@@ -61,6 +48,8 @@ h1, h2, h3, h4 {
   border: 1px solid var(--border);
   border-radius: 24px;
   color: var(--text);
+  padding: 24px;
+  line-height: 1.6;
 }
 
 .service-card:hover,
@@ -70,7 +59,11 @@ h1, h2, h3, h4 {
   box-shadow: 0 20px 40px rgba(103, 232, 249, 0.2);
 }
 
-/* Buttons */
+.btn-primary,
+.btn-outline {
+  transition: all 0.3s ease;
+}
+
 .btn-primary {
   background: linear-gradient(90deg, #3b82f6, #67e8f9);
   color: #0f172a;
@@ -79,9 +72,11 @@ h1, h2, h3, h4 {
   border-radius: 9999px;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus {
   transform: scale(1.05);
   box-shadow: 0 0 30px rgba(103, 232, 249, 0.7);
+  outline: none;
 }
 
 .btn-outline {
@@ -91,12 +86,13 @@ h1, h2, h3, h4 {
   border-radius: 9999px;
 }
 
-.btn-outline:hover {
+.btn-outline:hover,
+.btn-outline:focus {
   background: #67e8f9;
   color: #0a0a0a;
+  outline: none;
 }
 
-/* Text */
 p, li {
   color: var(--text-light);
 }
@@ -105,7 +101,9 @@ p, li {
   color: #f1f5f9;
 }
 
-/* Glow Effect */
 .cyber-glow {
   text-shadow: 0 0 20px var(--accent);
 }
+
+h1 { font-size: clamp(2rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
