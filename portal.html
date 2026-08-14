@@ -392,6 +392,12 @@ if (savedClientTickets.length > 0) {
   if (localStorage.getItem('customer_logged_in') === 'true') {
     showPortal();
   }
+  // Protect the portal
+document.addEventListener('DOMContentLoaded', () => {
+  if (isLoggedIn() && getCurrentUser().role === 'client') {
+    showPortal();
+  }
+});
 </script>
 </body>
 </html>
