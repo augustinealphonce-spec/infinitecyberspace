@@ -487,6 +487,13 @@
   </div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  if (!requireAdmin()) return; // Will redirect if not admin
+
+  // Load admin name
+  const user = getCurrentUser();
+  document.getElementById('admin-name').textContent = user.name;
+});
     // ========== SIMULATION STATE ==========
     let simulatedMinutes = 0; // total minutes advanced
 
