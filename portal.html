@@ -346,15 +346,38 @@ async function login() {
     document.getElementById('ticket-modal').classList.remove('flex');
   }
 
-  function createTicket() {
-    const subject = document.getElementById('ticket-subject').value.trim();
-    const description = document.getElementById('ticket-description').value.trim();
-    const priority = document.getElementById('ticket-priority').value;
+async function createTicket() {
+  const subject = document.getElementById('ticket-subject').value.trim();
+  const description = document.getElementById('ticket-description').value.trim();
+  const priority = document.getElementById('ticket-priority').value;
 
-    if (!subject || !description) {
-      alert("Please fill in subject and description");
-      return;
+  if (!subject || !description) {
+    alert('Please fill in subject and description');
+    return;
+  }
+
+  try {
+    const res = await fetch('http://localhost:3000/api/tickets', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ subject, description, priority })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      closeTicketModal();
+      document.getElementById('ticket-subject').value = '';
+      document.getElementById('ticket-description').value = '';
+      loadTickets();          // refresh the list
+      alert('Ticket created successfully!');
+    } else {
+      alert(data.message || 'Failed to create ticket');
     }
+  } catch (err) {
+    alert('Cannot connect to server. Is the backend running?');
+  }
+}
 
     const newTicket = {
       id: "TKT-" + Date.now().toString().slice(-6),
