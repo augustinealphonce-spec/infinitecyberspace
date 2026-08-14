@@ -21,6 +21,12 @@ const USERS = [
     role: 'client',
     company: 'Acme Solutions Ltd'
   }
+  // Protect the portal
+document.addEventListener('DOMContentLoaded', () => {
+  if (isLoggedIn() && getCurrentUser().role === 'client') {
+    showPortal();
+  }
+});
 ];
 
 // Simple token generator (we will replace with real JWT in backend)
