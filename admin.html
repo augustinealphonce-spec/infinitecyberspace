@@ -487,9 +487,22 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-  if (!requireAdmin()) return; // Will redirect if not admin
+ document.addEventListener('DOMContentLoaded', async () => {
+  // Force admin only
+  if (!requireAdmin()) return;
 
+  // Double-check with backend
+  const valid = await verifySession();
+  if (!valid) return;
+
+  const user = getCurrentUser();
+  document.getElementById('admin-name').textContent = user.name || 'Admin';
+
+  // Load your data (tickets, etc.)
+  if (typeof loadAdminTickets === 'function') {
+    await loadAdminTickets();
+  }
+});
   // Load admin name
   const user = getCurrentUser();
   document.getElementById('admin-name').textContent = user.name;
