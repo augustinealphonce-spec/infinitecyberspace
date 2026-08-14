@@ -1,0 +1,174 @@
+/* =========================
+   Global Reset & Base Styles
+   ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* =========================
+   Navbar (Uniform Across Pages)
+   ========================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  padding: 12px 24px;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #00bcd4;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+  .navbar a {
+    margin: 10px 0;
+  }
+}
+
+/* =========================
+   Hero Section
+   ========================= */
+.hero {
+  background: url('hero-bg.jpg') no-repeat center center/cover;
+  color: #fff;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.hero button {
+  background: #00bcd4;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.hero button:hover {
+  background: #0097a7;
+}
+
+/* =========================
+   About Section
+   ========================= */
+.about-section {
+  padding: 60px 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.about-section h2 {
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.about-section p {
+  max-width: 800px;
+  margin: auto;
+}
+
+/* =========================
+   Services Section
+   ========================= */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 60px 20px;
+}
+
+.service-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.service-card h3 {
+  margin-bottom: 15px;
+  color: #00bcd4;
+}
+
+/* =========================
+   Contact Section
+   ========================= */
+.contact-form {
+  max-width: 600px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.contact-form button {
+  background: #00bcd4;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background: #0097a7;
+}
+
+/* =========================
+   Footer
+   ========================= */
+.footer {
+  background: #222;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer a {
+  color: #00bcd4;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
