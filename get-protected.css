@@ -1,0 +1,62 @@
+/* ============================================= */
+/* GET PROTECTED NOW PAGE                        */
+/* ============================================= */
+
+.protect-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.plan-card {
+  background: #18181b;
+  border: 2px solid #334155;
+  border-radius: 24px;
+  padding: 40px 30px;
+  transition: all 0.4s ease;
+}
+
+.plan-card:hover {
+  border-color: #22d3ee;
+  transform: translateY(-10px);
+}
+
+.plan-card.recommended {
+  border-color: #22d3ee;
+  position: relative;
+}
+
+.plan-card.recommended::after {
+  content: "RECOMMENDED";
+  position: absolute;
+  top: -14px;
+  right: 30px;
+  background: #22d3ee;
+  color: #0a0a0a;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 22px;
+  border-radius: 9999px;
+}
+
+.price-big {
+  font-size: 4.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.cta-button {
+  background: linear-gradient(90deg, #3b82f6, #22d3ee);
+  color: black;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 18px 50px;
+  border-radius: 9999px;
+  transition: all 0.4s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(34, 211, 238, 0.8);
+}
