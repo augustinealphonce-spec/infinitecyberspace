@@ -1015,6 +1015,70 @@ function renderLeads() {
     renderSLAStatus();
     renderUrgentTickets();
     updateDashboardCounts();
+    document.addEventListener('DOMContentLoaded', async () => {
+  if (!requireAdmin()) return;
+
+  const user = getCurrentUser();
+  document.getElementById('admin-name').textContent = user.name;
+
+  await loadAdminTickets();
+});
+
+async function loadAdminTickets() {
+  try {
+    const res = await fetch('http://localhost:3000/api/tickets', {
+      headers: authHeaders()
+    });
+    const data = await res.json();
+
+    // Update the tickets table
+    const tbody = document.getElementById('tickets-body');
+    if (!tbody) return;
+
+    tbody.innerHTML = data.tickets.map(t => `
+      <tr class="border-t border-slate-800">
+        <td class="p-4">${t.ticket_id}</td>
+        <td class="p-4">${t.subject}</td>
+        <td class="p-4">${t.customer_name || '—'} (${t.company || ''})</td>
+        <td class="p-4"><span class="priority-${t.priority.toLowerCase()}">${t.priority}</span></td>
+        <td class="p-4"><span class="badge status-${t.status.toLowerCase().replace(' ', '')}">${t.status}</span></td>
+        <td class="p-4">—</td>
+        <td class="p-4">
+          <select onchange="updateTicketStatus(${t.id}, this.value)" class="bg-slate-800 text-sm rounded px-2 py-1">
+            <option value="Open" ${t.status === 'Open' ? 'selected' : ''}>Open</option>
+            <option value="In Progress" ${t.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+            <option value="Escalated" ${t.status === 'Escalated' ? 'selected' : ''}>Escalated</option>
+            <option value="Resolved" ${t.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
+            <option value="Closed" ${t.status === 'Closed' ? 'selected' : ''}>Closed</option>
+          </select>
+        </td>
+      </tr>
+    `).join('');
+
+    // Update open tickets count
+    const openCount = data.tickets.filter(t => t.status === 'Open' || t.status === 'In Progress').length;
+    const badge = document.getElementById('ticket-badge');
+    const openEl = document.getElementById('open-tickets-count');
+    if (badge) badge.textContent = openCount;
+    if (openEl) openEl.textContent = openCount;
+
+  } catch (err) {
+    console.error('Failed to load tickets', err);
+  }
+}
+
+async function updateTicketStatus(id, status) {
+  try {
+    await fetch(`http://localhost:3000/api/tickets/${id}`, {
+      method: 'PATCH',
+      headers: authHeaders(),
+      body: JSON.stringify({ status })
+    });
+    loadAdminTickets(); // refresh
+  } catch (err) {
+    alert('Failed to update ticket');
+  }
+}
   </script>
 </body>
 </html>
