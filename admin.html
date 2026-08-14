@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Infinite Cyberspace Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root { --primary: #22d3ee; --dark: #0a0a0a; }
+    body { background: #0a0a0a; color: #e2e8f0; font-family: system-ui, sans-serif; margin: 0; }
+    .sidebar { background: linear-gradient(180deg, #0f172a 0%, #0a0a0a 100%); border-right: 1px solid rgba(34,211,238,0.1); }
+    .card { background: rgba(15,23,42,0.6); border: 1px solid rgba(34,211,238,0.12); border-radius: 1rem; }
+    .nav-item { transition: all 0.2s; }
+    .nav-item:hover, .nav-item.active { background: rgba(34,211,238,0.1); color: #22d3ee; border-right: 3px solid #22d3ee; }
+    .btn-primary { background: linear-gradient(90deg,#3b82f6,#22d3ee); color: #000; font-weight: 600; }
+    .status-open { background: #1e3a8a; color: #93c5fd; }
+    .status-inprogress { background: #854d0e; color: #fde047; }
+    .status-resolved { background: #14532d; color: #86efac; }
+    .status-closed { background: #3f3f46; color: #a1a1aa; }
+    .status-escalated { background: #7f1d1d; color: #fca5a5; }
+    .priority-high { color: #f87171; }
+    .priority-medium { color: #fbbf24; }
+    .priority-low { color: #4ade80; }
+    .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; }
+    .toggle { position: relative; width: 44px; height: 24px; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; inset: 0; background: #334155; border-radius: 9999px; transition: .3s; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: .3s; }
+    input:checked + .slider { background: #22d3ee; }
+    input:checked + .slider:before { transform: translateX(20px); }
+    .sla-ok { color: #4ade80; }
+    .sla-warn { color: #fbbf24; }
+    .sla-breach { color: #f87171; }
+    .progress-bar { height: 6px; border-radius: 9999px; background: #1e293b; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 9999px; transition: width 0.5s; }
+  </style>
+  <!-- Security Headers via Meta Tags -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://splitforms.com;
+  style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+  img-src 'self' data: https: blob:;
+  connect-src 'self' https://splitforms.com;
+  frame-ancestors 'none';
+  base-uri 'self';
+  form-action 'self' https://splitforms.com;
+">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Frame-Options" content="DENY">
+</head>
+<body class="flex h-screen overflow-hidden">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar w-64 flex-shrink-0 flex flex-col">
+    <div class="p-6 border-b border-cyan-900/30">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+          <i class="fas fa-shield-alt text-black text-lg"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight">Infinite<span class="text-cyan-400">Cyber</span></h1>
+          <p class="text-xs text-slate-400">Admin Portal</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="flex-1 py-4 space-y-1">
+      <a href="#" onclick="showSection('dashboard')" class="nav-item active flex items-center gap-3 px-6 py-3 text-sm" id="nav-dashboard">
+        <i class="fas fa-chart-pie w-5"></i> Dashboard
+      </a>
+      <a href="#" onclick="showSection('tickets')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-tickets">
+        <i class="fas fa-ticket-alt w-5"></i> Support Tickets
+        <span id="ticket-badge" class="ml-auto badge bg-red-500/20 text-red-400">3</span>
+      </a>
+      <a href="#" onclick="showSection('automation')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-automation">
+        <i class="fas fa-robot w-5"></i> Automation
+      </a>
+      <a href="#" onclick="showSection('payments')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-payments">
+        <i class="fas fa-credit-card w-5"></i> Payments
+      </a>
+      <a href="#" onclick="showSection('customers')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-customers">
+        <i class="fas fa-users w-5"></i> Customers
+      </a>
+      <a href="#" onclick="showSection('leads')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-leads">
+        <i class="fas fa-user-plus w-5"></i> Leads
+      </a>
+      <a href="#" onclick="showSection('settings')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-settings">
+        <i class="fas fa-cog w-5"></i> Settings
+      </a>
+    </nav>
+
+    <div class="p-4 border-t border-cyan-900/30">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-cyan-900/50 flex items-center justify-center text-cyan-400 font-bold">A</div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium truncate" id="admin-name">Admin</p>
+          <p class="text-xs text-slate-400 truncate">admin@infinitecyberspace.com</p>
+        </div>
+        <button onclick="logout()" class="text-slate-400 hover:text-red-400"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 overflow-y-auto">
+    <header class="sticky top-0 z-40 bg-[#0a0a0a]/80 backdrop-blur border-b border-cyan-900/20 px-8 py-4 flex justify-between items-center">
+      <div>
+        <h2 class="text-xl font-semibold" id="page-title">Dashboard</h2>
+        <p class="text-sm text-slate-400" id="page-subtitle">Overview of your business</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="text-xs text-slate-400 bg-slate-900 px-3 py-1.5 rounded-lg">
+          Simulated Time: <span id="sim-time" class="text-cyan-400 font-mono">0h 0m</span>
+        </div>
+        <button onclick="openNewTicketModal()" class="btn-primary px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+          <i class="fas fa-plus"></i> New Ticket
+        </button>
+      </div>
+    </header>
+
+    <div class="p-8">
+
+      <!-- DASHBOARD -->
+      <div id="section-dashboard">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="card p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-slate-400 text-sm">Total Revenue</p>
+                <p class="text-2xl font-bold text-emerald-400 mt-1">KES 284,500</p>
+                <p class="text-xs text-emerald-400 mt-2"><i class="fas fa-arrow-up"></i> 12.5% this month</p>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400"><i class="fas fa-coins text-xl"></i></div>
+            </div>
+          </div>
+          <div class="card p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-slate-400 text-sm">Active Customers</p>
+                <p class="text-2xl font-bold text-cyan-400 mt-1">47</p>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400"><i class="fas fa-users text-xl"></i></div>
+            </div>
+          </div>
+          <div class="card p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-slate-400 text-sm">Open Tickets</p>
+                <p class="text-2xl font-bold text-amber-400 mt-1" id="open-tickets-count">3</p>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400"><i class="fas fa-ticket-alt text-xl"></i></div>
+            </div>
+          </div>
+          <div class="card p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-slate-400 text-sm">SLA Breaches</p>
+                <p class="text-2xl font-bold text-red-400 mt-1" id="sla-breach-count">0</p>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400"><i class="fas fa-exclamation-triangle text-xl"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="card p-6">
+            <h3 class="font-semibold mb-4 flex items-center gap-2"><i class="fas fa-clock text-cyan-400"></i> SLA Status (High Priority)</h3>
+            <div id="sla-status-list" class="space-y-4"></div>
+          </div>
+          <div class="card p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-semibold flex items-center gap-2"><i class="fas fa-ticket-alt text-cyan-400"></i> Urgent Tickets</h3>
+              <button onclick="showSection('tickets')" class="text-xs text-cyan-400 hover:underline">View all</button>
+            </div>
+            <div class="space-y-3" id="urgent-tickets-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TICKETS -->
+      <div id="section-tickets" class="hidden">
+        <div class="flex flex-wrap gap-3 mb-6 items-center">
+          <select id="filter-status" onchange="renderTickets()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+            <option value="">All Status</option>
+            <option value="Open">Open</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Escalated">Escalated</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Closed">Closed</option>
+          </select>
+          <select id="filter-priority" onchange="renderTickets()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+            <option value="">All Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <input type="text" id="search-ticket" onkeyup="renderTickets()" placeholder="Search tickets..." class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm flex-1 min-w-[200px]">
+          <button onclick="openNewTicketModal()" class="btn-primary px-4 py-2 rounded-lg text-sm"><i class="fas fa-plus"></i> New Ticket</button>
+        </div>
+        <div class="card overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-900/70 text-slate-400">
+              <tr>
+                <th class="text-left p-4">Ticket ID</th>
+                <th class="text-left p-4">Subject</th>
+                <th class="text-left p-4">Customer</th>
+                <th class="text-left p-4">Priority</th>
+                <th class="text-left p-4">Status</th>
+                <th class="text-left p-4">SLA</th>
+                <th class="text-left p-4">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tickets-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- AUTOMATION -->
+      <div id="section-automation" class="hidden">
+        <!-- SLA Simulation Controls -->
+        <div class="card p-5 mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h3 class="font-semibold flex items-center gap-2"><i class="fas fa-stopwatch text-cyan-400"></i> SLA Timer Simulation</h3>
+              <p class="text-sm text-slate-400 mt-1">Advance simulated time to test time-based rules and SLA breaches</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-slate-400">Current:</span>
+              <span id="sim-time-big" class="font-mono text-cyan-400 text-lg">0h 0m</span>
+              <button onclick="advanceTime(30)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm">+30m</button>
+              <button onclick="advanceTime(60)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm">+1h</button>
+              <button onclick="advanceTime(120)" class="px-3 py-1.5 rounded-lg bg-cyan-900/50 hover:bg-cyan-800/60 text-cyan-300 text-sm">+2h</button>
+              <button onclick="resetSimulation()" class="px-3 py-1.5 rounded-lg border border-slate-600 text-sm">Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h3 class="text-lg font-semibold">Ticket Automation Rules</h3>
+            <p class="text-sm text-slate-400">Automate assignment, escalation, and status changes</p>
+          </div>
+          <button onclick="openRuleModal()" class="btn-primary px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+            <i class="fas fa-plus"></i> Create Rule
+          </button>
+        </div>
+
+        <div class="space-y-4 mb-10" id="rules-list"></div>
+
+        <div class="card p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-semibold flex items-center gap-2"><i class="fas fa-history text-cyan-400"></i> Rule Execution Log</h3>
+            <button onclick="clearLog()" class="text-xs text-slate-400 hover:text-white">Clear log</button>
+          </div>
+          <div id="execution-log" class="space-y-3 max-h-80 overflow-y-auto text-sm"></div>
+        </div>
+      </div>
+
+     <!-- PAYMENTS -->
+<div id="section-payments" class="hidden">
+  <div class="flex flex-wrap gap-3 mb-6 items-center">
+    <input type="text" id="search-payment" onkeyup="renderPayments()" 
+           placeholder="Search by phone, package or receipt..." 
+           class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm flex-1 min-w-[220px]">
+    
+    <select id="filter-payment-status" onchange="renderPayments()" 
+            class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+      <option value="">All Status</option>
+      <option value="completed">Completed</option>
+      <option value="pending">Pending</option>
+      <option value="failed">Failed</option>
+    </select>
+
+    <button onclick="alert('Export feature coming soon')" 
+            class="px-4 py-2 rounded-lg border border-slate-600 text-sm hover:bg-slate-800">
+      <i class="fas fa-download"></i> Export
+    </button>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="card p-4">
+      <p class="text-slate-400 text-sm">Total Revenue (This Month)</p>
+      <p class="text-2xl font-bold text-emerald-400 mt-1" id="pay-total-revenue">KES 0</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-slate-400 text-sm">Successful Payments</p>
+      <p class="text-2xl font-bold text-cyan-400 mt-1" id="pay-success-count">0</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-slate-400 text-sm">Pending / Failed</p>
+      <p class="text-2xl font-bold text-amber-400 mt-1" id="pay-pending-count">0</p>
+    </div>
+  </div>
+
+  <div class="card overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-slate-900/70 text-slate-400">
+        <tr>
+          <th class="text-left p-4">Date</th>
+          <th class="text-left p-4">Customer</th>
+          <th class="text-left p-4">Package</th>
+          <th class="text-left p-4">Amount</th>
+          <th class="text-left p-4">Method</th>
+          <th class="text-left p-4">Status</th>
+          <th class="text-left p-4">Receipt / Ref</th>
+          <th class="text-left p-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="payments-body"></tbody>
+    </table>
+  </div>
+</div>
+      <!-- CUSTOMERS -->
+<div id="section-customers" class="hidden">
+  <div class="flex flex-wrap gap-3 mb-6 items-center">
+    <input type="text" id="search-customer" onkeyup="renderCustomers()" placeholder="Search customers..." 
+           class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm flex-1 min-w-[200px]">
+    <select id="filter-customer-status" onchange="renderCustomers()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+      <option value="">All Status</option>
+      <option value="Active">Active</option>
+      <option value="Expired">Expired</option>
+      <option value="Pending">Pending</option>
+    </select>
+    <button onclick="alert('Add Customer feature coming soon')" class="btn-primary px-4 py-2 rounded-lg text-sm">
+      <i class="fas fa-plus"></i> Add Customer
+    </button>
+  </div>
+
+  <div class="card overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-slate-900/70 text-slate-400">
+        <tr>
+          <th class="text-left p-4">Customer</th>
+          <th class="text-left p-4">Company</th>
+          <th class="text-left p-4">Package</th>
+          <th class="text-left p-4">Status</th>
+          <th class="text-left p-4">Expiry</th>
+          <th class="text-left p-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="customers-body"></tbody>
+    </table>
+  </div>
+</div>
+     <!-- LEADS -->
+<div id="section-leads" class="hidden">
+  <div class="flex flex-wrap gap-3 mb-6 items-center">
+    <input type="text" id="search-lead" onkeyup="renderLeads()" placeholder="Search leads..." 
+           class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm flex-1 min-w-[200px]">
+    <select id="filter-lead-status" onchange="renderLeads()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+      <option value="">All Status</option>
+      <option value="New">New</option>
+      <option value="Contacted">Contacted</option>
+      <option value="Qualified">Qualified</option>
+      <option value="Lost">Lost</option>
+    </select>
+    <button onclick="alert('Add Lead feature coming soon')" class="btn-primary px-4 py-2 rounded-lg text-sm">
+      <i class="fas fa-plus"></i> Add Lead
+    </button>
+  </div>
+
+  <div class="card overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-slate-900/70 text-slate-400">
+        <tr>
+          <th class="text-left p-4">Name</th>
+          <th class="text-left p-4">Company</th>
+          <th class="text-left p-4">Phone / Email</th>
+          <th class="text-left p-4">Source</th>
+          <th class="text-left p-4">Status</th>
+          <th class="text-left p-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="leads-body"></tbody>
+    </table>
+  </div>
+</div>
+      <div id="section-settings" class="hidden">
+        <div class="card p-6 max-w-xl">
+          <h3 class="font-semibold mb-4">Admin Settings</h3>
+          <p class="text-sm text-slate-400">Settings panel</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- NEW TICKET MODAL -->
+  <div id="ticket-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+    <div class="card w-full max-w-lg p-6 m-4">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-semibold">Create Support Ticket</h3>
+        <button onclick="closeNewTicketModal()" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="space-y-4 text-sm">
+        <div>
+          <label class="block text-slate-400 mb-1">Subject</label>
+          <input id="ticket-subject" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Customer</label>
+          <input id="ticket-customer" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-400 mb-1">Priority</label>
+            <select id="ticket-priority" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Status</label>
+            <select id="ticket-status" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
+              <option value="Open" selected>Open</option>
+              <option value="In Progress">In Progress</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button onclick="createTicket()" class="btn-primary flex-1 py-2.5 rounded-lg">Create Ticket</button>
+          <button onclick="closeNewTicketModal()" class="px-4 py-2.5 rounded-lg border border-slate-600">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RULE MODAL -->
+  <div id="rule-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+    <div class="card w-full max-w-2xl p-6 m-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-semibold" id="rule-modal-title">Create Automation Rule</h3>
+        <button onclick="closeRuleModal()" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="space-y-5 text-sm">
+        <div>
+          <label class="block text-slate-400 mb-1">Rule Name</label>
+          <input id="rule-name" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
+        </div>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="card p-4">
+            <p class="text-xs text-cyan-400 font-semibold mb-2 uppercase">1. Trigger</p>
+            <select id="rule-trigger" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
+              <option value="ticket_created">Ticket Created</option>
+              <option value="time_based">Time-based (SLA)</option>
+              <option value="status_changed">Status Changed</option>
+            </select>
+          </div>
+          <div class="card p-4">
+            <p class="text-xs text-cyan-400 font-semibold mb-2 uppercase">2. Conditions</p>
+            <select id="rule-condition-field" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 mb-2">
+              <option value="priority">Priority</option>
+              <option value="status">Status</option>
+              <option value="age_hours">Age (hours)</option>
+            </select>
+            <select id="rule-condition-op" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 mb-2">
+              <option value="equals">equals</option>
+              <option value="greater_than">greater than</option>
+            </select>
+            <input id="rule-condition-value" type="text" placeholder="e.g. High or 2" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
+          </div>
+          <div class="card p-4">
+            <p class="text-xs text-cyan-400 font-semibold mb-2 uppercase">3. Actions</p>
+            <select id="rule-action" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 mb-2">
+              <option value="assign">Assign to agent</option>
+              <option value="change_status">Change status</option>
+              <option value="escalate">Escalate</option>
+              <option value="notify">Send notification</option>
+            </select>
+            <input id="rule-action-value" type="text" placeholder="e.g. Escalated" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <label class="toggle"><input type="checkbox" id="rule-enabled" checked><span class="slider"></span></label>
+          <span class="text-sm">Enable this rule</span>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button onclick="saveRule()" class="btn-primary flex-1 py-2.5 rounded-lg">Save Rule</button>
+          <button onclick="closeRuleModal()" class="px-4 py-2.5 rounded-lg border border-slate-600">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========== SIMULATION STATE ==========
+    let simulatedMinutes = 0; // total minutes advanced
+
+    // ========== DATA ==========
+    let tickets = [
+      { id: 'TKT-1042', subject: 'Network downtime – Main branch', customer: 'Acme Solutions Ltd', priority: 'High', status: 'Open', createdMinutesAgo: 45 },
+      { id: 'TKT-1041', subject: 'Email phishing attack suspected', customer: 'TechNova Kenya', priority: 'High', status: 'In Progress', createdMinutesAgo: 90 },
+      { id: 'TKT-1040', subject: 'Firewall configuration assistance', customer: 'Kisumu Logistics', priority: 'Medium', status: 'Open', createdMinutesAgo: 120 },
+      { id: 'TKT-1039', subject: 'Slow internet performance', customer: 'Acme Solutions Ltd', priority: 'Low', status: 'Resolved', createdMinutesAgo: 300 },
+    ];
+
+    let rules = [
+      { id: 1, name: 'High Priority Auto-Assign', trigger: 'ticket_created', condition: 'Priority equals High', action: 'Assign to Senior Support', enabled: true },
+      { id: 2, name: 'SLA Escalation (2h)', trigger: 'time_based', condition: 'Age > 2 hours AND Priority = High', action: 'Change status to Escalated + Notify', enabled: true, slaHours: 2 },
+      { id: 3, name: 'Auto-Close Resolved', trigger: 'time_based', condition: 'Status = Resolved for 48h', action: 'Change status to Closed', enabled: true, slaHours: 48 },
+      { id: 4, name: 'New Customer Tag', trigger: 'ticket_created', condition: 'Customer has 0 previous tickets', action: 'Add tag “New Client”', enabled: false },
+    ];
+
+    let executionLog = [
+      { time: 'Start', rule: 'System', result: 'Simulation ready – advance time to test SLA rules' },
+    ];
+
+    let editingRuleId = null;
+
+    // ========== PAYMENTS DATA ==========
+let payments = [
+  { id: 1, date: "2026-08-09 14:22", customer: "John Odhiambo", phone: "+254712345678", package: "Premium Protection", amount: 38900, method: "Pesapal", status: "completed", receipt: "ICH-1723201345-a8f3" },
+  { id: 2, date: "2026-08-08 09:15", customer: "Grace Wanjiku", phone: "+254722334455", package: "Standard Protection", amount: 25900, method: "Pesapal", status: "completed", receipt: "ICH-1723114500-b2c1" },
+  { id: 3, date: "2026-08-07 16:40", customer: "Peter Otieno", phone: "+254733112233", package: "Basic Protection", amount: 12900, method: "Pesapal", status: "failed", receipt: "ICH-1723028400-d9e4" },
+  { id: 4, date: "2026-08-06 11:05", customer: "Mary Achieng", phone: "+254711998877", package: "Premium Protection", amount: 38900, method: "Pesapal", status: "pending", receipt: "ICH-1722941100-f7a2" },
+  { id: 5, date: "2026-08-05 13:30", customer: "Samuel Kariuki", phone: "+254700112233", package: "Standard Protection", amount: 25900, method: "Pesapal", status: "completed", receipt: "ICH-1722855000-c3b8" },
+];
+
+function renderPayments() {
+  const search = document.getElementById('search-payment')?.value.toLowerCase() || '';
+  const status = document.getElementById('filter-payment-status')?.value || '';
+
+  let filtered = payments.filter(p => {
+    if (status && p.status !== status) return false;
+    if (search && !(
+      p.customer.toLowerCase().includes(search) ||
+      p.phone.includes(search) ||
+      p.package.toLowerCase().includes(search) ||
+      p.receipt.toLowerCase().includes(search)
+    )) return false;
+    return true;
+  });
+
+  // Update summary cards
+  const completed = payments.filter(p => p.status === 'completed');
+  const totalRevenue = completed.reduce((sum, p) => sum + p.amount, 0);
+  document.getElementById('pay-total-revenue').textContent = `KES ${totalRevenue.toLocaleString()}`;
+  document.getElementById('pay-success-count').textContent = completed.length;
+  document.getElementById('pay-pending-count').textContent = payments.filter(p => p.status !== 'completed').length;
+
+  const tbody = document.getElementById('payments-body');
+  if (!tbody) return;
+
+  tbody.innerHTML = filtered.length ? filtered.map(p => `
+    <tr class="border-t border-slate-800 hover:bg-slate-900/40">
+      <td class="p-4 text-slate-400">${p.date}</td>
+      <td class="p-4">
+        <div class="font-medium">${p.customer}</div>
+        <div class="text-xs text-slate-500">${p.phone}</div>
+      </td>
+      <td class="p-4">${p.package}</td>
+      <td class="p-4 font-medium text-emerald-400">KES ${p.amount.toLocaleString()}</td>
+      <td class="p-4 text-slate-400">${p.method}</td>
+      <td class="p-4">
+        <span class="badge ${
+          p.status === 'completed' ? 'status-resolved' : 
+          p.status === 'pending' ? 'status-inprogress' : 'status-closed'
+        }">
+          ${p.status.charAt(0).toUpperCase() + p.status.slice(1)}
+        </span>
+      </td>
+      <td class="p-4 font-mono text-xs text-cyan-400">${p.receipt}</td>
+      <td class="p-4">
+        <button onclick="alert('View payment details: ${p.receipt}')" class="text-cyan-400 hover:underline text-xs">View</button>
+      </td>
+    </tr>
+  `).join('') : `<tr><td colspan="8" class="p-8 text-center text-slate-500">No payments found</td></tr>`;
+}
+
+    // ========== SLA HELPERS ==========
+    function getTicketAgeMinutes(ticket) {
+      return ticket.createdMinutesAgo + simulatedMinutes;
+    }
+
+    function getSLAStatus(ticket) {
+      if (ticket.priority !== 'High' || ticket.status === 'Resolved' || ticket.status === 'Closed') {
+        return { status: 'n/a', remaining: null, percent: 0, class: '' };
+      }
+      const age = getTicketAgeMinutes(ticket);
+      const slaMinutes = 120; // 2 hours
+      const remaining = slaMinutes - age;
+      const percent = Math.min(100, (age / slaMinutes) * 100);
+
+      if (remaining <= 0) return { status: 'Breached', remaining: 0, percent: 100, class: 'sla-breach' };
+      if (remaining <= 30) return { status: 'Warning', remaining, percent, class: 'sla-warn' };
+      return { status: 'On Track', remaining, percent, class: 'sla-ok' };
+    }
+
+    function formatMinutes(mins) {
+      const h = Math.floor(mins / 60);
+      const m = mins % 60;
+      return `${h}h ${m}m`;
+    }
+
+    function updateSimTimeDisplay() {
+      const text = formatMinutes(simulatedMinutes);
+      document.getElementById('sim-time').textContent = text;
+      const big = document.getElementById('sim-time-big');
+      if (big) big.textContent = text;
+    }
+
+    // ========== CUSTOMERS & LEADS DATA ==========
+let customers = [
+  { id: 1, name: "John Odhiambo", company: "Acme Solutions Ltd", email: "john@acme.co.ke", phone: "+254712345678", package: "Premium", status: "Active", expiry: "2026-09-15" },
+  { id: 2, name: "Grace Wanjiku", company: "TechNova Kenya", email: "grace@technova.co.ke", phone: "+254722334455", package: "Standard", status: "Active", expiry: "2026-08-28" },
+  { id: 3, name: "Peter Otieno", company: "Kisumu Logistics", email: "peter@kisumulogistics.com", phone: "+254733112233", package: "Basic", status: "Expired", expiry: "2026-07-10" },
+  { id: 4, name: "Mary Achieng", company: "Lakeview Hotels", email: "mary@lakeview.co.ke", phone: "+254711998877", package: "Premium", status: "Pending", expiry: "-" },
+];
+
+let leads = [
+  { id: 1, name: "Samuel Kariuki", company: "Nairobi Motors", phone: "+254700112233", email: "sam@nairobimotors.com", source: "Website", status: "New" },
+  { id: 2, name: "Faith Njeri", company: "Green Farm Ltd", phone: "+254722445566", email: "faith@greenfarm.co.ke", source: "Referral", status: "Contacted" },
+  { id: 3, name: "David Omondi", company: "Westlands Clinic", phone: "+254733556677", email: "david@westlandsclinic.com", source: "WhatsApp", status: "Qualified" },
+  { id: 4, name: "Lucy Akinyi", company: "Sunrise School", phone: "+254711223344", email: "lucy@sunriseschool.ac.ke", source: "Website", status: "Lost" },
+];
+
+function renderCustomers() {
+  const search = document.getElementById('search-customer')?.value.toLowerCase() || '';
+  const status = document.getElementById('filter-customer-status')?.value || '';
+
+  let filtered = customers.filter(c => {
+    if (status && c.status !== status) return false;
+    if (search && !(c.name.toLowerCase().includes(search) || c.company.toLowerCase().includes(search) || c.email.toLowerCase().includes(search))) return false;
+    return true;
+  });
+
+  const tbody = document.getElementById('customers-body');
+  if (!tbody) return;
+
+  tbody.innerHTML = filtered.length ? filtered.map(c => `
+    <tr class="border-t border-slate-800 hover:bg-slate-900/40">
+      <td class="p-4">
+        <div class="font-medium">${c.name}</div>
+        <div class="text-xs text-slate-400">${c.email}</div>
+      </td>
+      <td class="p-4">${c.company}</td>
+      <td class="p-4"><span class="text-cyan-400">${c.package}</span></td>
+      <td class="p-4">
+        <span class="badge ${c.status === 'Active' ? 'status-resolved' : c.status === 'Expired' ? 'status-closed' : 'status-inprogress'}">
+          ${c.status}
+        </span>
+      </td>
+      <td class="p-4 text-slate-400">${c.expiry}</td>
+      <td class="p-4">
+        <button onclick="alert('View customer ${c.name}')" class="text-cyan-400 hover:underline text-xs mr-3">View</button>
+        <button onclick="alert('Edit customer')" class="text-slate-400 hover:text-white text-xs">Edit</button>
+      </td>
+    </tr>
+  `).join('') : `<tr><td colspan="6" class="p-8 text-center text-slate-500">No customers found</td></tr>`;
+}
+
+function renderLeads() {
+  const search = document.getElementById('search-lead')?.value.toLowerCase() || '';
+  const status = document.getElementById('filter-lead-status')?.value || '';
+
+  let filtered = leads.filter(l => {
+    if (status && l.status !== status) return false;
+    if (search && !(l.name.toLowerCase().includes(search) || l.company.toLowerCase().includes(search) || l.email.toLowerCase().includes(search))) return false;
+    return true;
+  });
+
+  const tbody = document.getElementById('leads-body');
+  if (!tbody) return;
+
+  tbody.innerHTML = filtered.length ? filtered.map(l => `
+    <tr class="border-t border-slate-800 hover:bg-slate-900/40">
+      <td class="p-4 font-medium">${l.name}</td>
+      <td class="p-4">${l.company}</td>
+      <td class="p-4">
+        <div>${l.phone}</div>
+        <div class="text-xs text-slate-400">${l.email}</div>
+      </td>
+      <td class="p-4 text-slate-400">${l.source}</td>
+      <td class="p-4">
+        <span class="badge ${
+          l.status === 'New' ? 'status-open' : 
+          l.status === 'Contacted' ? 'status-inprogress' : 
+          l.status === 'Qualified' ? 'status-resolved' : 'status-closed'
+        }">${l.status}</span>
+      </td>
+      <td class="p-4">
+        <button onclick="alert('Contact ${l.name}')" class="text-cyan-400 hover:underline text-xs mr-3">Contact</button>
+        <button onclick="alert('Convert to Customer')" class="text-emerald-400 hover:underline text-xs">Convert</button>
+      </td>
+    </tr>
+  `).join('') : `<tr><td colspan="6" class="p-8 text-center text-slate-500">No leads found</td></tr>`;
+}
+
+    // ========== TIME SIMULATION ==========
+    function advanceTime(minutes) {
+      simulatedMinutes += minutes;
+      updateSimTimeDisplay();
+
+      // Check time-based rules
+      checkSLARules();
+
+      // Refresh views
+      renderSLAStatus();
+      renderUrgentTickets();
+      if (!document.getElementById('section-tickets').classList.contains('hidden')) renderTickets();
+      if (!document.getElementById('section-automation').classList.contains('hidden')) {
+        renderRules();
+        renderLog();
+      }
+      updateDashboardCounts();
+    }
+
+    function resetSimulation() {
+      simulatedMinutes = 0;
+      // Reset any escalated tickets back for demo
+      tickets.forEach(t => {
+        if (t.status === 'Escalated') t.status = 'Open';
+      });
+      updateSimTimeDisplay();
+      renderSLAStatus();
+      renderUrgentTickets();
+      renderTickets();
+      updateDashboardCounts();
+      executionLog.unshift({ time: formatMinutes(0), rule: 'System', result: 'Simulation reset' });
+      renderLog();
+    }
+
+    function checkSLARules() {
+      const slaRule = rules.find(r => r.id === 2 && r.enabled);
+      if (!slaRule) return;
+
+      tickets.forEach(ticket => {
+        if (ticket.priority === 'High' && (ticket.status === 'Open' || ticket.status === 'In Progress')) {
+          const age = getTicketAgeMinutes(ticket);
+          if (age >= 120 && ticket.status !== 'Escalated') {
+            ticket.status = 'Escalated';
+            const timeStr = formatMinutes(simulatedMinutes);
+            executionLog.unshift({
+              time: timeStr,
+              rule: slaRule.name,
+              result: `Escalated ${ticket.id} (${ticket.subject}) – SLA of 2h breached`
+            });
+          }
+        }
+      });
+    }
+
+    // ========== RENDER FUNCTIONS ==========
+    function renderSLAStatus() {
+      const highTickets = tickets.filter(t => t.priority === 'High' && t.status !== 'Resolved' && t.status !== 'Closed');
+      const list = document.getElementById('sla-status-list');
+      if (!list) return;
+
+      if (highTickets.length === 0) {
+        list.innerHTML = '<p class="text-slate-500 text-sm">No active high-priority tickets</p>';
+        return;
+      }
+
+      list.innerHTML = highTickets.map(t => {
+        const sla = getSLAStatus(t);
+        const age = getTicketAgeMinutes(t);
+        return `
+          <div class="p-3 rounded-lg bg-slate-900/50">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <p class="text-sm font-medium">${t.id} – ${t.subject}</p>
+                <p class="text-xs text-slate-400">Age: ${formatMinutes(age)}</p>
+              </div>
+              <span class="text-xs font-semibold ${sla.class}">${sla.status}</span>
+            </div>
+            <div class="progress-bar mb-1">
+              <div class="progress-fill ${sla.class === 'sla-breach' ? 'bg-red-500' : sla.class === 'sla-warn' ? 'bg-amber-400' : 'bg-emerald-400'}" 
+                   style="width: ${sla.percent}%"></div>
+            </div>
+            <p class="text-xs text-slate-400">
+              ${sla.remaining > 0 ? `Remaining: ${formatMinutes(sla.remaining)}` : 'SLA Breached'}
+            </p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderUrgentTickets() {
+      const urgent = tickets.filter(t => ['Open','In Progress','Escalated'].includes(t.status)).slice(0,4);
+      document.getElementById('urgent-tickets-list').innerHTML = urgent.map(t => {
+        const sla = getSLAStatus(t);
+        return `
+          <div class="flex justify-between items-center p-3 rounded-lg bg-slate-900/50">
+            <div>
+              <p class="text-sm font-medium">${t.subject}</p>
+              <p class="text-xs text-slate-400">${t.id} • ${t.priority}
+                ${sla.status !== 'n/a' ? `• <span class="${sla.class}">${sla.status}</span>` : ''}
+              </p>
+            </div>
+            <span class="badge status-${t.status.toLowerCase().replace(' ','')}">${t.status}</span>
+          </div>
+        `;
+      }).join('') || '<p class="text-slate-500 text-sm">No open tickets</p>';
+    }
+
+    function renderTickets() {
+      const status = document.getElementById('filter-status')?.value || '';
+      const priority = document.getElementById('filter-priority')?.value || '';
+      const search = document.getElementById('search-ticket')?.value.toLowerCase() || '';
+      let filtered = tickets.filter(t => {
+        if (status && t.status !== status) return false;
+        if (priority && t.priority !== priority) return false;
+        if (search && !(t.subject.toLowerCase().includes(search) || t.customer.toLowerCase().includes(search) || t.id.toLowerCase().includes(search))) return false;
+        return true;
+      });
+
+      const tbody = document.getElementById('tickets-body');
+      tbody.innerHTML = filtered.length ? filtered.map(t => {
+        const sla = getSLAStatus(t);
+        return `
+          <tr class="border-t border-slate-800 hover:bg-slate-900/40">
+            <td class="p-4 font-mono text-cyan-400">${t.id}</td>
+            <td class="p-4">${t.subject}</td>
+            <td class="p-4">${t.customer}</td>
+            <td class="p-4"><span class="priority-${t.priority.toLowerCase()} font-medium">${t.priority}</span></td>
+            <td class="p-4"><span class="badge status-${t.status.toLowerCase().replace(' ','')}">${t.status}</span></td>
+            <td class="p-4">
+              ${sla.status !== 'n/a' 
+                ? `<span class="${sla.class} text-xs font-medium">${sla.status}</span><br><span class="text-xs text-slate-500">${formatMinutes(getTicketAgeMinutes(t))}</span>`
+                : '<span class="text-slate-500 text-xs">—</span>'}
+            </td>
+            <td class="p-4"><button onclick="updateTicketStatus('${t.id}')" class="text-cyan-400 hover:underline text-xs">Update</button></td>
+          </tr>
+        `;
+      }).join('') : `<tr><td colspan="7" class="p-8 text-center text-slate-500">No tickets found</td></tr>`;
+    }
+
+    function updateDashboardCounts() {
+      const open = tickets.filter(t => ['Open','In Progress','Escalated'].includes(t.status)).length;
+      const breaches = tickets.filter(t => getSLAStatus(t).status === 'Breached').length;
+      document.getElementById('open-tickets-count').textContent = open;
+      document.getElementById('sla-breach-count').textContent = breaches;
+      document.getElementById('ticket-badge').textContent = open;
+    }
+
+    // ========== AUTOMATION RENDER ==========
+    function renderRules() {
+      const list = document.getElementById('rules-list');
+      list.innerHTML = rules.map(r => `
+        <div class="card p-5 flex flex-col md:flex-row md:items-center gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+              <h4 class="font-semibold">${r.name}</h4>
+              <span class="badge ${r.enabled ? 'status-resolved' : 'status-closed'}">${r.enabled ? 'Active' : 'Disabled'}</span>
+              ${r.trigger === 'time_based' ? '<span class="badge bg-purple-900/50 text-purple-300">SLA</span>' : ''}
+            </div>
+            <p class="text-xs text-slate-400 mb-2">Trigger: <span class="text-cyan-400">${r.trigger.replace('_',' ')}</span></p>
+            <div class="flex flex-wrap gap-4 text-xs">
+              <span><span class="text-slate-500">Condition:</span> ${r.condition}</span>
+              <span><span class="text-slate-500">Action:</span> ${r.action}</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <label class="toggle">
+              <input type="checkbox" ${r.enabled ? 'checked' : ''} onchange="toggleRule(${r.id})">
+              <span class="slider"></span>
+            </label>
+            <button onclick="runRule(${r.id})" class="text-xs bg-cyan-900/40 hover:bg-cyan-800/60 text-cyan-300 px-3 py-1.5 rounded-lg">
+              <i class="fas fa-play"></i> Run Now
+            </button>
+            <button onclick="editRule(${r.id})" class="text-xs text-slate-400 hover:text-white px-2"><i class="fas fa-edit"></i></button>
+            <button onclick="deleteRule(${r.id})" class="text-xs text-red-400 hover:text-red-300 px-2"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderLog() {
+      const log = document.getElementById('execution-log');
+      log.innerHTML = executionLog.map(e => `
+        <div class="flex gap-3 p-3 rounded-lg bg-slate-900/50">
+          <div class="text-xs text-slate-500 w-24 flex-shrink-0">${e.time}</div>
+          <div>
+            <p class="font-medium text-cyan-400">${e.rule}</p>
+            <p class="text-slate-300">${e.result}</p>
+          </div>
+        </div>
+      `).join('') || '<p class="text-slate-500">No executions yet</p>';
+    }
+
+    // ========== OTHER FUNCTIONS (same as before) ==========
+    function showSection(name) {
+      ['dashboard','tickets','automation','payments','customers','leads','settings'].forEach(s => {
+        document.getElementById(`section-${s}`).classList.add('hidden');
+        document.getElementById(`nav-${s}`).classList.remove('active');
+      });
+      if (name === 'customers') renderCustomers();
+      if (name === 'leads') renderLeads();
+      if (name === 'payments') renderPayments();
+      document.getElementById(`section-${name}`).classList.remove('hidden');
+      document.getElementById(`nav-${name}`).classList.add('active');
+
+      const titles = {
+        dashboard: ['Dashboard', 'Overview of your business'],
+        tickets: ['Support Tickets', 'Manage ICT support requests'],
+        automation: ['Automation Rules', 'Automate ticket handling + SLA simulation'],
+        payments: ['Payments', 'Track all transactions'],
+        customers: ['Customers', 'Active clients'],
+        leads: ['Leads', 'Potential customers'],
+        settings: ['Settings', 'Admin preferences']
+      };
+      document.getElementById('page-title').textContent = titles[name][0];
+      document.getElementById('page-subtitle').textContent = titles[name][1];
+
+      if (name === 'tickets') renderTickets();
+      if (name === 'dashboard') { renderSLAStatus(); renderUrgentTickets(); updateDashboardCounts(); }
+      if (name === 'automation') { renderRules(); renderLog(); updateSimTimeDisplay(); }
+    }
+
+    function toggleRule(id) {
+      const r = rules.find(x => x.id === id);
+      if (r) { r.enabled = !r.enabled; renderRules(); }
+    }
+
+    function runRule(id) {
+      const r = rules.find(x => x.id === id);
+      if (!r) return;
+      const timeStr = formatMinutes(simulatedMinutes);
+      executionLog.unshift({ time: timeStr, rule: r.name, result: `Manually executed – processed matching tickets` });
+      renderLog();
+      alert(`Rule "${r.name}" executed!`);
+    }
+
+    function openRuleModal(id = null) {
+      editingRuleId = id;
+      document.getElementById('rule-modal-title').textContent = id ? 'Edit Rule' : 'Create Rule';
+      document.getElementById('rule-modal').classList.remove('hidden');
+      document.getElementById('rule-modal').classList.add('flex');
+    }
+    function closeRuleModal() {
+      document.getElementById('rule-modal').classList.add('hidden');
+      document.getElementById('rule-modal').classList.remove('flex');
+    }
+    function saveRule() {
+      const name = document.getElementById('rule-name').value.trim();
+      if (!name) return alert('Enter rule name');
+      // simplified save
+      rules.push({
+        id: Date.now(),
+        name,
+        trigger: document.getElementById('rule-trigger').value,
+        condition: 'Custom condition',
+        action: 'Custom action',
+        enabled: document.getElementById('rule-enabled').checked
+      });
+      closeRuleModal();
+      renderRules();
+    }
+    function editRule(id) { openRuleModal(id); }
+    function deleteRule(id) {
+      if (confirm('Delete rule?')) {
+        rules = rules.filter(r => r.id !== id);
+        renderRules();
+      }
+    }
+    function clearLog() {
+      executionLog = [];
+      renderLog();
+    }
+
+    function openNewTicketModal() {
+      document.getElementById('ticket-modal').classList.remove('hidden');
+      document.getElementById('ticket-modal').classList.add('flex');
+    }
+    function closeNewTicketModal() {
+      document.getElementById('ticket-modal').classList.add('hidden');
+      document.getElementById('ticket-modal').classList.remove('flex');
+    }
+    function createTicket() {
+      const subject = document.getElementById('ticket-subject').value.trim();
+      const customer = document.getElementById('ticket-customer').value.trim();
+      if (!subject || !customer) return alert('Fill required fields');
+      const newId = 'TKT-' + (1043 + tickets.length);
+      tickets.unshift({
+        id: newId,
+        subject,
+        customer,
+        priority: document.getElementById('ticket-priority').value,
+        status: document.getElementById('ticket-status').value,
+        createdMinutesAgo: 0
+      });
+      closeNewTicketModal();
+      document.getElementById('ticket-subject').value = '';
+      document.getElementById('ticket-customer').value = '';
+      updateDashboardCounts();
+      renderUrgentTickets();
+      renderSLAStatus();
+      alert('Ticket ' + newId + ' created!');
+    }
+    function updateTicketStatus(id) {
+      const t = tickets.find(x => x.id === id);
+      if (!t) return;
+      const opts = ['Open','In Progress','Escalated','Resolved','Closed'];
+      t.status = opts[(opts.indexOf(t.status)+1) % opts.length];
+      renderTickets(); renderUrgentTickets(); renderSLAStatus(); updateDashboardCounts();
+    }
+    function logout() {
+      if (confirm('Logout?')) location.reload();
+    }
+
+    // Init
+    document.getElementById('admin-name').textContent = localStorage.getItem('admin_name') || 'Admin';
+    updateSimTimeDisplay();
+    renderSLAStatus();
+    renderUrgentTickets();
+    updateDashboardCounts();
+  </script>
+</body>
+</html>
