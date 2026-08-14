@@ -1,6 +1,6 @@
-// auth.js - Shared Authentication (connected to backend)
+// auth.js - Secure Authentication
 
-const API_URL = 'http://localhost:3000/api';   // Change this later when you deploy
+const API_URL = 'http://localhost:3000/api';
 const AUTH_KEY = 'ich_auth_token';
 const USER_KEY = 'ich_user';
 
@@ -54,18 +54,24 @@ function authHeaders() {
   };
 }
 
+// ========== PROTECTION FUNCTIONS ==========
+
 function requireAuth(allowedRoles = []) {
   if (!isLoggedIn()) {
+    // Save the page they tried to visit
+    sessionStorage.setItem('redirect_after_login', window.location.href);
     window.location.href = 'portal.html';
     return false;
   }
 
   const user = getCurrentUser();
+
   if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
-    alert('Access denied');
+    alert('Access denied. You do not have permission to view this page.');
     logout();
     return false;
   }
+
   return true;
 }
 
@@ -75,4 +81,27 @@ function requireAdmin() {
 
 function requireClient() {
   return requireAuth(['client']);
+}
+
+// Check token validity with the backend (optional but recommended)
+async function verifySession() {
+  if (!isLoggedIn()) return false;
+
+  try {
+    const res = await fetch(`${API_URL}/auth/me`, {
+      headers: authHeaders()
+    });
+
+    if (!res.ok) {
+      logout();
+      return false;
+    }
+
+    const data = await res.json();
+    localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+    return true;
+  } catch (err) {
+    logout();
+    return false;
+  }
 }
