@@ -1092,6 +1092,16 @@ async function updateTicketStatus(id, status) {
     alert('Failed to update ticket');
   }
 }
+    window.addEventListener('pageshow', function(event) {
+  if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+    if (!isLoggedIn()) {
+      window.location.reload();
+    }
+  }
+});
+document.getElementById('portal').style.visibility = 'visible';
+// or for admin
+document.querySelector('main').style.visibility = 'visible';
   </script>
 </body>
 </html>
