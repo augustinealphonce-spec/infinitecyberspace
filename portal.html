@@ -378,6 +378,36 @@ async function createTicket() {
     alert('Cannot connect to server. Is the backend running?');
   }
 }
+  async function loadTickets() {
+  try {
+    const res = await fetch('http://localhost:3000/api/tickets', {
+      headers: authHeaders()
+    });
+    const data = await res.json();
+
+    const list = document.getElementById('tickets-list');
+
+    if (!data.tickets || data.tickets.length === 0) {
+      list.innerHTML = `<p class="text-slate-500">No tickets yet. Create your first support ticket.</p>`;
+      return;
+    }
+
+    list.innerHTML = data.tickets.map(t => `
+      <div class="card p-4 flex justify-between items-start">
+        <div>
+          <div class="font-medium">${t.subject}</div>
+          <div class="text-sm text-slate-400 mt-1">${t.description.substring(0, 80)}...</div>
+          <div class="text-xs text-slate-500 mt-2">
+            ${t.ticket_id} • ${new Date(t.created_at).toLocaleString()} • Priority: ${t.priority}
+          </div>
+        </div>
+        <span class="badge status-open text-xs px-2 py-1 rounded">${t.status}</span>
+      </div>
+    `).join('');
+  } catch (err) {
+    console.error(err);
+  }
+}
 
     const newTicket = {
       id: "TKT-" + Date.now().toString().slice(-6),
@@ -403,7 +433,7 @@ async function createTicket() {
     document.getElementById('ticket-description').value = '';
     renderTickets();
     alert("Ticket submitted successfully! Our team will respond soon.");
-  }
+ 
 
   function showTab(name) {
     ['overview', 'tickets', 'invoices', 'reports'].forEach(t => {
