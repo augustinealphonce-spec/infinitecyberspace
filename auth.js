@@ -45,18 +45,22 @@ function parseToken(token) {
 
 // ========== PUBLIC FUNCTIONS ==========
 
-function login(email, password) {
-  const user = USERS.find(u => u.email === email && u.password === password);
-  
-  if (!user) {
-    return { success: false, message: 'Invalid email or password' };
+function login() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+
+  const result = login(email, password); // from auth.js
+
+  if (result.success) {
+    if (result.user.role === 'client') {
+      showPortal();
+    } else if (result.user.role === 'admin') {
+      window.location.href = 'admin.html';
+    }
+  } else {
+    document.getElementById('login-error').textContent = result.message;
+    document.getElementById('login-error').classList.remove('hidden');
   }
-
-  const token = generateToken(user);
-  localStorage.setItem(AUTH_KEY, token);
-  localStorage.setItem(USER_KEY, JSON.stringify(user));
-
-  return { success: true, user };
 }
 
 function logout() {
