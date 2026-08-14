@@ -18,6 +18,7 @@
     font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
     img-src 'self' data: https: blob:;
     connect-src 'self' https://splitforms.com https://formspree.io;
+    frame-src 'self' https://www.google.com https://maps.google.com;
     frame-ancestors 'none';
     base-uri 'self';
     form-action 'self' https://splitforms.com https://formspree.io;
@@ -36,7 +37,6 @@
         INFINITE<span class="text-white font-light">CYBER</span>
       </a>
 
-      <!-- Desktop Menu -->
       <div class="hidden md:flex items-center gap-10 text-sm font-medium tracking-wide">
         <a href="index.html" class="nav-link text-zinc-400 hover:text-white transition">Home</a>
         <a href="services.html" class="nav-link text-zinc-400 hover:text-white transition">Services</a>
@@ -46,19 +46,16 @@
         <a href="contact.html" class="nav-link text-cyan-400">Contact</a>
       </div>
 
-      <!-- Desktop Buttons -->
       <div class="hidden md:flex items-center gap-4">
         <a href="packages.html" class="btn-primary px-5 py-2.5 text-sm font-medium rounded-lg">Get Protected</a>
         <a href="contact.html" class="btn-outline px-5 py-2.5 text-sm font-medium rounded-lg border border-white/20 hover:border-cyan-400/50 transition">Free Consultation</a>
       </div>
 
-      <!-- Mobile Hamburger -->
       <button id="menu-btn" class="md:hidden text-2xl text-cyan-400" aria-label="Open menu">
         <i class="fas fa-bars"></i>
       </button>
     </div>
 
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden px-6 pb-8 flex flex-col gap-1 text-sm font-medium bg-zinc-950/95 border-t border-white/5">
       <a href="index.html" class="nav-link py-3 text-zinc-300">Home</a>
       <a href="services.html" class="nav-link py-3 text-zinc-300">Services</a>
@@ -75,7 +72,6 @@
 
   <!-- ===== HERO ===== -->
   <section class="relative pt-24 pb-20 overflow-hidden">
-    <!-- subtle gradient glow -->
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-transparent to-transparent pointer-events-none"></div>
     
     <div class="max-w-4xl mx-auto px-6 text-center relative">
@@ -90,13 +86,13 @@
   </section>
 
   <!-- ===== MAIN CONTACT SECTION ===== -->
-  <section class="max-w-6xl mx-auto px-6 pb-28">
+  <section class="max-w-6xl mx-auto px-6 pb-20">
     <div class="grid lg:grid-cols-5 gap-10 lg:gap-14">
 
-      <!-- Left Column - Direct Contact -->
+      <!-- Left Column -->
       <div class="lg:col-span-2 space-y-8">
         
-        <!-- Primary WhatsApp CTA -->
+        <!-- WhatsApp CTA -->
         <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600/20 to-emerald-900/10 border border-emerald-500/20 p-8">
           <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
           <div class="relative">
@@ -119,7 +115,7 @@
           </div>
         </div>
 
-        <!-- Contact Details Card -->
+        <!-- Contact Details -->
         <div class="rounded-2xl bg-zinc-900/60 border border-white/5 p-8 backdrop-blur-sm">
           <h3 class="text-lg font-semibold mb-7 tracking-tight">Direct Contact</h3>
           
@@ -181,7 +177,6 @@
             <p class="text-zinc-400 text-sm">Tell us about your needs. We’ll get back to you promptly.</p>
           </div>
 
-          <!-- Replace YOUR_FORM_ID with your actual Formspree / form endpoint -->
           <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-6" id="contact-form">
             
             <div class="grid sm:grid-cols-2 gap-6">
@@ -226,6 +221,36 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ===== GOOGLE MAPS SECTION ===== -->
+  <section class="max-w-6xl mx-auto px-6 pb-28">
+    <div class="text-center mb-10">
+      <p class="text-cyan-400/90 text-sm font-medium tracking-widest uppercase mb-3">Location</p>
+      <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Find Us in Kisumu</h2>
+      <p class="text-zinc-400 mt-3 max-w-xl mx-auto">
+        Based in Kisumu, Kenya — serving clients across the country and beyond.
+      </p>
+    </div>
+
+    <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-zinc-900">
+      <!-- Google Maps Embed -->
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.0!2d34.7617!3d-0.1022!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182aa5b1e0e0e0e0%3A0x0!2sKisumu%2C%20Kenya!5e0!3m2!1sen!2ske!4v1710000000000!5m2!1sen!2ske"
+        width="100%" 
+        height="450" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade"
+        class="w-full h-[350px] md:h-[450px] grayscale-[20%] contrast-110 brightness-90 hover:grayscale-0 transition duration-700">
+      </iframe>
+    </div>
+
+    <p class="text-center text-sm text-zinc-500 mt-5">
+      <i class="fas fa-map-marker-alt text-cyan-400 mr-2"></i>
+      Kisumu, Kenya
+    </p>
   </section>
 
   <!-- ===== UNIFIED FOOTER ===== -->
@@ -275,7 +300,6 @@
   </footer>
 
   <script>
-    // Mobile menu toggle
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     if (menuBtn && mobileMenu) {
@@ -284,7 +308,6 @@
       });
     }
 
-    // Simple form validation (optional enhancement)
     const form = document.getElementById('contact-form');
     if (form) {
       form.addEventListener('submit', function(e) {
