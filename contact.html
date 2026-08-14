@@ -30,45 +30,47 @@
 
 <body class="bg-zinc-950 text-zinc-100 antialiased">
 
-  <!-- ===== UNIFIED NAVBAR ===== -->
-  <nav class="navbar sticky top-0 z-50 backdrop-blur-xl bg-zinc-950/80 border-b border-white/5">
-    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-      <a href="index.html" class="logo text-xl tracking-tight font-semibold">
-        INFINITE<span class="text-white font-light">CYBER</span>
-      </a>
+<!-- ===== UNIFIED NAVBAR ===== -->
+<nav class="navbar">
+  <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+    <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
 
-      <div class="hidden md:flex items-center gap-10 text-sm font-medium tracking-wide">
-        <a href="index.html" class="nav-link text-zinc-400 hover:text-white transition">Home</a>
-        <a href="services.html" class="nav-link text-zinc-400 hover:text-white transition">Services</a>
-        <a href="packages.html" class="nav-link text-zinc-400 hover:text-white transition">Packages</a>
-        <a href="about.html" class="nav-link text-zinc-400 hover:text-white transition">About Us</a>
-        <a href="blog.html" class="nav-link text-zinc-400 hover:text-white transition">Blog</a>
-        <a href="contact.html" class="nav-link text-cyan-400">Contact</a>
-      </div>
-
-      <div class="hidden md:flex items-center gap-4">
-        <a href="packages.html" class="btn-primary px-5 py-2.5 text-sm font-medium rounded-lg">Get Protected</a>
-        <a href="contact.html" class="btn-outline px-5 py-2.5 text-sm font-medium rounded-lg border border-white/20 hover:border-cyan-400/50 transition">Free Consultation</a>
-      </div>
-
-      <button id="menu-btn" class="md:hidden text-2xl text-cyan-400" aria-label="Open menu">
-        <i class="fas fa-bars"></i>
-      </button>
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="packages.html" class="nav-link">Packages</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
     </div>
 
-    <div id="mobile-menu" class="hidden md:hidden px-6 pb-8 flex flex-col gap-1 text-sm font-medium bg-zinc-950/95 border-t border-white/5">
-      <a href="index.html" class="nav-link py-3 text-zinc-300">Home</a>
-      <a href="services.html" class="nav-link py-3 text-zinc-300">Services</a>
-      <a href="packages.html" class="nav-link py-3 text-zinc-300">Packages</a>
-      <a href="about.html" class="nav-link py-3 text-zinc-300">About Us</a>
-      <a href="blog.html" class="nav-link py-3 text-zinc-300">Blog</a>
-      <a href="contact.html" class="nav-link py-3 text-cyan-400">Contact</a>
-      <div class="pt-6 flex flex-col gap-3">
-        <a href="packages.html" class="btn-primary text-center py-3.5 rounded-lg">Get Protected Now</a>
-        <a href="contact.html" class="btn-outline text-center py-3.5 rounded-lg border border-white/20">Free Consultation</a>
-      </div>
+    <!-- Desktop Buttons -->
+    <div class="hidden md:flex items-center gap-4">
+      <a href="packages.html" class="btn-primary">Get Protected Now</a>
+      <a href="contact.html" class="btn-outline">Free Consultation</a>
     </div>
-  </nav>
+
+    <!-- Mobile Hamburger -->
+    <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" aria-label="Open menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 flex flex-col gap-5 text-sm font-medium bg-black/95 border-t border-cyan-500/20">
+    <a href="index.html" class="nav-link py-2">Home</a>
+    <a href="services.html" class="nav-link py-2">Services</a>
+    <a href="packages.html" class="nav-link py-2">Packages</a>
+    <a href="about.html" class="nav-link py-2">About Us</a>
+    <a href="blog.html" class="nav-link py-2">Blog</a>
+    <a href="contact.html" class="nav-link py-2">Contact</a>
+    <div class="pt-4 flex flex-col gap-3">
+      <a href="packages.html" class="btn-primary text-center py-3">Get Protected Now</a>
+      <a href="contact.html" class="btn-outline text-center py-3">Free Consultation</a>
+    </div>
+  </div>
+</nav>
 
   <!-- ===== HERO ===== -->
   <section class="relative pt-24 pb-20 overflow-hidden">
