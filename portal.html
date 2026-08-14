@@ -170,6 +170,28 @@
   </div>
 
 <script>
+  document.addEventListener('DOMContentLoaded', async () => {
+  // If already logged in as client → show portal
+  if (isLoggedIn()) {
+    const user = getCurrentUser();
+
+    if (user.role === 'client') {
+      const valid = await verifySession();
+      if (valid) {
+        showPortal();
+        return;
+      }
+    }
+
+    if (user.role === 'admin') {
+      // Admin tried to open client portal → send to admin
+      window.location.href = 'admin.html';
+      return;
+    }
+  }
+
+  // Otherwise show the login screen (default)
+});
   // ===================== DEMO DATA =====================
   const demoUser = {
     name: "John Odhiambo",
