@@ -13,12 +13,12 @@
   <!-- Security Headers -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com;
+  script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://www.google.com https://www.gstatic.com;
   style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
   img-src 'self' data: https: blob:;
   connect-src 'self' https://docs.google.com;
-  frame-src 'self' https://www.google.com https://maps.google.com https://docs.google.com;
+  frame-src 'self' https://www.google.com https://maps.google.com https://docs.google.com https://www.gstatic.com;
   frame-ancestors 'none';
   base-uri 'self';
   form-action 'self' https://docs.google.com;
@@ -232,6 +232,11 @@
                   placeholder="Briefly describe your requirements or challenges..."></textarea>
       </div>
 
+      <!-- reCAPTCHA -->
+      <div class="flex justify-center">
+        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+      </div>
+
       <!-- Submit Button -->
       <button type="submit" id="submit-btn"
               class="w-full bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-semibold py-4 rounded-xl transition-all duration-300 shadow-lg shadow-cyan-900/30 hover:shadow-cyan-500/20 flex items-center justify-center gap-2">
@@ -240,7 +245,6 @@
       </button>
     </form>
 
-    <!-- Status message -->
     <div id="form-status" class="mt-5 text-center text-sm hidden"></div>
 
     <p class="text-xs text-zinc-500 mt-6 text-center">
@@ -324,8 +328,12 @@
     </div>
   </footer>
 
+
+<!-- reCAPTCHA Script -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <script>
-  // Mobile menu toggle
+  // Mobile menu
   const menuBtn = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   if (menuBtn && mobileMenu) {
@@ -334,7 +342,7 @@
     });
   }
 
-  // Google Form submission
+  // Form submission with reCAPTCHA
   const form = document.getElementById('contact-form');
   const statusEl = document.getElementById('form-status');
   const submitBtn = document.getElementById('submit-btn');
@@ -343,6 +351,15 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Check if reCAPTCHA is completed
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+      statusEl.className = 'mt-5 text-center text-sm text-red-400';
+      statusEl.textContent = 'Please complete the reCAPTCHA verification.';
+      statusEl.classList.remove('hidden');
+      return;
+    }
 
     const formData = new FormData(form);
 
@@ -361,6 +378,7 @@
       statusEl.className = 'mt-5 text-center text-sm text-emerald-400 font-medium';
       statusEl.textContent = '✓ Message sent successfully! We will reply within 2 hours.';
       form.reset();
+      grecaptcha.reset(); // Reset reCAPTCHA
     } catch (err) {
       statusEl.className = 'mt-5 text-center text-sm text-red-400';
       statusEl.textContent = 'Something went wrong. Please try WhatsApp or email us directly.';
