@@ -328,28 +328,52 @@
     </div>
   </footer>
 
-  <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-    }
+ <script>
+  // Mobile menu
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
 
-    const form = document.getElementById('contact-form');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        const name = document.getElementById('name').value.trim();
-        const contact = document.getElementById('contact').value.trim();
-        const message = document.getElementById('message').value.trim();
+  // Google Form submission
+  const form = document.getElementById('contact-form');
+  const statusEl = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn');
 
-        if (!name || !contact || !message) {
-          e.preventDefault();
-          alert('Please complete all required fields before sending.');
-        }
+  // ← Your new form response URL
+  const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdbbbkZK1vzelcUuo2hjHX8HPuUfz22uGkmmMQO492ZHX5rfQ/formResponse";
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+    statusEl.classList.add('hidden');
+
+    try {
+      await fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
       });
+
+      statusEl.className = 'mt-5 text-center text-sm text-emerald-400';
+      statusEl.textContent = '✓ Message sent successfully! We will reply within 2 hours.';
+      form.reset();
+    } catch (err) {
+      statusEl.className = 'mt-5 text-center text-sm text-red-400';
+      statusEl.textContent = 'Something went wrong. Please try WhatsApp or email us directly.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Send Message <i class="fas fa-arrow-right text-sm opacity-80"></i>';
+      statusEl.classList.remove('hidden');
     }
-  </script>
+  });
+</script>
 </body>
 </html>
