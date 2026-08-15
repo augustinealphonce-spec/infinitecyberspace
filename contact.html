@@ -327,8 +327,8 @@
     </div>
   </footer>
 
- <script>
-  // Mobile menu
+<script>
+  // Mobile menu toggle
   const menuBtn = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   if (menuBtn && mobileMenu) {
@@ -342,7 +342,6 @@
   const statusEl = document.getElementById('form-status');
   const submitBtn = document.getElementById('submit-btn');
 
-  // ← Your new form response URL
   const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdbbbkZK1vzelcUuo2hjHX8HPuUfz22uGkmmMQO492ZHX5rfQ/formResponse";
 
   form.addEventListener('submit', async (e) => {
@@ -361,7 +360,8 @@
         mode: 'no-cors'
       });
 
-      statusEl.className = 'mt-5 text-center text-sm text-emerald-400';
+      // Success
+      statusEl.className = 'mt-5 text-center text-sm text-emerald-400 font-medium';
       statusEl.textContent = '✓ Message sent successfully! We will reply within 2 hours.';
       form.reset();
     } catch (err) {
