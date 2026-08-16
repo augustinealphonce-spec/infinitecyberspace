@@ -165,37 +165,87 @@
           </div>
         </div>
       </div>
-
-<!-- RIGHT COLUMN - GOOGLE FORM -->
+<!-- RIGHT COLUMN - FORM -->
 <div class="lg:col-span-3">
-  <div class="rounded-2xl bg-zinc-900/70 border border-white/5 p-6 md:p-8 shadow-2xl shadow-black/40 backdrop-blur-sm overflow-hidden">
+  <div class="rounded-2xl bg-zinc-900/70 border border-white/5 p-8 md:p-10 shadow-2xl shadow-black/40 backdrop-blur-sm">
     
-    <div class="mb-6">
+    <div class="mb-8">
       <h2 class="text-2xl font-semibold tracking-tight mb-2">Send a Message</h2>
       <p class="text-zinc-400 text-sm">
         Tell us about your cybersecurity needs. We typically respond within 2 hours.
       </p>
     </div>
 
-    <!-- Real Google Form -->
-    <div class="rounded-xl overflow-hidden border border-white/10">
-      <iframe 
-        src="https://docs.google.com/forms/d/e/1FAIpQLSdbbbkZK1vzelcUuo2hjHX8HPuUfz22uGkmmMQO492ZHX5rfQ/viewform?embedded=true"
-        width="100%" 
-        height="900" 
-        frameborder="0" 
-        marginheight="0" 
-        marginwidth="0"
-        style="background: #18181b;">
-        Loading…
-      </iframe>
-    </div>
+    <form id="contact-form"
+          action="https://docs.google.com/forms/d/e/1FAIpQLSdbbbkZK1vzelcUuo2hjHX8HPuUfz22uGkmmMQO492ZHX5rfQ/formResponse"
+          method="POST"
+          target="hidden_iframe"
+          class="space-y-6">
 
-    <p class="text-xs text-zinc-500 mt-5 text-center">
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">
+            Full Names <span class="text-cyan-400">*</span>
+          </label>
+          <input type="text" id="name" name="entry.2005620554" required
+                 class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
+                 placeholder="John Doe">
+        </div>
+
+        <div>
+          <label for="contact" class="block text-sm font-medium text-zinc-300 mb-2">
+            Email or Phone <span class="text-cyan-400">*</span>
+          </label>
+          <input type="text" id="contact" name="entry.1045781291" required
+                 class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
+                 placeholder="you@company.com or +254...">
+        </div>
+      </div>
+
+      <div>
+        <label for="company" class="block text-sm font-medium text-zinc-300 mb-2">
+          Company <span class="text-cyan-400">*</span>
+        </label>
+        <input type="text" id="company" name="entry.1065046570" required
+               class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
+               placeholder="Your company name">
+      </div>
+
+      <div>
+        <label for="subject" class="block text-sm font-medium text-zinc-300 mb-2">
+          Subject <span class="text-cyan-400">*</span>
+        </label>
+        <input type="text" id="subject" name="entry.1166974658" required
+               class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
+               placeholder="e.g. Penetration Testing, Vulnerability Assessment...">
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-medium text-zinc-300 mb-2">
+          Message <span class="text-cyan-400">*</span>
+        </label>
+        <textarea id="message" name="entry.839337160" rows="5" required
+                  class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition resize-none"
+                  placeholder="Briefly describe your requirements or challenges..."></textarea>
+      </div>
+
+      <button type="submit" id="submit-btn"
+              class="w-full bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-semibold py-4 rounded-xl transition-all duration-300 shadow-lg shadow-cyan-900/30 hover:shadow-cyan-500/20 flex items-center justify-center gap-2">
+        Send Message
+        <i class="fas fa-arrow-right text-sm opacity-80"></i>
+      </button>
+    </form>
+    <!-- Required for form to work without leaving the page -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+    <div id="form-status" class="mt-5 text-center text-sm hidden"></div>
+
+    <p class="text-xs text-zinc-500 mt-6 text-center">
       Your information is handled confidentially. We never share your details.
     </p>
   </div>
 </div>
+
 
             <!-- reCAPTCHA with your Site Key -->
             <div class="flex justify-center my-2">
