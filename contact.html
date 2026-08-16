@@ -177,73 +177,75 @@
             </p>
           </div>
 
-          <form 
-  id="contact-form" 
-  action="https://docs.google.com/forms/d/e/1FAIpQLSdbbbkZK1vzelcUuo2hjHX8HPuUfz22uGkmmMQO492ZHX5rfQ/formResponse" 
-  method="POST" 
-  target="_blank"
-  class="space-y-6">
-            
-            <div class="grid sm:grid-cols-2 gap-6">
-              <div>
-                <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">
-                  Full Names <span class="text-cyan-400">*</span>
-                </label>
-                <input type="text" id="name" name="entry.2005620554" required
-                       class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
-                       placeholder="John Doe">
-              </div>
+<form id="contact-form" 
+      action="https://docs.google.com/forms/d/e/1FAIpQLSdbbbkZK1vzelcUuo2hjHX8HPuUfz22uGkmmMQO492ZHX5rfQ/formResponse"
+      method="POST"
+      target="hidden_iframe"
+      class="space-y-6">
 
-              <div>
-                <label for="contact" class="block text-sm font-medium text-zinc-300 mb-2">
-                  Email or Phone <span class="text-cyan-400">*</span>
-                </label>
-                <input type="text" id="contact" name="entry.1045781291" required
-                       class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
-                       placeholder="you@company.com or +254...">
-              </div>
-            </div>
+  <div class="grid sm:grid-cols-2 gap-6">
+    <div>
+      <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">
+        Full Names <span class="text-cyan-400">*</span>
+      </label>
+      <input type="text" id="name" name="entry.2005620554" required
+             class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
+             placeholder="John Doe">
+    </div>
 
-            <div>
-              <label for="company" class="block text-sm font-medium text-zinc-300 mb-2">
-                Company <span class="text-cyan-400">*</span>
-              </label>
-              <input type="text" id="company" name="entry.1065046570" required
-                     class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
-                     placeholder="Your company name">
-            </div>
+    <div>
+      <label for="contact" class="block text-sm font-medium text-zinc-300 mb-2">
+        Email or Phone <span class="text-cyan-400">*</span>
+      </label>
+      <input type="text" id="contact" name="entry.1045781291" required
+             class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
+             placeholder="you@company.com or +254...">
+    </div>
+  </div>
 
-            <div>
-              <label for="subject" class="block text-sm font-medium text-zinc-300 mb-2">
-                Subject <span class="text-cyan-400">*</span>
-              </label>
-              <input type="text" id="subject" name="entry.1166974658" required
-                     class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
-                     placeholder="e.g. Penetration Testing, Vulnerability Assessment...">
-            </div>
+  <div>
+    <label for="company" class="block text-sm font-medium text-zinc-300 mb-2">
+      Company <span class="text-cyan-400">*</span>
+    </label>
+    <input type="text" id="company" name="entry.1065046570" required
+           class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
+           placeholder="Your company name">
+  </div>
 
-            <div>
-              <label for="message" class="block text-sm font-medium text-zinc-300 mb-2">
-                Message <span class="text-cyan-400">*</span>
-              </label>
-              <textarea id="message" name="entry.839337160" rows="5" required
-                        class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition resize-none"
-                        placeholder="Briefly describe your requirements or challenges..."></textarea>
-            </div>
+  <div>
+    <label for="subject" class="block text-sm font-medium text-zinc-300 mb-2">
+      Subject <span class="text-cyan-400">*</span>
+    </label>
+    <input type="text" id="subject" name="entry.1166974658" required
+           class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition"
+           placeholder="e.g. Penetration Testing, Vulnerability Assessment...">
+  </div>
 
-            <!-- reCAPTCHA with your Site Key -->
-            <div class="flex justify-center my-2">
-              <div class="g-recaptcha" data-sitekey="6LcUgIctAAAAAMs6TgLtUKW90fcDmhoF3xAqpnxn"></div>
-            </div>
+  <div>
+    <label for="message" class="block text-sm font-medium text-zinc-300 mb-2">
+      Message <span class="text-cyan-400">*</span>
+    </label>
+    <textarea id="message" name="entry.839337160" rows="5" required
+              class="w-full bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3.5 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 transition resize-none"
+              placeholder="Briefly describe your requirements or challenges..."></textarea>
+  </div>
 
-            <button type="submit" id="submit-btn"
-                    class="w-full bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-semibold py-4 rounded-xl transition-all duration-300 shadow-lg shadow-cyan-900/30 hover:shadow-cyan-500/20 flex items-center justify-center gap-2">
-              Send Message
-              <i class="fas fa-arrow-right text-sm opacity-80"></i>
-            </button>
-          </form>
+  <!-- reCAPTCHA -->
+  <div class="flex justify-center my-2">
+    <div class="g-recaptcha" data-sitekey="6LcUgIctAAAAAMs6TgLtUKW90fcDmhoF3xAqpnxn"></div>
+  </div>
 
-          <div id="form-status" class="mt-5 text-center text-sm hidden"></div>
+  <button type="submit" id="submit-btn"
+          class="w-full bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-semibold py-4 rounded-xl transition-all duration-300 shadow-lg shadow-cyan-900/30 hover:shadow-cyan-500/20 flex items-center justify-center gap-2">
+    Send Message
+    <i class="fas fa-arrow-right text-sm opacity-80"></i>
+  </button>
+</form>
+
+<!-- Hidden iframe so the page does not redirect -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+<div id="form-status" class="mt-5 text-center text-sm hidden"></div>
 
           <p class="text-xs text-zinc-500 mt-6 text-center">
             Your information is handled confidentially. We never share your details.
@@ -322,64 +324,54 @@
       </div>
     </div>
   </footer>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  <!-- Google reCAPTCHA -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+  // Mobile menu
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
 
-  <script>
-    // Mobile menu
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
+  // Contact form
+  const form = document.getElementById('contact-form');
+  const statusEl = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', function (e) {
+    // Check reCAPTCHA
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+      e.preventDefault();
+      statusEl.className = 'mt-5 text-center text-sm text-red-400';
+      statusEl.textContent = 'Please complete the reCAPTCHA verification.';
+      statusEl.classList.remove('hidden');
+      return;
     }
 
-    // Contact form + reCAPTCHA
-    const form = document.getElementById('contact-form');
-    const statusEl = document.getElementById('form-status');
-    const submitBtn = document.getElementById('submit-btn');
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+    statusEl.classList.add('hidden');
 
-    const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdbbbkZK1vzelcUuo2hjHX8HPuUfz22uGkmmMQO492ZHX5rfQ/formResponse";
+    // After a short delay we assume Google accepted it
+    // (the form is submitted to the hidden iframe)
+    setTimeout(() => {
+      statusEl.className = 'mt-5 text-center text-sm text-emerald-400 font-medium';
+      statusEl.textContent = '✓ Message sent successfully! We will reply within 2 hours.';
+      statusEl.classList.remove('hidden');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+      form.reset();
+      grecaptcha.reset();
 
-      const recaptchaResponse = grecaptcha.getResponse();
-      if (!recaptchaResponse) {
-        statusEl.className = 'mt-5 text-center text-sm text-red-400';
-        statusEl.textContent = 'Please complete the reCAPTCHA verification.';
-        statusEl.classList.remove('hidden');
-        return;
-      }
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Send Message <i class="fas fa-arrow-right text-sm opacity-80"></i>';
+    }, 1500);
+  });
+</script>
 
-      const formData = new FormData(form);
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
-      statusEl.classList.add('hidden');
-
-      try {
-        await fetch(GOOGLE_FORM_URL, {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors'
-        });
-
-        statusEl.className = 'mt-5 text-center text-sm text-emerald-400 font-medium';
-        statusEl.textContent = '✓ Message sent successfully! We will reply within 2 hours.';
-        form.reset();
-        grecaptcha.reset();
-      } catch (err) {
-        statusEl.className = 'mt-5 text-center text-sm text-red-400';
-        statusEl.textContent = 'Something went wrong. Please try WhatsApp or email us directly.';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Send Message <i class="fas fa-arrow-right text-sm opacity-80"></i>';
-        statusEl.classList.remove('hidden');
-      }
-    });
-  </script>
 </body>
 </html>
