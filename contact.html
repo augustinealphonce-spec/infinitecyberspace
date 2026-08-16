@@ -266,13 +266,6 @@
       </p>
     </div>
 
-    <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-zinc-900">
-   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdbbbkZK1vzelcUuo2hjHX8HPuUfz22uGkmmMQO492ZHX5rfQ/viewform?embedded=true" 
-            width="640" height="1007" frameborder="0" marginheight="0" marginwidth="0">
-      Loading…
-    </iframe>
-    </div>
-
     <p class="text-center text-sm text-zinc-500 mt-5">
       <i class="fas fa-map-marker-alt text-cyan-400 mr-2"></i>
       Kisumu, Kenya
@@ -340,32 +333,29 @@
     const statusEl = document.getElementById('form-status');
     const submitBtn = document.getElementById('submit-btn');
 
-    form.addEventListener('submit', function (e) {
-      const recaptchaResponse = grecaptcha.getResponse();
-      if (!recaptchaResponse) {
-        e.preventDefault();
-        statusEl.className = 'mt-5 text-center text-sm text-red-400';
-        statusEl.textContent = 'Please complete the reCAPTCHA verification.';
-        statusEl.classList.remove('hidden');
-        return;
-      }
+   form.addEventListener('submit', function (e) {
+  const recaptchaResponse = grecaptcha.getResponse();
+  if (!recaptchaResponse) {
+    e.preventDefault();
+    statusEl.className = 'mt-5 text-center text-sm text-red-400';
+    statusEl.textContent = 'Please complete the reCAPTCHA verification.';
+    statusEl.classList.remove('hidden');
+    return;
+  }
 
-      // Show loading
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
-      statusEl.classList.add('hidden');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
 
-      // Success message after short delay
-      setTimeout(() => {
-        statusEl.className = 'mt-5 text-center text-sm text-emerald-400 font-medium';
-        statusEl.textContent = '✓ Message sent successfully! We will reply within 2 hours.';
-        statusEl.classList.remove('hidden');
-        form.reset();
-        grecaptcha.reset();
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Send Message <i class="fas fa-arrow-right text-sm opacity-80"></i>';
-      }, 1500);
-    });
+  setTimeout(() => {
+    statusEl.className = 'mt-5 text-center text-sm text-emerald-400 font-medium';
+    statusEl.textContent = '✓ Message sent successfully! We will reply within 2 hours.';
+    statusEl.classList.remove('hidden');
+    form.reset();
+    grecaptcha.reset();
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = 'Send Message <i class="fas fa-arrow-right text-sm opacity-80"></i>';
+  }, 1500);
+});
   </script> </footer>
 
 </body>
