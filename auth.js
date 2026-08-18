@@ -1,6 +1,9 @@
 // auth.js - Secure Authentication
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:3000/api'
+  : 'https://YOUR-BACKEND-URL/api';  // ← change when backend is deployed
+
 const AUTH_KEY = 'ich_auth_token';
 const USER_KEY = 'ich_user';
 
