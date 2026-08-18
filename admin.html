@@ -3,1105 +3,882 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | Infinite Cyberspace Hub</title>
-  <script src="auth.js"></script>
+  <title>Command Center | Infinite Cyberspace Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <style>
-    :root { --primary: #22d3ee; --dark: #0a0a0a; }
-    body { background: #0a0a0a; color: #e2e8f0; font-family: system-ui, sans-serif; margin: 0; }
-    .sidebar { background: linear-gradient(180deg, #0f172a 0%, #0a0a0a 100%); border-right: 1px solid rgba(34,211,238,0.1); }
-    .card { background: rgba(15,23,42,0.6); border: 1px solid rgba(34,211,238,0.12); border-radius: 1rem; }
-    .nav-item { transition: all 0.2s; }
-    .nav-item:hover, .nav-item.active { background: rgba(34,211,238,0.1); color: #22d3ee; border-right: 3px solid #22d3ee; }
-    .btn-primary { background: linear-gradient(90deg,#3b82f6,#22d3ee); color: #000; font-weight: 600; }
-    .status-open { background: #1e3a8a; color: #93c5fd; }
-    .status-inprogress { background: #854d0e; color: #fde047; }
-    .status-resolved { background: #14532d; color: #86efac; }
-    .status-closed { background: #3f3f46; color: #a1a1aa; }
-    .status-escalated { background: #7f1d1d; color: #fca5a5; }
-    .priority-high { color: #f87171; }
-    .priority-medium { color: #fbbf24; }
-    .priority-low { color: #4ade80; }
-    .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; }
-    .toggle { position: relative; width: 44px; height: 24px; }
-    .toggle input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; cursor: pointer; inset: 0; background: #334155; border-radius: 9999px; transition: .3s; }
-    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: .3s; }
-    input:checked + .slider { background: #22d3ee; }
-    input:checked + .slider:before { transform: translateX(20px); }
-    .sla-ok { color: #4ade80; }
-    .sla-warn { color: #fbbf24; }
-    .sla-breach { color: #f87171; }
-    .progress-bar { height: 6px; border-radius: 9999px; background: #1e293b; overflow: hidden; }
-    .progress-fill { height: 100%; border-radius: 9999px; transition: width 0.5s; }
-  </style>
-  <!-- Security Headers via Meta Tags -->
-<meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://splitforms.com;
-  style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-  font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-  img-src 'self' data: https: blob:;
-  connect-src 'self' https://splitforms.com;
-  frame-ancestors 'none';
-  base-uri 'self';
-  form-action 'self' https://splitforms.com;
-">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="X-Frame-Options" content="DENY">
-</head>
-<body class="flex h-screen overflow-hidden">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar w-64 flex-shrink-0 flex flex-col">
-    <div class="p-6 border-b border-cyan-900/30">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
-          <i class="fas fa-shield-alt text-black text-lg"></i>
-        </div>
-        <div>
-          <h1 class="font-bold text-lg leading-tight">Infinite<span class="text-cyan-400">Cyber</span></h1>
-          <p class="text-xs text-slate-400">Admin Portal</p>
-        </div>
-      </div>
-    </div>
-
-    <nav class="flex-1 py-4 space-y-1">
-      <a href="#" onclick="showSection('dashboard')" class="nav-item active flex items-center gap-3 px-6 py-3 text-sm" id="nav-dashboard">
-        <i class="fas fa-chart-pie w-5"></i> Dashboard
-      </a>
-      <a href="#" onclick="showSection('tickets')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-tickets">
-        <i class="fas fa-ticket-alt w-5"></i> Support Tickets
-        <span id="ticket-badge" class="ml-auto badge bg-red-500/20 text-red-400">3</span>
-      </a>
-      <a href="#" onclick="showSection('automation')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-automation">
-        <i class="fas fa-robot w-5"></i> Automation
-      </a>
-      <a href="#" onclick="showSection('payments')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-payments">
-        <i class="fas fa-credit-card w-5"></i> Payments
-      </a>
-      <a href="#" onclick="showSection('customers')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-customers">
-        <i class="fas fa-users w-5"></i> Customers
-      </a>
-      <a href="#" onclick="showSection('leads')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-leads">
-        <i class="fas fa-user-plus w-5"></i> Leads
-      </a>
-      <a href="#" onclick="showSection('settings')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm" id="nav-settings">
-        <i class="fas fa-cog w-5"></i> Settings
-      </a>
-    </nav>
-
-    <div class="p-4 border-t border-cyan-900/30">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-full bg-cyan-900/50 flex items-center justify-center text-cyan-400 font-bold">A</div>
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium truncate" id="admin-name">Admin</p>
-          <p class="text-xs text-slate-400 truncate">admin@infinitecyberspace.com</p>
-        </div>
-        <button onclick="logout()" ...>
-      </div>
-    </div>
-  </aside>
-
-  <!-- MAIN -->
-  <main class="flex-1 overflow-y-auto">
-    <header class="sticky top-0 z-40 bg-[#0a0a0a]/80 backdrop-blur border-b border-cyan-900/20 px-8 py-4 flex justify-between items-center">
-      <div>
-        <h2 class="text-xl font-semibold" id="page-title">Dashboard</h2>
-        <p class="text-sm text-slate-400" id="page-subtitle">Overview of your business</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <div class="text-xs text-slate-400 bg-slate-900 px-3 py-1.5 rounded-lg">
-          Simulated Time: <span id="sim-time" class="text-cyan-400 font-mono">0h 0m</span>
-        </div>
-        <button onclick="openNewTicketModal()" class="btn-primary px-4 py-2 rounded-lg text-sm flex items-center gap-2">
-          <i class="fas fa-plus"></i> New Ticket
-        </button>
-      </div>
-    </header>
-
-    <div class="p-8">
-
-      <!-- DASHBOARD -->
-      <div id="section-dashboard">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div class="card p-6">
-            <div class="flex justify-between items-start">
-              <div>
-                <p class="text-slate-400 text-sm">Total Revenue</p>
-                <p class="text-2xl font-bold text-emerald-400 mt-1">KES 284,500</p>
-                <p class="text-xs text-emerald-400 mt-2"><i class="fas fa-arrow-up"></i> 12.5% this month</p>
-              </div>
-              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400"><i class="fas fa-coins text-xl"></i></div>
-            </div>
-          </div>
-          <div class="card p-6">
-            <div class="flex justify-between items-start">
-              <div>
-                <p class="text-slate-400 text-sm">Active Customers</p>
-                <p class="text-2xl font-bold text-cyan-400 mt-1">47</p>
-              </div>
-              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400"><i class="fas fa-users text-xl"></i></div>
-            </div>
-          </div>
-          <div class="card p-6">
-            <div class="flex justify-between items-start">
-              <div>
-                <p class="text-slate-400 text-sm">Open Tickets</p>
-                <p class="text-2xl font-bold text-amber-400 mt-1" id="open-tickets-count">3</p>
-              </div>
-              <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400"><i class="fas fa-ticket-alt text-xl"></i></div>
-            </div>
-          </div>
-          <div class="card p-6">
-            <div class="flex justify-between items-start">
-              <div>
-                <p class="text-slate-400 text-sm">SLA Breaches</p>
-                <p class="text-2xl font-bold text-red-400 mt-1" id="sla-breach-count">0</p>
-              </div>
-              <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400"><i class="fas fa-exclamation-triangle text-xl"></i></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-6">
-          <div class="card p-6">
-            <h3 class="font-semibold mb-4 flex items-center gap-2"><i class="fas fa-clock text-cyan-400"></i> SLA Status (High Priority)</h3>
-            <div id="sla-status-list" class="space-y-4"></div>
-          </div>
-          <div class="card p-6">
-            <div class="flex justify-between items-center mb-4">
-              <h3 class="font-semibold flex items-center gap-2"><i class="fas fa-ticket-alt text-cyan-400"></i> Urgent Tickets</h3>
-              <button onclick="showSection('tickets')" class="text-xs text-cyan-400 hover:underline">View all</button>
-            </div>
-            <div class="space-y-3" id="urgent-tickets-list"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TICKETS -->
-      <div id="section-tickets" class="hidden">
-        <div class="flex flex-wrap gap-3 mb-6 items-center">
-          <select id="filter-status" onchange="renderTickets()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-            <option value="">All Status</option>
-            <option value="Open">Open</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Escalated">Escalated</option>
-            <option value="Resolved">Resolved</option>
-            <option value="Closed">Closed</option>
-          </select>
-          <select id="filter-priority" onchange="renderTickets()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-            <option value="">All Priority</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-          <input type="text" id="search-ticket" onkeyup="renderTickets()" placeholder="Search tickets..." class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm flex-1 min-w-[200px]">
-          <button onclick="openNewTicketModal()" class="btn-primary px-4 py-2 rounded-lg text-sm"><i class="fas fa-plus"></i> New Ticket</button>
-        </div>
-        <div class="card overflow-hidden">
-          <table class="w-full text-sm">
-            <thead class="bg-slate-900/70 text-slate-400">
-              <tr>
-                <th class="text-left p-4">Ticket ID</th>
-                <th class="text-left p-4">Subject</th>
-                <th class="text-left p-4">Customer</th>
-                <th class="text-left p-4">Priority</th>
-                <th class="text-left p-4">Status</th>
-                <th class="text-left p-4">SLA</th>
-                <th class="text-left p-4">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="tickets-body"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- AUTOMATION -->
-      <div id="section-automation" class="hidden">
-        <!-- SLA Simulation Controls -->
-        <div class="card p-5 mb-6">
-          <div class="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <h3 class="font-semibold flex items-center gap-2"><i class="fas fa-stopwatch text-cyan-400"></i> SLA Timer Simulation</h3>
-              <p class="text-sm text-slate-400 mt-1">Advance simulated time to test time-based rules and SLA breaches</p>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-sm text-slate-400">Current:</span>
-              <span id="sim-time-big" class="font-mono text-cyan-400 text-lg">0h 0m</span>
-              <button onclick="advanceTime(30)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm">+30m</button>
-              <button onclick="advanceTime(60)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm">+1h</button>
-              <button onclick="advanceTime(120)" class="px-3 py-1.5 rounded-lg bg-cyan-900/50 hover:bg-cyan-800/60 text-cyan-300 text-sm">+2h</button>
-              <button onclick="resetSimulation()" class="px-3 py-1.5 rounded-lg border border-slate-600 text-sm">Reset</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex justify-between items-center mb-6">
-          <div>
-            <h3 class="text-lg font-semibold">Ticket Automation Rules</h3>
-            <p class="text-sm text-slate-400">Automate assignment, escalation, and status changes</p>
-          </div>
-          <button onclick="openRuleModal()" class="btn-primary px-4 py-2 rounded-lg text-sm flex items-center gap-2">
-            <i class="fas fa-plus"></i> Create Rule
-          </button>
-        </div>
-
-        <div class="space-y-4 mb-10" id="rules-list"></div>
-
-        <div class="card p-6">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="font-semibold flex items-center gap-2"><i class="fas fa-history text-cyan-400"></i> Rule Execution Log</h3>
-            <button onclick="clearLog()" class="text-xs text-slate-400 hover:text-white">Clear log</button>
-          </div>
-          <div id="execution-log" class="space-y-3 max-h-80 overflow-y-auto text-sm"></div>
-        </div>
-      </div>
-
-     <!-- PAYMENTS -->
-<div id="section-payments" class="hidden">
-  <div class="flex flex-wrap gap-3 mb-6 items-center">
-    <input type="text" id="search-payment" onkeyup="renderPayments()" 
-           placeholder="Search by phone, package or receipt..." 
-           class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm flex-1 min-w-[220px]">
-    
-    <select id="filter-payment-status" onchange="renderPayments()" 
-            class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-      <option value="">All Status</option>
-      <option value="completed">Completed</option>
-      <option value="pending">Pending</option>
-      <option value="failed">Failed</option>
-    </select>
-
-    <button onclick="alert('Export feature coming soon')" 
-            class="px-4 py-2 rounded-lg border border-slate-600 text-sm hover:bg-slate-800">
-      <i class="fas fa-download"></i> Export
-    </button>
-  </div>
-
-  <!-- Summary Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-    <div class="card p-4">
-      <p class="text-slate-400 text-sm">Total Revenue (This Month)</p>
-      <p class="text-2xl font-bold text-emerald-400 mt-1" id="pay-total-revenue">KES 0</p>
-    </div>
-    <div class="card p-4">
-      <p class="text-slate-400 text-sm">Successful Payments</p>
-      <p class="text-2xl font-bold text-cyan-400 mt-1" id="pay-success-count">0</p>
-    </div>
-    <div class="card p-4">
-      <p class="text-slate-400 text-sm">Pending / Failed</p>
-      <p class="text-2xl font-bold text-amber-400 mt-1" id="pay-pending-count">0</p>
-    </div>
-  </div>
-
-  <div class="card overflow-hidden">
-    <table class="w-full text-sm">
-      <thead class="bg-slate-900/70 text-slate-400">
-        <tr>
-          <th class="text-left p-4">Date</th>
-          <th class="text-left p-4">Customer</th>
-          <th class="text-left p-4">Package</th>
-          <th class="text-left p-4">Amount</th>
-          <th class="text-left p-4">Method</th>
-          <th class="text-left p-4">Status</th>
-          <th class="text-left p-4">Receipt / Ref</th>
-          <th class="text-left p-4">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="payments-body"></tbody>
-    </table>
-  </div>
-</div>
-      <!-- CUSTOMERS -->
-<div id="section-customers" class="hidden">
-  <div class="flex flex-wrap gap-3 mb-6 items-center">
-    <input type="text" id="search-customer" onkeyup="renderCustomers()" placeholder="Search customers..." 
-           class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm flex-1 min-w-[200px]">
-    <select id="filter-customer-status" onchange="renderCustomers()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-      <option value="">All Status</option>
-      <option value="Active">Active</option>
-      <option value="Expired">Expired</option>
-      <option value="Pending">Pending</option>
-    </select>
-    <button onclick="alert('Add Customer feature coming soon')" class="btn-primary px-4 py-2 rounded-lg text-sm">
-      <i class="fas fa-plus"></i> Add Customer
-    </button>
-  </div>
-
-  <div class="card overflow-hidden">
-    <table class="w-full text-sm">
-      <thead class="bg-slate-900/70 text-slate-400">
-        <tr>
-          <th class="text-left p-4">Customer</th>
-          <th class="text-left p-4">Company</th>
-          <th class="text-left p-4">Package</th>
-          <th class="text-left p-4">Status</th>
-          <th class="text-left p-4">Expiry</th>
-          <th class="text-left p-4">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="customers-body"></tbody>
-    </table>
-  </div>
-</div>
-     <!-- LEADS -->
-<div id="section-leads" class="hidden">
-  <div class="flex flex-wrap gap-3 mb-6 items-center">
-    <input type="text" id="search-lead" onkeyup="renderLeads()" placeholder="Search leads..." 
-           class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm flex-1 min-w-[200px]">
-    <select id="filter-lead-status" onchange="renderLeads()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-      <option value="">All Status</option>
-      <option value="New">New</option>
-      <option value="Contacted">Contacted</option>
-      <option value="Qualified">Qualified</option>
-      <option value="Lost">Lost</option>
-    </select>
-    <button onclick="alert('Add Lead feature coming soon')" class="btn-primary px-4 py-2 rounded-lg text-sm">
-      <i class="fas fa-plus"></i> Add Lead
-    </button>
-  </div>
-
-  <div class="card overflow-hidden">
-    <table class="w-full text-sm">
-      <thead class="bg-slate-900/70 text-slate-400">
-        <tr>
-          <th class="text-left p-4">Name</th>
-          <th class="text-left p-4">Company</th>
-          <th class="text-left p-4">Phone / Email</th>
-          <th class="text-left p-4">Source</th>
-          <th class="text-left p-4">Status</th>
-          <th class="text-left p-4">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="leads-body"></tbody>
-    </table>
-  </div>
-</div>
-      <div id="section-settings" class="hidden">
-        <div class="card p-6 max-w-xl">
-          <h3 class="font-semibold mb-4">Admin Settings</h3>
-          <p class="text-sm text-slate-400">Settings panel</p>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- NEW TICKET MODAL -->
-  <div id="ticket-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
-    <div class="card w-full max-w-lg p-6 m-4">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-lg font-semibold">Create Support Ticket</h3>
-        <button onclick="closeNewTicketModal()" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="space-y-4 text-sm">
-        <div>
-          <label class="block text-slate-400 mb-1">Subject</label>
-          <input id="ticket-subject" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
-        </div>
-        <div>
-          <label class="block text-slate-400 mb-1">Customer</label>
-          <input id="ticket-customer" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-slate-400 mb-1">Priority</label>
-            <select id="ticket-priority" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
-              <option value="High">High</option>
-              <option value="Medium" selected>Medium</option>
-              <option value="Low">Low</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Status</label>
-            <select id="ticket-status" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
-              <option value="Open" selected>Open</option>
-              <option value="In Progress">In Progress</option>
-            </select>
-          </div>
-        </div>
-        <div class="flex gap-3 pt-2">
-          <button onclick="createTicket()" class="btn-primary flex-1 py-2.5 rounded-lg">Create Ticket</button>
-          <button onclick="closeNewTicketModal()" class="px-4 py-2.5 rounded-lg border border-slate-600">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- RULE MODAL -->
-  <div id="rule-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
-    <div class="card w-full max-w-2xl p-6 m-4 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-lg font-semibold" id="rule-modal-title">Create Automation Rule</h3>
-        <button onclick="closeRuleModal()" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="space-y-5 text-sm">
-        <div>
-          <label class="block text-slate-400 mb-1">Rule Name</label>
-          <input id="rule-name" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
-        </div>
-        <div class="grid md:grid-cols-3 gap-4">
-          <div class="card p-4">
-            <p class="text-xs text-cyan-400 font-semibold mb-2 uppercase">1. Trigger</p>
-            <select id="rule-trigger" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
-              <option value="ticket_created">Ticket Created</option>
-              <option value="time_based">Time-based (SLA)</option>
-              <option value="status_changed">Status Changed</option>
-            </select>
-          </div>
-          <div class="card p-4">
-            <p class="text-xs text-cyan-400 font-semibold mb-2 uppercase">2. Conditions</p>
-            <select id="rule-condition-field" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 mb-2">
-              <option value="priority">Priority</option>
-              <option value="status">Status</option>
-              <option value="age_hours">Age (hours)</option>
-            </select>
-            <select id="rule-condition-op" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 mb-2">
-              <option value="equals">equals</option>
-              <option value="greater_than">greater than</option>
-            </select>
-            <input id="rule-condition-value" type="text" placeholder="e.g. High or 2" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
-          </div>
-          <div class="card p-4">
-            <p class="text-xs text-cyan-400 font-semibold mb-2 uppercase">3. Actions</p>
-            <select id="rule-action" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 mb-2">
-              <option value="assign">Assign to agent</option>
-              <option value="change_status">Change status</option>
-              <option value="escalate">Escalate</option>
-              <option value="notify">Send notification</option>
-            </select>
-            <input id="rule-action-value" type="text" placeholder="e.g. Escalated" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2">
-          </div>
-        </div>
-        <div class="flex items-center gap-3">
-          <label class="toggle"><input type="checkbox" id="rule-enabled" checked><span class="slider"></span></label>
-          <span class="text-sm">Enable this rule</span>
-        </div>
-        <div class="flex gap-3 pt-2">
-          <button onclick="saveRule()" class="btn-primary flex-1 py-2.5 rounded-lg">Save Rule</button>
-          <button onclick="closeRuleModal()" class="px-4 py-2.5 rounded-lg border border-slate-600">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
- document.addEventListener('DOMContentLoaded', async () => {
-  // Force admin only
-  if (!requireAdmin()) return;
-
-  // Double-check with backend
-  const valid = await verifySession();
-  if (!valid) return;
-
-  const user = getCurrentUser();
-  document.getElementById('admin-name').textContent = user.name || 'Admin';
-
-  // Load your data (tickets, etc.)
-  if (typeof loadAdminTickets === 'function') {
-    await loadAdminTickets();
-  }
-});
-  // Load admin name
-  const user = getCurrentUser();
-  document.getElementById('admin-name').textContent = user.name;
-});
-    // ========== SIMULATION STATE ==========
-    let simulatedMinutes = 0; // total minutes advanced
-
-    // ========== DATA ==========
-    let tickets = [
-      { id: 'TKT-1042', subject: 'Network downtime – Main branch', customer: 'Acme Solutions Ltd', priority: 'High', status: 'Open', createdMinutesAgo: 45 },
-      { id: 'TKT-1041', subject: 'Email phishing attack suspected', customer: 'TechNova Kenya', priority: 'High', status: 'In Progress', createdMinutesAgo: 90 },
-      { id: 'TKT-1040', subject: 'Firewall configuration assistance', customer: 'Kisumu Logistics', priority: 'Medium', status: 'Open', createdMinutesAgo: 120 },
-      { id: 'TKT-1039', subject: 'Slow internet performance', customer: 'Acme Solutions Ltd', priority: 'Low', status: 'Resolved', createdMinutesAgo: 300 },
-    ];
-
-    let rules = [
-      { id: 1, name: 'High Priority Auto-Assign', trigger: 'ticket_created', condition: 'Priority equals High', action: 'Assign to Senior Support', enabled: true },
-      { id: 2, name: 'SLA Escalation (2h)', trigger: 'time_based', condition: 'Age > 2 hours AND Priority = High', action: 'Change status to Escalated + Notify', enabled: true, slaHours: 2 },
-      { id: 3, name: 'Auto-Close Resolved', trigger: 'time_based', condition: 'Status = Resolved for 48h', action: 'Change status to Closed', enabled: true, slaHours: 48 },
-      { id: 4, name: 'New Customer Tag', trigger: 'ticket_created', condition: 'Customer has 0 previous tickets', action: 'Add tag “New Client”', enabled: false },
-    ];
-
-    let executionLog = [
-      { time: 'Start', rule: 'System', result: 'Simulation ready – advance time to test SLA rules' },
-    ];
-
-    let editingRuleId = null;
-
-    // ========== PAYMENTS DATA ==========
-let payments = [
-  { id: 1, date: "2026-08-09 14:22", customer: "John Odhiambo", phone: "+254712345678", package: "Premium Protection", amount: 38900, method: "Pesapal", status: "completed", receipt: "ICH-1723201345-a8f3" },
-  { id: 2, date: "2026-08-08 09:15", customer: "Grace Wanjiku", phone: "+254722334455", package: "Standard Protection", amount: 25900, method: "Pesapal", status: "completed", receipt: "ICH-1723114500-b2c1" },
-  { id: 3, date: "2026-08-07 16:40", customer: "Peter Otieno", phone: "+254733112233", package: "Basic Protection", amount: 12900, method: "Pesapal", status: "failed", receipt: "ICH-1723028400-d9e4" },
-  { id: 4, date: "2026-08-06 11:05", customer: "Mary Achieng", phone: "+254711998877", package: "Premium Protection", amount: 38900, method: "Pesapal", status: "pending", receipt: "ICH-1722941100-f7a2" },
-  { id: 5, date: "2026-08-05 13:30", customer: "Samuel Kariuki", phone: "+254700112233", package: "Standard Protection", amount: 25900, method: "Pesapal", status: "completed", receipt: "ICH-1722855000-c3b8" },
-];
-
-function renderPayments() {
-  const search = document.getElementById('search-payment')?.value.toLowerCase() || '';
-  const status = document.getElementById('filter-payment-status')?.value || '';
-
-  let filtered = payments.filter(p => {
-    if (status && p.status !== status) return false;
-    if (search && !(
-      p.customer.toLowerCase().includes(search) ||
-      p.phone.includes(search) ||
-      p.package.toLowerCase().includes(search) ||
-      p.receipt.toLowerCase().includes(search)
-    )) return false;
-    return true;
-  });
-
-  // Update summary cards
-  const completed = payments.filter(p => p.status === 'completed');
-  const totalRevenue = completed.reduce((sum, p) => sum + p.amount, 0);
-  document.getElementById('pay-total-revenue').textContent = `KES ${totalRevenue.toLocaleString()}`;
-  document.getElementById('pay-success-count').textContent = completed.length;
-  document.getElementById('pay-pending-count').textContent = payments.filter(p => p.status !== 'completed').length;
-
-  const tbody = document.getElementById('payments-body');
-  if (!tbody) return;
-
-  tbody.innerHTML = filtered.length ? filtered.map(p => `
-    <tr class="border-t border-slate-800 hover:bg-slate-900/40">
-      <td class="p-4 text-slate-400">${p.date}</td>
-      <td class="p-4">
-        <div class="font-medium">${p.customer}</div>
-        <div class="text-xs text-slate-500">${p.phone}</div>
-      </td>
-      <td class="p-4">${p.package}</td>
-      <td class="p-4 font-medium text-emerald-400">KES ${p.amount.toLocaleString()}</td>
-      <td class="p-4 text-slate-400">${p.method}</td>
-      <td class="p-4">
-        <span class="badge ${
-          p.status === 'completed' ? 'status-resolved' : 
-          p.status === 'pending' ? 'status-inprogress' : 'status-closed'
-        }">
-          ${p.status.charAt(0).toUpperCase() + p.status.slice(1)}
-        </span>
-      </td>
-      <td class="p-4 font-mono text-xs text-cyan-400">${p.receipt}</td>
-      <td class="p-4">
-        <button onclick="alert('View payment details: ${p.receipt}')" class="text-cyan-400 hover:underline text-xs">View</button>
-      </td>
-    </tr>
-  `).join('') : `<tr><td colspan="8" class="p-8 text-center text-slate-500">No payments found</td></tr>`;
-}
-
-    // ========== SLA HELPERS ==========
-    function getTicketAgeMinutes(ticket) {
-      return ticket.createdMinutesAgo + simulatedMinutes;
-    }
-
-    function getSLAStatus(ticket) {
-      if (ticket.priority !== 'High' || ticket.status === 'Resolved' || ticket.status === 'Closed') {
-        return { status: 'n/a', remaining: null, percent: 0, class: '' };
-      }
-      const age = getTicketAgeMinutes(ticket);
-      const slaMinutes = 120; // 2 hours
-      const remaining = slaMinutes - age;
-      const percent = Math.min(100, (age / slaMinutes) * 100);
-
-      if (remaining <= 0) return { status: 'Breached', remaining: 0, percent: 100, class: 'sla-breach' };
-      if (remaining <= 30) return { status: 'Warning', remaining, percent, class: 'sla-warn' };
-      return { status: 'On Track', remaining, percent, class: 'sla-ok' };
-    }
-
-    function formatMinutes(mins) {
-      const h = Math.floor(mins / 60);
-      const m = mins % 60;
-      return `${h}h ${m}m`;
-    }
-
-    function updateSimTimeDisplay() {
-      const text = formatMinutes(simulatedMinutes);
-      document.getElementById('sim-time').textContent = text;
-      const big = document.getElementById('sim-time-big');
-      if (big) big.textContent = text;
-    }
-
-    // ========== CUSTOMERS & LEADS DATA ==========
-let customers = [
-  { id: 1, name: "John Odhiambo", company: "Acme Solutions Ltd", email: "john@acme.co.ke", phone: "+254712345678", package: "Premium", status: "Active", expiry: "2026-09-15" },
-  { id: 2, name: "Grace Wanjiku", company: "TechNova Kenya", email: "grace@technova.co.ke", phone: "+254722334455", package: "Standard", status: "Active", expiry: "2026-08-28" },
-  { id: 3, name: "Peter Otieno", company: "Kisumu Logistics", email: "peter@kisumulogistics.com", phone: "+254733112233", package: "Basic", status: "Expired", expiry: "2026-07-10" },
-  { id: 4, name: "Mary Achieng", company: "Lakeview Hotels", email: "mary@lakeview.co.ke", phone: "+254711998877", package: "Premium", status: "Pending", expiry: "-" },
-];
-
-let leads = [
-  { id: 1, name: "Samuel Kariuki", company: "Nairobi Motors", phone: "+254700112233", email: "sam@nairobimotors.com", source: "Website", status: "New" },
-  { id: 2, name: "Faith Njeri", company: "Green Farm Ltd", phone: "+254722445566", email: "faith@greenfarm.co.ke", source: "Referral", status: "Contacted" },
-  { id: 3, name: "David Omondi", company: "Westlands Clinic", phone: "+254733556677", email: "david@westlandsclinic.com", source: "WhatsApp", status: "Qualified" },
-  { id: 4, name: "Lucy Akinyi", company: "Sunrise School", phone: "+254711223344", email: "lucy@sunriseschool.ac.ke", source: "Website", status: "Lost" },
-];
-
-function renderCustomers() {
-  const search = document.getElementById('search-customer')?.value.toLowerCase() || '';
-  const status = document.getElementById('filter-customer-status')?.value || '';
-
-  let filtered = customers.filter(c => {
-    if (status && c.status !== status) return false;
-    if (search && !(c.name.toLowerCase().includes(search) || c.company.toLowerCase().includes(search) || c.email.toLowerCase().includes(search))) return false;
-    return true;
-  });
-
-  const tbody = document.getElementById('customers-body');
-  if (!tbody) return;
-
-  tbody.innerHTML = filtered.length ? filtered.map(c => `
-    <tr class="border-t border-slate-800 hover:bg-slate-900/40">
-      <td class="p-4">
-        <div class="font-medium">${c.name}</div>
-        <div class="text-xs text-slate-400">${c.email}</div>
-      </td>
-      <td class="p-4">${c.company}</td>
-      <td class="p-4"><span class="text-cyan-400">${c.package}</span></td>
-      <td class="p-4">
-        <span class="badge ${c.status === 'Active' ? 'status-resolved' : c.status === 'Expired' ? 'status-closed' : 'status-inprogress'}">
-          ${c.status}
-        </span>
-      </td>
-      <td class="p-4 text-slate-400">${c.expiry}</td>
-      <td class="p-4">
-        <button onclick="alert('View customer ${c.name}')" class="text-cyan-400 hover:underline text-xs mr-3">View</button>
-        <button onclick="alert('Edit customer')" class="text-slate-400 hover:text-white text-xs">Edit</button>
-      </td>
-    </tr>
-  `).join('') : `<tr><td colspan="6" class="p-8 text-center text-slate-500">No customers found</td></tr>`;
-}
-
-function renderLeads() {
-  const search = document.getElementById('search-lead')?.value.toLowerCase() || '';
-  const status = document.getElementById('filter-lead-status')?.value || '';
-
-  let filtered = leads.filter(l => {
-    if (status && l.status !== status) return false;
-    if (search && !(l.name.toLowerCase().includes(search) || l.company.toLowerCase().includes(search) || l.email.toLowerCase().includes(search))) return false;
-    return true;
-  });
-
-  const tbody = document.getElementById('leads-body');
-  if (!tbody) return;
-
-  tbody.innerHTML = filtered.length ? filtered.map(l => `
-    <tr class="border-t border-slate-800 hover:bg-slate-900/40">
-      <td class="p-4 font-medium">${l.name}</td>
-      <td class="p-4">${l.company}</td>
-      <td class="p-4">
-        <div>${l.phone}</div>
-        <div class="text-xs text-slate-400">${l.email}</div>
-      </td>
-      <td class="p-4 text-slate-400">${l.source}</td>
-      <td class="p-4">
-        <span class="badge ${
-          l.status === 'New' ? 'status-open' : 
-          l.status === 'Contacted' ? 'status-inprogress' : 
-          l.status === 'Qualified' ? 'status-resolved' : 'status-closed'
-        }">${l.status}</span>
-      </td>
-      <td class="p-4">
-        <button onclick="alert('Contact ${l.name}')" class="text-cyan-400 hover:underline text-xs mr-3">Contact</button>
-        <button onclick="alert('Convert to Customer')" class="text-emerald-400 hover:underline text-xs">Convert</button>
-      </td>
-    </tr>
-  `).join('') : `<tr><td colspan="6" class="p-8 text-center text-slate-500">No leads found</td></tr>`;
-}
-
-    // ========== TIME SIMULATION ==========
-    function advanceTime(minutes) {
-      simulatedMinutes += minutes;
-      updateSimTimeDisplay();
-
-      // Check time-based rules
-      checkSLARules();
-
-      // Refresh views
-      renderSLAStatus();
-      renderUrgentTickets();
-      if (!document.getElementById('section-tickets').classList.contains('hidden')) renderTickets();
-      if (!document.getElementById('section-automation').classList.contains('hidden')) {
-        renderRules();
-        renderLog();
-      }
-      updateDashboardCounts();
-    }
-
-    function resetSimulation() {
-      simulatedMinutes = 0;
-      // Reset any escalated tickets back for demo
-      tickets.forEach(t => {
-        if (t.status === 'Escalated') t.status = 'Open';
-      });
-      updateSimTimeDisplay();
-      renderSLAStatus();
-      renderUrgentTickets();
-      renderTickets();
-      updateDashboardCounts();
-      executionLog.unshift({ time: formatMinutes(0), rule: 'System', result: 'Simulation reset' });
-      renderLog();
-    }
-
-    function checkSLARules() {
-      const slaRule = rules.find(r => r.id === 2 && r.enabled);
-      if (!slaRule) return;
-
-      tickets.forEach(ticket => {
-        if (ticket.priority === 'High' && (ticket.status === 'Open' || ticket.status === 'In Progress')) {
-          const age = getTicketAgeMinutes(ticket);
-          if (age >= 120 && ticket.status !== 'Escalated') {
-            ticket.status = 'Escalated';
-            const timeStr = formatMinutes(simulatedMinutes);
-            executionLog.unshift({
-              time: timeStr,
-              rule: slaRule.name,
-              result: `Escalated ${ticket.id} (${ticket.subject}) – SLA of 2h breached`
-            });
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          colors: {
+            void: { 950: '#050508', 900: '#0a0a10', 800: '#12121a', 700: '#1a1a26' }
           }
         }
-      });
-    }
-
-    // ========== RENDER FUNCTIONS ==========
-    function renderSLAStatus() {
-      const highTickets = tickets.filter(t => t.priority === 'High' && t.status !== 'Resolved' && t.status !== 'Closed');
-      const list = document.getElementById('sla-status-list');
-      if (!list) return;
-
-      if (highTickets.length === 0) {
-        list.innerHTML = '<p class="text-slate-500 text-sm">No active high-priority tickets</p>';
-        return;
-      }
-
-      list.innerHTML = highTickets.map(t => {
-        const sla = getSLAStatus(t);
-        const age = getTicketAgeMinutes(t);
-        return `
-          <div class="p-3 rounded-lg bg-slate-900/50">
-            <div class="flex justify-between items-start mb-2">
-              <div>
-                <p class="text-sm font-medium">${t.id} – ${t.subject}</p>
-                <p class="text-xs text-slate-400">Age: ${formatMinutes(age)}</p>
-              </div>
-              <span class="text-xs font-semibold ${sla.class}">${sla.status}</span>
-            </div>
-            <div class="progress-bar mb-1">
-              <div class="progress-fill ${sla.class === 'sla-breach' ? 'bg-red-500' : sla.class === 'sla-warn' ? 'bg-amber-400' : 'bg-emerald-400'}" 
-                   style="width: ${sla.percent}%"></div>
-            </div>
-            <p class="text-xs text-slate-400">
-              ${sla.remaining > 0 ? `Remaining: ${formatMinutes(sla.remaining)}` : 'SLA Breached'}
-            </p>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function renderUrgentTickets() {
-      const urgent = tickets.filter(t => ['Open','In Progress','Escalated'].includes(t.status)).slice(0,4);
-      document.getElementById('urgent-tickets-list').innerHTML = urgent.map(t => {
-        const sla = getSLAStatus(t);
-        return `
-          <div class="flex justify-between items-center p-3 rounded-lg bg-slate-900/50">
-            <div>
-              <p class="text-sm font-medium">${t.subject}</p>
-              <p class="text-xs text-slate-400">${t.id} • ${t.priority}
-                ${sla.status !== 'n/a' ? `• <span class="${sla.class}">${sla.status}</span>` : ''}
-              </p>
-            </div>
-            <span class="badge status-${t.status.toLowerCase().replace(' ','')}">${t.status}</span>
-          </div>
-        `;
-      }).join('') || '<p class="text-slate-500 text-sm">No open tickets</p>';
-    }
-
-    function renderTickets() {
-      const status = document.getElementById('filter-status')?.value || '';
-      const priority = document.getElementById('filter-priority')?.value || '';
-      const search = document.getElementById('search-ticket')?.value.toLowerCase() || '';
-      let filtered = tickets.filter(t => {
-        if (status && t.status !== status) return false;
-        if (priority && t.priority !== priority) return false;
-        if (search && !(t.subject.toLowerCase().includes(search) || t.customer.toLowerCase().includes(search) || t.id.toLowerCase().includes(search))) return false;
-        return true;
-      });
-
-      const tbody = document.getElementById('tickets-body');
-      tbody.innerHTML = filtered.length ? filtered.map(t => {
-        const sla = getSLAStatus(t);
-        return `
-          <tr class="border-t border-slate-800 hover:bg-slate-900/40">
-            <td class="p-4 font-mono text-cyan-400">${t.id}</td>
-            <td class="p-4">${t.subject}</td>
-            <td class="p-4">${t.customer}</td>
-            <td class="p-4"><span class="priority-${t.priority.toLowerCase()} font-medium">${t.priority}</span></td>
-            <td class="p-4"><span class="badge status-${t.status.toLowerCase().replace(' ','')}">${t.status}</span></td>
-            <td class="p-4">
-              ${sla.status !== 'n/a' 
-                ? `<span class="${sla.class} text-xs font-medium">${sla.status}</span><br><span class="text-xs text-slate-500">${formatMinutes(getTicketAgeMinutes(t))}</span>`
-                : '<span class="text-slate-500 text-xs">—</span>'}
-            </td>
-            <td class="p-4"><button onclick="updateTicketStatus('${t.id}')" class="text-cyan-400 hover:underline text-xs">Update</button></td>
-          </tr>
-        `;
-      }).join('') : `<tr><td colspan="7" class="p-8 text-center text-slate-500">No tickets found</td></tr>`;
-    }
-
-    function updateDashboardCounts() {
-      const open = tickets.filter(t => ['Open','In Progress','Escalated'].includes(t.status)).length;
-      const breaches = tickets.filter(t => getSLAStatus(t).status === 'Breached').length;
-      document.getElementById('open-tickets-count').textContent = open;
-      document.getElementById('sla-breach-count').textContent = breaches;
-      document.getElementById('ticket-badge').textContent = open;
-    }
-
-    // ========== AUTOMATION RENDER ==========
-    function renderRules() {
-      const list = document.getElementById('rules-list');
-      list.innerHTML = rules.map(r => `
-        <div class="card p-5 flex flex-col md:flex-row md:items-center gap-4">
-          <div class="flex-1">
-            <div class="flex items-center gap-3 mb-1">
-              <h4 class="font-semibold">${r.name}</h4>
-              <span class="badge ${r.enabled ? 'status-resolved' : 'status-closed'}">${r.enabled ? 'Active' : 'Disabled'}</span>
-              ${r.trigger === 'time_based' ? '<span class="badge bg-purple-900/50 text-purple-300">SLA</span>' : ''}
-            </div>
-            <p class="text-xs text-slate-400 mb-2">Trigger: <span class="text-cyan-400">${r.trigger.replace('_',' ')}</span></p>
-            <div class="flex flex-wrap gap-4 text-xs">
-              <span><span class="text-slate-500">Condition:</span> ${r.condition}</span>
-              <span><span class="text-slate-500">Action:</span> ${r.action}</span>
-            </div>
-          </div>
-          <div class="flex items-center gap-3">
-            <label class="toggle">
-              <input type="checkbox" ${r.enabled ? 'checked' : ''} onchange="toggleRule(${r.id})">
-              <span class="slider"></span>
-            </label>
-            <button onclick="runRule(${r.id})" class="text-xs bg-cyan-900/40 hover:bg-cyan-800/60 text-cyan-300 px-3 py-1.5 rounded-lg">
-              <i class="fas fa-play"></i> Run Now
-            </button>
-            <button onclick="editRule(${r.id})" class="text-xs text-slate-400 hover:text-white px-2"><i class="fas fa-edit"></i></button>
-            <button onclick="deleteRule(${r.id})" class="text-xs text-red-400 hover:text-red-300 px-2"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderLog() {
-      const log = document.getElementById('execution-log');
-      log.innerHTML = executionLog.map(e => `
-        <div class="flex gap-3 p-3 rounded-lg bg-slate-900/50">
-          <div class="text-xs text-slate-500 w-24 flex-shrink-0">${e.time}</div>
-          <div>
-            <p class="font-medium text-cyan-400">${e.rule}</p>
-            <p class="text-slate-300">${e.result}</p>
-          </div>
-        </div>
-      `).join('') || '<p class="text-slate-500">No executions yet</p>';
-    }
-
-    // ========== OTHER FUNCTIONS (same as before) ==========
-    function showSection(name) {
-      ['dashboard','tickets','automation','payments','customers','leads','settings'].forEach(s => {
-        document.getElementById(`section-${s}`).classList.add('hidden');
-        document.getElementById(`nav-${s}`).classList.remove('active');
-      });
-      if (name === 'customers') renderCustomers();
-      if (name === 'leads') renderLeads();
-      if (name === 'payments') renderPayments();
-      document.getElementById(`section-${name}`).classList.remove('hidden');
-      document.getElementById(`nav-${name}`).classList.add('active');
-
-      const titles = {
-        dashboard: ['Dashboard', 'Overview of your business'],
-        tickets: ['Support Tickets', 'Manage ICT support requests'],
-        automation: ['Automation Rules', 'Automate ticket handling + SLA simulation'],
-        payments: ['Payments', 'Track all transactions'],
-        customers: ['Customers', 'Active clients'],
-        leads: ['Leads', 'Potential customers'],
-        settings: ['Settings', 'Admin preferences']
-      };
-      document.getElementById('page-title').textContent = titles[name][0];
-      document.getElementById('page-subtitle').textContent = titles[name][1];
-
-      if (name === 'tickets') renderTickets();
-      if (name === 'dashboard') { renderSLAStatus(); renderUrgentTickets(); updateDashboardCounts(); }
-      if (name === 'automation') { renderRules(); renderLog(); updateSimTimeDisplay(); }
-    }
-
-    function toggleRule(id) {
-      const r = rules.find(x => x.id === id);
-      if (r) { r.enabled = !r.enabled; renderRules(); }
-    }
-
-    function runRule(id) {
-      const r = rules.find(x => x.id === id);
-      if (!r) return;
-      const timeStr = formatMinutes(simulatedMinutes);
-      executionLog.unshift({ time: timeStr, rule: r.name, result: `Manually executed – processed matching tickets` });
-      renderLog();
-      alert(`Rule "${r.name}" executed!`);
-    }
-
-    function openRuleModal(id = null) {
-      editingRuleId = id;
-      document.getElementById('rule-modal-title').textContent = id ? 'Edit Rule' : 'Create Rule';
-      document.getElementById('rule-modal').classList.remove('hidden');
-      document.getElementById('rule-modal').classList.add('flex');
-    }
-    function closeRuleModal() {
-      document.getElementById('rule-modal').classList.add('hidden');
-      document.getElementById('rule-modal').classList.remove('flex');
-    }
-    function saveRule() {
-      const name = document.getElementById('rule-name').value.trim();
-      if (!name) return alert('Enter rule name');
-      // simplified save
-      rules.push({
-        id: Date.now(),
-        name,
-        trigger: document.getElementById('rule-trigger').value,
-        condition: 'Custom condition',
-        action: 'Custom action',
-        enabled: document.getElementById('rule-enabled').checked
-      });
-      closeRuleModal();
-      renderRules();
-    }
-    function editRule(id) { openRuleModal(id); }
-    function deleteRule(id) {
-      if (confirm('Delete rule?')) {
-        rules = rules.filter(r => r.id !== id);
-        renderRules();
       }
     }
-    function clearLog() {
-      executionLog = [];
-      renderLog();
-    }
-
-    function openNewTicketModal() {
-      document.getElementById('ticket-modal').classList.remove('hidden');
-      document.getElementById('ticket-modal').classList.add('flex');
-    }
-    function closeNewTicketModal() {
-      document.getElementById('ticket-modal').classList.add('hidden');
-      document.getElementById('ticket-modal').classList.remove('flex');
-    }
-    function createTicket() {
-      const subject = document.getElementById('ticket-subject').value.trim();
-      const customer = document.getElementById('ticket-customer').value.trim();
-      if (!subject || !customer) return alert('Fill required fields');
-      const newId = 'TKT-' + (1043 + tickets.length);
-      tickets.unshift({
-        id: newId,
-        subject,
-        customer,
-        priority: document.getElementById('ticket-priority').value,
-        status: document.getElementById('ticket-status').value,
-        createdMinutesAgo: 0
-      });
-      closeNewTicketModal();
-      document.getElementById('ticket-subject').value = '';
-      document.getElementById('ticket-customer').value = '';
-      updateDashboardCounts();
-      renderUrgentTickets();
-      renderSLAStatus();
-      alert('Ticket ' + newId + ' created!');
-    }
-    function updateTicketStatus(id) {
-      const t = tickets.find(x => x.id === id);
-      if (!t) return;
-      const opts = ['Open','In Progress','Escalated','Resolved','Closed'];
-      t.status = opts[(opts.indexOf(t.status)+1) % opts.length];
-      renderTickets(); renderUrgentTickets(); renderSLAStatus(); updateDashboardCounts();
-    }
-    function logout() {
-      if (confirm('Logout?')) location.reload();
-    }
-
-    // Init
-    document.getElementById('admin-name').textContent = localStorage.getItem('admin_name') || 'Admin';
-    updateSimTimeDisplay();
-    renderSLAStatus();
-    renderUrgentTickets();
-    updateDashboardCounts();
-    document.addEventListener('DOMContentLoaded', async () => {
-  if (!requireAdmin()) return;
-
-  const user = getCurrentUser();
-  document.getElementById('admin-name').textContent = user.name;
-
-  await loadAdminTickets();
-});
-
-async function loadAdminTickets() {
-  try {
-    const res = await fetch('http://localhost:3000/api/tickets', {
-      headers: authHeaders()
-    });
-    const data = await res.json();
-
-    // Update the tickets table
-    const tbody = document.getElementById('tickets-body');
-    if (!tbody) return;
-
-    tbody.innerHTML = data.tickets.map(t => `
-      <tr class="border-t border-slate-800">
-        <td class="p-4">${t.ticket_id}</td>
-        <td class="p-4">${t.subject}</td>
-        <td class="p-4">${t.customer_name || '—'} (${t.company || ''})</td>
-        <td class="p-4"><span class="priority-${t.priority.toLowerCase()}">${t.priority}</span></td>
-        <td class="p-4"><span class="badge status-${t.status.toLowerCase().replace(' ', '')}">${t.status}</span></td>
-        <td class="p-4">—</td>
-        <td class="p-4">
-          <select onchange="updateTicketStatus(${t.id}, this.value)" class="bg-slate-800 text-sm rounded px-2 py-1">
-            <option value="Open" ${t.status === 'Open' ? 'selected' : ''}>Open</option>
-            <option value="In Progress" ${t.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
-            <option value="Escalated" ${t.status === 'Escalated' ? 'selected' : ''}>Escalated</option>
-            <option value="Resolved" ${t.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
-            <option value="Closed" ${t.status === 'Closed' ? 'selected' : ''}>Closed</option>
-          </select>
-        </td>
-      </tr>
-    `).join('');
-
-    // Update open tickets count
-    const openCount = data.tickets.filter(t => t.status === 'Open' || t.status === 'In Progress').length;
-    const badge = document.getElementById('ticket-badge');
-    const openEl = document.getElementById('open-tickets-count');
-    if (badge) badge.textContent = openCount;
-    if (openEl) openEl.textContent = openCount;
-
-  } catch (err) {
-    console.error('Failed to load tickets', err);
-  }
-}
-
-async function updateTicketStatus(id, status) {
-  try {
-    await fetch(`http://localhost:3000/api/tickets/${id}`, {
-      method: 'PATCH',
-      headers: authHeaders(),
-      body: JSON.stringify({ status })
-    });
-    loadAdminTickets(); // refresh
-  } catch (err) {
-    alert('Failed to update ticket');
-  }
-}
-    window.addEventListener('pageshow', function(event) {
-  if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
-    if (!isLoggedIn()) {
-      window.location.reload();
-    }
-  }
-});
-document.getElementById('portal').style.visibility = 'visible';
-// or for admin
-document.querySelector('main').style.visibility = 'visible';
   </script>
+  <style>
+    :root { --accent: #22d3ee; --accent2: #6366f1; }
+    body { background: #050508; color: #e2e8f0; font-family: Inter, system-ui, sans-serif; }
+    .glass {
+      background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+      backdrop-filter: blur(16px);
+    }
+    .glass-accent {
+      background: linear-gradient(135deg, rgba(34,211,238,0.08), rgba(99,102,241,0.06));
+      border: 1px solid rgba(34,211,238,0.18);
+    }
+    .btn-g {
+      background: linear-gradient(135deg, #3b82f6, #22d3ee);
+      color: #020617; font-weight: 700;
+    }
+    .btn-g:hover { filter: brightness(1.08); box-shadow: 0 0 28px rgba(34,211,238,0.25); }
+    .nav-i.active {
+      background: linear-gradient(90deg, rgba(34,211,238,0.12), transparent);
+      color: #22d3ee;
+      border-left: 2px solid #22d3ee;
+    }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(34,211,238,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .pulse-dot { animation: pd 2s ease-in-out infinite; }
+    @keyframes pd { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.85)} }
+    .scan-line {
+      background: linear-gradient(90deg, transparent, rgba(34,211,238,0.15), transparent);
+      animation: scan 3s linear infinite;
+    }
+    @keyframes scan { from{transform:translateX(-100%)} to{transform:translateX(100%)} }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .chip { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 600; letter-spacing: 0.02em; }
+    .s-open { background: rgba(59,130,246,.2); color: #93c5fd; }
+    .s-prog { background: rgba(245,158,11,.2); color: #fcd34d; }
+    .s-esc { background: rgba(239,68,68,.2); color: #fca5a5; }
+    .s-res { background: rgba(16,185,129,.2); color: #6ee7b7; }
+    .s-cls { background: rgba(100,116,139,.25); color: #94a3b8; }
+    .pri-c { color: #f87171; }
+    .pri-h { color: #fb923c; }
+    .pri-m { color: #fbbf24; }
+    .pri-l { color: #4ade80; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    .cmd-k { box-shadow: 0 25px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(34,211,238,.15); }
+    table.data tr:hover td { background: rgba(255,255,255,0.02); }
+    .drawer { transform: translateX(100%); transition: transform .25s ease; }
+    .drawer.open { transform: translateX(0); }
+  </style>
+</head>
+<body class="min-h-screen antialiased">
+
+  <!-- LOGIN -->
+  <div id="login-screen" class="min-h-screen grid-bg flex items-center justify-center p-4 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(34,211,238,0.1),_transparent_55%)]"></div>
+    <div class="glass cmd-k rounded-3xl p-8 w-full max-w-md relative z-10">
+      <div class="absolute top-0 left-0 right-0 h-px overflow-hidden rounded-t-3xl"><div class="scan-line h-full w-1/2"></div></div>
+      <div class="text-center mb-8">
+        <div class="inline-flex w-16 h-16 rounded-2xl glass-accent items-center justify-center mb-4">
+          <i class="fas fa-satellite-dish text-2xl text-cyan-400"></i>
+        </div>
+        <h1 class="text-2xl font-bold tracking-tight">Command Center</h1>
+        <p class="text-slate-500 text-sm mt-1">Infinite Cyberspace Hub · SOC & Ops</p>
+      </div>
+      <div id="login-error" class="hidden mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/25 text-red-300 text-sm"></div>
+      <div class="space-y-3">
+        <input id="login-email" type="email" value="admin@infinitecyberspace.com" placeholder="Email"
+          class="w-full px-4 py-3 rounded-xl bg-void-900 border border-slate-700/80 text-sm outline-none focus:border-cyan-500/50">
+        <input id="login-password" type="password" placeholder="Password"
+          class="w-full px-4 py-3 rounded-xl bg-void-900 border border-slate-700/80 text-sm outline-none focus:border-cyan-500/50"
+          onkeydown="if(event.key==='Enter')doLogin()">
+        <button onclick="doLogin()" class="btn-g w-full py-3 rounded-xl text-sm">Authenticate</button>
+      </div>
+      <p class="text-center text-[11px] text-slate-600 mt-6">admin@infinitecyberspace.com · admin123</p>
+      <p class="text-center text-[11px] mt-2"><a href="portal.html" class="text-cyan-500/70 hover:text-cyan-400">Client portal</a>
+        · Press <kbd class="mono text-slate-500">⌘K</kbd> after login</p>
+    </div>
+  </div>
+
+  <!-- SHELL -->
+  <div id="shell" class="hidden min-h-screen flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-[260px] shrink-0 border-r border-slate-800/60 bg-void-900/95 flex flex-col fixed md:sticky top-0 h-screen z-40 -translate-x-full md:translate-x-0 transition-transform">
+      <div class="p-4 border-b border-slate-800/60">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+            <i class="fas fa-shield-halved text-void-950"></i>
+          </div>
+          <div>
+            <div class="font-bold text-sm tracking-tight">INFINITE<span class="text-cyan-400">OPS</span></div>
+            <div class="flex items-center gap-1.5 text-[10px] text-slate-500">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span> Live · Kenya region
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-3 py-2">
+        <button onclick="openCmd()" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl bg-void-800/80 border border-slate-800 text-xs text-slate-400 hover:border-slate-600 transition">
+          <i class="fas fa-magnifying-glass"></i> Search or jump…
+          <span class="ml-auto mono text-[10px] text-slate-600">⌘K</span>
+        </button>
+      </div>
+      <nav class="flex-1 overflow-y-auto px-2 py-1 space-y-0.5 text-[13px]">
+        <p class="px-3 pt-3 pb-1 text-[10px] uppercase tracking-widest text-slate-600">Operations</p>
+        <button class="nav-i active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left" data-v="overview" onclick="go('overview')"><i class="fas fa-border-all w-5 opacity-70"></i> Overview</button>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="soc" onclick="go('soc')"><i class="fas fa-radar w-5 opacity-70"></i> SOC Live</button>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="tickets" onclick="go('tickets')"><i class="fas fa-ticket w-5 opacity-70"></i> Tickets<span id="nb-tickets" class="ml-auto chip s-esc">0</span></button>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="incidents" onclick="go('incidents')"><i class="fas fa-bolt w-5 opacity-70"></i> Incidents</button>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="automation" onclick="go('automation')"><i class="fas fa-gears w-5 opacity-70"></i> Playbooks</button>
+        <p class="px-3 pt-4 pb-1 text-[10px] uppercase tracking-widest text-slate-600">Business</p>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="customers" onclick="go('customers')"><i class="fas fa-building w-5 opacity-70"></i> Customers</button>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="pipeline" onclick="go('pipeline')"><i class="fas fa-filter w-5 opacity-70"></i> Pipeline</button>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="billing" onclick="go('billing')"><i class="fas fa-wallet w-5 opacity-70"></i> Revenue</button>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="analytics" onclick="go('analytics')"><i class="fas fa-chart-line w-5 opacity-70"></i> Analytics</button>
+        <p class="px-3 pt-4 pb-1 text-[10px] uppercase tracking-widest text-slate-600">System</p>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="team" onclick="go('team')"><i class="fas fa-user-group w-5 opacity-70"></i> Team</button>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="audit" onclick="go('audit')"><i class="fas fa-clipboard-list w-5 opacity-70"></i> Audit log</button>
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="settings" onclick="go('settings')"><i class="fas fa-sliders w-5 opacity-70"></i> Settings</button>
+      </nav>
+      <div class="p-3 border-t border-slate-800/60">
+        <div class="flex items-center gap-2.5 mb-2">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-600 to-cyan-500 flex items-center justify-center text-xs font-bold">AO</div>
+          <div class="min-w-0 flex-1">
+            <div class="text-xs font-semibold truncate">Augustine Ouma</div>
+            <div class="text-[10px] text-slate-500">Owner · Superadmin</div>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <a href="portal.html" class="flex-1 text-center text-[10px] py-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-cyan-400">Portal</a>
+          <button onclick="logout()" class="flex-1 text-[10px] py-1.5 rounded-lg border border-red-900/40 text-red-400/80 hover:bg-red-500/10">Logout</button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0">
+      <!-- Topbar -->
+      <header class="sticky top-0 z-30 h-14 border-b border-slate-800/60 bg-void-950/80 backdrop-blur-xl px-4 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <button class="md:hidden p-2 text-slate-400" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')"><i class="fas fa-bars"></i></button>
+          <div>
+            <div id="hdr-title" class="font-semibold text-sm">Overview</div>
+            <div id="hdr-sub" class="text-[10px] text-slate-500 truncate">Global operations snapshot</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-lg bg-void-800 border border-slate-800 text-[10px] mono text-slate-400">
+            SLA sim <span id="sim-t" class="text-cyan-400">0h0m</span>
+            <button onclick="sim(30)" class="hover:text-white">+30m</button>
+            <button onclick="sim(120)" class="hover:text-cyan-300">+2h</button>
+            <button onclick="sim(0)" class="hover:text-slate-300">reset</button>
+          </div>
+          <button onclick="openCmd()" class="p-2 rounded-lg hover:bg-white/5 text-slate-400"><i class="fas fa-terminal"></i></button>
+          <button onclick="toggleNotif()" class="relative p-2 rounded-lg hover:bg-white/5 text-slate-400">
+            <i class="fas fa-bell"></i>
+            <span id="notif-dot" class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-cyan-400 rounded-full"></span>
+          </button>
+          <button onclick="openTicket()" class="btn-g hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs">
+            <i class="fas fa-plus"></i> Ticket
+          </button>
+        </div>
+      </header>
+
+      <div id="notif-drop" class="hidden absolute right-4 top-14 z-50 w-80 glass rounded-2xl overflow-hidden border border-slate-700/50 shadow-2xl">
+        <div class="px-4 py-2.5 border-b border-slate-800 text-xs font-semibold flex justify-between">Notifications <button onclick="markRead()" class="text-cyan-400 font-normal">Mark read</button></div>
+        <div id="notif-body" class="max-h-64 overflow-y-auto text-xs"></div>
+      </div>
+
+      <main id="main" class="flex-1 overflow-y-auto p-4 md:p-6 grid-bg"></main>
+    </div>
+  </div>
+
+  <!-- Command palette -->
+  <div id="cmd" class="fixed inset-0 z-[70] hidden items-start justify-center pt-[15vh] bg-black/70 backdrop-blur-sm" onclick="if(event.target===this)closeCmd()">
+    <div class="cmd-k glass rounded-2xl w-full max-w-lg mx-4 overflow-hidden">
+      <div class="flex items-center gap-3 px-4 border-b border-slate-800">
+        <i class="fas fa-magnifying-glass text-slate-500"></i>
+        <input id="cmd-input" type="text" placeholder="Jump to view, create ticket, run playbook…"
+          class="flex-1 bg-transparent py-3.5 text-sm outline-none" oninput="filterCmd()" onkeydown="cmdKey(event)">
+      </div>
+      <div id="cmd-list" class="max-h-72 overflow-y-auto py-2 text-sm"></div>
+    </div>
+  </div>
+
+  <!-- Ticket drawer -->
+  <div id="drawer-bg" class="fixed inset-0 z-[60] hidden bg-black/50" onclick="closeDrawer()"></div>
+  <div id="drawer" class="drawer fixed top-0 right-0 z-[61] h-full w-full max-w-md glass border-l border-slate-700/50 p-6 overflow-y-auto">
+    <div class="flex justify-between items-start mb-6">
+      <div>
+        <div class="text-[10px] mono text-slate-500" id="dr-id"></div>
+        <h3 class="text-lg font-semibold" id="dr-title"></h3>
+      </div>
+      <button onclick="closeDrawer()" class="text-slate-400 hover:text-white text-xl">&times;</button>
+    </div>
+    <div id="dr-body" class="space-y-4 text-sm"></div>
+  </div>
+
+  <!-- New ticket modal -->
+  <div id="modal" class="fixed inset-0 z-[65] hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="glass rounded-2xl w-full max-w-md p-6 border border-cyan-500/20">
+      <h3 class="font-semibold mb-4">Create support ticket</h3>
+      <div class="space-y-3">
+        <input id="m-sub" placeholder="Subject" class="w-full px-3 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+        <input id="m-cust" placeholder="Customer" class="w-full px-3 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+        <div class="grid grid-cols-2 gap-2">
+          <select id="m-pri" class="px-3 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm"><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select>
+          <select id="m-cat" class="px-3 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm"><option>Security</option><option>Endpoint</option><option>Network</option><option>Email</option><option>General</option></select>
+        </div>
+        <textarea id="m-desc" rows="3" placeholder="Description" class="w-full px-3 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40"></textarea>
+        <div class="flex gap-2">
+          <button onclick="closeModal()" class="flex-1 py-2.5 rounded-xl border border-slate-700 text-sm">Cancel</button>
+          <button onclick="createTicket()" class="flex-1 btn-g py-2.5 rounded-xl text-sm">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed bottom-5 right-5 z-[80] hidden px-4 py-2.5 rounded-xl bg-void-800 border border-cyan-500/30 text-xs shadow-xl mono"></div>
+
+<script>
+/* ========== STATE ========== */
+const S = {
+  sim: 0,
+  tickets: [],
+  charts: {},
+  notifs: [
+    { id: 1, t: 'Portal ticket', b: 'New submission from client portal', read: false, ago: '2m' },
+    { id: 2, t: 'SLA warning', b: 'TKT-100001 approaching 2h threshold', read: false, ago: '18m' },
+    { id: 3, t: 'Payment', b: 'KES 38,900 received — Acme Solutions', read: true, ago: '1h' }
+  ],
+  audit: []
+};
+
+const DEMO = [
+  { id:'TKT-100001', subject:'Phishing campaign detected', customer:'Grace Wanjiku', company:'TechNova Kenya', priority:'High', status:'Open', age:50, cat:'Email', src:'demo', desc:'Multiple staff reported identical invoice PDFs.' },
+  { id:'TKT-100002', subject:'Endpoint agent offline', customer:'Mary Achieng', company:'Lakeview Hotels', priority:'Medium', status:'In Progress', age:140, cat:'Endpoint', src:'demo', desc:'Front desk workstation last seen 6h ago.' },
+  { id:'TKT-100003', subject:'VPN onboarding', customer:'Peter Otieno', company:'Lake Basin Logistics', priority:'Low', status:'Open', age:25, cat:'Network', src:'demo', desc:'New hire requires split-tunnel VPN.' },
+  { id:'TKT-100004', subject:'Ransomware canary alert', customer:'John Odhiambo', company:'Acme Solutions Ltd', priority:'Critical', status:'Escalated', age:15, cat:'Security', src:'demo', desc:'Canary file modified on file server.' }
+];
+
+const CUSTOMERS = [
+  { name:'John Odhiambo', co:'Acme Solutions Ltd', pkg:'Premium', mrr:38900, health:92, status:'Active', seats:24, renew:'2026-09-15' },
+  { name:'Grace Wanjiku', co:'TechNova Kenya', pkg:'Standard', mrr:25900, health:78, status:'Active', seats:12, renew:'2026-08-28' },
+  { name:'Peter Otieno', co:'Lake Basin Logistics', pkg:'Basic', mrr:12900, health:85, status:'Active', seats:6, renew:'2026-08-20' },
+  { name:'Mary Achieng', co:'Lakeview Hotels', pkg:'Premium', mrr:38900, health:61, status:'At risk', seats:40, renew:'2026-08-12' }
+];
+
+const LEADS = [
+  { name:'Samuel Kariuki', co:'Nairobi Motors', stage:'New', score:42, src:'Website', value:25900 },
+  { name:'Faith Njeri', co:'Green Farm Ltd', stage:'Qualified', score:71, src:'Referral', value:38900 },
+  { name:'David Omondi', co:'Westlands Clinic', stage:'Proposal', score:88, src:'WhatsApp', value:38900 },
+  { name:'Lucy Akinyi', co:'Sunrise School', stage:'Negotiation', score:65, src:'Website', value:12900 }
+];
+
+const PAYMENTS = [
+  { d:'2026-08-16', c:'John Odhiambo', pkg:'Premium', a:38900, s:'completed', r:'ICH-A8F3' },
+  { d:'2026-08-15', c:'Grace Wanjiku', pkg:'Standard', a:25900, s:'completed', r:'ICH-B2C1' },
+  { d:'2026-08-14', c:'Peter Otieno', pkg:'Basic', a:12900, s:'failed', r:'ICH-D9E4' },
+  { d:'2026-08-13', c:'Mary Achieng', pkg:'Premium', a:38900, s:'pending', r:'ICH-F7A2' }
+];
+
+const TEAM = [
+  { n:'Augustine Ouma', r:'Owner / Lead', load:4, on:'Online' },
+  { n:'Sarah Mwangi', r:'SOC Analyst', load:7, on:'Online' },
+  { n:'James Ochieng', r:'Endpoint Eng', load:5, on:'Away' },
+  { n:'Amina Hassan', r:'Customer Success', load:3, on:'Online' }
+];
+
+const PLAYBOOKS = [
+  { id:1, n:'Phishing triage', t:'Security', runs:128, ok:96 },
+  { id:2, n:'SLA escalate 2h', t:'Time', runs:44, ok:100 },
+  { id:3, n:'Critical page-oncall', t:'Pager', runs:12, ok:100 },
+  { id:4, n:'New portal ticket route', t:'Intake', runs:56, ok:98 }
+];
+
+const THREATS = [
+  { t:'Brute force SSH', sev:'Medium', src:'41.90.x.x', a:'Blocked' },
+  { t:'Malicious macro', sev:'High', src:'Email gateway', a:'Quarantined' },
+  { t:'DNS tunneling attempt', sev:'Critical', src:'Host WS-14', a:'Isolated' },
+  { t:'Port scan', sev:'Low', src:'105.27.x.x', a:'Logged' }
+];
+
+/* ========== AUTH ========== */
+function doLogin() {
+  const e = document.getElementById('login-email').value.trim().toLowerCase();
+  const p = document.getElementById('login-password').value;
+  const err = document.getElementById('login-error');
+  if (e === 'admin@infinitecyberspace.com' && p === 'admin123') {
+    localStorage.setItem('ich_admin_v2', '1');
+    boot();
+  } else {
+    err.textContent = 'Authentication failed';
+    err.classList.remove('hidden');
+  }
+}
+function logout() { localStorage.removeItem('ich_admin_v2'); location.reload(); }
+function boot() {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('shell').classList.remove('hidden');
+  loadTickets();
+  audit('session', 'Admin console unlocked');
+  go('overview');
+  renderNotifs();
+}
+
+/* ========== TICKETS + PORTAL SYNC ========== */
+function loadTickets() {
+  const shared = JSON.parse(localStorage.getItem('ich_shared_tickets') || '[]');
+  const fromP = shared.map(t => ({
+    id: t.id,
+    subject: t.subject,
+    customer: t.customer || 'Client',
+    company: t.company || '',
+    priority: t.priority || 'Medium',
+    status: t.status || 'Open',
+    age: t.createdMinutesAgo ?? 5,
+    cat: t.category || 'General',
+    src: t.source || 'client_portal',
+    desc: t.description || '',
+    email: t.email || ''
+  }));
+  const ids = new Set(fromP.map(t => t.id));
+  S.tickets = [...fromP, ...DEMO.filter(d => !ids.has(d.id))];
+}
+function persistTickets() {
+  const map = {};
+  (JSON.parse(localStorage.getItem('ich_shared_tickets') || '[]')).forEach(t => map[t.id] = t);
+  S.tickets.forEach(t => {
+    map[t.id] = {
+      id: t.id, subject: t.subject, description: t.desc || '', priority: t.priority, status: t.status,
+      category: t.cat, customer: t.customer, company: t.company, email: t.email || '',
+      createdMinutesAgo: t.age, source: t.src, date: new Date().toLocaleString()
+    };
+  });
+  localStorage.setItem('ich_shared_tickets', JSON.stringify(Object.values(map)));
+}
+
+function ageOf(t) { return (t.age || 0) + S.sim; }
+function slaOf(t) {
+  if (!['High','Critical'].includes(t.priority) || ['Resolved','Closed'].includes(t.status))
+    return { l: '—', c: 'text-slate-600', pct: 0 };
+  const limit = t.priority === 'Critical' ? 60 : 120;
+  const a = ageOf(t), rem = limit - a, pct = Math.min(100, a / limit * 100);
+  if (rem <= 0) return { l: 'BREACH', c: 'text-red-400', pct: 100 };
+  if (rem <= 20) return { l: 'WARN ' + fmt(rem), c: 'text-amber-400', pct };
+  return { l: 'OK ' + fmt(rem), c: 'text-emerald-400', pct };
+}
+function fmt(m) { return Math.floor(m/60) + 'h' + (m%60) + 'm'; }
+function chipStatus(s) {
+  const m = { Open:'s-open', 'In Progress':'s-prog', Escalated:'s-esc', Resolved:'s-res', Closed:'s-cls' };
+  return '<span class="chip ' + (m[s]||'s-cls') + '">' + s + '</span>';
+}
+function priClass(p) { return ({ Critical:'pri-c', High:'pri-h', Medium:'pri-m', Low:'pri-l' })[p] || ''; }
+
+/* ========== NAV ========== */
+const TITLES = {
+  overview: ['Overview', 'Executive & ops snapshot'],
+  soc: ['SOC Live', 'Threat feed & posture'],
+  tickets: ['Ticket queue', 'Portal + internal unified'],
+  incidents: ['Incidents', 'Major event board'],
+  automation: ['Playbooks', 'Automation & SLA engines'],
+  customers: ['Customers', 'Health, MRR, renewals'],
+  pipeline: ['Pipeline', 'Lead stages & scores'],
+  billing: ['Revenue', 'Collections & failed payments'],
+  analytics: ['Analytics', 'Trends & capacity'],
+  team: ['Team', 'Load & availability'],
+  audit: ['Audit log', 'Immutable action trail'],
+  settings: ['Settings', 'Console configuration']
+};
+
+function go(v) {
+  loadTickets();
+  document.querySelectorAll('.nav-i').forEach(b => {
+    b.classList.toggle('active', b.dataset.v === v);
+    b.classList.toggle('text-slate-400', b.dataset.v !== v);
+  });
+  document.getElementById('hdr-title').textContent = TITLES[v][0];
+  document.getElementById('hdr-sub').textContent = TITLES[v][1];
+  document.getElementById('sidebar').classList.add('-translate-x-full');
+  const main = document.getElementById('main');
+  destroyCharts();
+  main.innerHTML = views[v] ? views[v]() : '';
+  requestAnimationFrame(() => { if (hooks[v]) hooks[v](); updateBadges(); });
+}
+
+const views = {};
+const hooks = {};
+
+views.overview = () => {
+  const open = S.tickets.filter(t => ['Open','In Progress','Escalated'].includes(t.status)).length;
+  const breach = S.tickets.filter(t => slaOf(t).l.startsWith('BREACH')).length;
+  const mrr = CUSTOMERS.reduce((s,c) => s + c.mrr, 0);
+  return `
+  <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-6">
+    ${kpi('MRR', 'KES ' + (mrr/1000).toFixed(1) + 'k', '+8.2%', 'text-emerald-400', 'fa-chart-area')}
+    ${kpi('Open queue', open, 'unified inbox', 'text-amber-400', 'fa-inbox')}
+    ${kpi('SLA breaches', breach, 'high/crit only', 'text-red-400', 'fa-heart-pulse')}
+    ${kpi('Threats 24h', '1,248', 'blocked', 'text-cyan-400', 'fa-shield')}
+  </div>
+  <div class="grid lg:grid-cols-3 gap-4 mb-4">
+    <div class="lg:col-span-2 glass rounded-2xl p-5">
+      <div class="flex justify-between mb-3"><h3 class="text-sm font-semibold">Ticket volume (14d)</h3><span class="text-[10px] text-slate-500">Synthetic series</span></div>
+      <canvas id="c-tickets" height="120"></canvas>
+    </div>
+    <div class="glass rounded-2xl p-5">
+      <h3 class="text-sm font-semibold mb-3">Queue mix</h3>
+      <canvas id="c-mix" height="160"></canvas>
+    </div>
+  </div>
+  <div class="grid lg:grid-cols-2 gap-4">
+    <div class="glass rounded-2xl p-5">
+      <div class="flex justify-between mb-3"><h3 class="text-sm font-semibold">Priority SLA</h3><button onclick="go('tickets')" class="text-[10px] text-cyan-400">Queue →</button></div>
+      <div id="ov-sla" class="space-y-3"></div>
+    </div>
+    <div class="glass rounded-2xl p-5">
+      <h3 class="text-sm font-semibold mb-3">Live activity</h3>
+      <div id="ov-act" class="space-y-2 text-xs"></div>
+    </div>
+  </div>`;
+};
+hooks.overview = () => {
+  S.charts.t = new Chart(document.getElementById('c-tickets'), {
+    type: 'line',
+    data: {
+      labels: [...Array(14)].map((_,i) => 'D' + (i+1)),
+      datasets: [{
+        label: 'Tickets', data: [4,6,5,8,7,9,6,11,8,10,7,12,9,8],
+        borderColor: '#22d3ee', backgroundColor: 'rgba(34,211,238,0.08)', fill: true, tension: 0.4, pointRadius: 0
+      }]
+    },
+    options: chartOpts()
+  });
+  const counts = ['Open','In Progress','Escalated','Resolved'].map(s => S.tickets.filter(t => t.status === s).length);
+  S.charts.m = new Chart(document.getElementById('c-mix'), {
+    type: 'doughnut',
+    data: { labels: ['Open','In progress','Escalated','Resolved'], datasets: [{ data: counts, backgroundColor: ['#3b82f6','#f59e0b','#ef4444','#10b981'], borderWidth: 0 }] },
+    options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, color: '#94a3b8', font: { size: 10 } } } }, cutout: '68%' }
+  });
+  document.getElementById('ov-sla').innerHTML = S.tickets.filter(t => ['High','Critical'].includes(t.priority) && !['Resolved','Closed'].includes(t.status)).map(t => {
+    const s = slaOf(t);
+    return `<div><div class="flex justify-between text-xs mb-1"><span class="truncate pr-2">${esc(t.subject)}</span><span class="${s.c} mono">${s.l}</span></div>
+      <div class="h-1 rounded-full bg-slate-800"><div class="h-full rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500" style="width:${s.pct}%"></div></div></div>`;
+  }).join('') || '<p class="text-slate-500 text-xs">Clear</p>';
+  document.getElementById('ov-act').innerHTML = S.tickets.slice(0,6).map(t =>
+    `<div class="flex gap-2 items-start p-2 rounded-lg bg-void-900/50"><span class="mono text-slate-600">${esc(t.id.slice(-4))}</span>
+      <div class="min-w-0"><div class="text-slate-300 truncate">${esc(t.subject)}</div><div class="text-slate-600">${esc(t.customer)} · ${chipStatus(t.status)}</div></div></div>`
+  ).join('');
+};
+
+views.soc = () => `
+  <div class="grid lg:grid-cols-3 gap-4 mb-4">
+    <div class="glass-accent rounded-2xl p-5 lg:col-span-1">
+      <div class="text-[10px] uppercase tracking-widest text-cyan-500/80 mb-2">Regional posture</div>
+      <div class="text-3xl font-bold mb-1">Guarded</div>
+      <p class="text-xs text-slate-400 mb-4">No active ransomware. 3 hosts in investigation.</p>
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between"><span class="text-slate-500">EDR coverage</span><span class="text-emerald-400">98.2%</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">MFA adoption</span><span class="text-amber-400">74%</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Patch lag (crit)</span><span class="text-cyan-300">2.1d avg</span></div>
+      </div>
+    </div>
+    <div class="lg:col-span-2 glass rounded-2xl p-5">
+      <h3 class="text-sm font-semibold mb-3">Threat intensity</h3>
+      <canvas id="c-threat" height="100"></canvas>
+    </div>
+  </div>
+  <div class="glass rounded-2xl overflow-hidden">
+    <div class="px-5 py-3 border-b border-slate-800/80 text-sm font-semibold">Realtime detections</div>
+    <table class="w-full text-xs data"><thead class="text-slate-500 text-left"><tr>
+      <th class="px-5 py-2">Signal</th><th class="px-5 py-2">Severity</th><th class="px-5 py-2">Source</th><th class="px-5 py-2">Action</th>
+    </tr></thead><tbody>${THREATS.map(x => `<tr class="border-t border-slate-800/50">
+      <td class="px-5 py-3 font-medium">${x.t}</td>
+      <td class="px-5 py-3 ${x.sev==='Critical'?'pri-c':x.sev==='High'?'pri-h':'text-slate-400'}">${x.sev}</td>
+      <td class="px-5 py-3 mono text-slate-500">${x.src}</td>
+      <td class="px-5 py-3 text-cyan-400/90">${x.a}</td></tr>`).join('')}</tbody></table>
+  </div>`;
+hooks.soc = () => {
+  S.charts.th = new Chart(document.getElementById('c-threat'), {
+    type: 'bar',
+    data: {
+      labels: ['00','04','08','12','16','20'],
+      datasets: [
+        { label: 'Blocked', data: [120,80,200,340,280,190], backgroundColor: 'rgba(34,211,238,0.5)', borderRadius: 4 },
+        { label: 'Investigated', data: [4,2,8,12,6,5], backgroundColor: 'rgba(239,68,68,0.5)', borderRadius: 4 }
+      ]
+    },
+    options: chartOpts(true)
+  });
+};
+
+views.tickets = () => `
+  <div class="flex flex-wrap gap-2 mb-4">
+    <select id="f-st" onchange="paintTickets()" class="bg-void-900 border border-slate-700 rounded-lg px-2 py-1.5 text-xs"><option value="">Status</option><option>Open</option><option>In Progress</option><option>Escalated</option><option>Resolved</option><option>Closed</option></select>
+    <select id="f-pr" onchange="paintTickets()" class="bg-void-900 border border-slate-700 rounded-lg px-2 py-1.5 text-xs"><option value="">Priority</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select>
+    <input id="f-q" oninput="paintTickets()" placeholder="Search id, subject, customer…" class="bg-void-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs flex-1 min-w-[140px] outline-none focus:border-cyan-500/40">
+    <button onclick="openTicket()" class="btn-g px-3 py-1.5 rounded-lg text-xs">New</button>
+  </div>
+  <div class="glass rounded-2xl overflow-hidden">
+    <div class="overflow-x-auto"><table class="w-full text-xs data">
+      <thead class="text-slate-500 text-left bg-void-900/40"><tr>
+        <th class="px-4 py-3">ID</th><th class="px-4 py-3">Subject</th><th class="px-4 py-3">Customer</th>
+        <th class="px-4 py-3">Pri</th><th class="px-4 py-3">Status</th><th class="px-4 py-3">SLA</th><th class="px-4 py-3"></th>
+      </tr></thead>
+      <tbody id="tb-tickets"></tbody>
+    </table></div>
+  </div>`;
+hooks.tickets = () => paintTickets();
+
+function paintTickets() {
+  const st = document.getElementById('f-st')?.value || '';
+  const pr = document.getElementById('f-pr')?.value || '';
+  const q = (document.getElementById('f-q')?.value || '').toLowerCase();
+  const rows = S.tickets.filter(t => {
+    if (st && t.status !== st) return false;
+    if (pr && t.priority !== pr) return false;
+    if (q && !(t.id + t.subject + t.customer + t.company).toLowerCase().includes(q)) return false;
+    return true;
+  });
+  const el = document.getElementById('tb-tickets');
+  if (!el) return;
+  el.innerHTML = rows.map(t => {
+    const s = slaOf(t);
+    return `<tr class="border-t border-slate-800/50 cursor-pointer" onclick="openDetail('${t.id}')">
+      <td class="px-4 py-3 mono text-cyan-500/90">${esc(t.id)}</td>
+      <td class="px-4 py-3"><div class="font-medium max-w-[200px] truncate">${esc(t.subject)}</div>
+        ${t.src==='client_portal'?'<span class="text-[9px] text-violet-400">PORTAL</span>':''}</td>
+      <td class="px-4 py-3 text-slate-400">${esc(t.customer)}${t.company?' <span class="text-slate-600">· '+esc(t.company)+'</span>':''}</td>
+      <td class="px-4 py-3 ${priClass(t.priority)} font-medium">${esc(t.priority)}</td>
+      <td class="px-4 py-3">${chipStatus(t.status)}</td>
+      <td class="px-4 py-3 mono ${s.c}">${s.l}</td>
+      <td class="px-4 py-3" onclick="event.stopPropagation()"><button class="text-cyan-400 hover:underline" onclick="cycle('${t.id}')">Advance</button></td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="7" class="p-8 text-center text-slate-500">Empty queue</td></tr>';
+}
+
+views.incidents = () => `
+  <div class="grid md:grid-cols-3 gap-3 mb-4">
+    <div class="glass rounded-2xl p-4 border border-red-500/20"><div class="text-[10px] text-red-400 uppercase">SEV-1</div><div class="text-2xl font-bold">1</div><div class="text-xs text-slate-500">Ransomware canary</div></div>
+    <div class="glass rounded-2xl p-4 border border-amber-500/20"><div class="text-[10px] text-amber-400 uppercase">SEV-2</div><div class="text-2xl font-bold">2</div><div class="text-xs text-slate-500">Phishing + offline agent</div></div>
+    <div class="glass rounded-2xl p-4"><div class="text-[10px] text-slate-500 uppercase">MTTR (30d)</div><div class="text-2xl font-bold text-cyan-300">1.4h</div><div class="text-xs text-slate-500">Target &lt; 2h</div></div>
+  </div>
+  <div class="space-y-3">${S.tickets.filter(t=>['Critical','High'].includes(t.priority)).map(t=>`
+    <div class="glass rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:border-cyan-500/20" onclick="openDetail('${t.id}')">
+      <div><div class="flex items-center gap-2 mb-1">${chipStatus(t.status)}<span class="chip ${t.priority==='Critical'?'s-esc':'s-prog'}">${t.priority}</span>
+        <span class="mono text-[10px] text-slate-500">${t.id}</span></div>
+        <div class="font-medium">${esc(t.subject)}</div>
+        <div class="text-xs text-slate-500">${esc(t.customer)} · ${esc(t.cat)}</div></div>
+      <div class="text-right text-xs ${slaOf(t).c} mono">${slaOf(t).l}</div>
+    </div>`).join('')}</div>`;
+
+views.automation = () => `
+  <div class="glass rounded-2xl p-4 mb-4 flex flex-wrap items-center justify-between gap-3">
+    <div><div class="text-sm font-semibold">SLA simulation clock</div><div class="text-xs text-slate-500">Advance time to fire time-based playbooks</div></div>
+    <div class="flex items-center gap-2 text-xs mono">
+      <span id="sim-big" class="text-cyan-400 text-lg">${fmt(S.sim)}</span>
+      <button onclick="sim(30)" class="px-2 py-1 rounded bg-void-800 border border-slate-700">+30m</button>
+      <button onclick="sim(60)" class="px-2 py-1 rounded bg-void-800 border border-slate-700">+1h</button>
+      <button onclick="sim(120)" class="px-2 py-1 rounded bg-cyan-950 border border-cyan-800 text-cyan-300">+2h</button>
+      <button onclick="sim(0)" class="px-2 py-1 rounded border border-slate-600">Reset</button>
+    </div>
+  </div>
+  <div class="grid md:grid-cols-2 gap-3 mb-4">${PLAYBOOKS.map(p=>`
+    <div class="glass rounded-2xl p-4 flex justify-between items-start gap-3">
+      <div><div class="font-medium text-sm">${p.n}</div>
+        <div class="text-[10px] text-slate-500 mt-1">${p.t} · ${p.runs} runs · ${p.ok}% success</div></div>
+      <button onclick="runPlay(${p.id})" class="text-[10px] px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Execute</button>
+    </div>`).join('')}</div>
+  <div class="glass rounded-2xl p-4"><div class="text-sm font-semibold mb-2">Engine log</div><div id="pb-log" class="mono text-[11px] space-y-1 max-h-48 overflow-y-auto text-slate-400"></div></div>`;
+hooks.automation = () => { document.getElementById('sim-big').textContent = fmt(S.sim); paintPbLog(); };
+
+views.customers = () => `
+  <div class="glass rounded-2xl overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-xs data">
+    <thead class="text-slate-500 text-left bg-void-900/40"><tr>
+      <th class="px-4 py-3">Account</th><th class="px-4 py-3">Package</th><th class="px-4 py-3">MRR</th>
+      <th class="px-4 py-3">Health</th><th class="px-4 py-3">Seats</th><th class="px-4 py-3">Renewal</th><th class="px-4 py-3">Status</th>
+    </tr></thead>
+    <tbody>${CUSTOMERS.map(c=>`<tr class="border-t border-slate-800/50">
+      <td class="px-4 py-3"><div class="font-medium">${esc(c.name)}</div><div class="text-slate-500">${esc(c.co)}</div></td>
+      <td class="px-4 py-3 text-cyan-300/90">${c.pkg}</td>
+      <td class="px-4 py-3 text-emerald-400/90">KES ${c.mrr.toLocaleString()}</td>
+      <td class="px-4 py-3"><div class="flex items-center gap-2"><div class="w-16 h-1.5 rounded-full bg-slate-800"><div class="h-full rounded-full ${c.health>80?'bg-emerald-400':c.health>65?'bg-amber-400':'bg-red-400'}" style="width:${c.health}%"></div></div><span class="mono">${c.health}</span></div></td>
+      <td class="px-4 py-3">${c.seats}</td>
+      <td class="px-4 py-3 text-slate-400">${c.renew}</td>
+      <td class="px-4 py-3">${c.status==='Active'?chipStatus('Resolved').replace('Resolved',c.status):'<span class="chip s-esc">At risk</span>'}</td>
+    </tr>`).join('')}</tbody>
+  </table></div></div>`;
+
+views.pipeline = () => `
+  <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">${['New','Qualified','Proposal','Negotiation'].map(stage=>{
+    const items = LEADS.filter(l=>l.stage===stage);
+    return `<div class="glass rounded-2xl p-3 min-h-[200px]"><div class="text-[10px] uppercase tracking-wider text-slate-500 mb-2 flex justify-between"><span>${stage}</span><span>${items.length}</span></div>
+      ${items.map(l=>`<div class="mb-2 p-2.5 rounded-xl bg-void-900/60 border border-slate-800/80 text-xs">
+        <div class="font-medium">${esc(l.name)}</div><div class="text-slate-500">${esc(l.co)}</div>
+        <div class="flex justify-between mt-2"><span class="text-cyan-400/80">Score ${l.score}</span><span class="text-slate-600">KES ${(l.value/1000)}k</span></div>
+      </div>`).join('')}</div>`;
+  }).join('')}</div>`;
+
+views.billing = () => {
+  const ok = PAYMENTS.filter(p=>p.s==='completed');
+  return `
+  <div class="grid sm:grid-cols-3 gap-3 mb-4">
+    <div class="glass rounded-2xl p-4"><div class="text-[10px] text-slate-500">Collected</div><div class="text-xl font-bold text-emerald-400">KES ${ok.reduce((s,p)=>s+p.a,0).toLocaleString()}</div></div>
+    <div class="glass rounded-2xl p-4"><div class="text-[10px] text-slate-500">Success</div><div class="text-xl font-bold">${ok.length}</div></div>
+    <div class="glass rounded-2xl p-4"><div class="text-[10px] text-slate-500">Failed / pending</div><div class="text-xl font-bold text-amber-400">${PAYMENTS.length-ok.length}</div></div>
+  </div>
+  <div class="glass rounded-2xl overflow-hidden"><table class="w-full text-xs data">
+    <thead class="text-slate-500 text-left bg-void-900/40"><tr><th class="px-4 py-3">Date</th><th class="px-4 py-3">Customer</th><th class="px-4 py-3">Package</th><th class="px-4 py-3">Amount</th><th class="px-4 py-3">Status</th><th class="px-4 py-3">Ref</th></tr></thead>
+    <tbody>${PAYMENTS.map(p=>`<tr class="border-t border-slate-800/50"><td class="px-4 py-3 text-slate-400">${p.d}</td><td class="px-4 py-3">${esc(p.c)}</td><td class="px-4 py-3">${p.pkg}</td>
+      <td class="px-4 py-3 text-emerald-400">KES ${p.a.toLocaleString()}</td><td class="px-4 py-3">${p.s}</td><td class="px-4 py-3 mono text-cyan-500/80">${p.r}</td></tr>`).join('')}</tbody>
+  </table></div>`;
+};
+
+views.analytics = () => `
+  <div class="grid lg:grid-cols-2 gap-4">
+    <div class="glass rounded-2xl p-5"><h3 class="text-sm font-semibold mb-3">Revenue trend</h3><canvas id="c-rev" height="140"></canvas></div>
+    <div class="glass rounded-2xl p-5"><h3 class="text-sm font-semibold mb-3">Analyst capacity</h3><canvas id="c-cap" height="140"></canvas></div>
+  </div>
+  <div class="grid sm:grid-cols-4 gap-3 mt-4">
+    ${[['CSAT','4.8/5'],['NPS','62'],['Churn','2.1%'],['Expansion','+14%']].map(([k,v])=>`
+      <div class="glass rounded-2xl p-4 text-center"><div class="text-[10px] text-slate-500 uppercase">${k}</div><div class="text-xl font-bold text-cyan-300 mt-1">${v}</div></div>`).join('')}
+  </div>`;
+hooks.analytics = () => {
+  S.charts.r = new Chart(document.getElementById('c-rev'), {
+    type: 'line',
+    data: { labels: ['Mar','Apr','May','Jun','Jul','Aug'], datasets: [{ data: [180,210,195,240,260,284], borderColor: '#818cf8', backgroundColor: 'rgba(129,140,248,0.1)', fill: true, tension: 0.35, pointRadius: 3 }] },
+    options: chartOpts()
+  });
+  S.charts.c = new Chart(document.getElementById('c-cap'), {
+    type: 'bar',
+    data: { labels: TEAM.map(t=>t.n.split(' ')[0]), datasets: [{ data: TEAM.map(t=>t.load), backgroundColor: 'rgba(34,211,238,0.45)', borderRadius: 6 }] },
+    options: chartOpts(true)
+  });
+};
+
+views.team = () => `
+  <div class="grid sm:grid-cols-2 gap-3">${TEAM.map(t=>`
+    <div class="glass rounded-2xl p-5 flex items-center gap-4">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center font-bold text-sm">${t.n.split(' ').map(x=>x[0]).join('')}</div>
+      <div class="flex-1"><div class="font-medium text-sm">${t.n}</div><div class="text-xs text-slate-500">${t.r}</div>
+        <div class="mt-2 h-1.5 rounded-full bg-slate-800"><div class="h-full rounded-full bg-cyan-500/70" style="width:${t.load*10}%"></div></div>
+        <div class="text-[10px] text-slate-500 mt-1">Load ${t.load}/10</div></div>
+      <span class="chip ${t.on==='Online'?'s-res':'s-prog'}">${t.on}</span>
+    </div>`).join('')}</div>`;
+
+views.audit = () => `
+  <div class="glass rounded-2xl p-4">
+    <div class="text-xs text-slate-500 mb-3">Local session trail (demo). Production would ship to immutable storage.</div>
+    <div id="audit-list" class="mono text-[11px] space-y-1.5 max-h-[60vh] overflow-y-auto"></div>
+  </div>`;
+hooks.audit = () => {
+  document.getElementById('audit-list').innerHTML = (S.audit.length ? S.audit : [{ ts: new Date().toISOString(), a: 'boot', d: 'No events yet' }])
+    .map(e => `<div class="flex gap-3 p-2 rounded-lg bg-void-900/40"><span class="text-slate-600 shrink-0">${e.ts.slice(11,19)}</span><span class="text-cyan-500/90">${e.a}</span><span class="text-slate-400">${esc(e.d)}</span></div>`).join('');
+};
+
+views.settings = () => `
+  <div class="max-w-lg space-y-4">
+    <div class="glass rounded-2xl p-5 space-y-3 text-sm">
+      <h3 class="font-semibold">Console</h3>
+      <label class="flex justify-between items-center"><span class="text-slate-400">Portal ticket toast</span><input type="checkbox" checked class="accent-cyan-500"></label>
+      <label class="flex justify-between items-center"><span class="text-slate-400">SLA breach sound</span><input type="checkbox" checked class="accent-cyan-500"></label>
+      <label class="flex justify-between items-center"><span class="text-slate-400">Dense tables</span><input type="checkbox" class="accent-cyan-500"></label>
+    </div>
+    <div class="glass rounded-2xl p-5 text-xs text-slate-500 leading-relaxed">
+      Shared key <span class="mono text-cyan-400">ich_shared_tickets</span> links this console to <a href="portal.html" class="text-cyan-400">portal.html</a> in the same browser.
+      Command palette: <span class="mono">⌘K</span> / <span class="mono">Ctrl+K</span>.
+    </div>
+  </div>`;
+
+/* ========== ACTIONS ========== */
+function kpi(l, v, s, c, icon) {
+  return `<div class="glass rounded-2xl p-4"><div class="flex justify-between text-[10px] text-slate-500 uppercase mb-1"><span>${l}</span><i class="fas ${icon} opacity-40"></i></div>
+    <div class="text-xl font-bold ${c}">${v}</div><div class="text-[10px] text-slate-600 mt-0.5">${s}</div></div>`;
+}
+function chartOpts(bar) {
+  return {
+    responsive: true,
+    plugins: { legend: { display: !!bar, labels: { color: '#94a3b8', boxWidth: 8, font: { size: 10 } } } },
+    scales: {
+      x: { ticks: { color: '#64748b', font: { size: 9 } }, grid: { color: 'rgba(148,163,184,0.06)' } },
+      y: { ticks: { color: '#64748b', font: { size: 9 } }, grid: { color: 'rgba(148,163,184,0.06)' } }
+    }
+  };
+}
+function destroyCharts() { Object.values(S.charts).forEach(c => { try { c.destroy(); } catch(e){} }); S.charts = {}; }
+function updateBadges() {
+  const o = S.tickets.filter(t => ['Open','In Progress','Escalated'].includes(t.status)).length;
+  document.getElementById('nb-tickets').textContent = o;
+  document.getElementById('sim-t').textContent = fmt(S.sim);
+}
+function cycle(id) {
+  const t = S.tickets.find(x => x.id === id);
+  if (!t) return;
+  const n = { Open:'In Progress', 'In Progress':'Resolved', Resolved:'Closed', Escalated:'In Progress', Closed:'Open' };
+  t.status = n[t.status] || 'Open';
+  persistTickets();
+  audit('ticket.status', id + ' → ' + t.status);
+  toast(id + ' → ' + t.status);
+  paintTickets(); updateBadges();
+}
+function sim(m) {
+  if (m === 0) S.sim = 0;
+  else S.sim += m;
+  S.tickets.forEach(t => {
+    if (['High','Critical'].includes(t.priority) && ['Open','In Progress'].includes(t.status)) {
+      const limit = t.priority === 'Critical' ? 60 : 120;
+      if (ageOf(t) >= limit && t.status !== 'Escalated') {
+        t.status = 'Escalated';
+        audit('playbook.sla', 'Escalated ' + t.id);
+        S.pbLog = S.pbLog || [];
+        S.pbLog.unshift(fmt(S.sim) + '  SLA engine escalated ' + t.id);
+      }
+    }
+  });
+  persistTickets();
+  updateBadges();
+  const big = document.getElementById('sim-big');
+  if (big) big.textContent = fmt(S.sim);
+  paintPbLog();
+  if (document.getElementById('tb-tickets')) paintTickets();
+  toast('Sim clock ' + fmt(S.sim));
+}
+function runPlay(id) {
+  const p = PLAYBOOKS.find(x => x.id === id);
+  S.pbLog = S.pbLog || [];
+  S.pbLog.unshift(fmt(S.sim) + '  Executed "' + p.n + '"');
+  audit('playbook.run', p.n);
+  paintPbLog();
+  toast('Playbook: ' + p.n);
+}
+function paintPbLog() {
+  const el = document.getElementById('pb-log');
+  if (!el) return;
+  el.innerHTML = (S.pbLog || ['— idle —']).map(l => '<div>' + esc(l) + '</div>').join('');
+}
+function openDetail(id) {
+  const t = S.tickets.find(x => x.id === id);
+  if (!t) return;
+  document.getElementById('dr-id').textContent = t.id + ' · ' + t.src;
+  document.getElementById('dr-title').textContent = t.subject;
+  document.getElementById('dr-body').innerHTML = `
+    <div class="flex gap-2 flex-wrap">${chipStatus(t.status)}<span class="chip s-prog ${priClass(t.priority)}">${t.priority}</span></div>
+    <div><div class="text-[10px] text-slate-500 uppercase mb-1">Customer</div><div>${esc(t.customer)} ${t.company ? '· ' + esc(t.company) : ''}</div></div>
+    <div><div class="text-[10px] text-slate-500 uppercase mb-1">Category</div><div>${esc(t.cat)}</div></div>
+    <div><div class="text-[10px] text-slate-500 uppercase mb-1">SLA</div><div class="mono ${slaOf(t).c}">${slaOf(t).l} · age ${fmt(ageOf(t))}</div></div>
+    <div><div class="text-[10px] text-slate-500 uppercase mb-1">Description</div><div class="text-slate-300 leading-relaxed">${esc(t.desc || '—')}</div></div>
+    <button onclick="cycle('${t.id}');openDetail('${t.id}')" class="btn-g w-full py-2.5 rounded-xl text-xs">Advance status</button>`;
+  document.getElementById('drawer-bg').classList.remove('hidden');
+  document.getElementById('drawer').classList.add('open');
+}
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-bg').classList.add('hidden');
+}
+function openTicket() { document.getElementById('modal').classList.remove('hidden'); document.getElementById('modal').classList.add('flex'); }
+function closeModal() { document.getElementById('modal').classList.add('hidden'); document.getElementById('modal').classList.remove('flex'); }
+function createTicket() {
+  const subject = document.getElementById('m-sub').value.trim();
+  if (!subject) return alert('Subject required');
+  const t = {
+    id: 'TKT-' + Date.now().toString().slice(-6),
+    subject,
+    customer: document.getElementById('m-cust').value.trim() || 'Internal',
+    company: '',
+    priority: document.getElementById('m-pri').value,
+    status: 'Open',
+    age: 0,
+    cat: document.getElementById('m-cat').value,
+    src: 'admin',
+    desc: document.getElementById('m-desc').value.trim()
+  };
+  S.tickets.unshift(t);
+  persistTickets();
+  audit('ticket.create', t.id);
+  closeModal();
+  toast('Created ' + t.id);
+  go('tickets');
+}
+function audit(a, d) {
+  S.audit.unshift({ ts: new Date().toISOString(), a, d });
+  if (S.audit.length > 80) S.audit.pop();
+}
+function toast(m) {
+  const t = document.getElementById('toast');
+  t.textContent = m;
+  t.classList.remove('hidden');
+  setTimeout(() => t.classList.add('hidden'), 2200);
+}
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* Notifs */
+function toggleNotif() { document.getElementById('notif-drop').classList.toggle('hidden'); renderNotifs(); }
+function renderNotifs() {
+  document.getElementById('notif-body').innerHTML = S.notifs.map(n =>
+    `<div class="px-4 py-2.5 border-b border-slate-800/80 ${n.read?'opacity-50':'bg-cyan-500/5'}"><div class="font-medium">${n.t}</div><div class="text-slate-500">${n.b}</div><div class="text-slate-600 mt-0.5">${n.ago}</div></div>`
+  ).join('');
+  document.getElementById('notif-dot').style.display = S.notifs.some(n => !n.read) ? 'block' : 'none';
+}
+function markRead() { S.notifs.forEach(n => n.read = true); renderNotifs(); }
+
+/* Command palette */
+const CMD = [
+  { k: 'overview', l: 'Go: Overview', run: () => go('overview') },
+  { k: 'soc', l: 'Go: SOC Live', run: () => go('soc') },
+  { k: 'tickets', l: 'Go: Tickets', run: () => go('tickets') },
+  { k: 'incidents', l: 'Go: Incidents', run: () => go('incidents') },
+  { k: 'automation', l: 'Go: Playbooks', run: () => go('automation') },
+  { k: 'customers', l: 'Go: Customers', run: () => go('customers') },
+  { k: 'pipeline', l: 'Go: Pipeline', run: () => go('pipeline') },
+  { k: 'billing', l: 'Go: Revenue', run: () => go('billing') },
+  { k: 'analytics', l: 'Go: Analytics', run: () => go('analytics') },
+  { k: 'team', l: 'Go: Team', run: () => go('team') },
+  { k: 'audit', l: 'Go: Audit log', run: () => go('audit') },
+  { k: 'new ticket', l: 'Action: Create ticket', run: () => openTicket() },
+  { k: 'portal', l: 'Open client portal', run: () => location.href = 'portal.html' },
+  { k: 'sim 2h', l: 'Simulate +2 hours SLA', run: () => sim(120) }
+];
+let cmdIdx = 0, cmdFiltered = CMD;
+function openCmd() {
+  document.getElementById('cmd').classList.remove('hidden');
+  document.getElementById('cmd').classList.add('flex');
+  document.getElementById('cmd-input').value = '';
+  filterCmd();
+  document.getElementById('cmd-input').focus();
+}
+function closeCmd() {
+  document.getElementById('cmd').classList.add('hidden');
+  document.getElementById('cmd').classList.remove('flex');
+}
+function filterCmd() {
+  const q = document.getElementById('cmd-input').value.toLowerCase();
+  cmdFiltered = CMD.filter(c => c.l.toLowerCase().includes(q) || c.k.includes(q));
+  cmdIdx = 0;
+  document.getElementById('cmd-list').innerHTML = cmdFiltered.map((c, i) =>
+    `<button class="w-full text-left px-4 py-2.5 hover:bg-white/5 ${i===cmdIdx?'bg-cyan-500/10 text-cyan-300':''}" onmouseenter="cmdIdx=${i}" onclick="runCmd(${i})">${c.l}</button>`
+  ).join('') || '<div class="px-4 py-3 text-slate-500 text-xs">No matches</div>';
+}
+function runCmd(i) { closeCmd(); cmdFiltered[i].run(); }
+function cmdKey(e) {
+  if (e.key === 'ArrowDown') { e.preventDefault(); cmdIdx = Math.min(cmdIdx + 1, cmdFiltered.length - 1); filterCmd(); }
+  if (e.key === 'ArrowUp') { e.preventDefault(); cmdIdx = Math.max(cmdIdx - 1, 0); filterCmd(); }
+  if (e.key === 'Enter' && cmdFiltered[cmdIdx]) runCmd(cmdIdx);
+  if (e.key === 'Escape') closeCmd();
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openCmd(); }
+});
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && localStorage.getItem('ich_admin_v2')) { loadTickets(); updateBadges(); }
+});
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('ich_admin_v2') === '1') boot();
+});
+</script>
 </body>
 </html>
