@@ -5,30 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer Portal | Infinite Cyberspace Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="auth.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
     :root { --primary: #22d3ee; --dark: #0a0a0a; }
-    body { background: var(--dark); color: #e2e8f0; }
+    body { background: var(--dark); color: #e2e8f0; font-family: system-ui, sans-serif; }
     .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(34,211,238,0.15); border-radius: 1rem; }
     .btn-primary { background: linear-gradient(90deg,#3b82f6,#22d3ee); color: #000; font-weight: 700; }
     .status-active { background: rgba(16,185,129,0.2); color: #34d399; }
-    .status-pending { background: rgba(245,158,11,0.2); color: #fbbf24; }
     .status-open { background: rgba(59,130,246,0.2); color: #93c5fd; }
   </style>
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com;
-    style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-    font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-    img-src 'self' data: https: blob:;
-    connect-src 'self' http://localhost:3000 https://*.vercel.app https://*;
-    frame-ancestors 'none';
-    base-uri 'self';
-    form-action 'self';
-  ">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body class="min-h-screen">
 
@@ -41,9 +26,10 @@
       <div id="login-error" class="hidden mb-4 p-3 bg-red-900/40 text-red-300 rounded-lg text-sm"></div>
 
       <input id="login-email" type="email" placeholder="Email address"
-             class="w-full mb-4 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 outline-none focus:border-cyan-400">
+             class="w-full mb-4 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 outline-none focus:border-cyan-400 text-white">
       <input id="login-password" type="password" placeholder="Password"
-             class="w-full mb-6 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 outline-none focus:border-cyan-400">
+             class="w-full mb-6 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 outline-none focus:border-cyan-400 text-white"
+             onkeydown="if(event.key==='Enter')handleLogin()">
 
       <button type="button" onclick="handleLogin()" class="btn-primary w-full py-3 rounded-xl">Login</button>
 
@@ -51,9 +37,6 @@
         Demo Login:<br>
         Email: <span class="text-cyan-400">demo@client.com</span><br>
         Password: <span class="text-cyan-400">demo123</span>
-      </p>
-      <p class="text-center text-xs text-slate-600 mt-4">
-        Backend offline? Use demo credentials — portal opens in offline mode.
       </p>
     </div>
   </div>
@@ -82,26 +65,24 @@
             <p class="text-slate-400 mt-1" id="pkg-period"></p>
             <p class="text-sm text-slate-500 mt-2" id="pkg-amount"></p>
           </div>
-          <div>
-            <span id="pkg-status" class="px-4 py-1.5 rounded-full text-sm font-medium"></span>
-          </div>
+          <span id="pkg-status" class="px-4 py-1.5 rounded-full text-sm font-medium"></span>
         </div>
       </div>
 
       <div class="grid md:grid-cols-4 gap-4 mb-10">
-        <button type="button" onclick="showTab('overview')" class="card p-5 text-left hover:border-cyan-400 transition">
+        <button type="button" onclick="showTab('overview')" class="card p-5 text-left hover:border-cyan-400 transition border border-transparent">
           <i class="fas fa-home text-cyan-400 text-xl mb-2"></i>
           <div class="font-medium">Overview</div>
         </button>
-        <button type="button" onclick="showTab('tickets')" class="card p-5 text-left hover:border-cyan-400 transition">
+        <button type="button" onclick="showTab('tickets')" class="card p-5 text-left hover:border-cyan-400 transition border border-transparent">
           <i class="fas fa-headset text-cyan-400 text-xl mb-2"></i>
           <div class="font-medium">Support Tickets</div>
         </button>
-        <button type="button" onclick="showTab('invoices')" class="card p-5 text-left hover:border-cyan-400 transition">
+        <button type="button" onclick="showTab('invoices')" class="card p-5 text-left hover:border-cyan-400 transition border border-transparent">
           <i class="fas fa-file-invoice text-cyan-400 text-xl mb-2"></i>
           <div class="font-medium">Invoices</div>
         </button>
-        <button type="button" onclick="showTab('reports')" class="card p-5 text-left hover:border-cyan-400 transition">
+        <button type="button" onclick="showTab('reports')" class="card p-5 text-left hover:border-cyan-400 transition border border-transparent">
           <i class="fas fa-file-alt text-cyan-400 text-xl mb-2"></i>
           <div class="font-medium">Reports</div>
         </button>
@@ -134,7 +115,7 @@
     </div>
   </div>
 
-  <!-- NEW TICKET MODAL -->
+  <!-- TICKET MODAL -->
   <div id="ticket-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4">
     <div class="card w-full max-w-lg p-6">
       <div class="flex justify-between items-center mb-6">
@@ -144,15 +125,15 @@
       <div class="space-y-4">
         <div>
           <label class="block text-sm text-slate-400 mb-1">Subject</label>
-          <input id="ticket-subject" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 outline-none focus:border-cyan-400">
+          <input id="ticket-subject" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 outline-none focus:border-cyan-400 text-white">
         </div>
         <div>
           <label class="block text-sm text-slate-400 mb-1">Description</label>
-          <textarea id="ticket-description" rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 outline-none focus:border-cyan-400"></textarea>
+          <textarea id="ticket-description" rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 outline-none focus:border-cyan-400 text-white"></textarea>
         </div>
         <div>
           <label class="block text-sm text-slate-400 mb-1">Priority</label>
-          <select id="ticket-priority" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3">
+          <select id="ticket-priority" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white">
             <option value="Low">Low</option>
             <option value="Medium" selected>Medium</option>
             <option value="High">High</option>
@@ -164,117 +145,88 @@
   </div>
 
 <script>
-  // ---------- Demo / offline fallback ----------
+  // Demo accounts (no backend needed)
+  const ACCOUNTS = {
+    'demo@client.com': { password: 'demo123', name: 'John Odhiambo', role: 'client', company: 'Acme Solutions Ltd' },
+    'admin@infinitecyberspace.com': { password: 'admin123', name: 'Augustine Ouma', role: 'admin', company: 'Infinite Cyberspace Hub' }
+  };
+
   const demoSubscription = {
-    package_name: "Premium Protection",
+    package_name: 'Premium Protection',
     amount: 38900,
-    status: "active",
-    start_date: "2026-07-15",
-    end_date: "2026-08-15"
+    start_date: '2026-07-15',
+    end_date: '2026-08-15'
   };
 
   let clientTickets = JSON.parse(localStorage.getItem('client_tickets') || '[]');
-  let offlineMode = false;
 
   const clientInvoices = [
-    { id: "INV-001", date: "2026-07-15", amount: 38900, status: "Paid", description: "Premium Protection - July" },
-    { id: "INV-002", date: "2026-08-01", amount: 38900, status: "Paid", description: "Premium Protection - August" }
+    { id: 'INV-001', date: '2026-07-15', amount: 38900, status: 'Paid' },
+    { id: 'INV-002', date: '2026-08-01', amount: 38900, status: 'Paid' }
   ];
 
   const clientReports = [
-    { name: "Monthly Security Report - July 2026", date: "2026-08-01", type: "PDF" },
-    { name: "Vulnerability Scan Results", date: "2026-07-20", type: "PDF" },
-    { name: "Employee Training Certificate", date: "2026-07-10", type: "PDF" }
+    { name: 'Monthly Security Report - July 2026', date: '2026-08-01', type: 'PDF' },
+    { name: 'Vulnerability Scan Results', date: '2026-07-20', type: 'PDF' },
+    { name: 'Employee Training Certificate', date: '2026-07-10', type: 'PDF' }
   ];
 
-  // ---------- Auth ----------
-  async function handleLogin() {
-    const email = document.getElementById('login-email').value.trim();
+  function handleLogin() {
+    const email = document.getElementById('login-email').value.trim().toLowerCase();
     const password = document.getElementById('login-password').value;
     const errorEl = document.getElementById('login-error');
     errorEl.classList.add('hidden');
 
-    // Offline demo login when backend is down
-    if (email === 'demo@client.com' && password === 'demo123') {
-      const result = await login(email, password);
-      if (result.success) {
-        offlineMode = false;
-        if (result.user.role === 'admin') {
-          window.location.href = 'admin.html';
-          return;
-        }
-        showPortal();
-        return;
-      }
-      // Backend unreachable → offline demo session
-      offlineMode = true;
-      localStorage.setItem('ich_user', JSON.stringify({
-        id: 0, email: 'demo@client.com', name: 'John Odhiambo',
-        role: 'client', company: 'Acme Solutions Ltd'
-      }));
-      localStorage.setItem('ich_auth_token', 'offline-demo-token');
-      showPortal();
+    const account = ACCOUNTS[email];
+    if (!account || account.password !== password) {
+      errorEl.textContent = 'Invalid email or password';
+      errorEl.classList.remove('hidden');
       return;
     }
 
-    const result = await login(email, password);
-
-    if (result.success) {
-      offlineMode = false;
-      if (result.user.role === 'client') {
-        showPortal();
-      } else if (result.user.role === 'admin') {
-        window.location.href = 'admin.html';
-      } else {
-        errorEl.textContent = 'This portal is for clients only.';
-        errorEl.classList.remove('hidden');
-      }
-    } else {
-      errorEl.textContent = result.message || 'Login failed';
-      errorEl.classList.remove('hidden');
+    if (account.role === 'admin') {
+      localStorage.setItem('ich_user', JSON.stringify({ email, ...account }));
+      window.location.href = 'admin.html';
+      return;
     }
+
+    localStorage.setItem('ich_user', JSON.stringify({ email, name: account.name, role: account.role, company: account.company }));
+    localStorage.setItem('customer_logged_in', 'true');
+    showPortal();
   }
 
   function doLogout() {
-    localStorage.removeItem('ich_auth_token');
     localStorage.removeItem('ich_user');
     localStorage.removeItem('customer_logged_in');
-    window.location.href = 'portal.html';
+    localStorage.removeItem('ich_auth_token');
+    location.reload();
   }
 
   function showPortal() {
+    const user = JSON.parse(localStorage.getItem('ich_user') || '{}');
+
     document.getElementById('login-screen').classList.add('hidden');
     document.getElementById('portal').classList.remove('hidden');
 
-    const user = getCurrentUser() || {
-      name: 'John Odhiambo',
-      email: 'demo@client.com',
-      company: 'Acme Solutions Ltd'
-    };
+    document.getElementById('user-name').textContent =
+      (user.name || 'Client') + (user.company ? ' · ' + user.company : '');
 
-    document.getElementById('user-name').textContent = user.name + (user.company ? ' · ' + user.company : '');
     document.getElementById('pkg-name').textContent = demoSubscription.package_name;
     document.getElementById('pkg-period').textContent =
-      `Valid from ${demoSubscription.start_date} to ${demoSubscription.end_date}`;
+      'Valid from ' + demoSubscription.start_date + ' to ' + demoSubscription.end_date;
     document.getElementById('pkg-amount').textContent =
-      `KES ${demoSubscription.amount.toLocaleString()} / month`;
+      'KES ' + demoSubscription.amount.toLocaleString() + ' / month';
 
     const st = document.getElementById('pkg-status');
     st.textContent = 'ACTIVE';
     st.className = 'px-4 py-1.5 rounded-full text-sm font-medium status-active';
 
     renderServices();
+    renderTickets();
     renderInvoices();
     renderReports();
-
-    if (offlineMode || !getToken() || getToken() === 'offline-demo-token') {
-      renderTicketsLocal();
-    } else {
-      loadTickets();
-    }
   }
 
-  // ---------- Render ----------
   function renderServices() {
     const services = [
       '24/7 Threat Monitoring',
@@ -284,82 +236,51 @@
       'Priority Support',
       'Employee Training Access'
     ];
-    document.getElementById('services-list').innerHTML = services.map(s => `
-      <div class="card p-4 flex justify-between items-center">
-        <span>${s}</span>
-        <span class="text-xs px-2 py-1 rounded status-active">Active</span>
-      </div>
-    `).join('');
+    document.getElementById('services-list').innerHTML = services.map(function (s) {
+      return '<div class="card p-4 flex justify-between items-center"><span>' + s +
+        '</span><span class="text-xs px-2 py-1 rounded status-active">Active</span></div>';
+    }).join('');
   }
 
-  function renderTicketsLocal() {
+  function renderTickets() {
     const list = document.getElementById('tickets-list');
     if (!clientTickets.length) {
-      list.innerHTML = `<p class="text-slate-500">No tickets yet. Create your first support ticket.</p>`;
+      list.innerHTML = '<p class="text-slate-500">No tickets yet. Create your first support ticket.</p>';
       return;
     }
-    list.innerHTML = clientTickets.map(t => `
-      <div class="card p-4 flex justify-between items-start">
-        <div>
-          <div class="font-medium">${escapeHtml(t.subject)}</div>
-          <div class="text-sm text-slate-400 mt-1">${escapeHtml((t.description || '').substring(0, 80))}...</div>
-          <div class="text-xs text-slate-500 mt-2">${escapeHtml(t.date || '')} • Priority: ${escapeHtml(t.priority || '')}</div>
-        </div>
-        <span class="status-open text-xs px-2 py-1 rounded">${escapeHtml(t.status || 'Open')}</span>
-      </div>
-    `).join('');
+    list.innerHTML = clientTickets.map(function (t) {
+      return '<div class="card p-4 flex justify-between items-start"><div>' +
+        '<div class="font-medium">' + t.subject + '</div>' +
+        '<div class="text-sm text-slate-400 mt-1">' + (t.description || '').substring(0, 80) + '...</div>' +
+        '<div class="text-xs text-slate-500 mt-2">' + t.date + ' • Priority: ' + t.priority + '</div>' +
+        '</div><span class="status-open text-xs px-2 py-1 rounded">' + t.status + '</span></div>';
+    }).join('');
   }
 
   function renderInvoices() {
-    document.getElementById('invoices-list').innerHTML = `
-      <table class="w-full text-sm">
-        <thead class="text-slate-400">
-          <tr>
-            <th class="text-left pb-3">Invoice</th>
-            <th class="text-left pb-3">Date</th>
-            <th class="text-left pb-3">Amount</th>
-            <th class="text-left pb-3">Status</th>
-            <th class="text-left pb-3">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${clientInvoices.map(inv => `
-            <tr class="border-t border-slate-800">
-              <td class="py-3 font-medium">${inv.id}</td>
-              <td class="py-3 text-slate-400">${inv.date}</td>
-              <td class="py-3 text-emerald-400">KES ${inv.amount.toLocaleString()}</td>
-              <td class="py-3"><span class="status-active text-xs px-2 py-1 rounded">${inv.status}</span></td>
-              <td class="py-3"><button type="button" onclick="alert('Downloading ${inv.id}')" class="text-cyan-400 text-xs hover:underline">Download</button></td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    `;
+    document.getElementById('invoices-list').innerHTML =
+      '<table class="w-full text-sm"><thead class="text-slate-400"><tr>' +
+      '<th class="text-left pb-3">Invoice</th><th class="text-left pb-3">Date</th>' +
+      '<th class="text-left pb-3">Amount</th><th class="text-left pb-3">Status</th></tr></thead><tbody>' +
+      clientInvoices.map(function (inv) {
+        return '<tr class="border-t border-slate-800">' +
+          '<td class="py-3 font-medium">' + inv.id + '</td>' +
+          '<td class="py-3 text-slate-400">' + inv.date + '</td>' +
+          '<td class="py-3 text-emerald-400">KES ' + inv.amount.toLocaleString() + '</td>' +
+          '<td class="py-3"><span class="status-active text-xs px-2 py-1 rounded">' + inv.status + '</span></td></tr>';
+      }).join('') + '</tbody></table>';
   }
 
   function renderReports() {
-    document.getElementById('reports-list').innerHTML = clientReports.map(r => `
-      <div class="flex justify-between items-center p-4 rounded-lg bg-slate-900/50">
-        <div>
-          <div class="font-medium">${r.name}</div>
-          <div class="text-xs text-slate-500">${r.date} • ${r.type}</div>
-        </div>
-        <button type="button" onclick="alert('Downloading: ${r.name}')" class="btn-primary px-4 py-2 rounded-lg text-sm">
-          <i class="fas fa-download"></i> Download
-        </button>
-      </div>
-    `).join('');
+    document.getElementById('reports-list').innerHTML = clientReports.map(function (r) {
+      return '<div class="flex justify-between items-center p-4 rounded-lg bg-slate-900/50"><div>' +
+        '<div class="font-medium">' + r.name + '</div>' +
+        '<div class="text-xs text-slate-500">' + r.date + ' • ' + r.type + '</div></div>' +
+        '<button type="button" onclick="alert(\'Download: ' + r.name + '\')" class="btn-primary px-4 py-2 rounded-lg text-sm">' +
+        '<i class="fas fa-download"></i> Download</button></div>';
+    }).join('');
   }
 
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  // ---------- Tickets ----------
   function openTicketModal() {
     document.getElementById('ticket-modal').classList.remove('hidden');
     document.getElementById('ticket-modal').classList.add('flex');
@@ -370,122 +291,45 @@
     document.getElementById('ticket-modal').classList.remove('flex');
   }
 
-  async function createTicket() {
-    const subject = document.getElementById('ticket-subject').value.trim();
-    const description = document.getElementById('ticket-description').value.trim();
-    const priority = document.getElementById('ticket-priority').value;
+  function createTicket() {
+    var subject = document.getElementById('ticket-subject').value.trim();
+    var description = document.getElementById('ticket-description').value.trim();
+    var priority = document.getElementById('ticket-priority').value;
 
     if (!subject || !description) {
       alert('Please fill in subject and description');
       return;
     }
 
-    // Offline / no real token → localStorage
-    if (offlineMode || !getToken() || getToken() === 'offline-demo-token') {
-      const newTicket = {
-        id: 'TKT-' + Date.now().toString().slice(-6),
-        subject,
-        description,
-        priority,
-        status: 'Open',
-        date: new Date().toLocaleString()
-      };
-      clientTickets.unshift(newTicket);
-      localStorage.setItem('client_tickets', JSON.stringify(clientTickets));
-      closeTicketModal();
-      document.getElementById('ticket-subject').value = '';
-      document.getElementById('ticket-description').value = '';
-      renderTicketsLocal();
-      alert('Ticket saved (offline mode). Connect the backend for live tickets.');
-      return;
-    }
+    clientTickets.unshift({
+      id: 'TKT-' + Date.now().toString().slice(-6),
+      subject: subject,
+      description: description,
+      priority: priority,
+      status: 'Open',
+      date: new Date().toLocaleString()
+    });
+    localStorage.setItem('client_tickets', JSON.stringify(clientTickets));
 
-    try {
-      const res = await fetch(`${API_URL}/tickets`, {
-        method: 'POST',
-        headers: authHeaders(),
-        body: JSON.stringify({ subject, description, priority })
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        closeTicketModal();
-        document.getElementById('ticket-subject').value = '';
-        document.getElementById('ticket-description').value = '';
-        await loadTickets();
-        alert('Ticket created successfully!');
-      } else {
-        alert(data.message || 'Failed to create ticket');
-      }
-    } catch (err) {
-      alert('Cannot connect to server. Is the backend running?');
-    }
-  }
-
-  async function loadTickets() {
-    try {
-      const res = await fetch(`${API_URL}/tickets`, { headers: authHeaders() });
-      const data = await res.json();
-      const list = document.getElementById('tickets-list');
-
-      if (!data.tickets || data.tickets.length === 0) {
-        list.innerHTML = `<p class="text-slate-500">No tickets yet. Create your first support ticket.</p>`;
-        return;
-      }
-
-      list.innerHTML = data.tickets.map(t => `
-        <div class="card p-4 flex justify-between items-start">
-          <div>
-            <div class="font-medium">${escapeHtml(t.subject)}</div>
-            <div class="text-sm text-slate-400 mt-1">${escapeHtml((t.description || '').substring(0, 80))}...</div>
-            <div class="text-xs text-slate-500 mt-2">
-              ${escapeHtml(t.ticket_id || '')} • ${t.created_at ? new Date(t.created_at).toLocaleString() : ''} • Priority: ${escapeHtml(t.priority || '')}
-            </div>
-          </div>
-          <span class="status-open text-xs px-2 py-1 rounded">${escapeHtml(t.status || '')}</span>
-        </div>
-      `).join('');
-    } catch (err) {
-      console.error(err);
-      renderTicketsLocal();
-    }
+    closeTicketModal();
+    document.getElementById('ticket-subject').value = '';
+    document.getElementById('ticket-description').value = '';
+    renderTickets();
+    alert('Ticket submitted successfully!');
   }
 
   function showTab(name) {
-    ['overview', 'tickets', 'invoices', 'reports'].forEach(t => {
-      document.getElementById(`panel-${t}`).classList.add('hidden');
+    ['overview', 'tickets', 'invoices', 'reports'].forEach(function (t) {
+      document.getElementById('panel-' + t).classList.add('hidden');
     });
-    document.getElementById(`panel-${name}`).classList.remove('hidden');
+    document.getElementById('panel-' + name).classList.remove('hidden');
   }
 
-  // ---------- Boot ----------
-  document.addEventListener('DOMContentLoaded', async () => {
-    if (!isLoggedIn()) return;
-
-    const user = getCurrentUser();
-    if (!user) return;
-
-    if (user.role === 'admin') {
-      window.location.href = 'admin.html';
-      return;
-    }
-
-    if (user.role === 'client') {
-      if (getToken() === 'offline-demo-token') {
-        offlineMode = true;
-        showPortal();
-        return;
-      }
-      try {
-        const valid = await verifySession();
-        if (valid) {
-          offlineMode = false;
-          showPortal();
-        }
-      } catch (e) {
-        offlineMode = true;
-        showPortal();
-      }
+  // Auto-show portal if already logged in
+  document.addEventListener('DOMContentLoaded', function () {
+    if (localStorage.getItem('customer_logged_in') === 'true') {
+      var user = JSON.parse(localStorage.getItem('ich_user') || '{}');
+      if (user.role === 'client') showPortal();
     }
   });
 </script>
