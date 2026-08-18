@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Client Portal | Infinite Cyberspace Hub</title>
+  <title>My Account | Infinite Cyberspace Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,792 +11,733 @@
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            cyber: { 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2' },
-            surface: { 900: '#0a0a0f', 800: '#111118', 700: '#1a1a24' }
-          },
-          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: { void: { 950: '#050508', 900: '#0a0a10', 800: '#12121a' } }
         }
       }
     }
   </script>
   <style>
-    body { background: #07070c; color: #e2e8f0; font-family: Inter, system-ui, sans-serif; }
+    body { background: #050508; color: #e2e8f0; font-family: Inter, system-ui, sans-serif; }
     .glass {
-      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-      border: 1px solid rgba(34, 211, 238, 0.12);
-      backdrop-filter: blur(12px);
+      background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+      border: 1px solid rgba(148,163,184,0.1);
+      backdrop-filter: blur(14px);
     }
-    .glow-cyan { box-shadow: 0 0 40px rgba(34, 211, 238, 0.08); }
-    .btn-primary {
+    .glass-accent {
+      background: linear-gradient(135deg, rgba(34,211,238,0.1), rgba(99,102,241,0.07));
+      border: 1px solid rgba(34,211,238,0.2);
+    }
+    .btn-g {
       background: linear-gradient(135deg, #3b82f6, #22d3ee);
-      color: #0a0a0a;
-      font-weight: 700;
-      transition: transform 0.15s, box-shadow 0.15s;
+      color: #020617; font-weight: 700;
     }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(34,211,238,0.25); }
-    .nav-item.active { background: rgba(34,211,238,0.1); color: #22d3ee; border-color: rgba(34,211,238,0.3); }
-    .score-ring { background: conic-gradient(#22d3ee calc(var(--score) * 1%), #1e293b 0); }
-    .notif-dot { animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0f; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .btn-g:hover { filter: brightness(1.06); box-shadow: 0 8px 28px rgba(34,211,238,0.22); }
+    .btn-ghost {
+      border: 1px solid rgba(148,163,184,0.2);
+      color: #cbd5e1;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.04); border-color: rgba(34,211,238,0.3); }
+    .nav-i.active {
+      background: linear-gradient(90deg, rgba(34,211,238,0.12), transparent);
+      color: #22d3ee;
+      border-left: 2px solid #22d3ee;
+    }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(34,211,238,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .chip { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 600; }
+    .s-ok { background: rgba(16,185,129,.18); color: #6ee7b7; }
+    .s-open { background: rgba(59,130,246,.2); color: #93c5fd; }
+    .s-warn { background: rgba(245,158,11,.2); color: #fcd34d; }
+    .pulse { animation: p 2s ease-in-out infinite; }
+    @keyframes p { 0%,100%{opacity:1} 50%{opacity:.35} }
+    .score-ring { background: conic-gradient(#22d3ee calc(var(--s) * 1%), #1e293b 0); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     input, select, textarea { color-scheme: dark; }
   </style>
 </head>
 <body class="min-h-screen antialiased">
 
-  <!-- ========== LOGIN ========== -->
-  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(34,211,238,0.12),_transparent_50%)]"></div>
-    <div class="glass glow-cyan rounded-2xl p-8 w-full max-w-md relative z-10">
+  <!-- LOGIN -->
+  <div id="login-screen" class="min-h-screen grid-bg flex items-center justify-center p-4 relative">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(34,211,238,0.12),_transparent_55%)]"></div>
+    <div class="relative z-10 w-full max-w-md">
       <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 mb-4">
+        <div class="inline-flex w-14 h-14 rounded-2xl glass-accent items-center justify-center mb-4">
           <i class="fas fa-shield-halved text-2xl text-cyan-400"></i>
         </div>
-        <h1 class="text-2xl font-bold text-white">Client Portal</h1>
-        <p class="text-slate-400 text-sm mt-1">Infinite Cyberspace Hub</p>
+        <h1 class="text-2xl font-bold tracking-tight">Welcome back</h1>
+        <p class="text-slate-500 text-sm mt-1">Sign in to your Infinite Cyberspace account</p>
       </div>
-      <div id="login-error" class="hidden mb-4 p-3 bg-red-500/10 border border-red-500/30 text-red-300 rounded-xl text-sm"></div>
-      <div class="space-y-4">
-        <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1.5">Email</label>
-          <input id="login-email" type="email" placeholder="you@company.com"
-            class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 outline-none focus:border-cyan-400/60 text-white text-sm">
+      <div class="glass rounded-3xl p-7 shadow-2xl">
+        <div id="login-error" class="hidden mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/25 text-red-300 text-sm"></div>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1.5">Work email</label>
+            <input id="login-email" type="email" placeholder="you@company.com" autocomplete="username"
+              class="w-full px-4 py-3 rounded-xl bg-void-900 border border-slate-700/80 text-sm outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1.5">Password</label>
+            <div class="relative">
+              <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password"
+                class="w-full px-4 py-3 rounded-xl bg-void-900 border border-slate-700/80 text-sm outline-none focus:border-cyan-500/50 pr-11"
+                onkeydown="if(event.key==='Enter')doLogin()">
+              <button type="button" onclick="togglePw()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-sm" aria-label="Show password">
+                <i id="pw-icon" class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <button type="button" onclick="doLogin()" class="btn-g w-full py-3 rounded-xl text-sm mt-1">
+            Sign in securely
+          </button>
         </div>
-        <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1.5">Password</label>
-          <input id="login-password" type="password" placeholder="••••••••"
-            class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 outline-none focus:border-cyan-400/60 text-white text-sm"
-            onkeydown="if(event.key==='Enter')handleLogin()">
+        <div class="mt-6 pt-5 border-t border-slate-800/80 text-center">
+          <p class="text-[11px] text-slate-500 leading-relaxed">
+            Demo access<br>
+            <span class="text-cyan-400/90">demo@client.com</span> · <span class="text-cyan-400/90">demo123</span>
+          </p>
+          <a href="index.html" class="inline-block mt-3 text-[11px] text-slate-600 hover:text-cyan-400 transition">← Back to website</a>
         </div>
-        <button type="button" onclick="handleLogin()" class="btn-primary w-full py-3 rounded-xl text-sm">
-          Sign in securely
-        </button>
       </div>
-      <p class="text-center text-xs text-slate-500 mt-6 leading-relaxed">
-        Demo: <span class="text-cyan-400">demo@client.com</span> / <span class="text-cyan-400">demo123</span>
-      </p>
+      <p class="text-center text-[10px] text-slate-600 mt-6">Protected connection · Kisumu, Kenya</p>
     </div>
   </div>
 
-  <!-- ========== APP SHELL ========== -->
+  <!-- APP -->
   <div id="app" class="hidden min-h-screen flex">
-
-    <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 shrink-0 border-r border-slate-800/80 bg-surface-900/95 flex flex-col fixed md:sticky top-0 h-screen z-40 -translate-x-full md:translate-x-0 transition-transform">
-      <div class="p-5 border-b border-slate-800/80">
-        <div class="flex items-center gap-2">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-            <i class="fas fa-shield-halved text-black text-sm"></i>
+    <aside id="sidebar" class="w-[240px] shrink-0 border-r border-slate-800/60 bg-void-900/95 flex flex-col fixed md:sticky top-0 h-screen z-40 -translate-x-full md:translate-x-0 transition-transform duration-200">
+      <div class="p-4 border-b border-slate-800/60">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/15">
+            <i class="fas fa-shield-halved text-void-950 text-sm"></i>
           </div>
           <div>
             <div class="font-bold text-sm tracking-tight">INFINITE<span class="text-cyan-400">CYBER</span></div>
-            <div class="text-[10px] text-slate-500 uppercase tracking-wider">Client Portal</div>
+            <div class="text-[10px] text-slate-500">Client account</div>
           </div>
         </div>
       </div>
-      <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
-        <button onclick="nav('dashboard')" data-nav="dashboard" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-left transition">
-          <i class="fas fa-grid-2 w-5 text-center opacity-80"></i> Dashboard
+      <nav class="flex-1 p-2 space-y-0.5 overflow-y-auto text-[13px]">
+        <button class="nav-i active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left" data-v="home" onclick="go('home')">
+          <i class="fas fa-house w-5 text-center opacity-70"></i> Home
         </button>
-        <button onclick="nav('tickets')" data-nav="tickets" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
-          <i class="fas fa-headset w-5 text-center opacity-80"></i> Support Tickets
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="protection" onclick="go('protection')">
+          <i class="fas fa-shield-virus w-5 text-center opacity-70"></i> Protection
         </button>
-        <button onclick="nav('security')" data-nav="security" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
-          <i class="fas fa-shield-virus w-5 text-center opacity-80"></i> Security Center
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="support" onclick="go('support')">
+          <i class="fas fa-headset w-5 text-center opacity-70"></i> Support
+          <span id="badge-tickets" class="ml-auto chip s-open hidden">0</span>
         </button>
-        <button onclick="nav('reports')" data-nav="reports" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
-          <i class="fas fa-file-chart-column w-5 text-center opacity-80"></i> Reports
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="documents" onclick="go('documents')">
+          <i class="fas fa-folder-open w-5 text-center opacity-70"></i> Documents
         </button>
-        <button onclick="nav('billing')" data-nav="billing" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
-          <i class="fas fa-receipt w-5 text-center opacity-80"></i> Billing
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="billing" onclick="go('billing')">
+          <i class="fas fa-receipt w-5 text-center opacity-70"></i> Billing
         </button>
-        <button onclick="nav('knowledge')" data-nav="knowledge" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
-          <i class="fas fa-book-open w-5 text-center opacity-80"></i> Knowledge Base
+        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="learn" onclick="go('learn')">
+          <i class="fas fa-book-open w-5 text-center opacity-70"></i> Learn
         </button>
-        <button onclick="nav('profile')" data-nav="profile" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
-          <i class="fas fa-user-circle w-5 text-center opacity-80"></i> My Profile
-        </button>
-        <button onclick="nav('settings')" data-nav="settings" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
-          <i class="fas fa-sliders w-5 text-center opacity-80"></i> Settings
-        </button>
+        <div class="pt-3 mt-2 border-t border-slate-800/60">
+          <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="profile" onclick="go('profile')">
+            <i class="fas fa-user w-5 text-center opacity-70"></i> Profile
+          </button>
+          <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="settings" onclick="go('settings')">
+            <i class="fas fa-gear w-5 text-center opacity-70"></i> Settings
+          </button>
+        </div>
       </nav>
-      <div class="p-4 border-t border-slate-800/80">
-        <div class="flex items-center gap-3 mb-3">
-          <img id="sidebar-avatar" src="" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-cyan-500/40">
-          <div class="min-w-0">
-            <div id="sidebar-name" class="text-sm font-semibold truncate"></div>
-            <div id="sidebar-company" class="text-xs text-slate-500 truncate"></div>
+      <div class="p-3 border-t border-slate-800/60">
+        <div class="flex items-center gap-2.5 mb-2">
+          <img id="side-av" src="" alt="" class="w-9 h-9 rounded-full object-cover border border-cyan-500/30">
+          <div class="min-w-0 flex-1">
+            <div id="side-name" class="text-xs font-semibold truncate"></div>
+            <div id="side-co" class="text-[10px] text-slate-500 truncate"></div>
           </div>
         </div>
-        <button onclick="doLogout()" class="w-full text-xs text-red-400/90 hover:text-red-300 py-2 rounded-lg hover:bg-red-500/10 transition">
-          <i class="fas fa-sign-out-alt mr-1"></i> Sign out
+        <button onclick="doLogout()" class="w-full text-[11px] text-slate-500 hover:text-red-400 py-1.5 rounded-lg hover:bg-red-500/5 transition">
+          Sign out
         </button>
       </div>
     </aside>
 
-    <!-- Main -->
-    <div class="flex-1 flex flex-col min-w-0 md:ml-0">
-      <!-- Top bar -->
-      <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-surface-900/90 backdrop-blur-md px-4 md:px-8 py-3 flex items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <button type="button" onclick="toggleSidebar()" class="md:hidden p-2 rounded-lg hover:bg-white/5 text-slate-400">
+    <div class="flex-1 flex flex-col min-w-0">
+      <header class="sticky top-0 z-30 h-14 border-b border-slate-800/60 bg-void-950/85 backdrop-blur-xl px-4 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <button type="button" class="md:hidden p-2 rounded-lg text-slate-400 hover:bg-white/5" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')" aria-label="Menu">
             <i class="fas fa-bars"></i>
           </button>
-          <div>
-            <h2 id="page-title" class="text-lg font-semibold text-white">Dashboard</h2>
-            <p id="page-sub" class="text-xs text-slate-500">Welcome back</p>
+          <div class="min-w-0">
+            <h1 id="page-title" class="text-sm font-semibold truncate">Home</h1>
+            <p id="page-sub" class="text-[10px] text-slate-500 truncate">Your security at a glance</p>
           </div>
         </div>
-        <div class="flex items-center gap-2 sm:gap-3">
-          <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 notif-dot"></span> Systems protected
+        <div class="flex items-center gap-2">
+          <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] text-emerald-400 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse"></span> Protected
           </div>
-          <button type="button" onclick="toggleNotif()" class="relative p-2.5 rounded-xl hover:bg-white/5 text-slate-400 hover:text-white transition">
-            <i class="fas fa-bell"></i>
-            <span id="notif-badge" class="absolute top-1.5 right-1.5 w-2 h-2 bg-cyan-400 rounded-full"></span>
+          <button type="button" onclick="go('support'); setTimeout(openTicketModal, 100)" class="btn-g hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs">
+            <i class="fas fa-plus text-[10px]"></i> Get help
           </button>
-          <button type="button" onclick="nav('profile')" class="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-white/5 transition">
-            <img id="header-avatar" src="" alt="" class="w-8 h-8 rounded-full object-cover border border-cyan-500/30">
+          <button type="button" onclick="go('profile')" class="p-0.5 rounded-full hover:ring-2 hover:ring-cyan-500/30 transition">
+            <img id="hdr-av" src="" alt="" class="w-8 h-8 rounded-full object-cover">
           </button>
         </div>
       </header>
 
-      <!-- Notifications panel -->
-      <div id="notif-panel" class="hidden absolute right-4 top-16 z-50 w-80 glass rounded-2xl shadow-2xl border border-slate-700/50 overflow-hidden">
-        <div class="px-4 py-3 border-b border-slate-800 flex justify-between items-center">
-          <span class="font-semibold text-sm">Notifications</span>
-          <button onclick="markNotifsRead()" class="text-xs text-cyan-400 hover:underline">Mark all read</button>
-        </div>
-        <div id="notif-list" class="max-h-72 overflow-y-auto"></div>
-      </div>
-
-      <!-- Content -->
-      <main class="flex-1 p-4 md:p-8 overflow-y-auto">
-
-        <!-- DASHBOARD -->
-        <section id="view-dashboard" class="space-y-6">
-          <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
-            <div class="glass rounded-2xl p-5 glow-cyan">
-              <div class="flex justify-between items-start mb-3">
-                <span class="text-xs text-slate-400 uppercase tracking-wide">Security Score</span>
-                <i class="fas fa-shield-heart text-cyan-400/60"></i>
-              </div>
-              <div class="flex items-center gap-4">
-                <div class="score-ring w-14 h-14 rounded-full p-1" style="--score: 87">
-                  <div class="w-full h-full rounded-full bg-surface-900 flex items-center justify-center text-sm font-bold text-cyan-400">87</div>
-                </div>
-                <div>
-                  <div class="text-2xl font-bold">Good</div>
-                  <div class="text-xs text-slate-500">+4 pts this month</div>
-                </div>
-              </div>
-            </div>
-            <div class="glass rounded-2xl p-5">
-              <div class="flex justify-between items-start mb-3">
-                <span class="text-xs text-slate-400 uppercase tracking-wide">Open Tickets</span>
-                <i class="fas fa-ticket text-blue-400/60"></i>
-              </div>
-              <div id="kpi-tickets" class="text-3xl font-bold">0</div>
-              <div class="text-xs text-slate-500 mt-1">Avg response under 2 hrs</div>
-            </div>
-            <div class="glass rounded-2xl p-5">
-              <div class="flex justify-between items-start mb-3">
-                <span class="text-xs text-slate-400 uppercase tracking-wide">Package</span>
-                <i class="fas fa-cube text-violet-400/60"></i>
-              </div>
-              <div class="text-xl font-bold text-cyan-300">Premium</div>
-              <div class="text-xs text-slate-500 mt-1">Renews 15 Aug 2026</div>
-            </div>
-            <div class="glass rounded-2xl p-5">
-              <div class="flex justify-between items-start mb-3">
-                <span class="text-xs text-slate-400 uppercase tracking-wide">Threats Blocked</span>
-                <i class="fas fa-ban text-emerald-400/60"></i>
-              </div>
-              <div class="text-3xl font-bold text-emerald-400">1,248</div>
-              <div class="text-xs text-slate-500 mt-1">Last 30 days</div>
-            </div>
-          </div>
-
-          <div class="grid lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 glass rounded-2xl p-6">
-              <div class="flex justify-between items-center mb-5">
-                <h3 class="font-semibold">Active protections</h3>
-                <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">All operational</span>
-              </div>
-              <div class="grid sm:grid-cols-2 gap-3" id="services-grid"></div>
-            </div>
-            <div class="glass rounded-2xl p-6">
-              <h3 class="font-semibold mb-4">Assigned technician</h3>
-              <div class="flex items-center gap-3 mb-4">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-lg font-bold text-white">AO</div>
-                <div>
-                  <div class="font-medium">Augustine Ouma</div>
-                  <div class="text-xs text-slate-500">Senior Security Engineer</div>
-                </div>
-              </div>
-              <div class="space-y-2 text-sm text-slate-400">
-                <div class="flex items-center gap-2"><i class="fas fa-envelope text-cyan-500/70 w-4"></i> support@infinitecyberspace.com</div>
-                <div class="flex items-center gap-2"><i class="fas fa-phone text-cyan-500/70 w-4"></i> +254 700 000 000</div>
-                <div class="flex items-center gap-2"><i class="fas fa-clock text-cyan-500/70 w-4"></i> SLA: 2-hour response</div>
-              </div>
-              <button onclick="nav('tickets')" class="mt-5 w-full py-2.5 rounded-xl border border-cyan-500/30 text-cyan-400 text-sm hover:bg-cyan-500/10 transition">
-                Contact support
-              </button>
-            </div>
-          </div>
-
-          <div class="glass rounded-2xl p-6">
-            <div class="flex justify-between items-center mb-4">
-              <h3 class="font-semibold">Recent activity</h3>
-            </div>
-            <div id="activity-feed" class="space-y-3"></div>
-          </div>
-        </section>
-
-        <!-- TICKETS -->
-        <section id="view-tickets" class="hidden space-y-6">
-          <div class="flex flex-col sm:flex-row justify-between gap-4">
-            <p class="text-slate-400 text-sm">Track and open support requests with our security team.</p>
-            <button onclick="openTicketModal()" class="btn-primary px-5 py-2.5 rounded-xl text-sm shrink-0">
-              <i class="fas fa-plus mr-2"></i>New ticket
-            </button>
-          </div>
-          <div id="tickets-list" class="space-y-3"></div>
-        </section>
-
-        <!-- SECURITY -->
-        <section id="view-security" class="hidden space-y-6">
-          <div class="grid md:grid-cols-3 gap-4">
-            <div class="glass rounded-2xl p-5 text-center">
-              <div class="text-3xl font-bold text-emerald-400 mb-1">0</div>
-              <div class="text-sm text-slate-400">Critical alerts</div>
-            </div>
-            <div class="glass rounded-2xl p-5 text-center">
-              <div class="text-3xl font-bold text-amber-400 mb-1">2</div>
-              <div class="text-sm text-slate-400">Recommendations</div>
-            </div>
-            <div class="glass rounded-2xl p-5 text-center">
-              <div class="text-3xl font-bold text-cyan-400 mb-1">99.9%</div>
-              <div class="text-sm text-slate-400">Uptime (30d)</div>
-            </div>
-          </div>
-          <div class="glass rounded-2xl p-6">
-            <h3 class="font-semibold mb-4">Security posture</h3>
-            <div class="space-y-4" id="posture-list"></div>
-          </div>
-          <div class="glass rounded-2xl p-6">
-            <h3 class="font-semibold mb-2">Recommendations</h3>
-            <ul class="space-y-3 text-sm text-slate-300">
-              <li class="flex gap-3 p-3 rounded-xl bg-amber-500/5 border border-amber-500/15">
-                <i class="fas fa-lightbulb text-amber-400 mt-0.5"></i>
-                <span>Enable MFA for all admin accounts before the next compliance review.</span>
-              </li>
-              <li class="flex gap-3 p-3 rounded-xl bg-amber-500/5 border border-amber-500/15">
-                <i class="fas fa-lightbulb text-amber-400 mt-0.5"></i>
-                <span>Schedule employee phishing simulation for Q3 2026.</span>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- REPORTS -->
-        <section id="view-reports" class="hidden space-y-6">
-          <p class="text-slate-400 text-sm">Download monthly security reports, scan results, and certificates.</p>
-          <div id="reports-list" class="grid sm:grid-cols-2 gap-4"></div>
-        </section>
-
-        <!-- BILLING -->
-        <section id="view-billing" class="hidden space-y-6">
-          <div class="glass rounded-2xl p-6 flex flex-col sm:flex-row justify-between gap-4 items-start">
-            <div>
-              <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Current plan</div>
-              <div class="text-2xl font-bold text-cyan-300">Premium Protection</div>
-              <div class="text-slate-400 text-sm mt-1">KES 38,900 / month · Next invoice 15 Aug 2026</div>
-            </div>
-            <span class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">Active</span>
-          </div>
-          <div class="glass rounded-2xl overflow-hidden">
-            <div class="px-6 py-4 border-b border-slate-800 font-semibold text-sm">Invoices</div>
-            <div class="overflow-x-auto">
-              <table class="w-full text-sm">
-                <thead class="text-slate-500 text-left">
-                  <tr>
-                    <th class="px-6 py-3 font-medium">Invoice</th>
-                    <th class="px-6 py-3 font-medium">Date</th>
-                    <th class="px-6 py-3 font-medium">Amount</th>
-                    <th class="px-6 py-3 font-medium">Status</th>
-                    <th class="px-6 py-3 font-medium"></th>
-                  </tr>
-                </thead>
-                <tbody id="invoices-body"></tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- KNOWLEDGE -->
-        <section id="view-knowledge" class="hidden space-y-6">
-          <p class="text-slate-400 text-sm">Guides and best practices for your team.</p>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="kb-grid"></div>
-        </section>
-
-        <!-- PROFILE -->
-        <section id="view-profile" class="hidden space-y-6 max-w-2xl">
-          <div class="glass rounded-2xl p-6">
-            <div class="flex flex-col sm:flex-row items-center gap-6 mb-8">
-              <div class="relative group">
-                <img id="profile-avatar" src="" alt="Profile" class="w-28 h-28 rounded-2xl object-cover border-2 border-cyan-500/40 shadow-lg">
-                <label class="absolute inset-0 flex items-center justify-center bg-black/50 rounded-2xl opacity-0 group-hover:opacity-100 cursor-pointer transition text-xs font-medium">
-                  Change photo
-                  <input type="file" accept="image/*" class="hidden" onchange="changePhoto(event)">
-                </label>
-              </div>
-              <div class="text-center sm:text-left">
-                <h3 id="profile-display-name" class="text-xl font-bold"></h3>
-                <p id="profile-display-role" class="text-slate-400 text-sm"></p>
-                <p class="text-xs text-cyan-400/80 mt-2"><i class="fas fa-building mr-1"></i><span id="profile-display-company"></span></p>
-              </div>
-            </div>
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs text-slate-500 mb-1.5">Full name</label>
-                <input id="prof-name" type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
-              </div>
-              <div>
-                <label class="block text-xs text-slate-500 mb-1.5">Email</label>
-                <input id="prof-email" type="email" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50" readonly>
-              </div>
-              <div>
-                <label class="block text-xs text-slate-500 mb-1.5">Company</label>
-                <input id="prof-company" type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
-              </div>
-              <div>
-                <label class="block text-xs text-slate-500 mb-1.5">Phone</label>
-                <input id="prof-phone" type="tel" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
-              </div>
-              <div class="sm:col-span-2">
-                <label class="block text-xs text-slate-500 mb-1.5">Job title</label>
-                <input id="prof-title" type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
-              </div>
-            </div>
-            <button onclick="saveProfile()" class="btn-primary mt-6 px-6 py-2.5 rounded-xl text-sm">Save profile</button>
-          </div>
-        </section>
-
-        <!-- SETTINGS -->
-        <section id="view-settings" class="hidden space-y-6 max-w-xl">
-          <div class="glass rounded-2xl p-6 space-y-5">
-            <h3 class="font-semibold">Preferences</h3>
-            <label class="flex items-center justify-between gap-4 cursor-pointer">
-              <span class="text-sm text-slate-300">Email alerts for new tickets</span>
-              <input id="set-email" type="checkbox" checked class="w-4 h-4 accent-cyan-500">
-            </label>
-            <label class="flex items-center justify-between gap-4 cursor-pointer">
-              <span class="text-sm text-slate-300">Weekly security summary</span>
-              <input id="set-weekly" type="checkbox" checked class="w-4 h-4 accent-cyan-500">
-            </label>
-            <label class="flex items-center justify-between gap-4 cursor-pointer">
-              <span class="text-sm text-slate-300">SMS for critical incidents</span>
-              <input id="set-sms" type="checkbox" class="w-4 h-4 accent-cyan-500">
-            </label>
-          </div>
-          <div class="glass rounded-2xl p-6 space-y-4">
-            <h3 class="font-semibold">Change password</h3>
-            <input id="pw-current" type="password" placeholder="Current password" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
-            <input id="pw-new" type="password" placeholder="New password" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
-            <button onclick="alert('Password updated (demo). Connect backend for real auth.')" class="btn-primary px-6 py-2.5 rounded-xl text-sm">Update password</button>
-          </div>
-        </section>
-
-      </main>
+      <main id="main" class="flex-1 overflow-y-auto p-4 md:p-6 grid-bg"></main>
     </div>
   </div>
 
   <!-- Ticket modal -->
   <div id="ticket-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-    <div class="glass rounded-2xl w-full max-w-lg p-6 glow-cyan">
+    <div class="glass rounded-2xl w-full max-w-md p-6 border border-cyan-500/15 shadow-2xl">
       <div class="flex justify-between items-center mb-5">
-        <h3 class="text-lg font-semibold">New support ticket</h3>
-        <button onclick="closeTicketModal()" class="text-slate-400 hover:text-white text-xl leading-none">&times;</button>
+        <div>
+          <h3 class="font-semibold">Request support</h3>
+          <p class="text-[11px] text-slate-500 mt-0.5">We typically respond within 2 hours</p>
+        </div>
+        <button type="button" onclick="closeTicketModal()" class="text-slate-400 hover:text-white text-xl leading-none" aria-label="Close">&times;</button>
       </div>
-      <div class="space-y-4">
+      <div class="space-y-3">
         <div>
-          <label class="block text-xs text-slate-500 mb-1">Subject</label>
-          <input id="ticket-subject" type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
+          <label class="text-[11px] text-slate-500 mb-1 block">What do you need help with?</label>
+          <input id="t-subject" type="text" placeholder="Short summary"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[11px] text-slate-500 mb-1 block">Category</label>
+            <select id="t-cat" class="w-full px-3 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm">
+              <option>Security incident</option>
+              <option>Device / endpoint</option>
+              <option>Email or phishing</option>
+              <option>Network / VPN</option>
+              <option>Account or billing</option>
+              <option>General question</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[11px] text-slate-500 mb-1 block">Urgency</label>
+            <select id="t-pri" class="w-full px-3 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm">
+              <option value="Low">Low — can wait</option>
+              <option value="Medium" selected>Medium — soon</option>
+              <option value="High">High — urgent</option>
+              <option value="Critical">Critical — outage / breach</option>
+            </select>
+          </div>
         </div>
         <div>
-          <label class="block text-xs text-slate-500 mb-1">Category</label>
-          <select id="ticket-cat" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
-            <option>Security incident</option>
-            <option>Endpoint / device</option>
-            <option>Email / phishing</option>
-            <option>Network</option>
-            <option>General support</option>
-          </select>
+          <label class="text-[11px] text-slate-500 mb-1 block">Details</label>
+          <textarea id="t-desc" rows="4" placeholder="What happened? When? Any error messages?"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40 resize-none"></textarea>
         </div>
-        <div>
-          <label class="block text-xs text-slate-500 mb-1">Priority</label>
-          <select id="ticket-priority" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
-            <option>Low</option>
-            <option selected>Medium</option>
-            <option>High</option>
-            <option>Critical</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs text-slate-500 mb-1">Description</label>
-          <textarea id="ticket-description" rows="4" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/50"></textarea>
-        </div>
-        <button onclick="createTicket()" class="btn-primary w-full py-3 rounded-xl text-sm">Submit ticket</button>
+        <button type="button" onclick="submitTicket()" class="btn-g w-full py-3 rounded-xl text-sm">Submit request</button>
       </div>
     </div>
   </div>
 
-  <!-- Toast -->
-  <div id="toast" class="fixed bottom-6 right-6 z-[60] hidden px-5 py-3 rounded-xl bg-slate-800 border border-cyan-500/30 text-sm shadow-xl"></div>
+  <div id="toast" class="fixed bottom-5 right-5 z-[60] hidden max-w-sm px-4 py-3 rounded-xl bg-void-800 border border-cyan-500/25 text-sm shadow-xl"></div>
 
 <script>
-  const DEFAULT_AVATAR = 'data:image/svg+xml,' + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect fill="#0e7490" width="128" height="128"/><circle cx="64" cy="48" r="24" fill="#a5f3fc"/><ellipse cx="64" cy="112" rx="40" ry="32" fill="#a5f3fc"/></svg>'
+const AVATAR = 'data:image/svg+xml,' + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0e7490"/><stop offset="1" stop-color="#312e81"/></linearGradient></defs><rect fill="url(#g)" width="128" height="128"/><circle cx="64" cy="48" r="26" fill="#a5f3fc"/><ellipse cx="64" cy="118" rx="44" ry="36" fill="#a5f3fc"/></svg>'
+);
+
+const SERVICES = [
+  { name: '24/7 threat monitoring', desc: 'Continuous watch on your environment', icon: 'fa-radar', on: true },
+  { name: 'Endpoint protection', desc: 'Laptops, servers & workstations', icon: 'fa-laptop', on: true },
+  { name: 'Email security', desc: 'Phishing & malware filtering', icon: 'fa-envelope-circle-check', on: true },
+  { name: 'Vulnerability scans', desc: 'Scheduled findings & fixes', icon: 'fa-magnifying-glass-chart', on: true },
+  { name: 'Monthly reports', desc: 'Clear status for leadership', icon: 'fa-file-lines', on: true },
+  { name: 'Staff training', desc: 'Awareness & simulations', icon: 'fa-graduation-cap', on: true }
+];
+
+const DOCS = [
+  { name: 'Security report — July 2026', date: '1 Aug 2026', type: 'PDF', tag: 'Report' },
+  { name: 'Vulnerability scan results', date: '20 Jul 2026', type: 'PDF', tag: 'Scan' },
+  { name: 'Training certificates', date: '10 Jul 2026', type: 'PDF', tag: 'Training' },
+  { name: 'Service agreement', date: '15 Jul 2026', type: 'PDF', tag: 'Contract' }
+];
+
+const INVOICES = [
+  { id: 'INV-2026-008', date: '1 Aug 2026', amount: 38900, status: 'Paid' },
+  { id: 'INV-2026-007', date: '1 Jul 2026', amount: 38900, status: 'Paid' },
+  { id: 'INV-2026-006', date: '1 Jun 2026', amount: 38900, status: 'Paid' }
+];
+
+const LEARN = [
+  { title: 'Spot a phishing email', time: '3 min', cat: 'Awareness', icon: 'fa-fish' },
+  { title: 'Strong passwords & MFA', time: '4 min', cat: 'Identity', icon: 'fa-key' },
+  { title: 'If you suspect a breach', time: '5 min', cat: 'Incident', icon: 'fa-triangle-exclamation' },
+  { title: 'Secure remote work', time: '4 min', cat: 'Endpoint', icon: 'fa-house-laptop' },
+  { title: 'Reading your monthly report', time: '3 min', cat: 'Reports', icon: 'fa-chart-simple' },
+  { title: 'How support SLAs work', time: '2 min', cat: 'Support', icon: 'fa-clock' }
+];
+
+const ACTIVITY = [
+  { text: 'Full environment scan completed', meta: 'No critical findings', time: '2 hours ago', icon: 'fa-check', color: 'text-emerald-400' },
+  { text: '14 phishing attempts blocked', meta: 'Email gateway', time: 'Yesterday', icon: 'fa-ban', color: 'text-cyan-400' },
+  { text: 'July security report published', meta: 'Ready to download', time: '1 Aug', icon: 'fa-file-pdf', color: 'text-blue-400' },
+  { text: 'Premium plan renewed', meta: 'Next billing 15 Aug', time: '15 Jul', icon: 'fa-rotate', color: 'text-violet-400' }
+];
+
+let tickets = [];
+let profile = null;
+
+function togglePw() {
+  const i = document.getElementById('login-password');
+  const icon = document.getElementById('pw-icon');
+  if (i.type === 'password') { i.type = 'text'; icon.className = 'fas fa-eye-slash'; }
+  else { i.type = 'password'; icon.className = 'fas fa-eye'; }
+}
+
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const password = document.getElementById('login-password').value;
+  const err = document.getElementById('login-error');
+  err.classList.add('hidden');
+
+  if (email === 'demo@client.com' && password === 'demo123') {
+    profile = JSON.parse(localStorage.getItem('ich_client_profile') || 'null') || {
+      name: 'John Odhiambo',
+      email: 'demo@client.com',
+      company: 'Acme Solutions Ltd',
+      phone: '+254 712 345 678',
+      title: 'IT Manager',
+      avatar: AVATAR
+    };
+    localStorage.setItem('ich_client_profile', JSON.stringify(profile));
+    localStorage.setItem('ich_client_in', '1');
+    boot();
+    return;
+  }
+  err.textContent = 'Incorrect email or password. Try the demo credentials below.';
+  err.classList.remove('hidden');
+}
+
+function doLogout() {
+  localStorage.removeItem('ich_client_in');
+  location.reload();
+}
+
+function boot() {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  applyProfile();
+  loadTickets();
+  go('home');
+}
+
+function applyProfile() {
+  const av = profile.avatar || AVATAR;
+  document.getElementById('side-av').src = av;
+  document.getElementById('hdr-av').src = av;
+  document.getElementById('side-name').textContent = profile.name;
+  document.getElementById('side-co').textContent = profile.company;
+}
+
+function loadTickets() {
+  const shared = JSON.parse(localStorage.getItem('ich_shared_tickets') || '[]');
+  const email = (profile.email || '').toLowerCase();
+  tickets = shared.filter(t =>
+    (t.email || '').toLowerCase() === email ||
+    (t.customer || '').includes(profile.name || '') ||
+    t.source === 'client_portal'
   );
-
-  const SERVICES = [
-    { name: '24/7 Threat Monitoring', icon: 'fa-radar', status: 'Active' },
-    { name: 'Endpoint Protection', icon: 'fa-laptop', status: 'Active' },
-    { name: 'Email & Phishing Shield', icon: 'fa-envelope-circle-check', status: 'Active' },
-    { name: 'Vulnerability Scanning', icon: 'fa-magnifying-glass-chart', status: 'Active' },
-    { name: 'Monthly Security Reports', icon: 'fa-file-lines', status: 'Active' },
-    { name: 'Employee Training Portal', icon: 'fa-graduation-cap', status: 'Active' }
-  ];
-
-  const POSTURE = [
-    { label: 'Endpoint coverage', value: 100 },
-    { label: 'Patch compliance', value: 94 },
-    { label: 'Email security', value: 98 },
-    { label: 'Backup verification', value: 91 }
-  ];
-
-  const REPORTS = [
-    { name: 'Monthly Security Report — July 2026', date: '2026-08-01', type: 'PDF', size: '2.4 MB' },
-    { name: 'Vulnerability Scan Results', date: '2026-07-20', type: 'PDF', size: '1.1 MB' },
-    { name: 'Employee Training Certificates', date: '2026-07-10', type: 'PDF', size: '890 KB' },
-    { name: 'Incident Response Summary Q2', date: '2026-07-05', type: 'PDF', size: '1.8 MB' }
-  ];
-
-  const INVOICES = [
-    { id: 'INV-2026-008', date: '2026-08-01', amount: 38900, status: 'Paid' },
-    { id: 'INV-2026-007', date: '2026-07-01', amount: 38900, status: 'Paid' },
-    { id: 'INV-2026-006', date: '2026-06-01', amount: 38900, status: 'Paid' }
-  ];
-
-  const KB = [
-    { title: 'Recognizing phishing emails', cat: 'Awareness', icon: 'fa-fish' },
-    { title: 'Password & MFA best practices', cat: 'Identity', icon: 'fa-key' },
-    { title: 'What to do after a suspected breach', cat: 'Incident', icon: 'fa-triangle-exclamation' },
-    { title: 'Securing remote work devices', cat: 'Endpoint', icon: 'fa-laptop-house' },
-    { title: 'Understanding your monthly report', cat: 'Reports', icon: 'fa-chart-line' },
-    { title: 'SLA & escalation policy', cat: 'Support', icon: 'fa-clock' }
-  ];
-
-  const ACTIVITY = [
-    { text: 'Endpoint scan completed — 0 critical findings', time: '2 hours ago', icon: 'fa-check-circle', color: 'text-emerald-400' },
-    { text: '12 phishing attempts blocked', time: 'Yesterday', icon: 'fa-ban', color: 'text-cyan-400' },
-    { text: 'Monthly report published', time: '1 Aug 2026', icon: 'fa-file-pdf', color: 'text-blue-400' },
-    { text: 'Package renewed — Premium Protection', time: '15 Jul 2026', icon: 'fa-cube', color: 'text-violet-400' }
-  ];
-
-  let tickets = JSON.parse(localStorage.getItem('ich_client_tickets') || '[]');
-  let notifications = JSON.parse(localStorage.getItem('ich_notifs') || 'null') || [
-    { id: 1, title: 'Monthly report ready', body: 'July 2026 security report is available.', read: false, time: '1d ago' },
-    { id: 2, title: 'Scan complete', body: 'Scheduled vulnerability scan finished with no critical issues.', read: false, time: '2d ago' },
-    { id: 3, title: 'Welcome', body: 'Your Premium Protection plan is active.', read: true, time: '1w ago' }
-  ];
-
-  function handleLogin() {
-    const email = document.getElementById('login-email').value.trim().toLowerCase();
-    const password = document.getElementById('login-password').value;
-    const err = document.getElementById('login-error');
-    err.classList.add('hidden');
-
-    if (email === 'demo@client.com' && password === 'demo123') {
-      const profile = JSON.parse(localStorage.getItem('ich_profile') || 'null') || {
-        name: 'John Odhiambo',
-        email: 'demo@client.com',
-        company: 'Acme Solutions Ltd',
-        phone: '+254 712 345 678',
-        title: 'IT Manager',
-        avatar: DEFAULT_AVATAR
-      };
-      localStorage.setItem('ich_profile', JSON.stringify(profile));
-      localStorage.setItem('ich_logged_in', '1');
-      bootApp(profile);
-      return;
-    }
-    err.textContent = 'Invalid email or password. Use demo@client.com / demo123';
-    err.classList.remove('hidden');
+  if (!tickets.length) {
+    tickets = JSON.parse(localStorage.getItem('ich_client_tickets') || '[]');
   }
+  const open = tickets.filter(t => t.status !== 'Closed' && t.status !== 'Resolved').length;
+  const badge = document.getElementById('badge-tickets');
+  if (open) { badge.textContent = open; badge.classList.remove('hidden'); }
+  else badge.classList.add('hidden');
+}
 
-  function doLogout() {
-    localStorage.removeItem('ich_logged_in');
-    location.reload();
-  }
+const TITLES = {
+  home: ['Home', 'Your security at a glance'],
+  protection: ['Protection', 'Services included in your plan'],
+  support: ['Support', 'Talk to our security team'],
+  documents: ['Documents', 'Reports and files'],
+  billing: ['Billing', 'Plan and invoices'],
+  learn: ['Learn', 'Short guides for your team'],
+  profile: ['Profile', 'Your account details'],
+  settings: ['Settings', 'Preferences and security']
+};
 
-  function bootApp(profile) {
-    document.getElementById('login-screen').classList.add('hidden');
-    document.getElementById('app').classList.remove('hidden');
-    applyProfile(profile);
-    renderAll();
-    nav('dashboard');
-  }
+function go(v) {
+  loadTickets();
+  document.querySelectorAll('.nav-i').forEach(b => {
+    const on = b.dataset.v === v;
+    b.classList.toggle('active', on);
+    b.classList.toggle('text-slate-400', !on);
+  });
+  document.getElementById('page-title').textContent = TITLES[v][0];
+  document.getElementById('page-sub').textContent = TITLES[v][1];
+  document.getElementById('sidebar').classList.add('-translate-x-full');
+  document.getElementById('main').innerHTML = render[v]();
+  if (v === 'profile') fillProfileForm();
+}
 
-  function applyProfile(p) {
-    const av = p.avatar || DEFAULT_AVATAR;
-    ['sidebar-avatar', 'header-avatar', 'profile-avatar'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.src = av;
-    });
-    document.getElementById('sidebar-name').textContent = p.name;
-    document.getElementById('sidebar-company').textContent = p.company;
-    document.getElementById('profile-display-name').textContent = p.name;
-    document.getElementById('profile-display-role').textContent = p.title || 'Client';
-    document.getElementById('profile-display-company').textContent = p.company;
-    document.getElementById('prof-name').value = p.name || '';
-    document.getElementById('prof-email').value = p.email || '';
-    document.getElementById('prof-company').value = p.company || '';
-    document.getElementById('prof-phone').value = p.phone || '';
-    document.getElementById('prof-title').value = p.title || '';
-    document.getElementById('page-sub').textContent = 'Welcome back, ' + (p.name || '').split(' ')[0];
-  }
+const render = {};
 
-  function changePhoto(e) {
-    const file = e.target.files && e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function () {
-      const p = JSON.parse(localStorage.getItem('ich_profile') || '{}');
-      p.avatar = reader.result;
-      localStorage.setItem('ich_profile', JSON.stringify(p));
-      applyProfile(p);
-      toast('Profile photo updated');
-    };
-    reader.readAsDataURL(file);
-  }
+render.home = () => {
+  const first = (profile.name || 'there').split(' ')[0];
+  const open = tickets.filter(t => !['Closed','Resolved'].includes(t.status)).length;
+  return `
+  <div class="mb-6">
+    <h2 class="text-xl md:text-2xl font-bold tracking-tight">Good to see you, ${esc(first)}</h2>
+    <p class="text-slate-500 text-sm mt-1">Here’s what’s happening with ${esc(profile.company || 'your account')}.</p>
+  </div>
 
-  function saveProfile() {
-    const p = JSON.parse(localStorage.getItem('ich_profile') || '{}');
-    p.name = document.getElementById('prof-name').value.trim();
-    p.company = document.getElementById('prof-company').value.trim();
-    p.phone = document.getElementById('prof-phone').value.trim();
-    p.title = document.getElementById('prof-title').value.trim();
-    localStorage.setItem('ich_profile', JSON.stringify(p));
-    applyProfile(p);
-    toast('Profile saved');
-  }
-
-  function nav(name) {
-    document.querySelectorAll('[id^="view-"]').forEach(el => el.classList.add('hidden'));
-    const view = document.getElementById('view-' + name);
-    if (view) view.classList.remove('hidden');
-
-    document.querySelectorAll('.nav-item').forEach(btn => {
-      btn.classList.remove('active', 'text-white');
-      btn.classList.add('text-slate-400');
-      if (btn.getAttribute('data-nav') === name) {
-        btn.classList.add('active');
-        btn.classList.remove('text-slate-400');
-      }
-    });
-
-    const titles = {
-      dashboard: ['Dashboard', 'Overview of your security posture'],
-      tickets: ['Support Tickets', 'Get help from our team'],
-      security: ['Security Center', 'Live posture and recommendations'],
-      reports: ['Reports', 'Downloads and compliance documents'],
-      billing: ['Billing', 'Plan, invoices and payments'],
-      knowledge: ['Knowledge Base', 'Guides for your team'],
-      profile: ['My Profile', 'Account and photo'],
-      settings: ['Settings', 'Notifications and security']
-    };
-    const t = titles[name] || ['Portal', ''];
-    document.getElementById('page-title').textContent = t[0];
-    document.getElementById('page-sub').textContent = t[1];
-
-    document.getElementById('sidebar').classList.add('-translate-x-full');
-    document.getElementById('notif-panel').classList.add('hidden');
-  }
-
-  function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('-translate-x-full');
-  }
-
-  function toggleNotif() {
-    const panel = document.getElementById('notif-panel');
-    panel.classList.toggle('hidden');
-    renderNotifs();
-  }
-
-  function renderNotifs() {
-    const list = document.getElementById('notif-list');
-    list.innerHTML = notifications.map(n => `
-      <div class="px-4 py-3 border-b border-slate-800/80 ${n.read ? 'opacity-60' : 'bg-cyan-500/5'}">
-        <div class="text-sm font-medium">${n.title}</div>
-        <div class="text-xs text-slate-500 mt-0.5">${n.body}</div>
-        <div class="text-[10px] text-slate-600 mt-1">${n.time}</div>
-      </div>
-    `).join('') || '<div class="p-4 text-sm text-slate-500">No notifications</div>';
-    const unread = notifications.filter(n => !n.read).length;
-    document.getElementById('notif-badge').style.display = unread ? 'block' : 'none';
-  }
-
-  function markNotifsRead() {
-    notifications.forEach(n => n.read = true);
-    localStorage.setItem('ich_notifs', JSON.stringify(notifications));
-    renderNotifs();
-  }
-
-  function renderAll() {
-    document.getElementById('services-grid').innerHTML = SERVICES.map(s => `
-      <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/50 border border-slate-800/80">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400"><i class="fas ${s.icon} text-sm"></i></div>
-          <span class="text-sm">${s.name}</span>
+  <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-3 mb-6">
+    <div class="glass-accent rounded-2xl p-5">
+      <div class="flex items-center gap-3">
+        <div class="score-ring w-12 h-12 rounded-full p-[3px] shrink-0" style="--s:87">
+          <div class="w-full h-full rounded-full bg-void-950 flex items-center justify-center text-xs font-bold text-cyan-400">87</div>
         </div>
-        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">${s.status}</span>
-      </div>
-    `).join('');
-
-    document.getElementById('activity-feed').innerHTML = ACTIVITY.map(a => `
-      <div class="flex gap-3 items-start">
-        <i class="fas ${a.icon} ${a.color} mt-0.5"></i>
         <div>
-          <div class="text-sm text-slate-300">${a.text}</div>
-          <div class="text-xs text-slate-600">${a.time}</div>
+          <div class="text-[10px] uppercase tracking-wide text-slate-500">Security score</div>
+          <div class="font-semibold text-lg">Good</div>
         </div>
       </div>
-    `).join('');
+    </div>
+    <div class="glass rounded-2xl p-5">
+      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Your plan</div>
+      <div class="font-semibold text-cyan-300">Premium</div>
+      <div class="text-[11px] text-slate-500 mt-1">Renews 15 Aug 2026</div>
+    </div>
+    <div class="glass rounded-2xl p-5">
+      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Open requests</div>
+      <div class="font-semibold text-2xl">${open}</div>
+      <button onclick="go('support')" class="text-[11px] text-cyan-400 hover:underline mt-1">View support →</button>
+    </div>
+    <div class="glass rounded-2xl p-5">
+      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Threats blocked</div>
+      <div class="font-semibold text-2xl text-emerald-400">1,248</div>
+      <div class="text-[11px] text-slate-500 mt-1">Last 30 days</div>
+    </div>
+  </div>
 
-    document.getElementById('posture-list').innerHTML = POSTURE.map(p => `
-      <div>
-        <div class="flex justify-between text-sm mb-1"><span class="text-slate-400">${p.label}</span><span class="font-medium">${p.value}%</span></div>
-        <div class="h-2 rounded-full bg-slate-800 overflow-hidden">
-          <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" style="width:${p.value}%"></div>
+  <div class="grid lg:grid-cols-5 gap-4 mb-6">
+    <div class="lg:col-span-3 glass rounded-2xl p-5">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-semibold text-sm">What’s active</h3>
+        <button onclick="go('protection')" class="text-[11px] text-cyan-400 hover:underline">All services</button>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-2">
+        ${SERVICES.slice(0,4).map(s => `
+          <div class="flex items-center gap-3 p-3 rounded-xl bg-void-900/50 border border-slate-800/60">
+            <div class="w-9 h-9 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400"><i class="fas ${s.icon} text-sm"></i></div>
+            <div class="min-w-0"><div class="text-sm font-medium truncate">${s.name}</div>
+            <div class="text-[10px] text-emerald-400/90">Active</div></div>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="lg:col-span-2 glass rounded-2xl p-5">
+      <h3 class="font-semibold text-sm mb-4">Your specialist</h3>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center font-bold text-sm">AO</div>
+        <div>
+          <div class="font-medium text-sm">Augustine Ouma</div>
+          <div class="text-[11px] text-slate-500">Senior security engineer</div>
         </div>
       </div>
-    `).join('');
+      <ul class="space-y-2 text-[12px] text-slate-400 mb-4">
+        <li class="flex gap-2"><i class="fas fa-clock text-cyan-500/60 w-4 mt-0.5"></i> Reply within 2 hours</li>
+        <li class="flex gap-2"><i class="fas fa-phone text-cyan-500/60 w-4 mt-0.5"></i> +254 700 000 000</li>
+      </ul>
+      <button onclick="go('support'); setTimeout(openTicketModal, 80)" class="btn-g w-full py-2.5 rounded-xl text-xs">Contact support</button>
+    </div>
+  </div>
 
-    document.getElementById('reports-list').innerHTML = REPORTS.map(r => `
-      <div class="glass rounded-2xl p-5 flex justify-between items-center gap-4">
-        <div class="flex items-start gap-3 min-w-0">
-          <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 shrink-0"><i class="fas fa-file-pdf"></i></div>
-          <div class="min-w-0">
-            <div class="font-medium text-sm truncate">${r.name}</div>
-            <div class="text-xs text-slate-500 mt-0.5">${r.date} · ${r.type} · ${r.size}</div>
+  <div class="glass rounded-2xl p-5">
+    <h3 class="font-semibold text-sm mb-4">Recent activity</h3>
+    <div class="space-y-3">
+      ${ACTIVITY.map(a => `
+        <div class="flex gap-3 items-start">
+          <div class="w-8 h-8 rounded-lg bg-void-900 flex items-center justify-center shrink-0"><i class="fas ${a.icon} ${a.color} text-xs"></i></div>
+          <div class="min-w-0 flex-1">
+            <div class="text-sm text-slate-200">${a.text}</div>
+            <div class="text-[11px] text-slate-500">${a.meta} · ${a.time}</div>
           </div>
-        </div>
-        <button onclick="toast('Download started (demo)')" class="btn-primary px-3 py-2 rounded-lg text-xs shrink-0"><i class="fas fa-download"></i></button>
+        </div>`).join('')}
+    </div>
+  </div>`;
+};
+
+render.protection = () => `
+  <p class="text-sm text-slate-500 mb-5 max-w-xl">Everything below is included in your <span class="text-cyan-300">Premium Protection</span> plan.</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    ${SERVICES.map(s => `
+      <div class="glass rounded-2xl p-5 hover:border-cyan-500/20 transition border border-transparent">
+        <div class="w-11 h-11 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-3"><i class="fas ${s.icon}"></i></div>
+        <div class="font-medium text-sm mb-1">${s.name}</div>
+        <p class="text-[12px] text-slate-500 leading-relaxed mb-3">${s.desc}</p>
+        <span class="chip s-ok">Active</span>
+      </div>`).join('')}
+  </div>`;
+
+render.support = () => `
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+    <p class="text-sm text-slate-500">Open a request anytime. Critical issues are prioritised.</p>
+    <button onclick="openTicketModal()" class="btn-g px-4 py-2.5 rounded-xl text-sm shrink-0"><i class="fas fa-plus mr-1.5"></i>New request</button>
+  </div>
+  <div class="space-y-3" id="ticket-list">${ticketCards()}</div>`;
+
+function ticketCards() {
+  if (!tickets.length) {
+    return `<div class="glass rounded-2xl p-10 text-center">
+      <div class="w-12 h-12 rounded-2xl bg-slate-800/80 flex items-center justify-center mx-auto mb-3 text-slate-500"><i class="fas fa-inbox text-lg"></i></div>
+      <p class="text-sm text-slate-400 mb-1">No support requests yet</p>
+      <p class="text-[12px] text-slate-600 mb-4">When something needs attention, start here.</p>
+      <button onclick="openTicketModal()" class="btn-g px-4 py-2 rounded-xl text-xs">Create first request</button>
+    </div>`;
+  }
+  return tickets.map(t => `
+    <div class="glass rounded-2xl p-4 sm:p-5">
+      <div class="flex flex-wrap items-center gap-2 mb-2">
+        <span class="chip s-open">${esc(t.status || 'Open')}</span>
+        <span class="chip s-warn">${esc(t.priority || 'Medium')}</span>
+        <span class="text-[10px] text-slate-600 font-mono">${esc(t.id)}</span>
       </div>
-    `).join('');
+      <div class="font-medium text-sm">${esc(t.subject)}</div>
+      <p class="text-[12px] text-slate-500 mt-1 line-clamp-2">${esc(t.description || '')}</p>
+      <div class="text-[11px] text-slate-600 mt-2">${esc(t.category || t.cat || '')} · ${esc(t.date || '')}</div>
+    </div>`).join('');
+}
 
-    document.getElementById('invoices-body').innerHTML = INVOICES.map(inv => `
-      <tr class="border-t border-slate-800/80">
-        <td class="px-6 py-3 font-medium">${inv.id}</td>
-        <td class="px-6 py-3 text-slate-400">${inv.date}</td>
-        <td class="px-6 py-3 text-emerald-400">KES ${inv.amount.toLocaleString()}</td>
-        <td class="px-6 py-3"><span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">${inv.status}</span></td>
-        <td class="px-6 py-3"><button onclick="toast('Invoice ${inv.id} downloaded')" class="text-cyan-400 text-xs hover:underline">PDF</button></td>
-      </tr>
-    `).join('');
+render.documents = () => `
+  <p class="text-sm text-slate-500 mb-5">Download reports and certificates for audits or leadership updates.</p>
+  <div class="grid sm:grid-cols-2 gap-3">
+    ${DOCS.map(d => `
+      <div class="glass rounded-2xl p-4 flex items-center gap-4">
+        <div class="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 shrink-0"><i class="fas fa-file-pdf"></i></div>
+        <div class="min-w-0 flex-1">
+          <div class="text-sm font-medium truncate">${d.name}</div>
+          <div class="text-[11px] text-slate-500">${d.date} · ${d.type} · ${d.tag}</div>
+        </div>
+        <button onclick="toast('Download started (demo)')" class="btn-ghost px-3 py-2 rounded-lg text-xs shrink-0"><i class="fas fa-download"></i></button>
+      </div>`).join('')}
+  </div>`;
 
-    document.getElementById('kb-grid').innerHTML = KB.map(k => `
-      <button type="button" onclick="toast('Opening: ${k.title}')" class="glass rounded-2xl p-5 text-left hover:border-cyan-500/30 transition border border-transparent">
-        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-3"><i class="fas ${k.icon}"></i></div>
+render.billing = () => `
+  <div class="glass-accent rounded-2xl p-5 sm:p-6 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <div class="text-[10px] uppercase tracking-wide text-cyan-500/80 mb-1">Current plan</div>
+      <div class="text-xl font-bold">Premium Protection</div>
+      <div class="text-sm text-slate-400 mt-1">KES 38,900 / month · Next invoice 15 Aug 2026</div>
+    </div>
+    <span class="chip s-ok self-start">Active</span>
+  </div>
+  <div class="glass rounded-2xl overflow-hidden">
+    <div class="px-5 py-3 border-b border-slate-800/80 text-sm font-semibold">Invoices</div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="text-[11px] text-slate-500 text-left"><tr>
+          <th class="px-5 py-2.5 font-medium">Invoice</th>
+          <th class="px-5 py-2.5 font-medium">Date</th>
+          <th class="px-5 py-2.5 font-medium">Amount</th>
+          <th class="px-5 py-2.5 font-medium">Status</th>
+          <th class="px-5 py-2.5"></th>
+        </tr></thead>
+        <tbody>
+          ${INVOICES.map(inv => `
+            <tr class="border-t border-slate-800/50">
+              <td class="px-5 py-3 font-medium">${inv.id}</td>
+              <td class="px-5 py-3 text-slate-400">${inv.date}</td>
+              <td class="px-5 py-3 text-emerald-400">KES ${inv.amount.toLocaleString()}</td>
+              <td class="px-5 py-3"><span class="chip s-ok">${inv.status}</span></td>
+              <td class="px-5 py-3"><button onclick="toast('Opening ${inv.id}')" class="text-cyan-400 text-xs hover:underline">PDF</button></td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="text-[11px] text-slate-600 mt-3">Questions about billing? Open a support request under Account or billing.</p>`;
+
+render.learn = () => `
+  <p class="text-sm text-slate-500 mb-5">Short, practical guides your team can finish in a few minutes.</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    ${LEARN.map(k => `
+      <button type="button" onclick="toast('Opening: ${k.title}')" class="glass rounded-2xl p-5 text-left hover:border-cyan-500/25 transition border border-transparent group">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-3 group-hover:scale-105 transition"><i class="fas ${k.icon}"></i></div>
         <div class="font-medium text-sm mb-1">${k.title}</div>
-        <div class="text-xs text-slate-500">${k.cat}</div>
-      </button>
-    `).join('');
+        <div class="text-[11px] text-slate-500">${k.cat} · ${k.time} read</div>
+      </button>`).join('')}
+  </div>`;
 
-    renderTickets();
-    renderNotifs();
-  }
-
-  function renderTickets() {
-    document.getElementById('kpi-tickets').textContent = tickets.filter(t => t.status !== 'Closed').length;
-    const list = document.getElementById('tickets-list');
-    if (!tickets.length) {
-      list.innerHTML = '<div class="glass rounded-2xl p-10 text-center text-slate-500 text-sm">No tickets yet. Open one when you need help.</div>';
-      return;
-    }
-    list.innerHTML = tickets.map(t => `
-      <div class="glass rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <span class="font-medium">${esc(t.subject)}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300">${esc(t.status)}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">${esc(t.priority)}</span>
-          </div>
-          <div class="text-sm text-slate-500 mt-1">${esc((t.description || '').slice(0, 100))}…</div>
-          <div class="text-xs text-slate-600 mt-2">${esc(t.id)} · ${esc(t.category || '')} · ${esc(t.date)}</div>
+render.profile = () => `
+  <div class="max-w-lg">
+    <div class="glass rounded-2xl p-6">
+      <div class="flex flex-col sm:flex-row items-center gap-5 mb-8">
+        <div class="relative group">
+          <img id="prof-av" src="" alt="" class="w-24 h-24 rounded-2xl object-cover border-2 border-cyan-500/30">
+          <label class="absolute inset-0 flex items-center justify-center rounded-2xl bg-black/55 opacity-0 group-hover:opacity-100 cursor-pointer transition text-[11px] font-medium">
+            Change
+            <input type="file" accept="image/*" class="hidden" onchange="changePhoto(event)">
+          </label>
+        </div>
+        <div class="text-center sm:text-left">
+          <div class="font-semibold text-lg" id="prof-label-name"></div>
+          <div class="text-sm text-slate-500" id="prof-label-title"></div>
+          <div class="text-[12px] text-cyan-400/80 mt-1" id="prof-label-co"></div>
         </div>
       </div>
-    `).join('');
-  }
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div class="sm:col-span-2 sm:grid sm:grid-cols-2 gap-3 space-y-3 sm:space-y-0">
+          <div>
+            <label class="text-[11px] text-slate-500 mb-1 block">Full name</label>
+            <input id="p-name" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+          </div>
+          <div>
+            <label class="text-[11px] text-slate-500 mb-1 block">Email</label>
+            <input id="p-email" readonly class="w-full px-3.5 py-2.5 rounded-xl bg-void-900/50 border border-slate-800 text-sm text-slate-500">
+          </div>
+        </div>
+        <div>
+          <label class="text-[11px] text-slate-500 mb-1 block">Company</label>
+          <input id="p-co" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+        </div>
+        <div>
+          <label class="text-[11px] text-slate-500 mb-1 block">Phone</label>
+          <input id="p-phone" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-[11px] text-slate-500 mb-1 block">Job title</label>
+          <input id="p-title" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+        </div>
+      </div>
+      <button type="button" onclick="saveProfile()" class="btn-g mt-5 px-5 py-2.5 rounded-xl text-sm">Save changes</button>
+    </div>
+  </div>`;
 
-  function openTicketModal() {
-    document.getElementById('ticket-modal').classList.remove('hidden');
-    document.getElementById('ticket-modal').classList.add('flex');
-  }
-  function closeTicketModal() {
-    document.getElementById('ticket-modal').classList.add('hidden');
-    document.getElementById('ticket-modal').classList.remove('flex');
-  }
+function fillProfileForm() {
+  document.getElementById('prof-av').src = profile.avatar || AVATAR;
+  document.getElementById('prof-label-name').textContent = profile.name;
+  document.getElementById('prof-label-title').textContent = profile.title || 'Client';
+  document.getElementById('prof-label-co').textContent = profile.company;
+  document.getElementById('p-name').value = profile.name || '';
+  document.getElementById('p-email').value = profile.email || '';
+  document.getElementById('p-co').value = profile.company || '';
+  document.getElementById('p-phone').value = profile.phone || '';
+  document.getElementById('p-title').value = profile.title || '';
+}
 
-  function createTicket() {
-    const subject = document.getElementById('ticket-subject').value.trim();
-    const description = document.getElementById('ticket-description').value.trim();
-    const priority = document.getElementById('ticket-priority').value;
-    const category = document.getElementById('ticket-cat').value;
-    if (!subject || !description) { alert('Please fill subject and description'); return; }
-    tickets.unshift({
-      id: 'TKT-' + Date.now().toString().slice(-6),
-      subject, description, priority, category,
-      status: 'Open',
-      date: new Date().toLocaleString()
-    });
-    localStorage.setItem('ich_client_tickets', JSON.stringify(tickets));
-    closeTicketModal();
-    document.getElementById('ticket-subject').value = '';
-    document.getElementById('ticket-description').value = '';
-    renderTickets();
-    toast('Ticket submitted — we typically respond within 2 hours');
+render.settings = () => `
+  <div class="max-w-md space-y-4">
+    <div class="glass rounded-2xl p-5 space-y-4">
+      <h3 class="font-semibold text-sm">Notifications</h3>
+      <label class="flex items-center justify-between gap-3 text-sm cursor-pointer">
+        <span class="text-slate-300">Email when ticket is updated</span>
+        <input type="checkbox" checked class="accent-cyan-500 w-4 h-4">
+      </label>
+      <label class="flex items-center justify-between gap-3 text-sm cursor-pointer">
+        <span class="text-slate-300">Weekly security summary</span>
+        <input type="checkbox" checked class="accent-cyan-500 w-4 h-4">
+      </label>
+      <label class="flex items-center justify-between gap-3 text-sm cursor-pointer">
+        <span class="text-slate-300">SMS for critical incidents</span>
+        <input type="checkbox" class="accent-cyan-500 w-4 h-4">
+      </label>
+    </div>
+    <div class="glass rounded-2xl p-5 space-y-3">
+      <h3 class="font-semibold text-sm">Password</h3>
+      <input type="password" placeholder="Current password" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+      <input type="password" placeholder="New password" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+      <button type="button" onclick="toast('Password updated (demo)')" class="btn-g px-4 py-2 rounded-xl text-xs">Update password</button>
+    </div>
+    <p class="text-[11px] text-slate-600 px-1">Need the admin console? That’s a separate staff login.</p>
+  </div>`;
+
+function changePhoto(e) {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    profile.avatar = r.result;
+    localStorage.setItem('ich_client_profile', JSON.stringify(profile));
+    applyProfile();
+    fillProfileForm();
+    toast('Photo updated');
+  };
+  r.readAsDataURL(f);
+}
+
+function saveProfile() {
+  profile.name = document.getElementById('p-name').value.trim();
+  profile.company = document.getElementById('p-co').value.trim();
+  profile.phone = document.getElementById('p-phone').value.trim();
+  profile.title = document.getElementById('p-title').value.trim();
+  localStorage.setItem('ich_client_profile', JSON.stringify(profile));
+  applyProfile();
+  fillProfileForm();
+  toast('Profile saved');
+}
+
+function openTicketModal() {
+  document.getElementById('ticket-modal').classList.remove('hidden');
+  document.getElementById('ticket-modal').classList.add('flex');
+}
+function closeTicketModal() {
+  document.getElementById('ticket-modal').classList.add('hidden');
+  document.getElementById('ticket-modal').classList.remove('flex');
+}
+
+function submitTicket() {
+  const subject = document.getElementById('t-subject').value.trim();
+  const description = document.getElementById('t-desc').value.trim();
+  const priority = document.getElementById('t-pri').value;
+  const category = document.getElementById('t-cat').value;
+  if (!subject || !description) {
+    toast('Please add a summary and details');
+    return;
   }
+  const ticket = {
+    id: 'TKT-' + Date.now().toString().slice(-6),
+    subject, description, priority, category,
+    status: 'Open',
+    date: new Date().toLocaleString(),
+    customer: profile.name,
+    company: profile.company,
+    email: profile.email,
+    createdMinutesAgo: 0,
+    source: 'client_portal'
+  };
+  tickets.unshift(ticket);
+  localStorage.setItem('ich_client_tickets', JSON.stringify(tickets));
+  const shared = JSON.parse(localStorage.getItem('ich_shared_tickets') || '[]');
+  shared.unshift(ticket);
+  localStorage.setItem('ich_shared_tickets', JSON.stringify(shared));
+  closeTicketModal();
+  document.getElementById('t-subject').value = '';
+  document.getElementById('t-desc').value = '';
+  toast('Request sent — we usually reply within 2 hours');
+  go('support');
+}
 
-  function esc(s) {
-    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.remove('hidden');
+  setTimeout(() => t.classList.add('hidden'), 2800);
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('ich_client_in') === '1') {
+    profile = JSON.parse(localStorage.getItem('ich_client_profile') || '{}');
+    if (profile.email) boot();
   }
-
-  function toast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.remove('hidden');
-    setTimeout(() => t.classList.add('hidden'), 2800);
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('ich_logged_in') === '1') {
-      const p = JSON.parse(localStorage.getItem('ich_profile') || '{}');
-      if (p.email) bootApp(p);
-    }
-  });
-
-  document.addEventListener('click', (e) => {
-    const panel = document.getElementById('notif-panel');
-    if (!panel.classList.contains('hidden') && !panel.contains(e.target) && !e.target.closest('[onclick="toggleNotif()"]')) {
-      panel.classList.add('hidden');
-    }
-  });
+});
 </script>
 </body>
 </html>
