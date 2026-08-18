@@ -3,333 +3,798 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Portal | Infinite Cyberspace Hub</title>
+  <title>Client Portal | Infinite Cyberspace Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyber: { 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2' },
+            surface: { 900: '#0a0a0f', 800: '#111118', 700: '#1a1a24' }
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
   <style>
-    :root { --primary: #22d3ee; --dark: #0a0a0a; }
-    body { background: var(--dark); color: #e2e8f0; font-family: system-ui, sans-serif; }
-    .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(34,211,238,0.15); border-radius: 1rem; }
-    .btn-primary { background: linear-gradient(90deg,#3b82f6,#22d3ee); color: #000; font-weight: 700; }
-    .status-active { background: rgba(16,185,129,0.2); color: #34d399; }
-    .status-open { background: rgba(59,130,246,0.2); color: #93c5fd; }
+    body { background: #07070c; color: #e2e8f0; font-family: Inter, system-ui, sans-serif; }
+    .glass {
+      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border: 1px solid rgba(34, 211, 238, 0.12);
+      backdrop-filter: blur(12px);
+    }
+    .glow-cyan { box-shadow: 0 0 40px rgba(34, 211, 238, 0.08); }
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #22d3ee);
+      color: #0a0a0a;
+      font-weight: 700;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(34,211,238,0.25); }
+    .nav-item.active { background: rgba(34,211,238,0.1); color: #22d3ee; border-color: rgba(34,211,238,0.3); }
+    .score-ring { background: conic-gradient(#22d3ee calc(var(--score) * 1%), #1e293b 0); }
+    .notif-dot { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    input, select, textarea { color-scheme: dark; }
   </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen antialiased">
 
-  <!-- LOGIN -->
-  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
-    <div class="card p-8 w-full max-w-md">
-      <h1 class="text-2xl font-bold text-cyan-400 mb-2 text-center">Customer Portal</h1>
-      <p class="text-center text-slate-400 mb-8">Infinite Cyberspace Hub</p>
-
-      <div id="login-error" class="hidden mb-4 p-3 bg-red-900/40 text-red-300 rounded-lg text-sm"></div>
-
-      <input id="login-email" type="email" placeholder="Email address"
-             class="w-full mb-4 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 outline-none focus:border-cyan-400 text-white">
-      <input id="login-password" type="password" placeholder="Password"
-             class="w-full mb-6 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 outline-none focus:border-cyan-400 text-white"
-             onkeydown="if(event.key==='Enter')handleLogin()">
-
-      <button type="button" onclick="handleLogin()" class="btn-primary w-full py-3 rounded-xl">Login</button>
-
-      <p class="text-center text-sm text-slate-500 mt-6">
-        Demo Login:<br>
-        Email: <span class="text-cyan-400">demo@client.com</span><br>
-        Password: <span class="text-cyan-400">demo123</span>
+  <!-- ========== LOGIN ========== -->
+  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(34,211,238,0.12),_transparent_50%)]"></div>
+    <div class="glass glow-cyan rounded-2xl p-8 w-full max-w-md relative z-10">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 mb-4">
+          <i class="fas fa-shield-halved text-2xl text-cyan-400"></i>
+        </div>
+        <h1 class="text-2xl font-bold text-white">Client Portal</h1>
+        <p class="text-slate-400 text-sm mt-1">Infinite Cyberspace Hub</p>
+      </div>
+      <div id="login-error" class="hidden mb-4 p-3 bg-red-500/10 border border-red-500/30 text-red-300 rounded-xl text-sm"></div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1.5">Email</label>
+          <input id="login-email" type="email" placeholder="you@company.com"
+            class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 outline-none focus:border-cyan-400/60 text-white text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1.5">Password</label>
+          <input id="login-password" type="password" placeholder="••••••••"
+            class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 outline-none focus:border-cyan-400/60 text-white text-sm"
+            onkeydown="if(event.key==='Enter')handleLogin()">
+        </div>
+        <button type="button" onclick="handleLogin()" class="btn-primary w-full py-3 rounded-xl text-sm">
+          Sign in securely
+        </button>
+      </div>
+      <p class="text-center text-xs text-slate-500 mt-6 leading-relaxed">
+        Demo: <span class="text-cyan-400">demo@client.com</span> / <span class="text-cyan-400">demo123</span>
       </p>
     </div>
   </div>
 
-  <!-- PORTAL -->
-  <div id="portal" class="hidden">
-    <nav class="border-b border-cyan-500/20 bg-black/60 backdrop-blur sticky top-0 z-50">
-      <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-        <span class="text-xl font-bold text-cyan-400">INFINITE<span class="text-white">CYBER</span>
-          <span class="text-xs bg-cyan-900/50 text-cyan-300 px-2 py-1 rounded ml-2">PORTAL</span>
-        </span>
-        <div class="flex items-center gap-4">
-          <span id="user-name" class="text-sm text-slate-400"></span>
-          <button type="button" onclick="doLogout()" class="text-sm text-red-400 hover:text-red-300">
-            <i class="fas fa-sign-out-alt"></i> Logout
-          </button>
-        </div>
-      </div>
-    </nav>
+  <!-- ========== APP SHELL ========== -->
+  <div id="app" class="hidden min-h-screen flex">
 
-    <div class="max-w-6xl mx-auto px-4 py-8">
-      <div class="card p-6 mb-8">
-        <div class="flex flex-col md:flex-row justify-between gap-4 items-start">
-          <div>
-            <h2 class="text-2xl font-bold" id="pkg-name">—</h2>
-            <p class="text-slate-400 mt-1" id="pkg-period"></p>
-            <p class="text-sm text-slate-500 mt-2" id="pkg-amount"></p>
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 shrink-0 border-r border-slate-800/80 bg-surface-900/95 flex flex-col fixed md:sticky top-0 h-screen z-40 -translate-x-full md:translate-x-0 transition-transform">
+      <div class="p-5 border-b border-slate-800/80">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
+            <i class="fas fa-shield-halved text-black text-sm"></i>
           </div>
-          <span id="pkg-status" class="px-4 py-1.5 rounded-full text-sm font-medium"></span>
+          <div>
+            <div class="font-bold text-sm tracking-tight">INFINITE<span class="text-cyan-400">CYBER</span></div>
+            <div class="text-[10px] text-slate-500 uppercase tracking-wider">Client Portal</div>
+          </div>
         </div>
       </div>
-
-      <div class="grid md:grid-cols-4 gap-4 mb-10">
-        <button type="button" onclick="showTab('overview')" class="card p-5 text-left hover:border-cyan-400 transition border border-transparent">
-          <i class="fas fa-home text-cyan-400 text-xl mb-2"></i>
-          <div class="font-medium">Overview</div>
+      <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
+        <button onclick="nav('dashboard')" data-nav="dashboard" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-left transition">
+          <i class="fas fa-grid-2 w-5 text-center opacity-80"></i> Dashboard
         </button>
-        <button type="button" onclick="showTab('tickets')" class="card p-5 text-left hover:border-cyan-400 transition border border-transparent">
-          <i class="fas fa-headset text-cyan-400 text-xl mb-2"></i>
-          <div class="font-medium">Support Tickets</div>
+        <button onclick="nav('tickets')" data-nav="tickets" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
+          <i class="fas fa-headset w-5 text-center opacity-80"></i> Support Tickets
         </button>
-        <button type="button" onclick="showTab('invoices')" class="card p-5 text-left hover:border-cyan-400 transition border border-transparent">
-          <i class="fas fa-file-invoice text-cyan-400 text-xl mb-2"></i>
-          <div class="font-medium">Invoices</div>
+        <button onclick="nav('security')" data-nav="security" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
+          <i class="fas fa-shield-virus w-5 text-center opacity-80"></i> Security Center
         </button>
-        <button type="button" onclick="showTab('reports')" class="card p-5 text-left hover:border-cyan-400 transition border border-transparent">
-          <i class="fas fa-file-alt text-cyan-400 text-xl mb-2"></i>
-          <div class="font-medium">Reports</div>
+        <button onclick="nav('reports')" data-nav="reports" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
+          <i class="fas fa-file-chart-column w-5 text-center opacity-80"></i> Reports
+        </button>
+        <button onclick="nav('billing')" data-nav="billing" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
+          <i class="fas fa-receipt w-5 text-center opacity-80"></i> Billing
+        </button>
+        <button onclick="nav('knowledge')" data-nav="knowledge" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
+          <i class="fas fa-book-open w-5 text-center opacity-80"></i> Knowledge Base
+        </button>
+        <button onclick="nav('profile')" data-nav="profile" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
+          <i class="fas fa-user-circle w-5 text-center opacity-80"></i> My Profile
+        </button>
+        <button onclick="nav('settings')" data-nav="settings" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm border border-transparent text-slate-400 hover:text-white hover:bg-white/5 text-left transition">
+          <i class="fas fa-sliders w-5 text-center opacity-80"></i> Settings
+        </button>
+      </nav>
+      <div class="p-4 border-t border-slate-800/80">
+        <div class="flex items-center gap-3 mb-3">
+          <img id="sidebar-avatar" src="" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-cyan-500/40">
+          <div class="min-w-0">
+            <div id="sidebar-name" class="text-sm font-semibold truncate"></div>
+            <div id="sidebar-company" class="text-xs text-slate-500 truncate"></div>
+          </div>
+        </div>
+        <button onclick="doLogout()" class="w-full text-xs text-red-400/90 hover:text-red-300 py-2 rounded-lg hover:bg-red-500/10 transition">
+          <i class="fas fa-sign-out-alt mr-1"></i> Sign out
         </button>
       </div>
+    </aside>
 
-      <div id="panel-overview" class="card p-6">
-        <h3 class="text-lg font-semibold mb-4">Your Active Services</h3>
-        <div id="services-list" class="grid md:grid-cols-2 gap-4"></div>
-      </div>
-
-      <div id="panel-tickets" class="hidden">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-semibold">Support Tickets</h3>
-          <button type="button" onclick="openTicketModal()" class="btn-primary px-5 py-2 rounded-xl text-sm">
-            <i class="fas fa-plus"></i> New Ticket
+    <!-- Main -->
+    <div class="flex-1 flex flex-col min-w-0 md:ml-0">
+      <!-- Top bar -->
+      <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-surface-900/90 backdrop-blur-md px-4 md:px-8 py-3 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <button type="button" onclick="toggleSidebar()" class="md:hidden p-2 rounded-lg hover:bg-white/5 text-slate-400">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div>
+            <h2 id="page-title" class="text-lg font-semibold text-white">Dashboard</h2>
+            <p id="page-sub" class="text-xs text-slate-500">Welcome back</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 notif-dot"></span> Systems protected
+          </div>
+          <button type="button" onclick="toggleNotif()" class="relative p-2.5 rounded-xl hover:bg-white/5 text-slate-400 hover:text-white transition">
+            <i class="fas fa-bell"></i>
+            <span id="notif-badge" class="absolute top-1.5 right-1.5 w-2 h-2 bg-cyan-400 rounded-full"></span>
+          </button>
+          <button type="button" onclick="nav('profile')" class="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-white/5 transition">
+            <img id="header-avatar" src="" alt="" class="w-8 h-8 rounded-full object-cover border border-cyan-500/30">
           </button>
         </div>
-        <div id="tickets-list" class="space-y-3"></div>
+      </header>
+
+      <!-- Notifications panel -->
+      <div id="notif-panel" class="hidden absolute right-4 top-16 z-50 w-80 glass rounded-2xl shadow-2xl border border-slate-700/50 overflow-hidden">
+        <div class="px-4 py-3 border-b border-slate-800 flex justify-between items-center">
+          <span class="font-semibold text-sm">Notifications</span>
+          <button onclick="markNotifsRead()" class="text-xs text-cyan-400 hover:underline">Mark all read</button>
+        </div>
+        <div id="notif-list" class="max-h-72 overflow-y-auto"></div>
       </div>
 
-      <div id="panel-invoices" class="hidden card p-6">
-        <h3 class="text-lg font-semibold mb-4">Invoices & Payments</h3>
-        <div id="invoices-list"></div>
-      </div>
+      <!-- Content -->
+      <main class="flex-1 p-4 md:p-8 overflow-y-auto">
 
-      <div id="panel-reports" class="hidden card p-6">
-        <h3 class="text-lg font-semibold mb-4">Downloadable Reports</h3>
-        <div id="reports-list" class="space-y-3"></div>
-      </div>
+        <!-- DASHBOARD -->
+        <section id="view-dashboard" class="space-y-6">
+          <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div class="glass rounded-2xl p-5 glow-cyan">
+              <div class="flex justify-between items-start mb-3">
+                <span class="text-xs text-slate-400 uppercase tracking-wide">Security Score</span>
+                <i class="fas fa-shield-heart text-cyan-400/60"></i>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="score-ring w-14 h-14 rounded-full p-1" style="--score: 87">
+                  <div class="w-full h-full rounded-full bg-surface-900 flex items-center justify-center text-sm font-bold text-cyan-400">87</div>
+                </div>
+                <div>
+                  <div class="text-2xl font-bold">Good</div>
+                  <div class="text-xs text-slate-500">+4 pts this month</div>
+                </div>
+              </div>
+            </div>
+            <div class="glass rounded-2xl p-5">
+              <div class="flex justify-between items-start mb-3">
+                <span class="text-xs text-slate-400 uppercase tracking-wide">Open Tickets</span>
+                <i class="fas fa-ticket text-blue-400/60"></i>
+              </div>
+              <div id="kpi-tickets" class="text-3xl font-bold">0</div>
+              <div class="text-xs text-slate-500 mt-1">Avg response under 2 hrs</div>
+            </div>
+            <div class="glass rounded-2xl p-5">
+              <div class="flex justify-between items-start mb-3">
+                <span class="text-xs text-slate-400 uppercase tracking-wide">Package</span>
+                <i class="fas fa-cube text-violet-400/60"></i>
+              </div>
+              <div class="text-xl font-bold text-cyan-300">Premium</div>
+              <div class="text-xs text-slate-500 mt-1">Renews 15 Aug 2026</div>
+            </div>
+            <div class="glass rounded-2xl p-5">
+              <div class="flex justify-between items-start mb-3">
+                <span class="text-xs text-slate-400 uppercase tracking-wide">Threats Blocked</span>
+                <i class="fas fa-ban text-emerald-400/60"></i>
+              </div>
+              <div class="text-3xl font-bold text-emerald-400">1,248</div>
+              <div class="text-xs text-slate-500 mt-1">Last 30 days</div>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 glass rounded-2xl p-6">
+              <div class="flex justify-between items-center mb-5">
+                <h3 class="font-semibold">Active protections</h3>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">All operational</span>
+              </div>
+              <div class="grid sm:grid-cols-2 gap-3" id="services-grid"></div>
+            </div>
+            <div class="glass rounded-2xl p-6">
+              <h3 class="font-semibold mb-4">Assigned technician</h3>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-lg font-bold text-white">AO</div>
+                <div>
+                  <div class="font-medium">Augustine Ouma</div>
+                  <div class="text-xs text-slate-500">Senior Security Engineer</div>
+                </div>
+              </div>
+              <div class="space-y-2 text-sm text-slate-400">
+                <div class="flex items-center gap-2"><i class="fas fa-envelope text-cyan-500/70 w-4"></i> support@infinitecyberspace.com</div>
+                <div class="flex items-center gap-2"><i class="fas fa-phone text-cyan-500/70 w-4"></i> +254 700 000 000</div>
+                <div class="flex items-center gap-2"><i class="fas fa-clock text-cyan-500/70 w-4"></i> SLA: 2-hour response</div>
+              </div>
+              <button onclick="nav('tickets')" class="mt-5 w-full py-2.5 rounded-xl border border-cyan-500/30 text-cyan-400 text-sm hover:bg-cyan-500/10 transition">
+                Contact support
+              </button>
+            </div>
+          </div>
+
+          <div class="glass rounded-2xl p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-semibold">Recent activity</h3>
+            </div>
+            <div id="activity-feed" class="space-y-3"></div>
+          </div>
+        </section>
+
+        <!-- TICKETS -->
+        <section id="view-tickets" class="hidden space-y-6">
+          <div class="flex flex-col sm:flex-row justify-between gap-4">
+            <p class="text-slate-400 text-sm">Track and open support requests with our security team.</p>
+            <button onclick="openTicketModal()" class="btn-primary px-5 py-2.5 rounded-xl text-sm shrink-0">
+              <i class="fas fa-plus mr-2"></i>New ticket
+            </button>
+          </div>
+          <div id="tickets-list" class="space-y-3"></div>
+        </section>
+
+        <!-- SECURITY -->
+        <section id="view-security" class="hidden space-y-6">
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="glass rounded-2xl p-5 text-center">
+              <div class="text-3xl font-bold text-emerald-400 mb-1">0</div>
+              <div class="text-sm text-slate-400">Critical alerts</div>
+            </div>
+            <div class="glass rounded-2xl p-5 text-center">
+              <div class="text-3xl font-bold text-amber-400 mb-1">2</div>
+              <div class="text-sm text-slate-400">Recommendations</div>
+            </div>
+            <div class="glass rounded-2xl p-5 text-center">
+              <div class="text-3xl font-bold text-cyan-400 mb-1">99.9%</div>
+              <div class="text-sm text-slate-400">Uptime (30d)</div>
+            </div>
+          </div>
+          <div class="glass rounded-2xl p-6">
+            <h3 class="font-semibold mb-4">Security posture</h3>
+            <div class="space-y-4" id="posture-list"></div>
+          </div>
+          <div class="glass rounded-2xl p-6">
+            <h3 class="font-semibold mb-2">Recommendations</h3>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex gap-3 p-3 rounded-xl bg-amber-500/5 border border-amber-500/15">
+                <i class="fas fa-lightbulb text-amber-400 mt-0.5"></i>
+                <span>Enable MFA for all admin accounts before the next compliance review.</span>
+              </li>
+              <li class="flex gap-3 p-3 rounded-xl bg-amber-500/5 border border-amber-500/15">
+                <i class="fas fa-lightbulb text-amber-400 mt-0.5"></i>
+                <span>Schedule employee phishing simulation for Q3 2026.</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- REPORTS -->
+        <section id="view-reports" class="hidden space-y-6">
+          <p class="text-slate-400 text-sm">Download monthly security reports, scan results, and certificates.</p>
+          <div id="reports-list" class="grid sm:grid-cols-2 gap-4"></div>
+        </section>
+
+        <!-- BILLING -->
+        <section id="view-billing" class="hidden space-y-6">
+          <div class="glass rounded-2xl p-6 flex flex-col sm:flex-row justify-between gap-4 items-start">
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Current plan</div>
+              <div class="text-2xl font-bold text-cyan-300">Premium Protection</div>
+              <div class="text-slate-400 text-sm mt-1">KES 38,900 / month · Next invoice 15 Aug 2026</div>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">Active</span>
+          </div>
+          <div class="glass rounded-2xl overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-800 font-semibold text-sm">Invoices</div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead class="text-slate-500 text-left">
+                  <tr>
+                    <th class="px-6 py-3 font-medium">Invoice</th>
+                    <th class="px-6 py-3 font-medium">Date</th>
+                    <th class="px-6 py-3 font-medium">Amount</th>
+                    <th class="px-6 py-3 font-medium">Status</th>
+                    <th class="px-6 py-3 font-medium"></th>
+                  </tr>
+                </thead>
+                <tbody id="invoices-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- KNOWLEDGE -->
+        <section id="view-knowledge" class="hidden space-y-6">
+          <p class="text-slate-400 text-sm">Guides and best practices for your team.</p>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="kb-grid"></div>
+        </section>
+
+        <!-- PROFILE -->
+        <section id="view-profile" class="hidden space-y-6 max-w-2xl">
+          <div class="glass rounded-2xl p-6">
+            <div class="flex flex-col sm:flex-row items-center gap-6 mb-8">
+              <div class="relative group">
+                <img id="profile-avatar" src="" alt="Profile" class="w-28 h-28 rounded-2xl object-cover border-2 border-cyan-500/40 shadow-lg">
+                <label class="absolute inset-0 flex items-center justify-center bg-black/50 rounded-2xl opacity-0 group-hover:opacity-100 cursor-pointer transition text-xs font-medium">
+                  Change photo
+                  <input type="file" accept="image/*" class="hidden" onchange="changePhoto(event)">
+                </label>
+              </div>
+              <div class="text-center sm:text-left">
+                <h3 id="profile-display-name" class="text-xl font-bold"></h3>
+                <p id="profile-display-role" class="text-slate-400 text-sm"></p>
+                <p class="text-xs text-cyan-400/80 mt-2"><i class="fas fa-building mr-1"></i><span id="profile-display-company"></span></p>
+              </div>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs text-slate-500 mb-1.5">Full name</label>
+                <input id="prof-name" type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
+              </div>
+              <div>
+                <label class="block text-xs text-slate-500 mb-1.5">Email</label>
+                <input id="prof-email" type="email" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50" readonly>
+              </div>
+              <div>
+                <label class="block text-xs text-slate-500 mb-1.5">Company</label>
+                <input id="prof-company" type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
+              </div>
+              <div>
+                <label class="block text-xs text-slate-500 mb-1.5">Phone</label>
+                <input id="prof-phone" type="tel" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs text-slate-500 mb-1.5">Job title</label>
+                <input id="prof-title" type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
+              </div>
+            </div>
+            <button onclick="saveProfile()" class="btn-primary mt-6 px-6 py-2.5 rounded-xl text-sm">Save profile</button>
+          </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="view-settings" class="hidden space-y-6 max-w-xl">
+          <div class="glass rounded-2xl p-6 space-y-5">
+            <h3 class="font-semibold">Preferences</h3>
+            <label class="flex items-center justify-between gap-4 cursor-pointer">
+              <span class="text-sm text-slate-300">Email alerts for new tickets</span>
+              <input id="set-email" type="checkbox" checked class="w-4 h-4 accent-cyan-500">
+            </label>
+            <label class="flex items-center justify-between gap-4 cursor-pointer">
+              <span class="text-sm text-slate-300">Weekly security summary</span>
+              <input id="set-weekly" type="checkbox" checked class="w-4 h-4 accent-cyan-500">
+            </label>
+            <label class="flex items-center justify-between gap-4 cursor-pointer">
+              <span class="text-sm text-slate-300">SMS for critical incidents</span>
+              <input id="set-sms" type="checkbox" class="w-4 h-4 accent-cyan-500">
+            </label>
+          </div>
+          <div class="glass rounded-2xl p-6 space-y-4">
+            <h3 class="font-semibold">Change password</h3>
+            <input id="pw-current" type="password" placeholder="Current password" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
+            <input id="pw-new" type="password" placeholder="New password" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
+            <button onclick="alert('Password updated (demo). Connect backend for real auth.')" class="btn-primary px-6 py-2.5 rounded-xl text-sm">Update password</button>
+          </div>
+        </section>
+
+      </main>
     </div>
   </div>
 
-  <!-- TICKET MODAL -->
-  <div id="ticket-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4">
-    <div class="card w-full max-w-lg p-6">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-lg font-semibold">Create Support Ticket</h3>
-        <button type="button" onclick="closeTicketModal()" class="text-slate-400 hover:text-white text-xl">&times;</button>
+  <!-- Ticket modal -->
+  <div id="ticket-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="glass rounded-2xl w-full max-w-lg p-6 glow-cyan">
+      <div class="flex justify-between items-center mb-5">
+        <h3 class="text-lg font-semibold">New support ticket</h3>
+        <button onclick="closeTicketModal()" class="text-slate-400 hover:text-white text-xl leading-none">&times;</button>
       </div>
       <div class="space-y-4">
         <div>
-          <label class="block text-sm text-slate-400 mb-1">Subject</label>
-          <input id="ticket-subject" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 outline-none focus:border-cyan-400 text-white">
+          <label class="block text-xs text-slate-500 mb-1">Subject</label>
+          <input id="ticket-subject" type="text" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
         </div>
         <div>
-          <label class="block text-sm text-slate-400 mb-1">Description</label>
-          <textarea id="ticket-description" rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 outline-none focus:border-cyan-400 text-white"></textarea>
-        </div>
-        <div>
-          <label class="block text-sm text-slate-400 mb-1">Priority</label>
-          <select id="ticket-priority" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white">
-            <option value="Low">Low</option>
-            <option value="Medium" selected>Medium</option>
-            <option value="High">High</option>
+          <label class="block text-xs text-slate-500 mb-1">Category</label>
+          <select id="ticket-cat" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
+            <option>Security incident</option>
+            <option>Endpoint / device</option>
+            <option>Email / phishing</option>
+            <option>Network</option>
+            <option>General support</option>
           </select>
         </div>
-        <button type="button" onclick="createTicket()" class="btn-primary w-full py-3 rounded-xl">Submit Ticket</button>
+        <div>
+          <label class="block text-xs text-slate-500 mb-1">Priority</label>
+          <select id="ticket-priority" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/50">
+            <option>Low</option>
+            <option selected>Medium</option>
+            <option>High</option>
+            <option>Critical</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-500 mb-1">Description</label>
+          <textarea id="ticket-description" rows="4" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/50"></textarea>
+        </div>
+        <button onclick="createTicket()" class="btn-primary w-full py-3 rounded-xl text-sm">Submit ticket</button>
       </div>
     </div>
   </div>
 
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-[60] hidden px-5 py-3 rounded-xl bg-slate-800 border border-cyan-500/30 text-sm shadow-xl"></div>
+
 <script>
-  // Demo accounts (no backend needed)
-  const ACCOUNTS = {
-    'demo@client.com': { password: 'demo123', name: 'John Odhiambo', role: 'client', company: 'Acme Solutions Ltd' },
-    'admin@infinitecyberspace.com': { password: 'admin123', name: 'Augustine Ouma', role: 'admin', company: 'Infinite Cyberspace Hub' }
-  };
+  const DEFAULT_AVATAR = 'data:image/svg+xml,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect fill="#0e7490" width="128" height="128"/><circle cx="64" cy="48" r="24" fill="#a5f3fc"/><ellipse cx="64" cy="112" rx="40" ry="32" fill="#a5f3fc"/></svg>'
+  );
 
-  const demoSubscription = {
-    package_name: 'Premium Protection',
-    amount: 38900,
-    start_date: '2026-07-15',
-    end_date: '2026-08-15'
-  };
-
-  let clientTickets = JSON.parse(localStorage.getItem('client_tickets') || '[]');
-
-  const clientInvoices = [
-    { id: 'INV-001', date: '2026-07-15', amount: 38900, status: 'Paid' },
-    { id: 'INV-002', date: '2026-08-01', amount: 38900, status: 'Paid' }
+  const SERVICES = [
+    { name: '24/7 Threat Monitoring', icon: 'fa-radar', status: 'Active' },
+    { name: 'Endpoint Protection', icon: 'fa-laptop', status: 'Active' },
+    { name: 'Email & Phishing Shield', icon: 'fa-envelope-circle-check', status: 'Active' },
+    { name: 'Vulnerability Scanning', icon: 'fa-magnifying-glass-chart', status: 'Active' },
+    { name: 'Monthly Security Reports', icon: 'fa-file-lines', status: 'Active' },
+    { name: 'Employee Training Portal', icon: 'fa-graduation-cap', status: 'Active' }
   ];
 
-  const clientReports = [
-    { name: 'Monthly Security Report - July 2026', date: '2026-08-01', type: 'PDF' },
-    { name: 'Vulnerability Scan Results', date: '2026-07-20', type: 'PDF' },
-    { name: 'Employee Training Certificate', date: '2026-07-10', type: 'PDF' }
+  const POSTURE = [
+    { label: 'Endpoint coverage', value: 100 },
+    { label: 'Patch compliance', value: 94 },
+    { label: 'Email security', value: 98 },
+    { label: 'Backup verification', value: 91 }
+  ];
+
+  const REPORTS = [
+    { name: 'Monthly Security Report — July 2026', date: '2026-08-01', type: 'PDF', size: '2.4 MB' },
+    { name: 'Vulnerability Scan Results', date: '2026-07-20', type: 'PDF', size: '1.1 MB' },
+    { name: 'Employee Training Certificates', date: '2026-07-10', type: 'PDF', size: '890 KB' },
+    { name: 'Incident Response Summary Q2', date: '2026-07-05', type: 'PDF', size: '1.8 MB' }
+  ];
+
+  const INVOICES = [
+    { id: 'INV-2026-008', date: '2026-08-01', amount: 38900, status: 'Paid' },
+    { id: 'INV-2026-007', date: '2026-07-01', amount: 38900, status: 'Paid' },
+    { id: 'INV-2026-006', date: '2026-06-01', amount: 38900, status: 'Paid' }
+  ];
+
+  const KB = [
+    { title: 'Recognizing phishing emails', cat: 'Awareness', icon: 'fa-fish' },
+    { title: 'Password & MFA best practices', cat: 'Identity', icon: 'fa-key' },
+    { title: 'What to do after a suspected breach', cat: 'Incident', icon: 'fa-triangle-exclamation' },
+    { title: 'Securing remote work devices', cat: 'Endpoint', icon: 'fa-laptop-house' },
+    { title: 'Understanding your monthly report', cat: 'Reports', icon: 'fa-chart-line' },
+    { title: 'SLA & escalation policy', cat: 'Support', icon: 'fa-clock' }
+  ];
+
+  const ACTIVITY = [
+    { text: 'Endpoint scan completed — 0 critical findings', time: '2 hours ago', icon: 'fa-check-circle', color: 'text-emerald-400' },
+    { text: '12 phishing attempts blocked', time: 'Yesterday', icon: 'fa-ban', color: 'text-cyan-400' },
+    { text: 'Monthly report published', time: '1 Aug 2026', icon: 'fa-file-pdf', color: 'text-blue-400' },
+    { text: 'Package renewed — Premium Protection', time: '15 Jul 2026', icon: 'fa-cube', color: 'text-violet-400' }
+  ];
+
+  let tickets = JSON.parse(localStorage.getItem('ich_client_tickets') || '[]');
+  let notifications = JSON.parse(localStorage.getItem('ich_notifs') || 'null') || [
+    { id: 1, title: 'Monthly report ready', body: 'July 2026 security report is available.', read: false, time: '1d ago' },
+    { id: 2, title: 'Scan complete', body: 'Scheduled vulnerability scan finished with no critical issues.', read: false, time: '2d ago' },
+    { id: 3, title: 'Welcome', body: 'Your Premium Protection plan is active.', read: true, time: '1w ago' }
   ];
 
   function handleLogin() {
     const email = document.getElementById('login-email').value.trim().toLowerCase();
     const password = document.getElementById('login-password').value;
-    const errorEl = document.getElementById('login-error');
-    errorEl.classList.add('hidden');
+    const err = document.getElementById('login-error');
+    err.classList.add('hidden');
 
-    const account = ACCOUNTS[email];
-    if (!account || account.password !== password) {
-      errorEl.textContent = 'Invalid email or password';
-      errorEl.classList.remove('hidden');
+    if (email === 'demo@client.com' && password === 'demo123') {
+      const profile = JSON.parse(localStorage.getItem('ich_profile') || 'null') || {
+        name: 'John Odhiambo',
+        email: 'demo@client.com',
+        company: 'Acme Solutions Ltd',
+        phone: '+254 712 345 678',
+        title: 'IT Manager',
+        avatar: DEFAULT_AVATAR
+      };
+      localStorage.setItem('ich_profile', JSON.stringify(profile));
+      localStorage.setItem('ich_logged_in', '1');
+      bootApp(profile);
       return;
     }
-
-    if (account.role === 'admin') {
-      localStorage.setItem('ich_user', JSON.stringify({ email, ...account }));
-      window.location.href = 'admin.html';
-      return;
-    }
-
-    localStorage.setItem('ich_user', JSON.stringify({ email, name: account.name, role: account.role, company: account.company }));
-    localStorage.setItem('customer_logged_in', 'true');
-    showPortal();
+    err.textContent = 'Invalid email or password. Use demo@client.com / demo123';
+    err.classList.remove('hidden');
   }
 
   function doLogout() {
-    localStorage.removeItem('ich_user');
-    localStorage.removeItem('customer_logged_in');
-    localStorage.removeItem('ich_auth_token');
+    localStorage.removeItem('ich_logged_in');
     location.reload();
   }
 
-  function showPortal() {
-    const user = JSON.parse(localStorage.getItem('ich_user') || '{}');
-
+  function bootApp(profile) {
     document.getElementById('login-screen').classList.add('hidden');
-    document.getElementById('portal').classList.remove('hidden');
-
-    document.getElementById('user-name').textContent =
-      (user.name || 'Client') + (user.company ? ' · ' + user.company : '');
-
-    document.getElementById('pkg-name').textContent = demoSubscription.package_name;
-    document.getElementById('pkg-period').textContent =
-      'Valid from ' + demoSubscription.start_date + ' to ' + demoSubscription.end_date;
-    document.getElementById('pkg-amount').textContent =
-      'KES ' + demoSubscription.amount.toLocaleString() + ' / month';
-
-    const st = document.getElementById('pkg-status');
-    st.textContent = 'ACTIVE';
-    st.className = 'px-4 py-1.5 rounded-full text-sm font-medium status-active';
-
-    renderServices();
-    renderTickets();
-    renderInvoices();
-    renderReports();
+    document.getElementById('app').classList.remove('hidden');
+    applyProfile(profile);
+    renderAll();
+    nav('dashboard');
   }
 
-  function renderServices() {
-    const services = [
-      '24/7 Threat Monitoring',
-      'Endpoint Protection',
-      'Email & Phishing Protection',
-      'Monthly Security Reports',
-      'Priority Support',
-      'Employee Training Access'
-    ];
-    document.getElementById('services-list').innerHTML = services.map(function (s) {
-      return '<div class="card p-4 flex justify-between items-center"><span>' + s +
-        '</span><span class="text-xs px-2 py-1 rounded status-active">Active</span></div>';
-    }).join('');
+  function applyProfile(p) {
+    const av = p.avatar || DEFAULT_AVATAR;
+    ['sidebar-avatar', 'header-avatar', 'profile-avatar'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.src = av;
+    });
+    document.getElementById('sidebar-name').textContent = p.name;
+    document.getElementById('sidebar-company').textContent = p.company;
+    document.getElementById('profile-display-name').textContent = p.name;
+    document.getElementById('profile-display-role').textContent = p.title || 'Client';
+    document.getElementById('profile-display-company').textContent = p.company;
+    document.getElementById('prof-name').value = p.name || '';
+    document.getElementById('prof-email').value = p.email || '';
+    document.getElementById('prof-company').value = p.company || '';
+    document.getElementById('prof-phone').value = p.phone || '';
+    document.getElementById('prof-title').value = p.title || '';
+    document.getElementById('page-sub').textContent = 'Welcome back, ' + (p.name || '').split(' ')[0];
+  }
+
+  function changePhoto(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function () {
+      const p = JSON.parse(localStorage.getItem('ich_profile') || '{}');
+      p.avatar = reader.result;
+      localStorage.setItem('ich_profile', JSON.stringify(p));
+      applyProfile(p);
+      toast('Profile photo updated');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function saveProfile() {
+    const p = JSON.parse(localStorage.getItem('ich_profile') || '{}');
+    p.name = document.getElementById('prof-name').value.trim();
+    p.company = document.getElementById('prof-company').value.trim();
+    p.phone = document.getElementById('prof-phone').value.trim();
+    p.title = document.getElementById('prof-title').value.trim();
+    localStorage.setItem('ich_profile', JSON.stringify(p));
+    applyProfile(p);
+    toast('Profile saved');
+  }
+
+  function nav(name) {
+    document.querySelectorAll('[id^="view-"]').forEach(el => el.classList.add('hidden'));
+    const view = document.getElementById('view-' + name);
+    if (view) view.classList.remove('hidden');
+
+    document.querySelectorAll('.nav-item').forEach(btn => {
+      btn.classList.remove('active', 'text-white');
+      btn.classList.add('text-slate-400');
+      if (btn.getAttribute('data-nav') === name) {
+        btn.classList.add('active');
+        btn.classList.remove('text-slate-400');
+      }
+    });
+
+    const titles = {
+      dashboard: ['Dashboard', 'Overview of your security posture'],
+      tickets: ['Support Tickets', 'Get help from our team'],
+      security: ['Security Center', 'Live posture and recommendations'],
+      reports: ['Reports', 'Downloads and compliance documents'],
+      billing: ['Billing', 'Plan, invoices and payments'],
+      knowledge: ['Knowledge Base', 'Guides for your team'],
+      profile: ['My Profile', 'Account and photo'],
+      settings: ['Settings', 'Notifications and security']
+    };
+    const t = titles[name] || ['Portal', ''];
+    document.getElementById('page-title').textContent = t[0];
+    document.getElementById('page-sub').textContent = t[1];
+
+    document.getElementById('sidebar').classList.add('-translate-x-full');
+    document.getElementById('notif-panel').classList.add('hidden');
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('-translate-x-full');
+  }
+
+  function toggleNotif() {
+    const panel = document.getElementById('notif-panel');
+    panel.classList.toggle('hidden');
+    renderNotifs();
+  }
+
+  function renderNotifs() {
+    const list = document.getElementById('notif-list');
+    list.innerHTML = notifications.map(n => `
+      <div class="px-4 py-3 border-b border-slate-800/80 ${n.read ? 'opacity-60' : 'bg-cyan-500/5'}">
+        <div class="text-sm font-medium">${n.title}</div>
+        <div class="text-xs text-slate-500 mt-0.5">${n.body}</div>
+        <div class="text-[10px] text-slate-600 mt-1">${n.time}</div>
+      </div>
+    `).join('') || '<div class="p-4 text-sm text-slate-500">No notifications</div>';
+    const unread = notifications.filter(n => !n.read).length;
+    document.getElementById('notif-badge').style.display = unread ? 'block' : 'none';
+  }
+
+  function markNotifsRead() {
+    notifications.forEach(n => n.read = true);
+    localStorage.setItem('ich_notifs', JSON.stringify(notifications));
+    renderNotifs();
+  }
+
+  function renderAll() {
+    document.getElementById('services-grid').innerHTML = SERVICES.map(s => `
+      <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/50 border border-slate-800/80">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400"><i class="fas ${s.icon} text-sm"></i></div>
+          <span class="text-sm">${s.name}</span>
+        </div>
+        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">${s.status}</span>
+      </div>
+    `).join('');
+
+    document.getElementById('activity-feed').innerHTML = ACTIVITY.map(a => `
+      <div class="flex gap-3 items-start">
+        <i class="fas ${a.icon} ${a.color} mt-0.5"></i>
+        <div>
+          <div class="text-sm text-slate-300">${a.text}</div>
+          <div class="text-xs text-slate-600">${a.time}</div>
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('posture-list').innerHTML = POSTURE.map(p => `
+      <div>
+        <div class="flex justify-between text-sm mb-1"><span class="text-slate-400">${p.label}</span><span class="font-medium">${p.value}%</span></div>
+        <div class="h-2 rounded-full bg-slate-800 overflow-hidden">
+          <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" style="width:${p.value}%"></div>
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('reports-list').innerHTML = REPORTS.map(r => `
+      <div class="glass rounded-2xl p-5 flex justify-between items-center gap-4">
+        <div class="flex items-start gap-3 min-w-0">
+          <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 shrink-0"><i class="fas fa-file-pdf"></i></div>
+          <div class="min-w-0">
+            <div class="font-medium text-sm truncate">${r.name}</div>
+            <div class="text-xs text-slate-500 mt-0.5">${r.date} · ${r.type} · ${r.size}</div>
+          </div>
+        </div>
+        <button onclick="toast('Download started (demo)')" class="btn-primary px-3 py-2 rounded-lg text-xs shrink-0"><i class="fas fa-download"></i></button>
+      </div>
+    `).join('');
+
+    document.getElementById('invoices-body').innerHTML = INVOICES.map(inv => `
+      <tr class="border-t border-slate-800/80">
+        <td class="px-6 py-3 font-medium">${inv.id}</td>
+        <td class="px-6 py-3 text-slate-400">${inv.date}</td>
+        <td class="px-6 py-3 text-emerald-400">KES ${inv.amount.toLocaleString()}</td>
+        <td class="px-6 py-3"><span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">${inv.status}</span></td>
+        <td class="px-6 py-3"><button onclick="toast('Invoice ${inv.id} downloaded')" class="text-cyan-400 text-xs hover:underline">PDF</button></td>
+      </tr>
+    `).join('');
+
+    document.getElementById('kb-grid').innerHTML = KB.map(k => `
+      <button type="button" onclick="toast('Opening: ${k.title}')" class="glass rounded-2xl p-5 text-left hover:border-cyan-500/30 transition border border-transparent">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-3"><i class="fas ${k.icon}"></i></div>
+        <div class="font-medium text-sm mb-1">${k.title}</div>
+        <div class="text-xs text-slate-500">${k.cat}</div>
+      </button>
+    `).join('');
+
+    renderTickets();
+    renderNotifs();
   }
 
   function renderTickets() {
+    document.getElementById('kpi-tickets').textContent = tickets.filter(t => t.status !== 'Closed').length;
     const list = document.getElementById('tickets-list');
-    if (!clientTickets.length) {
-      list.innerHTML = '<p class="text-slate-500">No tickets yet. Create your first support ticket.</p>';
+    if (!tickets.length) {
+      list.innerHTML = '<div class="glass rounded-2xl p-10 text-center text-slate-500 text-sm">No tickets yet. Open one when you need help.</div>';
       return;
     }
-    list.innerHTML = clientTickets.map(function (t) {
-      return '<div class="card p-4 flex justify-between items-start"><div>' +
-        '<div class="font-medium">' + t.subject + '</div>' +
-        '<div class="text-sm text-slate-400 mt-1">' + (t.description || '').substring(0, 80) + '...</div>' +
-        '<div class="text-xs text-slate-500 mt-2">' + t.date + ' • Priority: ' + t.priority + '</div>' +
-        '</div><span class="status-open text-xs px-2 py-1 rounded">' + t.status + '</span></div>';
-    }).join('');
-  }
-
-  function renderInvoices() {
-    document.getElementById('invoices-list').innerHTML =
-      '<table class="w-full text-sm"><thead class="text-slate-400"><tr>' +
-      '<th class="text-left pb-3">Invoice</th><th class="text-left pb-3">Date</th>' +
-      '<th class="text-left pb-3">Amount</th><th class="text-left pb-3">Status</th></tr></thead><tbody>' +
-      clientInvoices.map(function (inv) {
-        return '<tr class="border-t border-slate-800">' +
-          '<td class="py-3 font-medium">' + inv.id + '</td>' +
-          '<td class="py-3 text-slate-400">' + inv.date + '</td>' +
-          '<td class="py-3 text-emerald-400">KES ' + inv.amount.toLocaleString() + '</td>' +
-          '<td class="py-3"><span class="status-active text-xs px-2 py-1 rounded">' + inv.status + '</span></td></tr>';
-      }).join('') + '</tbody></table>';
-  }
-
-  function renderReports() {
-    document.getElementById('reports-list').innerHTML = clientReports.map(function (r) {
-      return '<div class="flex justify-between items-center p-4 rounded-lg bg-slate-900/50"><div>' +
-        '<div class="font-medium">' + r.name + '</div>' +
-        '<div class="text-xs text-slate-500">' + r.date + ' • ' + r.type + '</div></div>' +
-        '<button type="button" onclick="alert(\'Download: ' + r.name + '\')" class="btn-primary px-4 py-2 rounded-lg text-sm">' +
-        '<i class="fas fa-download"></i> Download</button></div>';
-    }).join('');
+    list.innerHTML = tickets.map(t => `
+      <div class="glass rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-medium">${esc(t.subject)}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300">${esc(t.status)}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">${esc(t.priority)}</span>
+          </div>
+          <div class="text-sm text-slate-500 mt-1">${esc((t.description || '').slice(0, 100))}…</div>
+          <div class="text-xs text-slate-600 mt-2">${esc(t.id)} · ${esc(t.category || '')} · ${esc(t.date)}</div>
+        </div>
+      </div>
+    `).join('');
   }
 
   function openTicketModal() {
     document.getElementById('ticket-modal').classList.remove('hidden');
     document.getElementById('ticket-modal').classList.add('flex');
   }
-
   function closeTicketModal() {
     document.getElementById('ticket-modal').classList.add('hidden');
     document.getElementById('ticket-modal').classList.remove('flex');
   }
 
   function createTicket() {
-    var subject = document.getElementById('ticket-subject').value.trim();
-    var description = document.getElementById('ticket-description').value.trim();
-    var priority = document.getElementById('ticket-priority').value;
-
-    if (!subject || !description) {
-      alert('Please fill in subject and description');
-      return;
-    }
-
-    clientTickets.unshift({
+    const subject = document.getElementById('ticket-subject').value.trim();
+    const description = document.getElementById('ticket-description').value.trim();
+    const priority = document.getElementById('ticket-priority').value;
+    const category = document.getElementById('ticket-cat').value;
+    if (!subject || !description) { alert('Please fill subject and description'); return; }
+    tickets.unshift({
       id: 'TKT-' + Date.now().toString().slice(-6),
-      subject: subject,
-      description: description,
-      priority: priority,
+      subject, description, priority, category,
       status: 'Open',
       date: new Date().toLocaleString()
     });
-    localStorage.setItem('client_tickets', JSON.stringify(clientTickets));
-
+    localStorage.setItem('ich_client_tickets', JSON.stringify(tickets));
     closeTicketModal();
     document.getElementById('ticket-subject').value = '';
     document.getElementById('ticket-description').value = '';
     renderTickets();
-    alert('Ticket submitted successfully!');
+    toast('Ticket submitted — we typically respond within 2 hours');
   }
 
-  function showTab(name) {
-    ['overview', 'tickets', 'invoices', 'reports'].forEach(function (t) {
-      document.getElementById('panel-' + t).classList.add('hidden');
-    });
-    document.getElementById('panel-' + name).classList.remove('hidden');
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
-  // Auto-show portal if already logged in
-  document.addEventListener('DOMContentLoaded', function () {
-    if (localStorage.getItem('customer_logged_in') === 'true') {
-      var user = JSON.parse(localStorage.getItem('ich_user') || '{}');
-      if (user.role === 'client') showPortal();
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.remove('hidden');
+    setTimeout(() => t.classList.add('hidden'), 2800);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('ich_logged_in') === '1') {
+      const p = JSON.parse(localStorage.getItem('ich_profile') || '{}');
+      if (p.email) bootApp(p);
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const panel = document.getElementById('notif-panel');
+    if (!panel.classList.contains('hidden') && !panel.contains(e.target) && !e.target.closest('[onclick="toggleNotif()"]')) {
+      panel.classList.add('hidden');
     }
   });
 </script>
