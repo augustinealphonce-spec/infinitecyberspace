@@ -1,188 +1,86 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Building a Culture of Cyber Awareness | Infinite Cyberspace Hub</title>
-  <meta name="description" content="How to create a strong cybersecurity culture in your Kenyan organization through employee training and awareness.">
-  
+  <meta name="description" content="How Kenyan organisations can build a strong culture of cybersecurity awareness through training, phishing simulations and leadership." />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="icon" type="image/png" href="infinite-cyberspace-favicon.png">
-  <!-- Security Headers via Meta Tags -->
-<meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://splitforms.com;
-  style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-  font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-  img-src 'self' data: https: blob:;
-  connect-src 'self' https://splitforms.com;
-  frame-ancestors 'none';
-  base-uri 'self';
-  form-action 'self' https://splitforms.com;
-">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="X-Frame-Options" content="DENY">
+  <link rel="stylesheet" href="packages.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-[#0a0a0a] text-zinc-100">
+<body class="bg-[#050505] text-zinc-200 font-['Inter']">
 
-  <!-- ===== UNIFIED NAVBAR ===== -->
-  <nav class="navbar">
-    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-      <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
+<!-- NAVBAR -->
 
-      <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="services.html" class="nav-link">Services</a>
-        <a href="packages.html" class="nav-link">Packages</a>
-        <a href="about.html" class="nav-link">About Us</a>
-        <a href="blog.html" class="nav-link active">Blog</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-      </div>
-
-      <div class="hidden md:flex items-center gap-4">
-        <a href="packages.html" class="btn-primary">Get Protected Now</a>
-        <a href="contact.html" class="btn-outline">Free Consultation</a>
-      </div>
-
-      <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" aria-label="Open menu">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-
-    <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 flex flex-col gap-5 text-sm font-medium bg-black/95 border-t border-cyan-500/20">
-      <a href="index.html" class="nav-link py-2">Home</a>
-      <a href="services.html" class="nav-link py-2">Services</a>
-      <a href="packages.html" class="nav-link py-2">Packages</a>
-      <a href="about.html" class="nav-link py-2">About Us</a>
-      <a href="blog.html" class="nav-link active py-2">Blog</a>
-      <a href="contact.html" class="nav-link py-2">Contact</a>
-      <div class="pt-4 flex flex-col gap-3">
-        <a href="packages.html" class="btn-primary text-center py-3">Get Protected Now</a>
-        <a href="contact.html" class="btn-outline text-center py-3">Free Consultation</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Article -->
-  <article class="max-w-3xl mx-auto px-6 py-20">
-    <a href="blog.html" class="text-cyan-400 hover:underline mb-8 inline-block">← Back to Blog</a>
-    
-    <h1 class="text-4xl md:text-5xl font-bold mb-6 cyber-glow leading-tight">
+<article class="py-16">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-cyan-400 text-sm mb-4">Awareness • June 2026</div>
+    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
       Building a Culture of Cyber Awareness
     </h1>
-    <p class="text-zinc-400 mb-10">Published July 2026 • 6 min read</p>
+    <p class="text-zinc-400 mb-10">Employee training remains one of the strongest and most cost-effective defences against modern attacks.</p>
 
-    <div class="space-y-6 text-lg text-zinc-300 leading-relaxed">
+    <div class="space-y-6 text-zinc-300 leading-relaxed">
       <p>
-        Technology alone will never fully protect your organization. The strongest (or weakest) link in cybersecurity is always people.
+        Technology alone cannot protect an organisation. The majority of successful cyber attacks still begin with human action — clicking a malicious link, sharing credentials, or falling for a convincing social engineering attempt. Building a genuine culture of cyber awareness is therefore essential.
       </p>
 
+      <h2 class="text-2xl font-bold text-white mt-10">Why Awareness Matters More Than Ever</h2>
       <p>
-        A single employee clicking a malicious link or sharing a password can undo thousands of shillings spent on firewalls and antivirus. 
-        That is why building a genuine culture of cyber awareness is one of the highest-return investments any Kenyan business can make.
+        Attackers continuously refine their techniques. Phishing emails now mimic legitimate M-Pesa messages, KRA notices, supplier invoices, and internal communications with alarming accuracy. Without regular, practical training, even careful employees can be caught off guard.
       </p>
 
-      <h2 class="text-2xl font-bold text-white mt-12 mb-4">What Does a Strong Cyber Culture Look Like?</h2>
-      <ul class="list-disc pl-6 space-y-3">
-        <li>Employees instinctively question unusual emails and requests</li>
-        <li>People feel safe reporting mistakes instead of hiding them</li>
-        <li>Security is discussed in team meetings, not only once a year</li>
-        <li>Leadership sets the example by following the same rules</li>
-        <li>New staff receive security training from day one</li>
-      </ul>
+      <h2 class="text-2xl font-bold text-white mt-10">Key Elements of an Effective Awareness Programme</h2>
 
-      <h2 class="text-2xl font-bold text-white mt-12 mb-4">Practical Ways to Build Awareness</h2>
-
-      <p><strong class="text-cyan-400">1. Make training continuous, not one-off</strong><br>
-      Annual training is not enough. Short monthly sessions or even 10-minute toolbox talks keep security top of mind.</p>
-
-      <p><strong class="text-cyan-400">2. Use real examples from Kenya</strong><br>
-      Staff engage more when you show actual local phishing emails, M-Pesa scams, or WhatsApp fraud cases.</p>
-
-      <p><strong class="text-cyan-400">3. Run simulated phishing tests</strong><br>
-      Controlled phishing campaigns reveal who needs extra coaching and create powerful learning moments.</p>
-
-      <p><strong class="text-cyan-400">4. Celebrate good security behavior</strong><br>
-      Publicly thank people who report suspicious emails. Positive reinforcement works better than fear.</p>
-
-      <p><strong class="text-cyan-400">5. Involve leadership visibly</strong><br>
-      When the CEO and managers follow MFA, avoid sharing passwords, and talk about security, the whole organization notices.</p>
-
-      <h2 class="text-2xl font-bold text-white mt-12 mb-4">Common Mistakes to Avoid</h2>
-      <ul class="list-disc pl-6 space-y-3">
-        <li>Treating security training as a compliance checkbox</li>
-        <li>Using only English technical jargon that confuses staff</li>
-        <li>Punishing people who fall for phishing instead of coaching them</li>
-        <li>Ignoring the unique risks of mobile money and WhatsApp in Kenya</li>
-      </ul>
-
-      <h2 class="text-2xl font-bold text-white mt-12 mb-4">The Bottom Line</h2>
+      <h3 class="text-xl font-semibold text-cyan-400 mt-8">1. Regular, Engaging Training</h3>
       <p>
-        A culture of cyber awareness does not happen overnight. It is built through consistent communication, practical training, and leadership example. 
-        Organizations that invest in their people dramatically reduce the chance of successful attacks.
+        One-off annual sessions are not enough. Short, frequent, and relevant training that uses real-world Kenyan examples works far better. Interactive modules, short videos, and discussion-based workshops help information stick.
       </p>
 
-      <div class="bg-cyan-950/50 border border-cyan-500/30 rounded-2xl p-8 mt-12">
-        <h3 class="text-xl font-bold text-white mb-3">Need help building security awareness?</h3>
-        <p class="mb-6">
-          Infinite Cyberspace Hub delivers engaging, Kenya-focused cybersecurity training and phishing simulations for teams of all sizes.
-        </p>
-        <a href="contact.html" class="btn-primary inline-block">Talk to Us About Training</a>
-      </div>
+      <h3 class="text-xl font-semibold text-cyan-400 mt-8">2. Phishing Simulations</h3>
+      <p>
+        Controlled phishing campaigns allow organisations to measure how staff respond under realistic conditions. The goal is learning, not punishment. Results should be used to identify gaps and improve training.
+      </p>
+
+      <h3 class="text-xl font-semibold text-cyan-400 mt-8">3. Leadership Example</h3>
+      <p>
+        When managers and directors visibly prioritise security — using multi-factor authentication, reporting suspicious messages, and discussing cyber risks — the rest of the organisation follows.
+      </p>
+
+      <h3 class="text-xl font-semibold text-cyan-400 mt-8">4. Clear Reporting Channels</h3>
+      <p>
+        Employees must know exactly how and where to report a suspicious email, message, or unusual system behaviour. Fast reporting can stop an incident before it spreads.
+      </p>
+
+      <h3 class="text-xl font-semibold text-cyan-400 mt-8">5. Positive Reinforcement</h3>
+      <p>
+        Recognise and reward good security behaviour. A culture of blame discourages reporting; a culture of continuous improvement encourages it.
+      </p>
+
+      <h2 class="text-2xl font-bold text-white mt-10">Getting Started</h2>
+      <p>
+        Begin with a baseline assessment of current awareness levels, then introduce quarterly training combined with periodic phishing simulations. Over time, measure improvement and adjust the programme.
+      </p>
+
+      <p class="mt-8">
+        A strong security culture turns employees from the weakest link into the first line of defence.
+      </p>
+
+      <p class="mt-10">
+        Our Premium Protection package includes quarterly employee security awareness training and phishing simulations. <a href="packages.html" class="text-cyan-400 hover:underline">View packages</a> or <a href="contact.html" class="text-cyan-400 hover:underline">contact us</a> to discuss a tailored programme for your team.
+      </p>
     </div>
-  </article>
+  </div>
+</article>
 
-  <!-- ===== UNIFIED FOOTER ===== -->
-  <footer class="bg-black/90 backdrop-blur-md border-t border-cyan-500/20 py-12 mt-20">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center md:text-left">
-      <div>
-        <h3 class="text-2xl font-bold cyber-glow text-cyan-400 mb-4">Infinite Cyberspace Hub</h3>
-        <p class="text-zinc-400 text-sm">
-          Protecting Kenyan businesses with cutting-edge cybersecurity, IT support, and digital innovation.
-        </p>
-      </div>
+<!-- FOOTER -->
 
-      <div>
-        <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-        <ul class="space-y-2 text-zinc-400">
-          <li><a href="services.html" class="hover:text-cyan-400 transition">Services</a></li>
-          <li><a href="packages.html" class="hover:text-cyan-400 transition">Packages</a></li>
-          <li><a href="about.html" class="hover:text-cyan-400 transition">About Us</a></li>
-          <li><a href="blog.html" class="hover:text-cyan-400 transition">Blog</a></li>
-          <li><a href="contact.html" class="hover:text-cyan-400 transition">Contact</a></li>
-          <li><a href="privacy.html" class="hover:text-cyan-400 transition">Privacy Policy</a></li>
-          <li><a href="terms.html" class="hover:text-cyan-400 transition">Terms of Service</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
-        <div class="flex justify-center md:justify-start gap-5 text-2xl text-zinc-400">
-          <a href="#" class="hover:text-cyan-400" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="#" class="hover:text-cyan-400" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
-          <a href="#" class="hover:text-cyan-400" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="hover:text-cyan-400" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        </div>
-        <p class="text-zinc-400 text-sm mt-6">Email: infinitecyberspace.info@gmail.com</p>
-        <p class="text-zinc-400 text-sm">Phone: +254 768 741 052</p>
-        <p class="text-zinc-400 text-sm">Kisumu, Kenya</p>
-      </div>
-    </div>
-
-    <div class="mt-10 border-t border-zinc-800 pt-6 text-center text-zinc-500 text-sm">
-      © 2026 Infinite Cyberspace Hub. All rights reserved.
-    </div>
-  </footer>
-
-  <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-    }
-  </script>
+<script>
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  }
+</script>
 </body>
 </html>

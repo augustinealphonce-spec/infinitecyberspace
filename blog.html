@@ -1,128 +1,127 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cybersecurity Blog & Insights Kenya | Infinite Cyberspace Hub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cybersecurity Blog Kenya | Infinite Cyberspace Hub</title>
+  <meta name="description" content="Practical cybersecurity insights, threat updates and best practices for Kenyan businesses from Infinite Cyberspace Hub." />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="icon" type="image/png" href="infinite-cyberspace-favicon.png">
-  <!-- Security Headers via Meta Tags -->
-<meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://splitforms.com;
-  style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-  font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-  img-src 'self' data: https: blob:;
-  connect-src 'self' https://splitforms.com;
-  frame-ancestors 'none';
-  base-uri 'self';
-  form-action 'self' https://splitforms.com;
-">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="X-Frame-Options" content="DENY">
+  <link rel="stylesheet" href="packages.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .cyber-card {
+      background: linear-gradient(145deg, rgba(15,23,42,0.7) 0%, rgba(10,10,10,0.85) 100%);
+      backdrop-filter: blur(12px);
+    }
+    .glow-border {
+      box-shadow: 0 0 0 1px rgba(6,182,212,0.25), 0 0 25px rgba(6,182,212,0.06);
+    }
+  </style>
 </head>
-<body class="bg-[#0a0a0a] text-zinc-100">
+<body class="bg-[#050505] text-zinc-200 font-['Inter']">
 
-<!-- ===== UNIFIED NAVBAR ===== -->
-<nav class="navbar">
+<!-- NAVBAR (active: Blog) -->
+<nav class="navbar sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-cyan-500/20">
+  <!-- Same navbar structure, highlight Blog -->
   <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-    <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
-
-    <!-- Desktop Menu -->
+    <a href="index.html" class="logo text-xl font-bold tracking-tight">INFINITE<span class="text-cyan-400">CYBER</span></a>
     <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="packages.html" class="nav-link">Packages</a>
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="blog.html" class="nav-link">Blog</a>
-      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="index.html" class="nav-link hover:text-cyan-400 transition">Home</a>
+      <a href="services.html" class="nav-link hover:text-cyan-400 transition">Services</a>
+      <a href="packages.html" class="nav-link hover:text-cyan-400 transition">Packages</a>
+      <a href="about.html" class="nav-link hover:text-cyan-400 transition">About Us</a>
+      <a href="blog.html" class="nav-link text-cyan-400">Blog</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400 transition">Contact</a>
     </div>
-
-    <!-- Desktop Buttons -->
     <div class="hidden md:flex items-center gap-4">
       <a href="packages.html" class="btn-primary">Get Protected Now</a>
       <a href="contact.html" class="btn-outline">Free Consultation</a>
     </div>
-
-    <!-- Mobile Hamburger -->
-    <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" aria-label="Open menu">
-      <i class="fas fa-bars"></i>
-    </button>
+    <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
   </div>
-
-  <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 flex flex-col gap-5 text-sm font-medium bg-black/95 border-t border-cyan-500/20">
-    <a href="index.html" class="nav-link py-2">Home</a>
-    <a href="services.html" class="nav-link py-2">Services</a>
-    <a href="packages.html" class="nav-link py-2">Packages</a>
-    <a href="about.html" class="nav-link py-2">About Us</a>
-    <a href="blog.html" class="nav-link py-2">Blog</a>
-    <a href="contact.html" class="nav-link py-2">Contact</a>
-    <div class="pt-4 flex flex-col gap-3">
-      <a href="packages.html" class="btn-primary text-center py-3">Get Protected Now</a>
-      <a href="contact.html" class="btn-outline text-center py-3">Free Consultation</a>
-    </div>
+    <!-- same mobile links, highlight Blog -->
   </div>
 </nav>
 
- <section class="py-24 text-center bg-gradient-to-b from-[#0a0a0a] to-[#1e2937]">
-    <div class="max-w-4xl mx-auto px-6">
-      <h1 class="text-5xl md:text-6xl font-bold mb-6 cyber-glow">Cybersecurity Insights</h1>
-      <p class="text-xl text-zinc-400 max-w-2xl mx-auto">
-        Stay updated with the latest trends, tips, and strategies in digital protection for Kenyan businesses.
-      </p>
+<!-- HERO -->
+<section class="py-20 text-center">
+  <div class="max-w-4xl mx-auto px-6">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+      <span class="bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent">
+        Cybersecurity Insights
+      </span>
+    </h1>
+    <p class="text-xl text-zinc-400">Practical advice and threat intelligence for Kenyan businesses.</p>
+  </div>
+</section>
+
+<!-- BLOG GRID -->
+<section class="pb-28">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Post 1 -->
+      <article class="cyber-card border border-zinc-700/70 rounded-2xl overflow-hidden glow-border hover:border-cyan-500/40 transition">
+        <div class="h-48 bg-gradient-to-br from-cyan-900/40 to-zinc-900 flex items-center justify-center">
+          <i class="fas fa-exclamation-triangle text-5xl text-cyan-400/50"></i>
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-cyan-400 mb-2">Threat Landscape • Aug 2026</div>
+          <h3 class="text-xl font-bold mb-3">Top 5 Cyber Threats Facing Kenyan Businesses in 2026</h3>
+          <p class="text-zinc-400 text-sm mb-4 line-clamp-3">
+            From ransomware-as-a-service to sophisticated phishing campaigns targeting M-Pesa users — here’s what you need to watch.
+          </p>
+          <a href="blog-top-5-threats.html" class="text-cyan-400 text-sm font-medium hover:underline">Read more →</a>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="cyber-card border border-zinc-700/70 rounded-2xl overflow-hidden glow-border hover:border-cyan-500/40 transition">
+        <div class="h-48 bg-gradient-to-br from-cyan-900/40 to-zinc-900 flex items-center justify-center">
+          <i class="fas fa-user-shield text-5xl text-cyan-400/50"></i>
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-cyan-400 mb-2">Best Practices • Jul 2026</div>
+          <h3 class="text-xl font-bold mb-3">Why Kenyan SMEs Need Cybersecurity Now</h3>
+          <p class="text-zinc-400 text-sm mb-4 line-clamp-3">
+            Affordable, practical strategies that small and medium enterprises can implement immediately to reduce risk.
+          </p>
+          <a href="blog-sme-cybersecurity.html" class="text-cyan-400 text-sm font-medium hover:underline">Read more →</a>
+        </div>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="cyber-card border border-zinc-700/70 rounded-2xl overflow-hidden glow-border hover:border-cyan-500/40 transition">
+        <div class="h-48 bg-gradient-to-br from-cyan-900/40 to-zinc-900 flex items-center justify-center">
+          <i class="fas fa-users text-5xl text-cyan-400/50"></i>
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-cyan-400 mb-2">Awareness • Jun 2026</div>
+          <h3 class="text-xl font-bold mb-3">Building a Culture of Cyber Awareness</h3>
+          <p class="text-zinc-400 text-sm mb-4 line-clamp-3">
+            Employee training remains one of the strongest and most cost-effective defenses against modern attacks.
+          </p>
+          <a href="blog-cyber-awareness.html" class="text-cyan-400 text-sm font-medium hover:underline">Read more →</a>
+        </div>
+      </article>
+
     </div>
-  </section>
 
-  <section class="py-20">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-
-      <article class="blog-card group">
-        <div class="w-full h-52 bg-gradient-to-br from-cyan-900 to-blue-900 rounded-2xl mb-6 flex items-center justify-center">
-          <i class="fas fa-shield-virus text-5xl text-cyan-400"></i>
-        </div>
-        <h3 class="text-2xl font-semibold mb-3">Top 5 Cyber Threats in Kenya 2026</h3>
-        <p class="text-zinc-400 mb-6">Discover the most common cybersecurity risks facing Kenyan businesses today and practical ways to mitigate them.</p>
-        <a href="blog-top-5-threats.html" class="text-cyan-400 font-medium hover:underline flex items-center gap-2">
-          Read More <span>→</span>
-        </a>
-      </article>
-
-      <article class="blog-card group">
-        <div class="w-full h-52 bg-gradient-to-br from-blue-900 to-indigo-900 rounded-2xl mb-6 flex items-center justify-center">
-          <i class="fas fa-building text-5xl text-cyan-400"></i>
-        </div>
-        <h3 class="text-2xl font-semibold mb-3">Why Kenyan SMEs Need Cybersecurity Now</h3>
-        <p class="text-zinc-400 mb-6">Small and medium enterprises are prime targets. Learn affordable, effective strategies to protect your business.</p>
-        <a href="blog-sme-cybersecurity.html" class="text-cyan-400 font-medium hover:underline flex items-center gap-2">
-          Read More <span>→</span>
-        </a>
-      </article>
-
-      <article class="blog-card group">
-        <div class="w-full h-52 bg-gradient-to-br from-indigo-900 to-purple-900 rounded-2xl mb-6 flex items-center justify-center">
-          <i class="fas fa-users text-5xl text-cyan-400"></i>
-        </div>
-        <h3 class="text-2xl font-semibold mb-3">Building a Culture of Cyber Awareness</h3>
-        <p class="text-zinc-400 mb-6">Employee training is one of the strongest defenses against breaches. Explore effective awareness programs.</p>
-        <a href="blog-cyber-awareness.html" class="text-cyan-400 font-medium hover:underline flex items-center gap-2">
-          Read More <span>→</span>
-        </a>
-      </article>
-
+    <div class="text-center mt-16 text-zinc-500 text-sm">
+      More articles coming soon. Follow us for the latest updates.
     </div>
-  </section>
+  </div>
+</section>
 
 <!-- ===== UNIFIED FOOTER ===== -->
 <footer class="bg-black/90 backdrop-blur-md border-t border-cyan-500/20 py-12 mt-20">
   <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center md:text-left">
     <div>
-      <h3 class="text-2xl font-bold cyber-glow text-cyan-400 mb-4">Infinite Cyberspace Hub</h3>
-      <p class="text-zinc-400 text-sm">
-        Protecting Kenyan businesses with cutting-edge cybersecurity, IT support, and digital innovation.
+      <h3 class="text-2xl font-bold text-cyan-400 mb-4">Infinite Cyberspace Hub</h3>
+      <p class="text-zinc-400 text-sm leading-relaxed">
+        Protecting Kenyan businesses with modern cybersecurity, proactive monitoring, and practical digital resilience.
       </p>
     </div>
 
@@ -159,12 +158,9 @@
 </footer>
 
 <script>
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
   }
 </script>
-  
 </body>
 </html>

@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cybersecurity Packages & Pricing Kenya | Infinite Cyberspace Hub</title>
-  <meta name="description" content="Affordable cybersecurity packages for Kenyan SMEs. Pay easily via M-Pesa Paybill. Basic, Standard and Premium protection plans available." />
+  <meta name="description" content="Enterprise-grade yet affordable cybersecurity packages for Kenyan SMEs. Zero-Trust, 24/7 SOC, XDR, threat intelligence. Pay easily via M-Pesa." />
   <link rel="canonical" href="https://augustinealphonce-spec.github.io/infinitecyberspace_hub/packages.html" />
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="stylesheet" href="packages.css">
+  <link rel="stylesheet" href="packages.css">
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
@@ -18,22 +18,37 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
+  <style>
+    /* Extra futuristic touches that complement packages.css */
+    .cyber-card {
+      background: linear-gradient(145deg, rgba(15,23,42,0.7) 0%, rgba(10,10,10,0.85) 100%);
+      backdrop-filter: blur(12px);
+    }
+    .glow-border {
+      box-shadow: 0 0 0 1px rgba(6,182,212,0.3), 0 0 30px rgba(6,182,212,0.08);
+    }
+    .glow-border-strong {
+      box-shadow: 0 0 0 2px rgba(6,182,212,0.6), 0 0 40px rgba(6,182,212,0.15);
+    }
+  </style>
 </head>
-<body class="bg-[#0a0a0a] text-zinc-200">
+<body class="bg-[#050505] text-zinc-200 font-['Inter']">
 
  <!-- ===== UNIFIED NAVBAR ===== -->
-<nav class="navbar">
+<nav class="navbar sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-cyan-500/20">
   <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-    <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
+    <a href="index.html" class="logo text-xl font-bold tracking-tight">
+      INFINITE<span class="text-cyan-400">CYBER</span>
+    </a>
 
     <!-- Desktop Menu -->
     <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="packages.html" class="nav-link">Packages</a>
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="blog.html" class="nav-link">Blog</a>
-      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="index.html" class="nav-link hover:text-cyan-400 transition">Home</a>
+      <a href="services.html" class="nav-link hover:text-cyan-400 transition">Services</a>
+      <a href="packages.html" class="nav-link text-cyan-400">Packages</a>
+      <a href="about.html" class="nav-link hover:text-cyan-400 transition">About Us</a>
+      <a href="blog.html" class="nav-link hover:text-cyan-400 transition">Blog</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400 transition">Contact</a>
     </div>
 
     <!-- Desktop Buttons -->
@@ -43,7 +58,7 @@
     </div>
 
     <!-- Mobile Hamburger -->
-    <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" aria-label="Open menu">
+    <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" aria-label="Open menu" onclick="toggleMenu()">
       <i class="fas fa-bars"></i>
     </button>
   </div>
@@ -52,7 +67,7 @@
   <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 flex flex-col gap-5 text-sm font-medium bg-black/95 border-t border-cyan-500/20">
     <a href="index.html" class="nav-link py-2">Home</a>
     <a href="services.html" class="nav-link py-2">Services</a>
-    <a href="packages.html" class="nav-link py-2">Packages</a>
+    <a href="packages.html" class="nav-link py-2 text-cyan-400">Packages</a>
     <a href="about.html" class="nav-link py-2">About Us</a>
     <a href="blog.html" class="nav-link py-2">Blog</a>
     <a href="contact.html" class="nav-link py-2">Contact</a>
@@ -64,133 +79,480 @@
 </nav>
 
   <!-- ==================== HERO ==================== -->
-  <section class="py-20 text-center">
-    <div class="max-w-4xl mx-auto px-6">
-      <h1 class="text-4xl md:text-6xl font-bold mb-6 cyber-glow">
-        Choose Your Protection Plan
+  <section class="relative py-24 overflow-hidden">
+    <!-- Subtle cyber grid background -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-transparent to-transparent pointer-events-none"></div>
+    
+    <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-sm font-medium mb-8">
+        <i class="fas fa-shield-halved"></i>
+        Enterprise-grade protection • Built for Kenyan businesses
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
+        <span class="bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent">
+          Choose Your Defense Layer
+        </span>
       </h1>
-      <p class="text-xl text-zinc-400 max-w-2xl mx-auto">
-        Affordable and practical cybersecurity packages designed for Kenyan businesses.<br>
-        Pay easily via M-Pesa.
+      
+      <p class="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+        Modular, scalable cybersecurity packages engineered for real-world threats.<br class="hidden md:block">
+        From Zero-Trust foundations to full 24/7 SOC coverage — pay simply via M-Pesa.
       </p>
+
+      <!-- Reliability badges -->
+      <div class="mt-12 flex flex-wrap justify-center gap-6 text-sm text-zinc-400">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-clock text-cyan-400"></i>
+          <span>99.9% Uptime SLA</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-bolt text-cyan-400"></i>
+          <span>&lt;15 min Critical Response</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-lock text-cyan-400"></i>
+          <span>ISO-aligned practices</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-headset text-cyan-400"></i>
+          <span>Local Kenyan support</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ==================== PACKAGES ==================== -->
-  <section class="pb-24">
+  <section class="pb-28 relative">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
 
-        <!-- BASIC -->
-        <div class="bg-zinc-900/60 border border-zinc-700 rounded-2xl p-8 flex flex-col hover:border-cyan-500/50 transition">
-          <h3 class="text-2xl font-bold mb-2">Basic Protection</h3>
-          <div class="text-4xl font-bold text-cyan-400 mb-1">KES 12,900</div>
-          <p class="text-zinc-400 text-sm mb-6">per month</p>
+        <!-- ==================== BASIC ==================== -->
+        <div class="cyber-card border border-zinc-700/80 rounded-2xl p-8 flex flex-col hover:border-cyan-500/40 transition-all duration-300 glow-border">
+          <div class="mb-6">
+            <p class="text-cyan-400/80 text-sm font-medium tracking-wider uppercase mb-2">Foundation Layer</p>
+            <h3 class="text-2xl font-bold text-white">Basic Protection</h3>
+            <p class="text-zinc-400 text-sm mt-1">Essential defenses for growing teams</p>
+          </div>
 
-          <ul class="space-y-3 text-zinc-300 mb-8 flex-grow">
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Network security essentials</li>
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Firewall configuration</li>
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Basic malware protection</li>
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Monthly security reports</li>
+          <div class="mb-8">
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-bold text-cyan-400">KES 12,900</span>
+            </div>
+            <p class="text-zinc-500 text-sm mt-1">per month • billed monthly</p>
+          </div>
+
+          <ul class="space-y-4 text-zinc-300 mb-10 flex-grow text-[15px]">
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Next-gen firewall + network segmentation</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Endpoint detection & response (EDR) baseline</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Malware, ransomware & phishing shields</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Secure DNS filtering & web protection</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Monthly vulnerability scan + executive report</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Email security gateway (basic)</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Business-hours support (Mon–Fri)</span>
+            </li>
           </ul>
 
-          <div class="bg-black/40 border border-cyan-500/30 rounded-xl p-5">
-            <h4 class="text-cyan-400 font-semibold mb-3 flex items-center gap-2">
+          <!-- Payment box -->
+          <div class="bg-black/50 border border-cyan-500/20 rounded-xl p-5 mt-auto">
+            <h4 class="text-cyan-400 font-semibold mb-3 flex items-center gap-2 text-sm">
               <i class="fas fa-mobile-alt"></i> Pay via M-Pesa
             </h4>
-            <div class="text-sm space-y-1 mb-4">
+            <div class="text-sm space-y-1.5 mb-5 text-zinc-300">
               <p>Business No: <strong class="text-white">222111</strong></p>
               <p>Account No: <strong class="text-white">028000057218</strong></p>
               <p>Amount: <strong class="text-white">KES 12,900</strong></p>
             </div>
             <a href="https://wa.me/254768741052?text=Hello%20Infinite%20Cyberspace%20Hub%2C%0A%0AI%20have%20paid%20KES%2012%2C900%20for%20the%20*Basic%20Protection*%20package.%0A%0AHere%20is%20my%20M-Pesa%20confirmation%20message%3A%0A%0A"
                target="_blank"
-               class="block text-center bg-green-600 hover:bg-green-500 text-white font-semibold py-3 rounded-xl transition">
+               class="block text-center bg-green-600 hover:bg-green-500 text-white font-semibold py-3.5 rounded-xl transition">
               <i class="fab fa-whatsapp mr-2"></i> Confirm on WhatsApp
             </a>
           </div>
         </div>
 
-        <!-- STANDARD -->
-        <div class="bg-zinc-900/60 border-2 border-cyan-500 rounded-2xl p-8 flex flex-col relative md:-translate-y-4">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyan-500 text-black text-xs font-bold px-4 py-1 rounded-full">
+        <!-- ==================== STANDARD (MOST POPULAR) ==================== -->
+        <div class="cyber-card border-2 border-cyan-500 rounded-2xl p-8 flex flex-col relative md:-translate-y-6 glow-border-strong scale-[1.02]">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-cyan-400 text-black text-xs font-bold px-5 py-1.5 rounded-full tracking-wide shadow-lg shadow-cyan-500/30">
             MOST POPULAR
           </div>
 
-          <h3 class="text-2xl font-bold mb-2">Standard Protection</h3>
-          <div class="text-4xl font-bold text-cyan-400 mb-1">KES 25,900</div>
-          <p class="text-zinc-400 text-sm mb-6">per month</p>
+          <div class="mb-6 mt-2">
+            <p class="text-cyan-400 text-sm font-medium tracking-wider uppercase mb-2">Operations Layer</p>
+            <h3 class="text-2xl font-bold text-white">Standard Protection</h3>
+            <p class="text-zinc-400 text-sm mt-1">Active monitoring + rapid response</p>
+          </div>
 
-          <ul class="space-y-3 text-zinc-300 mb-8 flex-grow">
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Everything in Basic</li>
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Endpoint protection</li>
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Email & phishing protection</li>
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> 24/7 monitoring</li>
+          <div class="mb-8">
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-bold text-cyan-400">KES 25,900</span>
+            </div>
+            <p class="text-zinc-500 text-sm mt-1">per month • billed monthly</p>
+          </div>
+
+          <ul class="space-y-4 text-zinc-300 mb-10 flex-grow text-[15px]">
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span><strong class="text-white">Everything in Basic</strong>, plus:</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>24/7 Security Operations Center (SOC) monitoring</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Advanced Endpoint Detection & Response (XDR)</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Email security + anti-phishing + spoofing protection</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Cloud workload protection (Microsoft 365 / Google Workspace)</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Real-time threat intelligence feeds</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Weekly security posture reports + alerts</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Incident response (critical: &lt;15 min)</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Priority support + dedicated WhatsApp channel</span>
+            </li>
           </ul>
 
-          <div class="bg-black/40 border border-cyan-500/30 rounded-xl p-5">
-            <h4 class="text-cyan-400 font-semibold mb-3 flex items-center gap-2">
+          <!-- Payment box -->
+          <div class="bg-black/50 border border-cyan-500/40 rounded-xl p-5 mt-auto">
+            <h4 class="text-cyan-400 font-semibold mb-3 flex items-center gap-2 text-sm">
               <i class="fas fa-mobile-alt"></i> Pay via M-Pesa
             </h4>
-            <div class="text-sm space-y-1 mb-4">
+            <div class="text-sm space-y-1.5 mb-5 text-zinc-300">
               <p>Business No: <strong class="text-white">222111</strong></p>
               <p>Account No: <strong class="text-white">028000057218</strong></p>
               <p>Amount: <strong class="text-white">KES 25,900</strong></p>
             </div>
             <a href="https://wa.me/254768741052?text=Hello%20Infinite%20Cyberspace%20Hub%2C%0A%0AI%20have%20paid%20KES%2025%2C900%20for%20the%20*Standard%20Protection*%20package.%0A%0AHere%20is%20my%20M-Pesa%20confirmation%20message%3A%0A%0A"
                target="_blank"
-               class="block text-center bg-green-600 hover:bg-green-500 text-white font-semibold py-3 rounded-xl transition">
+               class="block text-center bg-green-600 hover:bg-green-500 text-white font-semibold py-3.5 rounded-xl transition shadow-lg shadow-green-900/30">
               <i class="fab fa-whatsapp mr-2"></i> Confirm on WhatsApp
             </a>
           </div>
         </div>
 
-        <!-- PREMIUM -->
-        <div class="bg-zinc-900/60 border border-zinc-700 rounded-2xl p-8 flex flex-col hover:border-cyan-500/50 transition">
-          <h3 class="text-2xl font-bold mb-2">Premium Protection</h3>
-          <div class="text-4xl font-bold text-cyan-400 mb-1">KES 38,900</div>
-          <p class="text-zinc-400 text-sm mb-6">per month</p>
+        <!-- ==================== PREMIUM ==================== -->
+        <div class="cyber-card border border-zinc-700/80 rounded-2xl p-8 flex flex-col hover:border-cyan-500/40 transition-all duration-300 glow-border">
+          <div class="mb-6">
+            <p class="text-cyan-400/80 text-sm font-medium tracking-wider uppercase mb-2">Command Layer</p>
+            <h3 class="text-2xl font-bold text-white">Premium Protection</h3>
+            <p class="text-zinc-400 text-sm mt-1">Full Zero-Trust + proactive defense</p>
+          </div>
 
-          <ul class="space-y-3 text-zinc-300 mb-8 flex-grow">
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Everything in Standard</li>
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Penetration testing</li>
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Employee security training</li>
-            <li class="flex gap-2"><span class="text-cyan-400">✓</span> Priority support</li>
+          <div class="mb-8">
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-bold text-cyan-400">KES 38,900</span>
+            </div>
+            <p class="text-zinc-500 text-sm mt-1">per month • billed monthly</p>
+          </div>
+
+          <ul class="space-y-4 text-zinc-300 mb-10 flex-grow text-[15px]">
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span><strong class="text-white">Everything in Standard</strong>, plus:</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Full Zero-Trust Network Access (ZTNA) architecture</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Quarterly external + internal penetration testing</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Advanced SIEM + log correlation & retention</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Employee security awareness training (quarterly)</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Custom threat hunting & red-team exercises</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Compliance readiness support (Data Protection Act Kenya)</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Dedicated Security Engineer + monthly strategy calls</span>
+            </li>
+            <li class="flex gap-3">
+              <i class="fas fa-check text-cyan-400 mt-1 flex-shrink-0"></i>
+              <span>Priority 24/7 support + escalation path</span>
+            </li>
           </ul>
 
-          <div class="bg-black/40 border border-cyan-500/30 rounded-xl p-5">
-            <h4 class="text-cyan-400 font-semibold mb-3 flex items-center gap-2">
+          <!-- Payment box -->
+          <div class="bg-black/50 border border-cyan-500/20 rounded-xl p-5 mt-auto">
+            <h4 class="text-cyan-400 font-semibold mb-3 flex items-center gap-2 text-sm">
               <i class="fas fa-mobile-alt"></i> Pay via M-Pesa
             </h4>
-            <div class="text-sm space-y-1 mb-4">
+            <div class="text-sm space-y-1.5 mb-5 text-zinc-300">
               <p>Business No: <strong class="text-white">222111</strong></p>
               <p>Account No: <strong class="text-white">028000057218</strong></p>
               <p>Amount: <strong class="text-white">KES 38,900</strong></p>
             </div>
             <a href="https://wa.me/254768741052?text=Hello%20Infinite%20Cyberspace%20Hub%2C%0A%0AI%20have%20paid%20KES%2038%2C900%20for%20the%20*Premium%20Protection*%20package.%0A%0AHere%20is%20my%20M-Pesa%20confirmation%20message%3A%0A%0A"
                target="_blank"
-               class="block text-center bg-green-600 hover:bg-green-500 text-white font-semibold py-3 rounded-xl transition">
+               class="block text-center bg-green-600 hover:bg-green-500 text-white font-semibold py-3.5 rounded-xl transition">
               <i class="fab fa-whatsapp mr-2"></i> Confirm on WhatsApp
             </a>
           </div>
         </div>
 
       </div>
+
+      <!-- Optional flexible note -->
+      <div class="mt-16 text-center">
+        <p class="text-zinc-400 max-w-2xl mx-auto">
+          Need something more tailored? We offer modular add-ons (extra endpoints, advanced cloud security, custom compliance packs, or one-time assessments). 
+          <a href="contact.html" class="text-cyan-400 hover:underline">Talk to us</a> for a custom quote.
+        </p>
+      </div>
     </div>
   </section>
 
+  <!-- ==================== COMPARISON TABLE ==================== -->
+<section class="py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Side-by-Side Comparison</h2>
+      <p class="text-zinc-400 max-w-2xl mx-auto">See exactly what you get at each protection layer.</p>
+    </div>
+
+    <div class="overflow-x-auto rounded-2xl border border-cyan-500/20">
+      <table class="w-full text-left text-sm">
+        <thead>
+          <tr class="bg-zinc-900/80 border-b border-cyan-500/20">
+            <th class="p-5 font-semibold text-zinc-300">Feature</th>
+            <th class="p-5 font-semibold text-center text-zinc-300">Basic</th>
+            <th class="p-5 font-semibold text-center text-cyan-400">Standard</th>
+            <th class="p-5 font-semibold text-center text-zinc-300">Premium</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-800">
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">Next-gen Firewall + Segmentation</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">Endpoint Detection & Response (EDR/XDR)</td>
+            <td class="p-5 text-center text-zinc-500">Basic</td>
+            <td class="p-5 text-center text-cyan-400">Advanced XDR</td>
+            <td class="p-5 text-center text-cyan-400">Advanced XDR</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">24/7 SOC Monitoring</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">Email + Anti-Phishing Protection</td>
+            <td class="p-5 text-center text-zinc-500">Basic</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">Real-time Threat Intelligence</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">Zero-Trust Network Access (ZTNA)</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">Penetration Testing</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-cyan-400">Quarterly</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">Employee Security Training</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-cyan-400">Quarterly</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">Dedicated Security Engineer</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-zinc-500">—</td>
+            <td class="p-5 text-center text-cyan-400">✓</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40">
+            <td class="p-5">Critical Response Time</td>
+            <td class="p-5 text-center text-zinc-400">Business hours</td>
+            <td class="p-5 text-center text-cyan-400">&lt; 15 min</td>
+            <td class="p-5 text-center text-cyan-400">&lt; 15 min</td>
+          </tr>
+          <tr class="hover:bg-zinc-900/40 bg-zinc-900/60">
+            <td class="p-5 font-semibold">Monthly Price (KES)</td>
+            <td class="p-5 text-center font-bold text-cyan-400">12,900</td>
+            <td class="p-5 text-center font-bold text-cyan-400">25,900</td>
+            <td class="p-5 text-center font-bold text-cyan-400">38,900</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+  <!-- ==================== RELIABILITY STRIP ==================== -->
+  <section class="py-16 border-y border-cyan-500/10 bg-gradient-to-b from-zinc-950/50 to-transparent">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl font-bold text-cyan-400 mb-2">99.9%</div>
+          <p class="text-sm text-zinc-400">Service Uptime Guarantee</p>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-cyan-400 mb-2">&lt;15 min</div>
+          <p class="text-sm text-zinc-400">Critical Incident Response</p>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-cyan-400 mb-2">24/7</div>
+          <p class="text-sm text-zinc-400">SOC Monitoring (Standard+)</p>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-cyan-400 mb-2">Local</div>
+          <p class="text-sm text-zinc-400">Kenyan Team & Support</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ==================== -->
+<section class="py-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+      <p class="text-zinc-400">Everything you need to know before choosing a package.</p>
+    </div>
+
+    <div class="space-y-4">
+      <!-- FAQ Item -->
+      <details class="group bg-zinc-900/50 border border-zinc-700/60 rounded-xl overflow-hidden">
+        <summary class="flex justify-between items-center p-5 cursor-pointer font-medium hover:text-cyan-400 transition list-none">
+          Can I upgrade or downgrade later?
+          <i class="fas fa-chevron-down text-cyan-400 group-open:rotate-180 transition"></i>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-400 text-sm leading-relaxed">
+          Yes. You can move between packages at any time. We prorate the difference and adjust your next billing cycle.
+        </div>
+      </details>
+
+      <details class="group bg-zinc-900/50 border border-zinc-700/60 rounded-xl overflow-hidden">
+        <summary class="flex justify-between items-center p-5 cursor-pointer font-medium hover:text-cyan-400 transition list-none">
+          How does the M-Pesa payment process work?
+          <i class="fas fa-chevron-down text-cyan-400 group-open:rotate-180 transition"></i>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-400 text-sm leading-relaxed">
+          Pay the exact amount to Business Number 222111, Account 028000057218. Then send the M-Pesa confirmation message to us on WhatsApp. We activate your package within 1 business hour after confirmation.
+        </div>
+      </details>
+
+      <details class="group bg-zinc-900/50 border border-zinc-700/60 rounded-xl overflow-hidden">
+        <summary class="flex justify-between items-center p-5 cursor-pointer font-medium hover:text-cyan-400 transition list-none">
+          Is there a setup or onboarding fee?
+          <i class="fas fa-chevron-down text-cyan-400 group-open:rotate-180 transition"></i>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-400 text-sm leading-relaxed">
+          No. All packages include free onboarding, initial configuration, and a security baseline assessment.
+        </div>
+      </details>
+
+      <details class="group bg-zinc-900/50 border border-zinc-700/60 rounded-xl overflow-hidden">
+        <summary class="flex justify-between items-center p-5 cursor-pointer font-medium hover:text-cyan-400 transition list-none">
+          Do you support Microsoft 365 and Google Workspace?
+          <i class="fas fa-chevron-down text-cyan-400 group-open:rotate-180 transition"></i>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-400 text-sm leading-relaxed">
+          Yes. Standard and Premium packages include cloud workload protection for both Microsoft 365 and Google Workspace environments.
+        </div>
+      </details>
+
+      <details class="group bg-zinc-900/50 border border-zinc-700/60 rounded-xl overflow-hidden">
+        <summary class="flex justify-between items-center p-5 cursor-pointer font-medium hover:text-cyan-400 transition list-none">
+          What happens if we have a security incident?
+          <i class="fas fa-chevron-down text-cyan-400 group-open:rotate-180 transition"></i>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-400 text-sm leading-relaxed">
+          Standard and Premium clients get priority incident response. Critical alerts are acted on in under 15 minutes. We guide containment, investigation, and recovery.
+        </div>
+      </details>
+
+      <details class="group bg-zinc-900/50 border border-zinc-700/60 rounded-xl overflow-hidden">
+        <summary class="flex justify-between items-center p-5 cursor-pointer font-medium hover:text-cyan-400 transition list-none">
+          Can I get a custom package?
+          <i class="fas fa-chevron-down text-cyan-400 group-open:rotate-180 transition"></i>
+        </summary>
+        <div class="px-5 pb-5 text-zinc-400 text-sm leading-relaxed">
+          Absolutely. We offer modular add-ons and fully custom engagements for larger or regulated organizations. Contact us for a tailored proposal.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
   <!-- ==================== BOTTOM CTA ==================== -->
-  <section class="py-20 bg-gradient-to-b from-[#0f172a] to-[#020617]">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Not sure which plan is right for you?</h2>
-      <p class="text-lg text-zinc-400 mb-10">
-        Get a free consultation. We’ll help you choose the best protection for your business.
+  <section class="py-24 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-950/10 to-transparent pointer-events-none"></div>
+    
+    <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+      <h2 class="text-3xl md:text-4xl font-bold mb-5">Not sure which layer fits your risk profile?</h2>
+      <p class="text-lg text-zinc-400 mb-10 leading-relaxed">
+        Book a free 30-minute consultation. We’ll map your current exposure and recommend the right protection stack — no obligation.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href="https://wa.me/254768741052?text=Hello%20Infinite%20Cyberspace%20Hub%2C%20I%20would%20like%20a%20free%20consultation%20about%20your%20cybersecurity%20packages."
            target="_blank"
-           class="inline-flex items-center justify-center gap-3 bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-4 rounded-xl transition text-lg">
+           class="inline-flex items-center justify-center gap-3 bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-4 rounded-xl transition text-lg shadow-lg shadow-green-900/20">
           <i class="fab fa-whatsapp text-2xl"></i>
           Chat on WhatsApp
         </a>
@@ -200,19 +562,19 @@
         </a>
       </div>
 
-      <p class="text-sm text-zinc-500 mt-8">
-        Based in Kisumu • Fast response • Practical solutions for Kenyan businesses
+      <p class="text-sm text-zinc-500 mt-10">
+        Based in Kisumu • Fast response • Practical, battle-tested solutions for Kenyan businesses
       </p>
     </div>
   </section>
 
-  <!-- ===== UNIFIED FOOTER ===== -->
+<!-- ===== UNIFIED FOOTER ===== -->
 <footer class="bg-black/90 backdrop-blur-md border-t border-cyan-500/20 py-12 mt-20">
   <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center md:text-left">
     <div>
-      <h3 class="text-2xl font-bold cyber-glow text-cyan-400 mb-4">Infinite Cyberspace Hub</h3>
-      <p class="text-zinc-400 text-sm">
-        Protecting Kenyan businesses with cutting-edge cybersecurity, IT support, and digital innovation.
+      <h3 class="text-2xl font-bold text-cyan-400 mb-4">Infinite Cyberspace Hub</h3>
+      <p class="text-zinc-400 text-sm leading-relaxed">
+        Protecting Kenyan businesses with modern cybersecurity, proactive monitoring, and practical digital resilience.
       </p>
     </div>
 
@@ -248,13 +610,12 @@
   </div>
 </footer>
 
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-  }
-</script>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+  </script>
 
 </body>
 </html>
