@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://augustinealphonce-spec.github.io/infinitecyberspace_hub/sitemap.xml

@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Console | Infinite Cyberspace Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="infinite-cyberspace-favicon.png" />
+  <style>
+    body { background: #030712; color: #e2e8f0; font-family: Inter, system-ui, sans-serif; }
+    .glass { background: rgba(15,23,42,0.75); border: 1px solid rgba(51,65,85,0.8); }
+    .glass-2 { background: rgba(2,6,23,0.6); border: 1px solid rgba(51,65,85,0.6); }
+    .nav-i { color: #94a3b8; border-left: 2px solid transparent; }
+    .nav-i:hover { background: rgba(255,255,255,0.03); color: #e2e8f0; }
+    .nav-i.active { background: rgba(34,211,238,0.08); color: #22d3ee; border-left-color: #22d3ee; }
+    .chip { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 600; display: inline-block; }
+    .s-ok { background: rgba(16,185,129,.18); color: #6ee7b7; }
+    .s-open { background: rgba(59,130,246,.2); color: #93c5fd; }
+    .s-warn { background: rgba(245,158,11,.2); color: #fcd34d; }
+    .s-bad { background: rgba(239,68,68,.18); color: #fca5a5; }
+    .s-muted { background: rgba(100,116,139,.25); color: #94a3b8; }
+    .btn-p { background: linear-gradient(135deg,#06b6d4,#3b82f6); color:#020617; font-weight:700; }
+    .btn-p:hover { filter: brightness(1.08); }
+    .btn-g { border: 1px solid rgba(148,163,184,.25); color:#cbd5e1; }
+    .btn-g:hover { background: rgba(255,255,255,.04); }
+    .spinner { width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#22d3ee;border-radius:50%;animation:spin .7s linear infinite;display:inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    table th { font-weight: 500; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    input, select, textarea { color-scheme: dark; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+  </style>
+</head>
+<body class="min-h-screen antialiased text-sm">
+
+  <!-- LOGIN -->
+  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+    <div class="glass rounded-2xl p-8 w-full max-w-md shadow-2xl">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-11 h-11 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+          <i class="fas fa-shield-halved"></i>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold">Admin Console</h1>
+          <p class="text-xs text-slate-500">Infinite Cyberspace Hub · Operations</p>
+        </div>
+      </div>
+      <div id="login-err" class="hidden mb-3 p-3 rounded-xl bg-red-500/10 border border-red-500/25 text-red-300 text-xs"></div>
+      <label class="text-xs text-slate-500 mb-1 block">Admin email</label>
+      <input id="login-email" type="email" value="admin@infinitecyberspace.com"
+        class="w-full mb-3 px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 outline-none focus:border-cyan-500/50" />
+      <label class="text-xs text-slate-500 mb-1 block">Password</label>
+      <input id="login-password" type="password" placeholder="••••••••"
+        class="w-full mb-4 px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 outline-none focus:border-cyan-500/50"
+        onkeydown="if(event.key==='Enter')doLogin()" />
+      <button type="button" id="login-btn" onclick="doLogin()" class="btn-p w-full py-3 rounded-xl flex items-center justify-center gap-2">
+        Sign in to console
+      </button>
+      <a href="index.html" class="block text-center text-[11px] text-slate-600 mt-4 hover:text-cyan-400">← Website</a>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="hidden min-h-screen flex">
+    <aside class="w-[220px] shrink-0 border-r border-slate-800/80 bg-slate-950/90 flex flex-col sticky top-0 h-screen">
+      <div class="p-4 border-b border-slate-800">
+        <div class="font-bold tracking-tight">INFINITE<span class="text-cyan-400">CYBER</span></div>
+        <div class="text-[10px] text-slate-500 mt-0.5">Operations console</div>
+      </div>
+      <nav class="flex-1 p-2 space-y-0.5 overflow-y-auto text-[13px]">
+        <button type="button" class="nav-i active w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-2.5" data-v="overview" onclick="go('overview')">
+          <i class="fas fa-chart-pie w-4 text-center opacity-70"></i> Overview
+        </button>
+        <button type="button" class="nav-i w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-2.5" data-v="payments" onclick="go('payments')">
+          <i class="fas fa-money-bill-wave w-4 text-center opacity-70"></i> Payments
+        </button>
+        <button type="button" class="nav-i w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-2.5" data-v="clients" onclick="go('clients')">
+          <i class="fas fa-users w-4 text-center opacity-70"></i> Clients
+        </button>
+        <button type="button" class="nav-i w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-2.5" data-v="tickets" onclick="go('tickets')">
+          <i class="fas fa-headset w-4 text-center opacity-70"></i> Tickets
+          <span id="nav-ticket-badge" class="ml-auto chip s-open hidden">0</span>
+        </button>
+        <button type="button" class="nav-i w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-2.5" data-v="subscriptions" onclick="go('subscriptions')">
+          <i class="fas fa-shield-virus w-4 text-center opacity-70"></i> Subscriptions
+        </button>
+        <button type="button" class="nav-i w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-2.5" data-v="ops" onclick="go('ops')">
+          <i class="fas fa-bolt w-4 text-center opacity-70"></i> Quick ops
+        </button>
+        <div class="pt-3 mt-2 border-t border-slate-800 px-2 text-[10px] text-slate-600 uppercase tracking-wider">System</div>
+        <button type="button" class="nav-i w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-2.5" data-v="tools" onclick="go('tools')">
+          <i class="fas fa-wrench w-4 text-center opacity-70"></i> Tools
+        </button>
+      </nav>
+      <div class="p-3 border-t border-slate-800">
+        <div class="text-xs font-medium truncate" id="admin-name">Admin</div>
+        <div class="text-[10px] text-slate-500 truncate" id="admin-email"></div>
+        <button type="button" onclick="doLogout()" class="mt-2 w-full text-left text-[11px] text-slate-500 hover:text-red-400 py-1">Sign out</button>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0">
+      <header class="h-14 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur px-5 flex items-center justify-between gap-3 sticky top-0 z-20">
+        <div>
+          <h1 id="page-title" class="font-semibold text-base">Overview</h1>
+          <p id="page-sub" class="text-[11px] text-slate-500">Live operations</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="api-status" class="chip s-muted">API …</span>
+          <button type="button" onclick="refreshAll()" class="btn-g px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5">
+            <i class="fas fa-rotate"></i> Refresh
+          </button>
+          <a href="packages.html" target="_blank" class="btn-g px-3 py-1.5 rounded-lg text-xs hidden sm:inline-flex">Site</a>
+        </div>
+      </header>
+      <main id="main" class="flex-1 overflow-y-auto p-4 md:p-6"></main>
+    </div>
+  </div>
+
+  <!-- Generic modal -->
+  <div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="glass rounded-2xl w-full max-w-lg p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-start mb-4">
+        <h3 id="modal-title" class="font-semibold text-base">Detail</h3>
+        <button type="button" onclick="closeModal()" class="text-slate-400 hover:text-white text-xl leading-none">&times;</button>
+      </div>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-4 right-4 z-[60] hidden max-w-sm glass rounded-xl px-4 py-3 text-xs shadow-xl border-cyan-500/20"></div>
+
+<script>
+(function () {
+ const API_ROOT = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? 'http://localhost:3000'
+  : 'https://YOUR-BACKEND-URL'; // replace after deploy (Railway, Render, VPS, etc.)
+
+  const TOKEN_KEY = 'ich_admin_token';
+  const USER_KEY = 'ich_admin_user';
+
+  let cache = {
+    overview: null,
+    payments: [],
+    clients: [],
+    tickets: [],
+    user: null
+  };
+
+  let filters = {
+    payStatus: 'all',
+    payQ: '',
+    clientQ: '',
+    clientActive: 'all',
+    ticketStatus: 'all',
+    ticketPri: 'all',
+    ticketQ: ''
+  };
+
+  function token() { return localStorage.getItem(TOKEN_KEY); }
+
+  function authHeaders() {
+    return { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token() };
+  }
+
+  async function api(path, opts = {}) {
+    const res = await fetch(API_ROOT + path, {
+      ...opts,
+      headers: { ...authHeaders(), ...(opts.headers || {}) }
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 401) {
+      doLogout(true);
+      throw new Error('Session expired');
+    }
+    if (!res.ok) throw new Error(data.message || 'Request failed (' + res.status + ')');
+    return data;
+  }
+
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+  }
+
+  function chip(status) {
+    const s = String(status || '').toLowerCase();
+    let c = 's-muted';
+    if (['success', 'active', 'resolved', 'closed', 'yes'].includes(s)) c = 's-ok';
+    else if (['pending', 'open', 'in progress'].includes(s)) c = 's-open';
+    else if (['escalated', 'high', 'medium', 'warn'].includes(s)) c = 's-warn';
+    else if (['failed', 'cancelled', 'critical', 'no', 'expired'].includes(s)) c = 's-bad';
+    return '<span class="chip ' + c + '">' + esc(status) + '</span>';
+  }
+
+  function money(n) {
+    return 'KES ' + Number(n || 0).toLocaleString();
+  }
+
+  function toast(msg, ms = 3200) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.remove('hidden');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.add('hidden'), ms);
+  }
+
+  function openModal(title, html) {
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-body').innerHTML = html;
+    const m = document.getElementById('modal');
+    m.classList.remove('hidden');
+    m.classList.add('flex');
+  }
+  function closeModal() {
+    const m = document.getElementById('modal');
+    m.classList.add('hidden');
+    m.classList.remove('flex');
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const err = document.getElementById('login-err');
+    const btn = document.getElementById('login-btn');
+    err.classList.add('hidden');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Signing in…';
+    try {
+      const res = await fetch(API_ROOT + '/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.message || 'Login failed');
+      if (data.user?.role !== 'admin') throw new Error('Admin role required');
+      localStorage.setItem(TOKEN_KEY, data.token);
+      localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+      cache.user = data.user;
+      await startApp();
+    } catch (e) {
+      err.textContent = e.message || 'Cannot reach API';
+      err.classList.remove('hidden');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Sign in to console';
+    }
+  }
+
+  function doLogout(silent) {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+    document.getElementById('app').classList.add('hidden');
+    document.getElementById('login-screen').classList.remove('hidden');
+    if (!silent) toast('Signed out');
+  }
+
+  async function pingApi() {
+    const el = document.getElementById('api-status');
+    try {
+      const r = await fetch(API_ROOT + '/');
+      const j = await r.json();
+      el.className = 'chip s-ok';
+      el.textContent = 'API ' + (j.version || 'ok');
+    } catch {
+      el.className = 'chip s-bad';
+      el.textContent = 'API offline';
+    }
+  }
+
+  async function refreshAll() {
+    toast('Refreshing…');
+    await Promise.all([loadOverview(), loadPayments(), loadClients(), loadTickets()]);
+    updateTicketBadge();
+    go(currentView);
+    toast('Data refreshed');
+  }
+
+  async function loadOverview() {
+    cache.overview = await api('/api/admin/overview');
+  }
+  async function loadPayments() {
+    const d = await api('/api/admin/payments');
+    cache.payments = d.payments || [];
+  }
+  async function loadClients() {
+    const d = await api('/api/admin/clients');
+    cache.clients = d.clients || [];
+  }
+  async function loadTickets() {
+    const d = await api('/api/admin/tickets');
+    cache.tickets = d.tickets || [];
+  }
+
+  function updateTicketBadge() {
+    const n = cache.tickets.filter(t => !['Resolved', 'Closed'].includes(t.status)).length;
+    const b = document.getElementById('nav-ticket-badge');
+    if (n) { b.textContent = String(n); b.classList.remove('hidden'); }
+    else b.classList.add('hidden');
+  }
+
+  let currentView = 'overview';
+  const meta = {
+    overview: ['Overview', 'Revenue, clients, queue health'],
+    payments: ['Payments', 'M-Pesa STK audit trail'],
+    clients: ['Clients', 'Accounts & access control'],
+    tickets: ['Tickets', 'Support queue & assignment'],
+    subscriptions: ['Subscriptions', 'Coverage derived from clients'],
+    ops: ['Quick ops', 'Daily operational shortcuts'],
+    tools: ['Tools', 'Exports, links, diagnostics']
+  };
+
+  function go(view) {
+    if (!meta[view]) view = 'overview';
+    currentView = view;
+    document.getElementById('page-title').textContent = meta[view][0];
+    document.getElementById('page-sub').textContent = meta[view][1];
+    document.querySelectorAll('.nav-i').forEach(b => {
+      const on = b.dataset.v === view;
+      b.classList.toggle('active', on);
+    });
+    const main = document.getElementById('main');
+    const map = {
+      overview: renderOverview,
+      payments: renderPayments,
+      clients: renderClients,
+      tickets: renderTickets,
+      subscriptions: renderSubscriptions,
+      ops: renderOps,
+      tools: renderTools
+    };
+    main.innerHTML = map[view]();
+  }
+
+  /* ========== RENDERERS ========== */
+
+  function renderOverview() {
+    const s = cache.overview?.stats || {};
+    const recent = cache.overview?.recentPayments || cache.payments.slice(0, 10);
+    const openT = cache.tickets.filter(t => !['Resolved', 'Closed'].includes(t.status));
+    const crit = openT.filter(t => t.priority === 'Critical' || t.priority === 'High');
+    const successPays = cache.payments.filter(p => p.status === 'success');
+    const pendingPays = cache.payments.filter(p => p.status === 'pending');
+    const failedPays = cache.payments.filter(p => p.status === 'failed' || p.status === 'cancelled');
+
+    const byPkg = {};
+    successPays.forEach(p => {
+      const k = p.package_code || 'unknown';
+      byPkg[k] = (byPkg[k] || 0) + Number(p.amount || 0);
+    });
+
+    return `
+      <div class="space-y-6 max-w-6xl">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="glass rounded-xl p-4">
+            <div class="text-[11px] text-slate-500">Clients</div>
+            <div class="text-2xl font-bold text-cyan-400 mt-1">${s.clients ?? cache.clients.length}</div>
+          </div>
+          <div class="glass rounded-xl p-4">
+            <div class="text-[11px] text-slate-500">Active subscriptions</div>
+            <div class="text-2xl font-bold text-cyan-400 mt-1">${s.activeSubs ?? '—'}</div>
+          </div>
+          <div class="glass rounded-xl p-4">
+            <div class="text-[11px] text-slate-500">Open tickets</div>
+            <div class="text-2xl font-bold ${openT.length ? 'text-amber-400' : 'text-emerald-400'} mt-1">${s.openTickets ?? openT.length}</div>
+            <div class="text-[10px] text-slate-500 mt-1">${crit.length} high/critical</div>
+          </div>
+          <div class="glass rounded-xl p-4">
+            <div class="text-[11px] text-slate-500">M-Pesa revenue</div>
+            <div class="text-2xl font-bold text-emerald-400 mt-1">${money(s.revenue)}</div>
+            <div class="text-[10px] text-slate-500 mt-1">${successPays.length} successful · ${pendingPays.length} pending</div>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-4">
+          <div class="glass rounded-xl p-4 lg:col-span-2">
+            <div class="flex justify-between items-center mb-3">
+              <h2 class="font-semibold">Recent payments</h2>
+              <button type="button" onclick="go('payments')" class="text-xs text-cyan-400">All payments →</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead><tr>
+                  <th class="p-2">When</th><th class="p-2">Client</th><th class="p-2">Pkg</th><th class="p-2">Amount</th><th class="p-2">Status</th>
+                </tr></thead>
+                <tbody>
+                  ${recent.slice(0, 8).map(p => `
+                    <tr class="border-t border-slate-800/60 hover:bg-white/[0.02] cursor-pointer" onclick='showPayment(${JSON.stringify(p).replace(/'/g, "&#39;")})'>
+                      <td class="p-2 text-xs text-slate-400 whitespace-nowrap">${esc((p.created_at || '').slice(0, 16))}</td>
+                      <td class="p-2">${esc(p.customer_name || '—')}<div class="text-[10px] text-slate-500">${esc(p.customer_email || '')}</div></td>
+                      <td class="p-2 mono text-xs">${esc(p.package_code || '')}</td>
+                      <td class="p-2">${money(p.amount)}</td>
+                      <td class="p-2">${chip(p.status)}</td>
+                    </tr>`).join('') || '<tr><td class="p-4 text-slate-500" colspan="5">No payments</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="glass rounded-xl p-4">
+              <h2 class="font-semibold mb-3">Revenue by package</h2>
+              ${Object.keys(byPkg).length ? Object.entries(byPkg).map(([k, v]) => `
+                <div class="flex justify-between text-xs py-1.5 border-b border-slate-800/50 last:border-0">
+                  <span class="mono text-cyan-400">${esc(k)}</span>
+                  <span>${money(v)}</span>
+                </div>`).join('') : '<p class="text-xs text-slate-500">No successful payments yet</p>'}
+            </div>
+            <div class="glass rounded-xl p-4">
+              <h2 class="font-semibold mb-3">Queue alerts</h2>
+              <ul class="space-y-2 text-xs">
+                <li class="flex justify-between"><span>Pending STK</span><span class="${pendingPays.length ? 'text-amber-400' : 'text-slate-500'}">${pendingPays.length}</span></li>
+                <li class="flex justify-between"><span>Failed / cancelled</span><span class="${failedPays.length ? 'text-red-400' : 'text-slate-500'}">${failedPays.length}</span></li>
+                <li class="flex justify-between"><span>Open tickets</span><span>${openT.length}</span></li>
+                <li class="flex justify-between"><span>Inactive clients</span><span>${cache.clients.filter(c => !c.is_active).length}</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass rounded-xl p-4">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="font-semibold">Priority tickets</h2>
+            <button type="button" onclick="go('tickets')" class="text-xs text-cyan-400">Ticket board →</button>
+          </div>
+          ${crit.length ? crit.slice(0, 5).map(t => `
+            <div class="flex flex-wrap justify-between gap-2 py-2 border-t border-slate-800/50 first:border-0 cursor-pointer" onclick="showTicket(${t.id})">
+              <div>
+                <span class="mono text-[10px] text-cyan-400">${esc(t.ticket_id)}</span>
+                <div class="font-medium">${esc(t.subject)}</div>
+                <div class="text-[10px] text-slate-500">${esc(t.customer_name)} · ${esc(t.company || '')}</div>
+              </div>
+              <div class="flex gap-1 items-start">${chip(t.priority)} ${chip(t.status)}</div>
+            </div>`).join('') : '<p class="text-xs text-slate-500">No high/critical open tickets.</p>'}
+        </div>
+      </div>`;
+  }
+
+  function filteredPayments() {
+    let list = cache.payments.slice();
+    if (filters.payStatus !== 'all') list = list.filter(p => p.status === filters.payStatus);
+    const q = filters.payQ.trim().toLowerCase();
+    if (q) {
+      list = list.filter(p =>
+        [p.customer_name, p.customer_email, p.phone, p.package_code, p.mpesa_receipt, p.checkout_request_id]
+          .join(' ').toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }
+
+  function renderPayments() {
+    const list = filteredPayments();
+    const sumOk = list.filter(p => p.status === 'success').reduce((a, p) => a + Number(p.amount || 0), 0);
+    return `
+      <div class="space-y-4 max-w-6xl">
+        <div class="flex flex-wrap gap-2 items-center justify-between">
+          <div class="flex flex-wrap gap-2">
+            <input type="search" placeholder="Search name, email, phone, receipt…" value="${esc(filters.payQ)}"
+              oninput="filters.payQ=this.value; go('payments')"
+              class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs w-56 outline-none focus:border-cyan-500/40" />
+            <select onchange="filters.payStatus=this.value; go('payments')" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs">
+              ${['all','pending','success','failed','cancelled'].map(s =>
+                `<option value="${s}" ${filters.payStatus===s?'selected':''}>${s}</option>`).join('')}
+            </select>
+          </div>
+          <div class="text-xs text-slate-500">${list.length} rows · success sum ${money(sumOk)}</div>
+        </div>
+        <div class="glass rounded-xl overflow-x-auto">
+          <table class="w-full text-left">
+            <thead><tr>
+              <th class="p-3">ID</th><th class="p-3">Client</th><th class="p-3">Phone</th><th class="p-3">Package</th>
+              <th class="p-3">Amount</th><th class="p-3">Status</th><th class="p-3">Receipt</th><th class="p-3">When</th>
+            </tr></thead>
+            <tbody>
+              ${list.map(p => `
+                <tr class="border-t border-slate-800/50 hover:bg-white/[0.02] cursor-pointer" onclick='showPaymentById(${p.id})'>
+                  <td class="p-3 mono text-xs">${p.id}</td>
+                  <td class="p-3">${esc(p.customer_name || '—')}<div class="text-[10px] text-slate-500">${esc(p.customer_email || '')}</div></td>
+                  <td class="p-3 mono text-xs">${esc(p.phone || '')}</td>
+                  <td class="p-3 mono text-xs">${esc(p.package_code || '')}</td>
+                  <td class="p-3">${money(p.amount)}</td>
+                  <td class="p-3">${chip(p.status)}</td>
+                  <td class="p-3 mono text-xs">${esc(p.mpesa_receipt || '—')}</td>
+                  <td class="p-3 text-xs text-slate-400 whitespace-nowrap">${esc((p.created_at || '').slice(0, 19))}</td>
+                </tr>`).join('') || '<tr><td colspan="8" class="p-6 text-center text-slate-500">No payments match</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+        <button type="button" onclick="exportCsv('payments')" class="btn-g px-3 py-2 rounded-lg text-xs">
+          <i class="fas fa-download mr-1"></i> Export filtered CSV
+        </button>
+      </div>`;
+  }
+
+  function filteredClients() {
+    let list = cache.clients.slice();
+    if (filters.clientActive === 'active') list = list.filter(c => c.is_active);
+    if (filters.clientActive === 'inactive') list = list.filter(c => !c.is_active);
+    const q = filters.clientQ.trim().toLowerCase();
+    if (q) {
+      list = list.filter(c =>
+        [c.name, c.email, c.company, c.phone, c.package_name].join(' ').toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }
+
+  function renderClients() {
+    const list = filteredClients();
+    return `
+      <div class="space-y-4 max-w-6xl">
+        <div class="flex flex-wrap gap-2 items-center justify-between">
+          <div class="flex flex-wrap gap-2">
+            <input type="search" placeholder="Search clients…" value="${esc(filters.clientQ)}"
+              oninput="filters.clientQ=this.value; go('clients')"
+              class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs w-52 outline-none focus:border-cyan-500/40" />
+            <select onchange="filters.clientActive=this.value; go('clients')" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs">
+              <option value="all" ${filters.clientActive==='all'?'selected':''}>All</option>
+              <option value="active" ${filters.clientActive==='active'?'selected':''}>Active only</option>
+              <option value="inactive" ${filters.clientActive==='inactive'?'selected':''}>Inactive only</option>
+            </select>
+          </div>
+          <div class="text-xs text-slate-500">${list.length} clients</div>
+        </div>
+        <div class="glass rounded-xl overflow-x-auto">
+          <table class="w-full text-left">
+            <thead><tr>
+              <th class="p-3">Client</th><th class="p-3">Company</th><th class="p-3">Phone</th>
+              <th class="p-3">Package</th><th class="p-3">Ends</th><th class="p-3">Access</th><th class="p-3">Actions</th>
+            </tr></thead>
+            <tbody>
+              ${list.map(c => `
+                <tr class="border-t border-slate-800/50">
+                  <td class="p-3">
+                    <div class="font-medium">${esc(c.name)}</div>
+                    <div class="text-[10px] text-slate-500">${esc(c.email)}</div>
+                  </td>
+                  <td class="p-3">${esc(c.company || '—')}</td>
+                  <td class="p-3 mono text-xs">${esc(c.phone || '—')}</td>
+                  <td class="p-3">${esc(c.package_name || '—')}</td>
+                  <td class="p-3 text-xs">${esc(c.sub_end || '—')}</td>
+                  <td class="p-3">${chip(c.is_active ? 'Active' : 'Off')}</td>
+                  <td class="p-3">
+                    <button type="button" class="btn-g px-2 py-1 rounded text-[11px]"
+                      onclick="toggleClient(${c.id}, ${c.is_active ? 0 : 1})">
+                      ${c.is_active ? 'Suspend' : 'Activate'}
+                    </button>
+                    <button type="button" class="btn-g px-2 py-1 rounded text-[11px] ml-1"
+                      onclick="showClient(${c.id})">View</button>
+                  </td>
+                </tr>`).join('') || '<tr><td colspan="7" class="p-6 text-center text-slate-500">No clients</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+        <button type="button" onclick="exportCsv('clients')" class="btn-g px-3 py-2 rounded-lg text-xs">
+          <i class="fas fa-download mr-1"></i> Export clients CSV
+        </button>
+      </div>`;
+  }
+
+  function filteredTickets() {
+    let list = cache.tickets.slice();
+    if (filters.ticketStatus !== 'all') list = list.filter(t => t.status === filters.ticketStatus);
+    if (filters.ticketPri !== 'all') list = list.filter(t => t.priority === filters.ticketPri);
+    const q = filters.ticketQ.trim().toLowerCase();
+    if (q) {
+      list = list.filter(t =>
+        [t.ticket_id, t.subject, t.description, t.customer_name, t.customer_email, t.company, t.category]
+          .join(' ').toLowerCase().includes(q)
+      );
+    }
+    // Critical first
+    const rank = { Critical: 0, High: 1, Medium: 2, Low: 3 };
+    list.sort((a, b) => (rank[a.priority] ?? 9) - (rank[b.priority] ?? 9));
+    return list;
+  }
+
+  function renderTickets() {
+    const list = filteredTickets();
+    return `
+      <div class="space-y-4 max-w-6xl">
+        <div class="flex flex-wrap gap-2 items-center justify-between">
+          <div class="flex flex-wrap gap-2">
+            <input type="search" placeholder="Search tickets…" value="${esc(filters.ticketQ)}"
+              oninput="filters.ticketQ=this.value; go('tickets')"
+              class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs w-48 outline-none focus:border-cyan-500/40" />
+            <select onchange="filters.ticketStatus=this.value; go('tickets')" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs">
+              <option value="all">All statuses</option>
+              ${['Open','In Progress','Escalated','Resolved','Closed'].map(s =>
+                `<option value="${s}" ${filters.ticketStatus===s?'selected':''}>${s}</option>`).join('')}
+            </select>
+            <select onchange="filters.ticketPri=this.value; go('tickets')" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs">
+              <option value="all">All priorities</option>
+              ${['Critical','High','Medium','Low'].map(s =>
+                `<option value="${s}" ${filters.ticketPri===s?'selected':''}>${s}</option>`).join('')}
+            </select>
+          </div>
+          <div class="text-xs text-slate-500">${list.length} tickets</div>
+        </div>
+        <div class="space-y-2">
+          ${list.map(t => `
+            <div class="glass rounded-xl p-4 hover:border-cyan-500/20 transition">
+              <div class="flex flex-wrap justify-between gap-3">
+                <div class="min-w-0 flex-1 cursor-pointer" onclick="showTicket(${t.id})">
+                  <div class="flex flex-wrap items-center gap-2 mb-1">
+                    <span class="mono text-[10px] text-cyan-400">${esc(t.ticket_id)}</span>
+                    ${chip(t.priority)}
+                    ${chip(t.status)}
+                    <span class="text-[10px] text-slate-500">${esc(t.category || '')}</span>
+                  </div>
+                  <div class="font-semibold">${esc(t.subject)}</div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">${esc(t.customer_name)} · ${esc(t.company || '')} · ${esc(t.customer_email || '')}</div>
+                  <p class="text-xs text-slate-400 mt-2 line-clamp-2">${esc((t.description || '').slice(0, 180))}</p>
+                </div>
+                <div class="flex flex-col gap-2 shrink-0">
+                  <select class="bg-slate-950 border border-slate-700 rounded-lg text-[11px] px-2 py-1.5"
+                    onchange="setTicketStatus(${t.id}, this.value)">
+                    ${['Open','In Progress','Escalated','Resolved','Closed'].map(s =>
+                      `<option value="${s}" ${t.status===s?'selected':''}>${s}</option>`).join('')}
+                  </select>
+                  <select class="bg-slate-950 border border-slate-700 rounded-lg text-[11px] px-2 py-1.5"
+                    onchange="setTicketPriority(${t.id}, this.value)">
+                    ${['Low','Medium','High','Critical'].map(s =>
+                      `<option value="${s}" ${t.priority===s?'selected':''}>${s}</option>`).join('')}
+                  </select>
+                  <a href="https://wa.me/${esc(String(t.customer_email || '').includes('@') ? '254768741052' : '254768741052')}?text=${encodeURIComponent('Re: ' + (t.ticket_id || '') + ' — ' + (t.subject || ''))}"
+                    target="_blank" rel="noopener" class="btn-g text-center text-[11px] py-1.5 rounded-lg">
+                    <i class="fab fa-whatsapp text-green-500"></i> WhatsApp
+                  </a>
+                </div>
+              </div>
+            </div>`).join('') || '<div class="glass rounded-xl p-8 text-center text-slate-500">No tickets match filters</div>'}
+        </div>
+      </div>`;
+  }
+
+  function renderSubscriptions() {
+    const withPkg = cache.clients.filter(c => c.package_name);
+    const without = cache.clients.filter(c => !c.package_name);
+    return `
+      <div class="space-y-4 max-w-5xl">
+        <div class="grid sm:grid-cols-3 gap-3">
+          <div class="glass rounded-xl p-4"><div class="text-[11px] text-slate-500">With package</div><div class="text-xl font-bold text-cyan-400">${withPkg.length}</div></div>
+          <div class="glass rounded-xl p-4"><div class="text-[11px] text-slate-500">No package</div><div class="text-xl font-bold text-amber-400">${without.length}</div></div>
+          <div class="glass rounded-xl p-4"><div class="text-[11px] text-slate-500">Ending ≤ 7 days</div>
+            <div class="text-xl font-bold">${cache.clients.filter(c => {
+              if (!c.sub_end) return false;
+              const d = (new Date(c.sub_end) - new Date()) / 864e5;
+              return d >= 0 && d <= 7;
+            }).length}</div>
+          </div>
+        </div>
+        <div class="glass rounded-xl overflow-x-auto">
+          <table class="w-full text-left">
+            <thead><tr>
+              <th class="p-3">Client</th><th class="p-3">Package</th><th class="p-3">End date</th><th class="p-3">Days left</th><th class="p-3">Action</th>
+            </tr></thead>
+            <tbody>
+              ${cache.clients.map(c => {
+                let days = '—';
+                if (c.sub_end) {
+                  days = Math.ceil((new Date(c.sub_end) - new Date()) / 864e5);
+                }
+                const urgent = typeof days === 'number' && days <= 7;
+                return `<tr class="border-t border-slate-800/50 ${urgent ? 'bg-amber-500/5' : ''}">
+                  <td class="p-3">${esc(c.name)}<div class="text-[10px] text-slate-500">${esc(c.email)}</div></td>
+                  <td class="p-3">${esc(c.package_name || 'None')}</td>
+                  <td class="p-3 text-xs">${esc(c.sub_end || '—')}</td>
+                  <td class="p-3 ${urgent ? 'text-amber-400 font-semibold' : ''}">${days}</td>
+                  <td class="p-3">
+                    <a class="text-xs text-cyan-400 hover:underline" href="mailto:${esc(c.email)}?subject=Subscription%20renewal%20—%20Infinite%20Cyberspace">Email renewal</a>
+                  </td>
+                </tr>`;
+              }).join('') || '<tr><td class="p-6 text-slate-500" colspan="5">No clients</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+  }
+
+  function renderOps() {
+    const pending = cache.payments.filter(p => p.status === 'pending').length;
+    const openT = cache.tickets.filter(t => t.status === 'Open').length;
+    const escalated = cache.tickets.filter(t => t.status === 'Escalated').length;
+    return `
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs text-slate-400">Shortcuts for daily operations. Data is live from the API.</p>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <button type="button" onclick="filters.ticketStatus='Open'; filters.ticketPri='all'; go('tickets')" class="glass rounded-xl p-4 text-left hover:border-cyan-500/30 transition">
+            <div class="text-2xl font-bold text-cyan-400">${openT}</div>
+            <div class="text-xs text-slate-400 mt-1">Open tickets → triage</div>
+          </button>
+          <button type="button" onclick="filters.ticketStatus='Escalated'; go('tickets')" class="glass rounded-xl p-4 text-left hover:border-cyan-500/30 transition">
+            <div class="text-2xl font-bold text-amber-400">${escalated}</div>
+            <div class="text-xs text-slate-400 mt-1">Escalated → handle now</div>
+          </button>
+          <button type="button" onclick="filters.payStatus='pending'; go('payments')" class="glass rounded-xl p-4 text-left hover:border-cyan-500/30 transition">
+            <div class="text-2xl font-bold text-amber-400">${pending}</div>
+            <div class="text-xs text-slate-400 mt-1">Pending STK payments</div>
+          </button>
+          <button type="button" onclick="filters.payStatus='failed'; go('payments')" class="glass rounded-xl p-4 text-left hover:border-cyan-500/30 transition">
+            <div class="text-2xl font-bold text-red-400">${cache.payments.filter(p=>p.status==='failed'||p.status==='cancelled').length}</div>
+            <div class="text-xs text-slate-400 mt-1">Failed / cancelled payments</div>
+          </button>
+        </div>
+        <div class="glass rounded-xl p-5 space-y-3">
+          <h2 class="font-semibold">Shift checklist</h2>
+          <label class="flex items-center gap-2 text-xs text-slate-300"><input type="checkbox" class="rounded" /> Review critical tickets</label>
+          <label class="flex items-center gap-2 text-xs text-slate-300"><input type="checkbox" class="rounded" /> Confirm pending M-Pesa / follow up</label>
+          <label class="flex items-center gap-2 text-xs text-slate-300"><input type="checkbox" class="rounded" /> Check renewals ending in 7 days</label>
+          <label class="flex items-center gap-2 text-xs text-slate-300"><input type="checkbox" class="rounded" /> Update client on resolved tickets</label>
+          <label class="flex items-center gap-2 text-xs text-slate-300"><input type="checkbox" class="rounded" /> Publish monthly reports (Documents)</label>
+        </div>
+        <div class="glass rounded-xl p-5">
+          <h2 class="font-semibold mb-2">Emergency contacts</h2>
+          <p class="text-xs text-slate-400">WhatsApp ops: <a class="text-cyan-400" href="https://wa.me/254768741052" target="_blank">+254 768 741 052</a></p>
+          <p class="text-xs text-slate-400 mt-1">Email: infinitecyberspace.info@gmail.com</p>
+        </div>
+      </div>`;
+  }
+
+  function renderTools() {
+    return `
+      <div class="max-w-2xl space-y-4">
+        <div class="glass rounded-xl p-5 space-y-3">
+          <h2 class="font-semibold">Exports</h2>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="exportCsv('payments')" class="btn-g px-3 py-2 rounded-lg text-xs">Payments CSV</button>
+            <button type="button" onclick="exportCsv('clients')" class="btn-g px-3 py-2 rounded-lg text-xs">Clients CSV</button>
+            <button type="button" onclick="exportCsv('tickets')" class="btn-g px-3 py-2 rounded-lg text-xs">Tickets CSV</button>
+          </div>
+        </div>
+        <div class="glass rounded-xl p-5 space-y-2">
+          <h2 class="font-semibold">Diagnostics</h2>
+          <p class="text-xs text-slate-400">API root: <span class="mono text-cyan-400">${esc(API_ROOT)}</span></p>
+          <button type="button" onclick="pingApi(); toast('Pinged API')" class="btn-g px-3 py-2 rounded-lg text-xs">Ping API</button>
+          <button type="button" onclick="refreshAll()" class="btn-g px-3 py-2 rounded-lg text-xs">Force full reload</button>
+        </div>
+        <div class="glass rounded-xl p-5 space-y-2 text-xs text-slate-400">
+          <h2 class="font-semibold text-slate-200">Coming next (backend hooks)</h2>
+          <ul class="list-disc pl-4 space-y-1">
+            <li>Assign technician to ticket</li>
+            <li>Manual subscription extend / cancel</li>
+            <li>Upload client reports</li>
+            <li>Activity log stream</li>
+            <li>Auto renewal reminders (SMS/email)</li>
+          </ul>
+        </div>
+      </div>`;
+  }
+
+  /* ========== ACTIONS ========== */
+
+  async function toggleClient(id, is_active) {
+    try {
+      await api('/api/admin/clients/' + id, {
+        method: 'PATCH',
+        body: JSON.stringify({ is_active: !!is_active })
+      });
+      await loadClients();
+      go('clients');
+      toast(is_active ? 'Client activated' : 'Client suspended');
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  async function setTicketStatus(id, status) {
+    try {
+      await api('/api/admin/tickets/' + id, {
+        method: 'PATCH',
+        body: JSON.stringify({ status })
+      });
+      await loadTickets();
+      updateTicketBadge();
+      go('tickets');
+      toast('Ticket → ' + status);
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  async function setTicketPriority(id, priority) {
+    try {
+      await api('/api/admin/tickets/' + id, {
+        method: 'PATCH',
+        body: JSON.stringify({ priority })
+      });
+      await loadTickets();
+      go('tickets');
+      toast('Priority → ' + priority);
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function showPaymentById(id) {
+    const p = cache.payments.find(x => x.id === id);
+    if (p) showPayment(p);
+  }
+
+  function showPayment(p) {
+    openModal('Payment #' + p.id, `
+      <div class="space-y-2 text-xs">
+        <div class="grid grid-cols-2 gap-2">
+          <div><span class="text-slate-500">Status</span><div class="mt-0.5">${chip(p.status)}</div></div>
+          <div><span class="text-slate-500">Amount</span><div class="mt-0.5 font-semibold">${money(p.amount)}</div></div>
+          <div><span class="text-slate-500">Package</span><div class="mono">${esc(p.package_code)}</div></div>
+          <div><span class="text-slate-500">Receipt</span><div class="mono">${esc(p.mpesa_receipt || '—')}</div></div>
+          <div><span class="text-slate-500">Name</span><div>${esc(p.customer_name)}</div></div>
+          <div><span class="text-slate-500">Email</span><div>${esc(p.customer_email)}</div></div>
+          <div><span class="text-slate-500">Phone</span><div class="mono">${esc(p.phone)}</div></div>
+          <div><span class="text-slate-500">Company</span><div>${esc(p.customer_company || '—')}</div></div>
+        </div>
+        <div class="pt-2 border-t border-slate-800">
+          <span class="text-slate-500">CheckoutRequestID</span>
+          <div class="mono break-all text-[10px] mt-1">${esc(p.checkout_request_id || '—')}</div>
+        </div>
+        <div><span class="text-slate-500">Result</span><div>${esc(p.result_desc || '—')}</div></div>
+        <div><span class="text-slate-500">Created</span><div>${esc(p.created_at)}</div></div>
+      </div>`);
+  }
+
+  function showTicket(id) {
+    const t = cache.tickets.find(x => x.id === id);
+    if (!t) return;
+    openModal(t.ticket_id, `
+      <div class="space-y-3 text-xs">
+        <div class="flex flex-wrap gap-2">${chip(t.priority)} ${chip(t.status)}</div>
+        <div class="font-semibold text-sm text-slate-100">${esc(t.subject)}</div>
+        <p class="text-slate-300 whitespace-pre-wrap leading-relaxed">${esc(t.description)}</p>
+        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+          <div><span class="text-slate-500">Client</span><div>${esc(t.customer_name)}</div></div>
+          <div><span class="text-slate-500">Company</span><div>${esc(t.company || '—')}</div></div>
+          <div><span class="text-slate-500">Email</span><div>${esc(t.customer_email)}</div></div>
+          <div><span class="text-slate-500">Category</span><div>${esc(t.category)}</div></div>
+          <div><span class="text-slate-500">Created</span><div>${esc(t.created_at)}</div></div>
+          <div><span class="text-slate-500">Updated</span><div>${esc(t.updated_at || '—')}</div></div>
+        </div>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <select id="m-status" class="bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5">
+            ${['Open','In Progress','Escalated','Resolved','Closed'].map(s =>
+              `<option ${t.status===s?'selected':''}>${s}</option>`).join('')}
+          </select>
+          <button type="button" class="btn-p px-3 py-1.5 rounded-lg"
+            onclick="setTicketStatus(${t.id}, document.getElementById('m-status').value); closeModal()">Update status</button>
+        </div>
+      </div>`);
+  }
+
+  function showClient(id) {
+    const c = cache.clients.find(x => x.id === id);
+    if (!c) return;
+    openModal(c.name, `
+      <div class="space-y-2 text-xs">
+        <div><span class="text-slate-500">Email</span><div>${esc(c.email)}</div></div>
+        <div><span class="text-slate-500">Company</span><div>${esc(c.company || '—')}</div></div>
+        <div><span class="text-slate-500">Phone</span><div class="mono">${esc(c.phone || '—')}</div></div>
+        <div><span class="text-slate-500">Package</span><div>${esc(c.package_name || 'None')}</div></div>
+        <div><span class="text-slate-500">Sub end</span><div>${esc(c.sub_end || '—')}</div></div>
+        <div><span class="text-slate-500">Access</span><div class="mt-0.5">${chip(c.is_active ? 'Active' : 'Suspended')}</div></div>
+        <div class="flex gap-2 pt-3">
+          <button type="button" class="btn-g px-3 py-1.5 rounded-lg" onclick="toggleClient(${c.id}, ${c.is_active?0:1}); closeModal()">
+            ${c.is_active ? 'Suspend access' : 'Activate access'}
+          </button>
+          <a class="btn-g px-3 py-1.5 rounded-lg" href="mailto:${esc(c.email)}">Email</a>
+        </div>
+      </div>`);
+  }
+
+  function exportCsv(kind) {
+    let rows = [];
+    if (kind === 'payments') {
+      rows = [['id','name','email','phone','package','amount','status','receipt','created']].concat(
+        filteredPayments().map(p => [p.id, p.customer_name, p.customer_email, p.phone, p.package_code, p.amount, p.status, p.mpesa_receipt, p.created_at])
+      );
+    } else if (kind === 'clients') {
+      rows = [['id','name','email','company','phone','package','sub_end','active']].concat(
+        filteredClients().map(c => [c.id, c.name, c.email, c.company, c.phone, c.package_name, c.sub_end, c.is_active])
+      );
+    } else if (kind === 'tickets') {
+      rows = [['ticket_id','subject','status','priority','customer','email','company','created']].concat(
+        filteredTickets().map(t => [t.ticket_id, t.subject, t.status, t.priority, t.customer_name, t.customer_email, t.company, t.created_at])
+      );
+    }
+    const csv = rows.map(r => r.map(c => '"' + String(c ?? '').replace(/"/g, '""') + '"').join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'ich-' + kind + '-' + Date.now() + '.csv';
+    a.click();
+    toast('CSV downloaded');
+  }
+
+  async function startApp() {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden');
+    const u = cache.user || JSON.parse(localStorage.getItem(USER_KEY) || '{}');
+    document.getElementById('admin-name').textContent = u.name || 'Admin';
+    document.getElementById('admin-email').textContent = u.email || '';
+    await pingApi();
+    await refreshAll();
+  }
+
+  // expose
+  window.doLogin = doLogin;
+  window.doLogout = doLogout;
+  window.go = go;
+  window.refreshAll = refreshAll;
+  window.pingApi = pingApi;
+  window.filters = filters;
+  window.toggleClient = toggleClient;
+  window.setTicketStatus = setTicketStatus;
+  window.setTicketPriority = setTicketPriority;
+  window.showPayment = showPayment;
+  window.showPaymentById = showPaymentById;
+  window.showTicket = showTicket;
+  window.showClient = showClient;
+  window.closeModal = closeModal;
+  window.exportCsv = exportCsv;
+
+  document.getElementById('modal').addEventListener('click', function (e) {
+    if (e.target === this) closeModal();
+  });
+
+  (async function init() {
+    if (!token()) return;
+    try {
+      const me = await api('/api/auth/me');
+      if (me.user?.role !== 'admin') { doLogout(true); return; }
+      cache.user = me.user;
+      await startApp();
+    } catch {
+      doLogout(true);
+    }
+  })();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cybersecurity & IT Services Kenya | Infinite Cyberspace Hub</title>
+  <meta name="description" content="Advanced cybersecurity, 24/7 SOC, Zero-Trust, penetration testing, cloud security and IT support for Kenyan businesses. Based in Kisumu." />
+  <link rel="canonical" href="https://augustinealphonce-spec.github.io/infinitecyberspace_hub/services.html" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="packages.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    .cyber-card {
+      background: linear-gradient(145deg, rgba(15,23,42,0.7) 0%, rgba(10,10,10,0.85) 100%);
+      backdrop-filter: blur(12px);
+    }
+    .glow-border {
+      box-shadow: 0 0 0 1px rgba(6,182,212,0.25), 0 0 25px rgba(6,182,212,0.06);
+    }
+  </style>
+</head>
+<body class="bg-[#050505] text-zinc-200 font-['Inter']">
+
+<!-- NAVBAR (same as packages) -->
+<nav class="navbar sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-cyan-500/20">
+  <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+    <a href="index.html" class="logo text-xl font-bold tracking-tight">
+      INFINITE<span class="text-cyan-400">CYBER</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="index.html" class="nav-link hover:text-cyan-400 transition">Home</a>
+      <a href="services.html" class="nav-link text-cyan-400">Services</a>
+      <a href="packages.html" class="nav-link hover:text-cyan-400 transition">Packages</a>
+      <a href="about.html" class="nav-link hover:text-cyan-400 transition">About Us</a>
+      <a href="blog.html" class="nav-link hover:text-cyan-400 transition">Blog</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400 transition">Contact</a>
+    </div>
+    <div class="hidden md:flex items-center gap-4">
+      <a href="packages.html" class="btn-primary">Get Protected Now</a>
+      <a href="contact.html" class="btn-outline">Free Consultation</a>
+    </div>
+    <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 flex flex-col gap-5 text-sm font-medium bg-black/95 border-t border-cyan-500/20">
+    <a href="index.html" class="nav-link py-2">Home</a>
+    <a href="services.html" class="nav-link py-2 text-cyan-400">Services</a>
+    <a href="packages.html" class="nav-link py-2">Packages</a>
+    <a href="about.html" class="nav-link py-2">About Us</a>
+    <a href="blog.html" class="nav-link py-2">Blog</a>
+    <a href="contact.html" class="nav-link py-2">Contact</a>
+    <div class="pt-4 flex flex-col gap-3">
+      <a href="packages.html" class="btn-primary text-center py-3">Get Protected Now</a>
+      <a href="contact.html" class="btn-outline text-center py-3">Free Consultation</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative py-24 overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-transparent to-transparent pointer-events-none"></div>
+  <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-sm font-medium mb-8">
+      <i class="fas fa-shield-virus"></i>
+      Full-spectrum cyber defense & IT operations
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+      <span class="bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent">
+        Advanced Cybersecurity & IT Services
+      </span>
+    </h1>
+    <p class="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+      From Zero-Trust architecture and 24/7 SOC monitoring to penetration testing, cloud hardening, and employee resilience training — we deliver enterprise-grade protection tailored for Kenyan businesses.
+    </p>
+  </div>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="pb-28">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Service 1 -->
+      <div class="cyber-card border border-zinc-700/70 rounded-2xl p-8 glow-border hover:border-cyan-500/40 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl mb-6">
+          <i class="fas fa-satellite-dish"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">24/7 SOC Monitoring & Threat Detection</h3>
+        <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+          Continuous monitoring of your environment with real-time alerts, SIEM correlation, and rapid triage by our security operations team.
+        </p>
+        <ul class="space-y-2 text-sm text-zinc-300">
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> XDR + SIEM integration</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Threat intelligence feeds</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Critical response &lt; 15 min</li>
+        </ul>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="cyber-card border border-zinc-700/70 rounded-2xl p-8 glow-border hover:border-cyan-500/40 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl mb-6">
+          <i class="fas fa-network-wired"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Zero-Trust Network Access & Firewall</h3>
+        <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+          Modern perimeter and identity-based access control. Segment networks, enforce least privilege, and eliminate traditional VPN risks.
+        </p>
+        <ul class="space-y-2 text-sm text-zinc-300">
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> ZTNA architecture</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Next-gen firewalls</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Micro-segmentation</li>
+        </ul>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="cyber-card border border-zinc-700/70 rounded-2xl p-8 glow-border hover:border-cyan-500/40 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl mb-6">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Endpoint & Cloud Workload Protection</h3>
+        <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+          Advanced EDR/XDR across laptops, servers, and cloud workloads (Microsoft 365, Google Workspace, Azure, AWS).
+        </p>
+        <ul class="space-y-2 text-sm text-zinc-300">
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Anti-ransomware & behavioral detection</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Cloud security posture management</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Automated isolation & remediation</li>
+        </ul>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="cyber-card border border-zinc-700/70 rounded-2xl p-8 glow-border hover:border-cyan-500/40 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl mb-6">
+          <i class="fas fa-user-secret"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Penetration Testing & Red Teaming</h3>
+        <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+          Controlled attacks that reveal real weaknesses before criminals do. External, internal, web application, and social engineering tests.
+        </p>
+        <ul class="space-y-2 text-sm text-zinc-300">
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Quarterly or on-demand testing</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Detailed remediation roadmap</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Executive & technical reports</li>
+        </ul>
+      </div>
+
+      <!-- Service 5 -->
+      <div class="cyber-card border border-zinc-700/70 rounded-2xl p-8 glow-border hover:border-cyan-500/40 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl mb-6">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Security Awareness & Phishing Simulations</h3>
+        <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+          Turn your employees into the strongest layer of defense with practical training, simulated attacks, and measurable improvement.
+        </p>
+        <ul class="space-y-2 text-sm text-zinc-300">
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Quarterly interactive training</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Realistic phishing campaigns</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Executive briefings</li>
+        </ul>
+      </div>
+
+      <!-- Service 6 -->
+      <div class="cyber-card border border-zinc-700/70 rounded-2xl p-8 glow-border hover:border-cyan-500/40 transition-all duration-300">
+        <div class="w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl mb-6">
+          <i class="fas fa-headset"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Managed IT Support & Infrastructure</h3>
+        <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+          Reliable remote and on-site support, network management, backup strategies, and proactive maintenance so your systems stay healthy.
+        </p>
+        <ul class="space-y-2 text-sm text-zinc-300">
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Remote & on-site support</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Network & server management</li>
+          <li class="flex gap-2"><span class="text-cyan-400">→</span> Backup & disaster recovery planning</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 border-t border-cyan-500/10">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-5">Ready to strengthen your defenses?</h2>
+    <p class="text-lg text-zinc-400 mb-10">
+      Choose a ready-made package or let’s design a custom security stack for your organization.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="packages.html" class="inline-flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-8 py-4 rounded-xl transition text-lg">
+        View Protection Packages
+      </a>
+      <a href="https://wa.me/254768741052?text=Hello%20Infinite%20Cyberspace%20Hub%2C%20I%20would%20like%20to%20discuss%20your%20cybersecurity%20services."
+         target="_blank"
+         class="inline-flex items-center justify-center gap-3 bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-4 rounded-xl transition text-lg">
+        <i class="fab fa-whatsapp text-2xl"></i>
+        Talk to an Expert
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== UNIFIED FOOTER ===== -->
+<footer class="bg-black/90 backdrop-blur-md border-t border-cyan-500/20 py-12 mt-20">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center md:text-left">
+    <div>
+      <h3 class="text-2xl font-bold text-cyan-400 mb-4">Infinite Cyberspace Hub</h3>
+      <p class="text-zinc-400 text-sm leading-relaxed">
+        Protecting Kenyan businesses with modern cybersecurity, proactive monitoring, and practical digital resilience.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+      <ul class="space-y-2 text-zinc-400">
+        <li><a href="services.html" class="hover:text-cyan-400 transition">Services</a></li>
+        <li><a href="packages.html" class="hover:text-cyan-400 transition">Packages</a></li>
+        <li><a href="about.html" class="hover:text-cyan-400 transition">About Us</a></li>
+        <li><a href="blog.html" class="hover:text-cyan-400 transition">Blog</a></li>
+        <li><a href="contact.html" class="hover:text-cyan-400 transition">Contact</a></li>
+        <li><a href="privacy.html" class="hover:text-cyan-400 transition">Privacy Policy</a></li>
+        <li><a href="terms.html" class="hover:text-cyan-400 transition">Terms of Service</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+      <div class="flex justify-center md:justify-start gap-5 text-2xl text-zinc-400">
+        <a href="#" class="hover:text-cyan-400" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="hover:text-cyan-400" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-cyan-400" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="hover:text-cyan-400" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p class="text-zinc-400 text-sm mt-6">Email: infinitecyberspace.info@gmail.com</p>
+      <p class="text-zinc-400 text-sm">Phone: +254 768 741 052</p>
+      <p class="text-zinc-400 text-sm">Kisumu, Kenya</p>
+    </div>
+  </div>
+
+  <div class="mt-10 border-t border-zinc-800 pt-6 text-center text-zinc-500 text-sm">
+    © 2026 Infinite Cyberspace Hub. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  }
+</script>
+</body>
+</html>
