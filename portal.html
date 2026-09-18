@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Account | Infinite Cyberspace Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-   <link rel="icon" type="image/png" href="infinite-cyberspace-favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="infinite-cyberspace-favicon.png" />
   <script>
     tailwind.config = {
       theme: {
@@ -34,10 +34,7 @@
       color: #020617; font-weight: 700;
     }
     .btn-g:hover { filter: brightness(1.06); box-shadow: 0 8px 28px rgba(34,211,238,0.22); }
-    .btn-ghost {
-      border: 1px solid rgba(148,163,184,0.2);
-      color: #cbd5e1;
-    }
+    .btn-ghost { border: 1px solid rgba(148,163,184,0.2); color: #cbd5e1; }
     .btn-ghost:hover { background: rgba(255,255,255,0.04); border-color: rgba(34,211,238,0.3); }
     .nav-i.active {
       background: linear-gradient(90deg, rgba(34,211,238,0.12), transparent);
@@ -54,12 +51,17 @@
     .s-ok { background: rgba(16,185,129,.18); color: #6ee7b7; }
     .s-open { background: rgba(59,130,246,.2); color: #93c5fd; }
     .s-warn { background: rgba(245,158,11,.2); color: #fcd34d; }
+    .s-bad { background: rgba(239,68,68,.18); color: #fca5a5; }
     .pulse { animation: p 2s ease-in-out infinite; }
     @keyframes p { 0%,100%{opacity:1} 50%{opacity:.35} }
-    .score-ring { background: conic-gradient(#22d3ee calc(var(--s) * 1%), #1e293b 0); }
+    .spinner {
+      width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.2);
+      border-top-color: #22d3ee; border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    input, select, textarea { color-scheme: dark; }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-    input, select, textarea { color-scheme: dark; }
   </style>
 </head>
 <body class="min-h-screen antialiased">
@@ -81,26 +83,46 @@
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1.5">Work email</label>
             <input id="login-email" type="email" placeholder="you@company.com" autocomplete="username"
-              class="w-full px-4 py-3 rounded-xl bg-void-900 border border-slate-700/80 text-sm outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition">
+              class="w-full px-4 py-3 rounded-xl bg-void-900 border border-slate-700/80 text-sm outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition" />
           </div>
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1.5">Password</label>
             <div class="relative">
               <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password"
                 class="w-full px-4 py-3 rounded-xl bg-void-900 border border-slate-700/80 text-sm outline-none focus:border-cyan-500/50 pr-11"
-                onkeydown="if(event.key==='Enter')doLogin()">
+                onkeydown="if(event.key==='Enter')doLogin()" />
               <button type="button" onclick="togglePw()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-sm" aria-label="Show password">
                 <i id="pw-icon" class="fas fa-eye"></i>
               </button>
             </div>
           </div>
-          <button type="button" onclick="doLogin()" class="btn-g w-full py-3 rounded-xl text-sm mt-1">
-            Sign in securely
-          </button>
+          <!-- Toggle -->
+<div class="flex gap-2 mb-4 text-xs">
+  <button type="button" id="tab-login" onclick="setAuthTab('login')"
+    class="flex-1 py-2 rounded-lg bg-cyan-500/15 text-cyan-400 font-medium">Sign in</button>
+  <button type="button" id="tab-register" onclick="setAuthTab('register')"
+    class="flex-1 py-2 rounded-lg text-slate-500 hover:text-slate-300">Create account</button>
+</div>
+
+<div id="reg-fields" class="hidden space-y-3 mb-3">
+  <div>
+    <label class="block text-xs font-medium text-slate-400 mb-1.5">Full name</label>
+    <input id="reg-name" type="text" placeholder="Jane Doe"
+      class="w-full px-4 py-3 rounded-xl bg-void-900 border border-slate-700/80 text-sm outline-none focus:border-cyan-500/50" />
+  </div>
+  <div>
+    <label class="block text-xs font-medium text-slate-400 mb-1.5">Company (optional)</label>
+    <input id="reg-company" type="text" placeholder="Acme Ltd"
+      class="w-full px-4 py-3 rounded-xl bg-void-900 border border-slate-700/80 text-sm outline-none focus:border-cyan-500/50" />
+  </div>
+</div>
+        <button type="button" id="login-btn" onclick="doAuth()" class="btn-g w-full py-3 rounded-xl text-sm mt-1 flex items-center justify-center gap-2">
+  Sign in securely
+</button>
         </div>
         <div class="mt-6 pt-5 border-t border-slate-800/80 text-center">
           <p class="text-[11px] text-slate-500 leading-relaxed">
-            Demo access<br>
+            Demo access<br />
             <span class="text-cyan-400/90">demo@client.com</span> · <span class="text-cyan-400/90">demo123</span>
           </p>
           <a href="index.html" class="inline-block mt-3 text-[11px] text-slate-600 hover:text-cyan-400 transition">← Back to website</a>
@@ -125,43 +147,37 @@
         </div>
       </div>
       <nav class="flex-1 p-2 space-y-0.5 overflow-y-auto text-[13px]">
-        <button class="nav-i active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left" data-v="home" onclick="go('home')">
+        <button type="button" class="nav-i active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left" data-v="home" onclick="go('home')">
           <i class="fas fa-house w-5 text-center opacity-70"></i> Home
         </button>
-        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="protection" onclick="go('protection')">
+        <button type="button" class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="protection" onclick="go('protection')">
           <i class="fas fa-shield-virus w-5 text-center opacity-70"></i> Protection
         </button>
-        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="support" onclick="go('support')">
+        <button type="button" class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="support" onclick="go('support')">
           <i class="fas fa-headset w-5 text-center opacity-70"></i> Support
           <span id="badge-tickets" class="ml-auto chip s-open hidden">0</span>
         </button>
-        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="documents" onclick="go('documents')">
+        <button type="button" class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="documents" onclick="go('documents')">
           <i class="fas fa-folder-open w-5 text-center opacity-70"></i> Documents
         </button>
-        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="billing" onclick="go('billing')">
+        <button type="button" class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="billing" onclick="go('billing')">
           <i class="fas fa-receipt w-5 text-center opacity-70"></i> Billing
         </button>
-        <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="learn" onclick="go('learn')">
-          <i class="fas fa-book-open w-5 text-center opacity-70"></i> Learn
-        </button>
         <div class="pt-3 mt-2 border-t border-slate-800/60">
-          <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="profile" onclick="go('profile')">
+          <button type="button" class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="profile" onclick="go('profile')">
             <i class="fas fa-user w-5 text-center opacity-70"></i> Profile
-          </button>
-          <button class="nav-i w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-slate-400 hover:bg-white/[0.03]" data-v="settings" onclick="go('settings')">
-            <i class="fas fa-gear w-5 text-center opacity-70"></i> Settings
           </button>
         </div>
       </nav>
       <div class="p-3 border-t border-slate-800/60">
         <div class="flex items-center gap-2.5 mb-2">
-          <img id="side-av" src="" alt="" class="w-9 h-9 rounded-full object-cover border border-cyan-500/30">
+          <div id="side-av" class="w-9 h-9 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xs font-bold"></div>
           <div class="min-w-0 flex-1">
             <div id="side-name" class="text-xs font-semibold truncate"></div>
             <div id="side-co" class="text-[10px] text-slate-500 truncate"></div>
           </div>
         </div>
-        <button onclick="doLogout()" class="w-full text-[11px] text-slate-500 hover:text-red-400 py-1.5 rounded-lg hover:bg-red-500/5 transition">
+        <button type="button" onclick="doLogout()" class="w-full text-[11px] text-slate-500 hover:text-red-400 py-1.5 rounded-lg hover:bg-red-500/5 transition">
           Sign out
         </button>
       </div>
@@ -179,18 +195,14 @@
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] text-emerald-400 font-medium">
+          <div id="prot-badge" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] text-emerald-400 font-medium">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse"></span> Protected
           </div>
-          <button type="button" onclick="go('support'); setTimeout(openTicketModal, 100)" class="btn-g hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs">
+          <button type="button" onclick="go('support'); setTimeout(openTicketModal, 80)" class="btn-g hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs">
             <i class="fas fa-plus text-[10px]"></i> Get help
-          </button>
-          <button type="button" onclick="go('profile')" class="p-0.5 rounded-full hover:ring-2 hover:ring-cyan-500/30 transition">
-            <img id="hdr-av" src="" alt="" class="w-8 h-8 rounded-full object-cover">
           </button>
         </div>
       </header>
-
       <main id="main" class="flex-1 overflow-y-auto p-4 md:p-6 grid-bg"></main>
     </div>
   </div>
@@ -205,11 +217,12 @@
         </div>
         <button type="button" onclick="closeTicketModal()" class="text-slate-400 hover:text-white text-xl leading-none" aria-label="Close">&times;</button>
       </div>
+      <div id="ticket-err" class="hidden mb-3 text-sm text-red-300"></div>
       <div class="space-y-3">
         <div>
           <label class="text-[11px] text-slate-500 mb-1 block">What do you need help with?</label>
           <input id="t-subject" type="text" placeholder="Short summary"
-            class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
+            class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40" />
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
@@ -235,510 +248,566 @@
         </div>
         <div>
           <label class="text-[11px] text-slate-500 mb-1 block">Details</label>
-          <textarea id="t-desc" rows="4" placeholder="What happened? When? Any error messages?"
+          <textarea id="t-desc" rows="4" placeholder="Describe the issue..."
             class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40 resize-none"></textarea>
         </div>
-        <button type="button" onclick="submitTicket()" class="btn-g w-full py-3 rounded-xl text-sm">Submit request</button>
+        <button type="button" id="t-submit" onclick="submitTicket()" class="btn-g w-full py-2.5 rounded-xl text-sm flex items-center justify-center gap-2">
+          Submit request
+        </button>
       </div>
     </div>
   </div>
-
-  <div id="toast" class="fixed bottom-5 right-5 z-[60] hidden max-w-sm px-4 py-3 rounded-xl bg-void-800 border border-cyan-500/25 text-sm shadow-xl"></div>
 
 <script>
-const AVATAR = 'data:image/svg+xml,' + encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0e7490"/><stop offset="1" stop-color="#312e81"/></linearGradient></defs><rect fill="url(#g)" width="128" height="128"/><circle cx="64" cy="48" r="26" fill="#a5f3fc"/><ellipse cx="64" cy="118" rx="44" ry="36" fill="#a5f3fc"/></svg>'
-);
+(function () {
+ const API_ROOT = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? 'http://localhost:3000'
+  : 'https://YOUR-BACKEND-URL'; // replace after deploy (Railway, Render, VPS, etc.)
 
-const SERVICES = [
-  { name: '24/7 threat monitoring', desc: 'Continuous watch on your environment', icon: 'fa-radar', on: true },
-  { name: 'Endpoint protection', desc: 'Laptops, servers & workstations', icon: 'fa-laptop', on: true },
-  { name: 'Email security', desc: 'Phishing & malware filtering', icon: 'fa-envelope-circle-check', on: true },
-  { name: 'Vulnerability scans', desc: 'Scheduled findings & fixes', icon: 'fa-magnifying-glass-chart', on: true },
-  { name: 'Monthly reports', desc: 'Clear status for leadership', icon: 'fa-file-lines', on: true },
-  { name: 'Staff training', desc: 'Awareness & simulations', icon: 'fa-graduation-cap', on: true }
-];
+  const AUTH_KEY = 'ich_auth_token';
+  const USER_KEY = 'ich_user';
 
-const DOCS = [
-  { name: 'Security report — July 2026', date: '1 Aug 2026', type: 'PDF', tag: 'Report' },
-  { name: 'Vulnerability scan results', date: '20 Jul 2026', type: 'PDF', tag: 'Scan' },
-  { name: 'Training certificates', date: '10 Jul 2026', type: 'PDF', tag: 'Training' },
-  { name: 'Service agreement', date: '15 Jul 2026', type: 'PDF', tag: 'Contract' }
-];
+  let state = {
+    user: null,
+    subscription: null,
+    tickets: [],
+    payments: [],
+    reports: []
+  };
 
-const INVOICES = [
-  { id: 'INV-2026-008', date: '1 Aug 2026', amount: 38900, status: 'Paid' },
-  { id: 'INV-2026-007', date: '1 Jul 2026', amount: 38900, status: 'Paid' },
-  { id: 'INV-2026-006', date: '1 Jun 2026', amount: 38900, status: 'Paid' }
-];
+  function token() { return localStorage.getItem(AUTH_KEY); }
+  function saveUser(u) {
+    state.user = u;
+    localStorage.setItem(USER_KEY, JSON.stringify(u));
+  }
+  function loadStoredUser() {
+    try { return JSON.parse(localStorage.getItem(USER_KEY) || 'null'); } catch { return null; }
+  }
 
-const LEARN = [
-  { title: 'Spot a phishing email', time: '3 min', cat: 'Awareness', icon: 'fa-fish' },
-  { title: 'Strong passwords & MFA', time: '4 min', cat: 'Identity', icon: 'fa-key' },
-  { title: 'If you suspect a breach', time: '5 min', cat: 'Incident', icon: 'fa-triangle-exclamation' },
-  { title: 'Secure remote work', time: '4 min', cat: 'Endpoint', icon: 'fa-house-laptop' },
-  { title: 'Reading your monthly report', time: '3 min', cat: 'Reports', icon: 'fa-chart-simple' },
-  { title: 'How support SLAs work', time: '2 min', cat: 'Support', icon: 'fa-clock' }
-];
+  async function api(path, opts = {}) {
+    const headers = Object.assign(
+      { 'Content-Type': 'application/json' },
+      token() ? { Authorization: 'Bearer ' + token() } : {},
+      opts.headers || {}
+    );
+    const res = await fetch(API_ROOT + path, Object.assign({}, opts, { headers }));
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 401) {
+      doLogout(true);
+      throw new Error('Session expired');
+    }
+    if (!res.ok) throw new Error(data.message || 'Request failed');
+    return data;
+  }
 
-const ACTIVITY = [
-  { text: 'Full environment scan completed', meta: 'No critical findings', time: '2 hours ago', icon: 'fa-check', color: 'text-emerald-400' },
-  { text: '14 phishing attempts blocked', meta: 'Email gateway', time: 'Yesterday', icon: 'fa-ban', color: 'text-cyan-400' },
-  { text: 'July security report published', meta: 'Ready to download', time: '1 Aug', icon: 'fa-file-pdf', color: 'text-blue-400' },
-  { text: 'Premium plan renewed', meta: 'Next billing 15 Aug', time: '15 Jul', icon: 'fa-rotate', color: 'text-violet-400' }
-];
+  function initials(name) {
+    if (!name) return '?';
+    return name.split(/\s+/).map(p => p[0]).slice(0, 2).join('').toUpperCase();
+  }
 
-let tickets = [];
-let profile = null;
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+  }
 
-function togglePw() {
-  const i = document.getElementById('login-password');
-  const icon = document.getElementById('pw-icon');
-  if (i.type === 'password') { i.type = 'text'; icon.className = 'fas fa-eye-slash'; }
-  else { i.type = 'password'; icon.className = 'fas fa-eye'; }
+  function statusChip(status) {
+    const s = (status || '').toLowerCase();
+    let cls = 's-open';
+    if (s === 'resolved' || s === 'closed' || s === 'success' || s === 'active') cls = 's-ok';
+    if (s === 'failed' || s === 'cancelled' || s === 'critical') cls = 's-bad';
+    if (s === 'pending' || s === 'in progress' || s === 'escalated') cls = 's-warn';
+    return '<span class="chip ' + cls + '">' + esc(status) + '</span>';
+  }
+
+  function togglePw() {
+    const i = document.getElementById('login-password');
+    const icon = document.getElementById('pw-icon');
+    if (i.type === 'password') { i.type = 'text'; icon.className = 'fas fa-eye-slash'; }
+    else { i.type = 'password'; icon.className = 'fas fa-eye'; }
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const err = document.getElementById('login-error');
+    const btn = document.getElementById('login-btn');
+    err.classList.add('hidden');
+
+    if (!email || !password) {
+      err.textContent = 'Enter email and password';
+      err.classList.remove('hidden');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Signing in...';
+
+    try {
+      const data = await fetch(API_ROOT + '/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      }).then(async r => {
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(j.message || 'Login failed');
+        return j;
+      });
+
+      if (data.user.role === 'admin') {
+        // optional: send admins to admin panel
+        localStorage.setItem(AUTH_KEY, data.token);
+        saveUser(data.user);
+        window.location.href = 'admin.html';
+        return;
+      }
+
+      localStorage.setItem(AUTH_KEY, data.token);
+      saveUser(data.user);
+      await bootApp();
+    } catch (e) {
+      err.textContent = e.message || 'Cannot reach server';
+      err.classList.remove('hidden');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Sign in securely';
+    }
+  }
+
+  function doLogout(silent) {
+    localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem(USER_KEY);
+    state = { user: null, subscription: null, tickets: [], payments: [], reports: [] };
+    document.getElementById('app').classList.add('hidden');
+    document.getElementById('login-screen').classList.remove('hidden');
+    if (!silent) location.hash = '';
+  }
+
+  async function refreshData() {
+    const [sub, tickets, payments, reports] = await Promise.all([
+      api('/api/me/subscription'),
+      api('/api/me/tickets'),
+      api('/api/me/payments'),
+      api('/api/me/reports')
+    ]);
+    state.subscription = sub.subscription || null;
+    state.tickets = tickets.tickets || [];
+    state.payments = payments.payments || [];
+    state.reports = reports.reports || [];
+
+    const open = state.tickets.filter(t => !['Resolved', 'Closed'].includes(t.status)).length;
+    const badge = document.getElementById('badge-tickets');
+    if (open > 0) {
+      badge.textContent = String(open);
+      badge.classList.remove('hidden');
+    } else {
+      badge.classList.add('hidden');
+    }
+
+    const prot = document.getElementById('prot-badge');
+    if (state.subscription && state.subscription.status === 'active') {
+      prot.classList.remove('hidden');
+      prot.classList.add('sm:flex');
+    } else {
+      prot.classList.add('hidden');
+      prot.classList.remove('sm:flex');
+    }
+  }
+
+  function fillSidebar() {
+    const u = state.user;
+    document.getElementById('side-name').textContent = u.name || u.email;
+    document.getElementById('side-co').textContent = u.company || 'Client';
+    document.getElementById('side-av').textContent = initials(u.name || u.email);
+  }
+
+  async function bootApp() {
+    if (!token()) return;
+    try {
+      const me = await api('/api/auth/me');
+      saveUser(me.user);
+      fillSidebar();
+      await refreshData();
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('app').classList.remove('hidden');
+      go(location.hash.replace('#', '') || 'home');
+    } catch (e) {
+      doLogout(true);
+    }
+  }
+let authTab = 'login'; // 'login' | 'register'
+
+function setAuthTab(tab) {
+  authTab = tab;
+  const reg = document.getElementById('reg-fields');
+  const btn = document.getElementById('login-btn');
+  const tLogin = document.getElementById('tab-login');
+  const tReg = document.getElementById('tab-register');
+  if (tab === 'register') {
+    reg.classList.remove('hidden');
+    btn.textContent = 'Create account';
+    tLogin.className = 'flex-1 py-2 rounded-lg text-slate-500 hover:text-slate-300';
+    tReg.className = 'flex-1 py-2 rounded-lg bg-cyan-500/15 text-cyan-400 font-medium';
+  } else {
+    reg.classList.add('hidden');
+    btn.textContent = 'Sign in securely';
+    tLogin.className = 'flex-1 py-2 rounded-lg bg-cyan-500/15 text-cyan-400 font-medium';
+    tReg.className = 'flex-1 py-2 rounded-lg text-slate-500 hover:text-slate-300';
+  }
 }
 
-function doLogin() {
-  const email = document.getElementById('login-email').value.trim().toLowerCase();
+async function doAuth() {
+  if (authTab === 'register') return doRegister();
+  return doLogin();
+}
+
+async function doRegister() {
+  const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
+  const name = document.getElementById('reg-name').value.trim();
+  const company = document.getElementById('reg-company').value.trim();
   const err = document.getElementById('login-error');
+  const btn = document.getElementById('login-btn');
   err.classList.add('hidden');
 
-  if (email === 'demo@client.com' && password === 'demo123') {
-    profile = JSON.parse(localStorage.getItem('ich_client_profile') || 'null') || {
-      name: 'John Odhiambo',
-      email: 'demo@client.com',
-      company: 'Acme Solutions Ltd',
-      phone: '+254 712 345 678',
-      title: 'IT Manager',
-      avatar: AVATAR
-    };
-    localStorage.setItem('ich_client_profile', JSON.stringify(profile));
-    localStorage.setItem('ich_client_in', '1');
-    boot();
+  if (!name || !email || !password) {
+    err.textContent = 'Name, email and password are required';
+    err.classList.remove('hidden');
     return;
   }
-  err.textContent = 'Incorrect email or password. Try the demo credentials below.';
-  err.classList.remove('hidden');
-}
-
-function doLogout() {
-  localStorage.removeItem('ich_client_in');
-  location.reload();
-}
-
-function boot() {
-  document.getElementById('login-screen').classList.add('hidden');
-  document.getElementById('app').classList.remove('hidden');
-  applyProfile();
-  loadTickets();
-  go('home');
-}
-
-function applyProfile() {
-  const av = profile.avatar || AVATAR;
-  document.getElementById('side-av').src = av;
-  document.getElementById('hdr-av').src = av;
-  document.getElementById('side-name').textContent = profile.name;
-  document.getElementById('side-co').textContent = profile.company;
-}
-
-function loadTickets() {
-  const shared = JSON.parse(localStorage.getItem('ich_shared_tickets') || '[]');
-  const email = (profile.email || '').toLowerCase();
-  tickets = shared.filter(t =>
-    (t.email || '').toLowerCase() === email ||
-    (t.customer || '').includes(profile.name || '') ||
-    t.source === 'client_portal'
-  );
-  if (!tickets.length) {
-    tickets = JSON.parse(localStorage.getItem('ich_client_tickets') || '[]');
+  if (password.length < 6) {
+    err.textContent = 'Password must be at least 6 characters';
+    err.classList.remove('hidden');
+    return;
   }
-  const open = tickets.filter(t => t.status !== 'Closed' && t.status !== 'Resolved').length;
-  const badge = document.getElementById('badge-tickets');
-  if (open) { badge.textContent = open; badge.classList.remove('hidden'); }
-  else badge.classList.add('hidden');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Creating account...';
+
+  try {
+    const res = await fetch(API_ROOT + '/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, name, company: company || null })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.message || 'Registration failed');
+
+    localStorage.setItem(AUTH_KEY, data.token);
+    saveUser(data.user);
+    await bootApp();
+  } catch (e) {
+    err.textContent = e.message || 'Cannot reach server';
+    err.classList.remove('hidden');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Create account';
+  }
 }
 
-const TITLES = {
-  home: ['Home', 'Your security at a glance'],
-  protection: ['Protection', 'Services included in your plan'],
-  support: ['Support', 'Talk to our security team'],
-  documents: ['Documents', 'Reports and files'],
-  billing: ['Billing', 'Plan and invoices'],
-  learn: ['Learn', 'Short guides for your team'],
-  profile: ['Profile', 'Your account details'],
-  settings: ['Settings', 'Preferences and security']
-};
+// keep Enter key working
+// on password field: onkeydown="if(event.key==='Enter')doAuth()"
 
-function go(v) {
-  loadTickets();
-  document.querySelectorAll('.nav-i').forEach(b => {
-    const on = b.dataset.v === v;
-    b.classList.toggle('active', on);
-    b.classList.toggle('text-slate-400', !on);
+window.setAuthTab = setAuthTab;
+window.doAuth = doAuth;
+window.doRegister = doRegister;
+
+  const titles = {
+    home: ['Home', 'Your security at a glance'],
+    protection: ['Protection', 'Active package & coverage'],
+    support: ['Support', 'Tickets and requests'],
+    documents: ['Documents', 'Reports and files'],
+    billing: ['Billing', 'Payments and receipts'],
+    profile: ['Profile', 'Account details']
+  };
+
+  function go(view) {
+    if (!titles[view]) view = 'home';
+    location.hash = view;
+    document.getElementById('page-title').textContent = titles[view][0];
+    document.getElementById('page-sub').textContent = titles[view][1];
+    document.querySelectorAll('.nav-i').forEach(b => {
+      const on = b.dataset.v === view;
+      b.classList.toggle('active', on);
+      b.classList.toggle('text-slate-400', !on);
+    });
+    // close mobile sidebar
+    document.getElementById('sidebar').classList.add('-translate-x-full');
+    document.getElementById('sidebar').classList.remove('md:translate-x-0');
+    // re-apply md sticky open
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      document.getElementById('sidebar').classList.remove('-translate-x-full');
+    }
+
+    const main = document.getElementById('main');
+    if (view === 'home') main.innerHTML = renderHome();
+    if (view === 'protection') main.innerHTML = renderProtection();
+    if (view === 'support') main.innerHTML = renderSupport();
+    if (view === 'documents') main.innerHTML = renderDocuments();
+    if (view === 'billing') main.innerHTML = renderBilling();
+    if (view === 'profile') main.innerHTML = renderProfile();
+  }
+
+  function renderHome() {
+    const u = state.user;
+    const sub = state.subscription;
+    const openTickets = state.tickets.filter(t => !['Resolved', 'Closed'].includes(t.status)).length;
+    const lastPay = state.payments.find(p => p.status === 'success');
+
+    return `
+      <div class="max-w-5xl mx-auto space-y-5">
+        <div class="glass rounded-2xl p-5 md:p-6">
+          <p class="text-xs text-slate-500 mb-1">Signed in as</p>
+          <h2 class="text-xl font-bold">Hello, ${esc(u.name || 'there')}</h2>
+          <p class="text-sm text-slate-400 mt-1">${esc(u.company || '')}</p>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div class="glass rounded-2xl p-4">
+            <div class="text-[11px] text-slate-500 mb-1">Protection</div>
+            <div class="font-semibold text-sm">${sub ? esc(sub.package_name) : 'No active plan'}</div>
+            <div class="mt-2">${sub ? statusChip(sub.status) : statusChip('None')}</div>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <div class="text-[11px] text-slate-500 mb-1">Open tickets</div>
+            <div class="text-2xl font-bold text-cyan-400">${openTickets}</div>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <div class="text-[11px] text-slate-500 mb-1">Last payment</div>
+            <div class="font-semibold text-sm">${lastPay ? 'KES ' + Number(lastPay.amount).toLocaleString() : '—'}</div>
+            <div class="text-[10px] text-slate-500 mt-1">${lastPay ? esc(lastPay.mpesa_receipt || lastPay.created_at || '') : ''}</div>
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-5 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+          <div>
+            <div class="font-semibold text-sm">Need help?</div>
+            <p class="text-xs text-slate-500 mt-0.5">Open a support ticket — critical issues are prioritised.</p>
+          </div>
+          <button type="button" onclick="openTicketModal()" class="btn-g px-4 py-2 rounded-xl text-xs">Create ticket</button>
+        </div>
+        <div class="glass rounded-2xl p-5">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="font-semibold text-sm">Recent tickets</h3>
+            <button type="button" onclick="go('support')" class="text-xs text-cyan-400">View all</button>
+          </div>
+          ${state.tickets.slice(0, 3).map(t => `
+            <div class="flex justify-between gap-3 py-2.5 border-b border-slate-800/50 last:border-0">
+              <div class="min-w-0">
+                <div class="text-sm font-medium truncate">${esc(t.subject)}</div>
+                <div class="text-[10px] text-slate-500">${esc(t.ticket_id)} · ${esc(t.created_at || '')}</div>
+              </div>
+              ${statusChip(t.status)}
+            </div>`).join('') || '<p class="text-sm text-slate-500">No tickets yet.</p>'}
+        </div>
+      </div>`;
+  }
+
+  function renderProtection() {
+    const sub = state.subscription;
+    if (!sub) {
+      return `
+        <div class="max-w-lg mx-auto glass rounded-2xl p-8 text-center">
+          <i class="fas fa-shield-halved text-3xl text-slate-600 mb-4"></i>
+          <h2 class="font-bold mb-2">No active protection</h2>
+          <p class="text-sm text-slate-400 mb-5">Choose a package and pay via Lipa na M-Pesa to activate coverage.</p>
+          <a href="packages.html" class="btn-g inline-flex px-5 py-2.5 rounded-xl text-sm">View packages</a>
+        </div>`;
+    }
+    const features = Array.isArray(sub.features) ? sub.features : [];
+    return `
+      <div class="max-w-3xl mx-auto space-y-5">
+        <div class="glass-accent rounded-2xl p-6">
+          <div class="flex flex-wrap justify-between gap-3 items-start">
+            <div>
+              <p class="text-xs text-cyan-400/80 uppercase tracking-wide mb-1">Active package</p>
+              <h2 class="text-xl font-bold">${esc(sub.package_name)}</h2>
+              <p class="text-sm text-slate-400 mt-1">KES ${Number(sub.price_kes || 0).toLocaleString()} / month</p>
+            </div>
+            ${statusChip(sub.status)}
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-6 text-sm">
+            <div><span class="text-slate-500 text-xs">Start</span><div>${esc(sub.start_date)}</div></div>
+            <div><span class="text-slate-500 text-xs">Renews / ends</span><div>${esc(sub.end_date)}</div></div>
+            <div><span class="text-slate-500 text-xs">Payment ref</span><div class="font-mono text-xs">${esc(sub.payment_ref || '—')}</div></div>
+            <div><span class="text-slate-500 text-xs">Code</span><div>${esc(sub.package_code)}</div></div>
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-6">
+          <h3 class="font-semibold text-sm mb-4">Included coverage</h3>
+          <ul class="space-y-2 text-sm text-slate-300">
+            ${features.map(f => `<li class="flex gap-2"><i class="fas fa-check text-cyan-400 mt-0.5 text-xs"></i>${esc(f)}</li>`).join('')
+              || '<li class="text-slate-500">Feature list will appear here.</li>'}
+          </ul>
+        </div>
+      </div>`;
+  }
+
+  function renderSupport() {
+    return `
+      <div class="max-w-3xl mx-auto space-y-4">
+        <div class="flex justify-between items-center">
+          <h2 class="font-semibold">Your tickets</h2>
+          <button type="button" onclick="openTicketModal()" class="btn-g px-3 py-1.5 rounded-lg text-xs">New ticket</button>
+        </div>
+        ${state.tickets.length ? state.tickets.map(t => `
+          <div class="glass rounded-xl p-4">
+            <div class="flex flex-wrap justify-between gap-2 mb-2">
+              <div>
+                <span class="text-[10px] font-mono text-cyan-400">${esc(t.ticket_id)}</span>
+                <div class="font-medium text-sm">${esc(t.subject)}</div>
+              </div>
+              <div class="flex gap-2 items-center">
+                ${statusChip(t.priority)}
+                ${statusChip(t.status)}
+              </div>
+            </div>
+            <p class="text-sm text-slate-400 whitespace-pre-wrap">${esc(t.description)}</p>
+            <p class="text-[10px] text-slate-600 mt-2">${esc(t.category || '')} · ${esc(t.created_at || '')}</p>
+          </div>`).join('') : '<div class="glass rounded-xl p-8 text-center text-slate-500 text-sm">No support tickets yet.</div>'}
+      </div>`;
+  }
+
+  function renderDocuments() {
+    return `
+      <div class="max-w-3xl mx-auto space-y-4">
+        <h2 class="font-semibold">Reports & documents</h2>
+        ${state.reports.length ? state.reports.map(r => `
+          <div class="glass rounded-xl p-4 flex justify-between items-center gap-3">
+            <div>
+              <div class="font-medium text-sm">${esc(r.title)}</div>
+              <div class="text-[10px] text-slate-500">${esc(r.report_type || '')} · ${esc(r.created_at || '')}</div>
+            </div>
+            ${r.file_url ? `<a href="${esc(r.file_url)}" target="_blank" rel="noopener" class="btn-ghost px-3 py-1.5 rounded-lg text-xs">Download</a>` : '<span class="text-xs text-slate-600">Pending</span>'}
+          </div>`).join('') : `
+          <div class="glass rounded-xl p-8 text-center text-slate-500 text-sm">
+            No reports yet. Monthly and vulnerability reports will appear here when published by the team.
+          </div>`}
+      </div>`;
+  }
+
+  function renderBilling() {
+    return `
+      <div class="max-w-3xl mx-auto space-y-4">
+        <div class="flex justify-between items-center">
+          <h2 class="font-semibold">Payment history</h2>
+          <a href="packages.html" class="text-xs text-cyan-400 hover:underline">Renew / upgrade</a>
+        </div>
+        <div class="glass rounded-xl overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead class="text-slate-500 border-b border-slate-800 text-xs">
+              <tr>
+                <th class="p-3">Date</th>
+                <th class="p-3">Package</th>
+                <th class="p-3">Amount</th>
+                <th class="p-3">Status</th>
+                <th class="p-3">Receipt</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${state.payments.length ? state.payments.map(p => `
+                <tr class="border-b border-slate-800/50">
+                  <td class="p-3 text-xs">${esc(p.created_at || '')}</td>
+                  <td class="p-3">${esc(p.package_code || '')}</td>
+                  <td class="p-3">KES ${Number(p.amount || 0).toLocaleString()}</td>
+                  <td class="p-3">${statusChip(p.status)}</td>
+                  <td class="p-3 font-mono text-xs">${esc(p.mpesa_receipt || '—')}</td>
+                </tr>`).join('') : '<tr><td colspan="5" class="p-6 text-center text-slate-500">No payments yet.</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+  }
+
+  function renderProfile() {
+    const u = state.user;
+    return `
+      <div class="max-w-md mx-auto glass rounded-2xl p-6 space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-14 h-14 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold">${esc(initials(u.name))}</div>
+          <div>
+            <div class="font-bold">${esc(u.name)}</div>
+            <div class="text-xs text-slate-500">${esc(u.role)}</div>
+          </div>
+        </div>
+        <div class="text-sm space-y-3 pt-2">
+          <div><span class="text-slate-500 text-xs">Email</span><div>${esc(u.email)}</div></div>
+          <div><span class="text-slate-500 text-xs">Company</span><div>${esc(u.company || '—')}</div></div>
+          <div><span class="text-slate-500 text-xs">Phone</span><div>${esc(u.phone || '—')}</div></div>
+        </div>
+        ${u.must_change_password ? '<p class="text-xs text-amber-300/90 bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">Please change your temporary password. Contact support if you need a reset.</p>' : ''}
+        <a href="https://wa.me/254768741052" target="_blank" rel="noopener" class="btn-ghost w-full py-2.5 rounded-xl text-sm text-center block">Contact support on WhatsApp</a>
+      </div>`;
+  }
+
+  function openTicketModal() {
+    document.getElementById('ticket-err').classList.add('hidden');
+    document.getElementById('t-subject').value = '';
+    document.getElementById('t-desc').value = '';
+    const m = document.getElementById('ticket-modal');
+    m.classList.remove('hidden');
+    m.classList.add('flex');
+  }
+  function closeTicketModal() {
+    const m = document.getElementById('ticket-modal');
+    m.classList.add('hidden');
+    m.classList.remove('flex');
+  }
+
+  async function submitTicket() {
+    const subject = document.getElementById('t-subject').value.trim();
+    const description = document.getElementById('t-desc').value.trim();
+    const priority = document.getElementById('t-pri').value;
+    const category = document.getElementById('t-cat').value;
+    const err = document.getElementById('ticket-err');
+    const btn = document.getElementById('t-submit');
+    err.classList.add('hidden');
+
+    if (!subject || !description) {
+      err.textContent = 'Subject and details are required';
+      err.classList.remove('hidden');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Sending...';
+    try {
+      await api('/api/me/tickets', {
+        method: 'POST',
+        body: JSON.stringify({ subject, description, priority, category })
+      });
+      closeTicketModal();
+      await refreshData();
+      go('support');
+    } catch (e) {
+      err.textContent = e.message || 'Could not create ticket';
+      err.classList.remove('hidden');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Submit request';
+    }
+  }
+
+  // expose for onclick handlers
+  window.doLogin = doLogin;
+  window.doLogout = doLogout;
+  window.togglePw = togglePw;
+  window.go = go;
+  window.openTicketModal = openTicketModal;
+  window.closeTicketModal = closeTicketModal;
+  window.submitTicket = submitTicket;
+
+  document.getElementById('ticket-modal').addEventListener('click', function (e) {
+    if (e.target === this) closeTicketModal();
   });
-  document.getElementById('page-title').textContent = TITLES[v][0];
-  document.getElementById('page-sub').textContent = TITLES[v][1];
-  document.getElementById('sidebar').classList.add('-translate-x-full');
-  document.getElementById('main').innerHTML = render[v]();
-  if (v === 'profile') fillProfileForm();
-}
 
-const render = {};
+  window.addEventListener('hashchange', () => {
+    if (token()) go(location.hash.replace('#', '') || 'home');
+  });
 
-render.home = () => {
-  const first = (profile.name || 'there').split(' ')[0];
-  const open = tickets.filter(t => !['Closed','Resolved'].includes(t.status)).length;
-  return `
-  <div class="mb-6">
-    <h2 class="text-xl md:text-2xl font-bold tracking-tight">Good to see you, ${esc(first)}</h2>
-    <p class="text-slate-500 text-sm mt-1">Here’s what’s happening with ${esc(profile.company || 'your account')}.</p>
-  </div>
-
-  <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-3 mb-6">
-    <div class="glass-accent rounded-2xl p-5">
-      <div class="flex items-center gap-3">
-        <div class="score-ring w-12 h-12 rounded-full p-[3px] shrink-0" style="--s:87">
-          <div class="w-full h-full rounded-full bg-void-950 flex items-center justify-center text-xs font-bold text-cyan-400">87</div>
-        </div>
-        <div>
-          <div class="text-[10px] uppercase tracking-wide text-slate-500">Security score</div>
-          <div class="font-semibold text-lg">Good</div>
-        </div>
-      </div>
-    </div>
-    <div class="glass rounded-2xl p-5">
-      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Your plan</div>
-      <div class="font-semibold text-cyan-300">Premium</div>
-      <div class="text-[11px] text-slate-500 mt-1">Renews 15 Aug 2026</div>
-    </div>
-    <div class="glass rounded-2xl p-5">
-      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Open requests</div>
-      <div class="font-semibold text-2xl">${open}</div>
-      <button onclick="go('support')" class="text-[11px] text-cyan-400 hover:underline mt-1">View support →</button>
-    </div>
-    <div class="glass rounded-2xl p-5">
-      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Threats blocked</div>
-      <div class="font-semibold text-2xl text-emerald-400">1,248</div>
-      <div class="text-[11px] text-slate-500 mt-1">Last 30 days</div>
-    </div>
-  </div>
-
-  <div class="grid lg:grid-cols-5 gap-4 mb-6">
-    <div class="lg:col-span-3 glass rounded-2xl p-5">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="font-semibold text-sm">What’s active</h3>
-        <button onclick="go('protection')" class="text-[11px] text-cyan-400 hover:underline">All services</button>
-      </div>
-      <div class="grid sm:grid-cols-2 gap-2">
-        ${SERVICES.slice(0,4).map(s => `
-          <div class="flex items-center gap-3 p-3 rounded-xl bg-void-900/50 border border-slate-800/60">
-            <div class="w-9 h-9 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400"><i class="fas ${s.icon} text-sm"></i></div>
-            <div class="min-w-0"><div class="text-sm font-medium truncate">${s.name}</div>
-            <div class="text-[10px] text-emerald-400/90">Active</div></div>
-          </div>`).join('')}
-      </div>
-    </div>
-    <div class="lg:col-span-2 glass rounded-2xl p-5">
-      <h3 class="font-semibold text-sm mb-4">Your specialist</h3>
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center font-bold text-sm">AO</div>
-        <div>
-          <div class="font-medium text-sm">Augustine Ouma</div>
-          <div class="text-[11px] text-slate-500">Senior security engineer</div>
-        </div>
-      </div>
-      <ul class="space-y-2 text-[12px] text-slate-400 mb-4">
-        <li class="flex gap-2"><i class="fas fa-clock text-cyan-500/60 w-4 mt-0.5"></i> Reply within 2 hours</li>
-        <li class="flex gap-2"><i class="fas fa-phone text-cyan-500/60 w-4 mt-0.5"></i> +254 700 000 000</li>
-      </ul>
-      <button onclick="go('support'); setTimeout(openTicketModal, 80)" class="btn-g w-full py-2.5 rounded-xl text-xs">Contact support</button>
-    </div>
-  </div>
-
-  <div class="glass rounded-2xl p-5">
-    <h3 class="font-semibold text-sm mb-4">Recent activity</h3>
-    <div class="space-y-3">
-      ${ACTIVITY.map(a => `
-        <div class="flex gap-3 items-start">
-          <div class="w-8 h-8 rounded-lg bg-void-900 flex items-center justify-center shrink-0"><i class="fas ${a.icon} ${a.color} text-xs"></i></div>
-          <div class="min-w-0 flex-1">
-            <div class="text-sm text-slate-200">${a.text}</div>
-            <div class="text-[11px] text-slate-500">${a.meta} · ${a.time}</div>
-          </div>
-        </div>`).join('')}
-    </div>
-  </div>`;
-};
-
-render.protection = () => `
-  <p class="text-sm text-slate-500 mb-5 max-w-xl">Everything below is included in your <span class="text-cyan-300">Premium Protection</span> plan.</p>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-    ${SERVICES.map(s => `
-      <div class="glass rounded-2xl p-5 hover:border-cyan-500/20 transition border border-transparent">
-        <div class="w-11 h-11 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-3"><i class="fas ${s.icon}"></i></div>
-        <div class="font-medium text-sm mb-1">${s.name}</div>
-        <p class="text-[12px] text-slate-500 leading-relaxed mb-3">${s.desc}</p>
-        <span class="chip s-ok">Active</span>
-      </div>`).join('')}
-  </div>`;
-
-render.support = () => `
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-    <p class="text-sm text-slate-500">Open a request anytime. Critical issues are prioritised.</p>
-    <button onclick="openTicketModal()" class="btn-g px-4 py-2.5 rounded-xl text-sm shrink-0"><i class="fas fa-plus mr-1.5"></i>New request</button>
-  </div>
-  <div class="space-y-3" id="ticket-list">${ticketCards()}</div>`;
-
-function ticketCards() {
-  if (!tickets.length) {
-    return `<div class="glass rounded-2xl p-10 text-center">
-      <div class="w-12 h-12 rounded-2xl bg-slate-800/80 flex items-center justify-center mx-auto mb-3 text-slate-500"><i class="fas fa-inbox text-lg"></i></div>
-      <p class="text-sm text-slate-400 mb-1">No support requests yet</p>
-      <p class="text-[12px] text-slate-600 mb-4">When something needs attention, start here.</p>
-      <button onclick="openTicketModal()" class="btn-g px-4 py-2 rounded-xl text-xs">Create first request</button>
-    </div>`;
+  // init
+  if (token() && loadStoredUser()) {
+    bootApp();
   }
-  return tickets.map(t => `
-    <div class="glass rounded-2xl p-4 sm:p-5">
-      <div class="flex flex-wrap items-center gap-2 mb-2">
-        <span class="chip s-open">${esc(t.status || 'Open')}</span>
-        <span class="chip s-warn">${esc(t.priority || 'Medium')}</span>
-        <span class="text-[10px] text-slate-600 font-mono">${esc(t.id)}</span>
-      </div>
-      <div class="font-medium text-sm">${esc(t.subject)}</div>
-      <p class="text-[12px] text-slate-500 mt-1 line-clamp-2">${esc(t.description || '')}</p>
-      <div class="text-[11px] text-slate-600 mt-2">${esc(t.category || t.cat || '')} · ${esc(t.date || '')}</div>
-    </div>`).join('');
-}
-
-render.documents = () => `
-  <p class="text-sm text-slate-500 mb-5">Download reports and certificates for audits or leadership updates.</p>
-  <div class="grid sm:grid-cols-2 gap-3">
-    ${DOCS.map(d => `
-      <div class="glass rounded-2xl p-4 flex items-center gap-4">
-        <div class="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 shrink-0"><i class="fas fa-file-pdf"></i></div>
-        <div class="min-w-0 flex-1">
-          <div class="text-sm font-medium truncate">${d.name}</div>
-          <div class="text-[11px] text-slate-500">${d.date} · ${d.type} · ${d.tag}</div>
-        </div>
-        <button onclick="toast('Download started (demo)')" class="btn-ghost px-3 py-2 rounded-lg text-xs shrink-0"><i class="fas fa-download"></i></button>
-      </div>`).join('')}
-  </div>`;
-
-render.billing = () => `
-  <div class="glass-accent rounded-2xl p-5 sm:p-6 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-    <div>
-      <div class="text-[10px] uppercase tracking-wide text-cyan-500/80 mb-1">Current plan</div>
-      <div class="text-xl font-bold">Premium Protection</div>
-      <div class="text-sm text-slate-400 mt-1">KES 38,900 / month · Next invoice 15 Aug 2026</div>
-    </div>
-    <span class="chip s-ok self-start">Active</span>
-  </div>
-  <div class="glass rounded-2xl overflow-hidden">
-    <div class="px-5 py-3 border-b border-slate-800/80 text-sm font-semibold">Invoices</div>
-    <div class="overflow-x-auto">
-      <table class="w-full text-sm">
-        <thead class="text-[11px] text-slate-500 text-left"><tr>
-          <th class="px-5 py-2.5 font-medium">Invoice</th>
-          <th class="px-5 py-2.5 font-medium">Date</th>
-          <th class="px-5 py-2.5 font-medium">Amount</th>
-          <th class="px-5 py-2.5 font-medium">Status</th>
-          <th class="px-5 py-2.5"></th>
-        </tr></thead>
-        <tbody>
-          ${INVOICES.map(inv => `
-            <tr class="border-t border-slate-800/50">
-              <td class="px-5 py-3 font-medium">${inv.id}</td>
-              <td class="px-5 py-3 text-slate-400">${inv.date}</td>
-              <td class="px-5 py-3 text-emerald-400">KES ${inv.amount.toLocaleString()}</td>
-              <td class="px-5 py-3"><span class="chip s-ok">${inv.status}</span></td>
-              <td class="px-5 py-3"><button onclick="toast('Opening ${inv.id}')" class="text-cyan-400 text-xs hover:underline">PDF</button></td>
-            </tr>`).join('')}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <p class="text-[11px] text-slate-600 mt-3">Questions about billing? Open a support request under Account or billing.</p>`;
-
-render.learn = () => `
-  <p class="text-sm text-slate-500 mb-5">Short, practical guides your team can finish in a few minutes.</p>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-    ${LEARN.map(k => `
-      <button type="button" onclick="toast('Opening: ${k.title}')" class="glass rounded-2xl p-5 text-left hover:border-cyan-500/25 transition border border-transparent group">
-        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-3 group-hover:scale-105 transition"><i class="fas ${k.icon}"></i></div>
-        <div class="font-medium text-sm mb-1">${k.title}</div>
-        <div class="text-[11px] text-slate-500">${k.cat} · ${k.time} read</div>
-      </button>`).join('')}
-  </div>`;
-
-render.profile = () => `
-  <div class="max-w-lg">
-    <div class="glass rounded-2xl p-6">
-      <div class="flex flex-col sm:flex-row items-center gap-5 mb-8">
-        <div class="relative group">
-          <img id="prof-av" src="" alt="" class="w-24 h-24 rounded-2xl object-cover border-2 border-cyan-500/30">
-          <label class="absolute inset-0 flex items-center justify-center rounded-2xl bg-black/55 opacity-0 group-hover:opacity-100 cursor-pointer transition text-[11px] font-medium">
-            Change
-            <input type="file" accept="image/*" class="hidden" onchange="changePhoto(event)">
-          </label>
-        </div>
-        <div class="text-center sm:text-left">
-          <div class="font-semibold text-lg" id="prof-label-name"></div>
-          <div class="text-sm text-slate-500" id="prof-label-title"></div>
-          <div class="text-[12px] text-cyan-400/80 mt-1" id="prof-label-co"></div>
-        </div>
-      </div>
-      <div class="grid sm:grid-cols-2 gap-3">
-        <div class="sm:col-span-2 sm:grid sm:grid-cols-2 gap-3 space-y-3 sm:space-y-0">
-          <div>
-            <label class="text-[11px] text-slate-500 mb-1 block">Full name</label>
-            <input id="p-name" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
-          </div>
-          <div>
-            <label class="text-[11px] text-slate-500 mb-1 block">Email</label>
-            <input id="p-email" readonly class="w-full px-3.5 py-2.5 rounded-xl bg-void-900/50 border border-slate-800 text-sm text-slate-500">
-          </div>
-        </div>
-        <div>
-          <label class="text-[11px] text-slate-500 mb-1 block">Company</label>
-          <input id="p-co" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
-        </div>
-        <div>
-          <label class="text-[11px] text-slate-500 mb-1 block">Phone</label>
-          <input id="p-phone" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
-        </div>
-        <div class="sm:col-span-2">
-          <label class="text-[11px] text-slate-500 mb-1 block">Job title</label>
-          <input id="p-title" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
-        </div>
-      </div>
-      <button type="button" onclick="saveProfile()" class="btn-g mt-5 px-5 py-2.5 rounded-xl text-sm">Save changes</button>
-    </div>
-  </div>`;
-
-function fillProfileForm() {
-  document.getElementById('prof-av').src = profile.avatar || AVATAR;
-  document.getElementById('prof-label-name').textContent = profile.name;
-  document.getElementById('prof-label-title').textContent = profile.title || 'Client';
-  document.getElementById('prof-label-co').textContent = profile.company;
-  document.getElementById('p-name').value = profile.name || '';
-  document.getElementById('p-email').value = profile.email || '';
-  document.getElementById('p-co').value = profile.company || '';
-  document.getElementById('p-phone').value = profile.phone || '';
-  document.getElementById('p-title').value = profile.title || '';
-}
-
-render.settings = () => `
-  <div class="max-w-md space-y-4">
-    <div class="glass rounded-2xl p-5 space-y-4">
-      <h3 class="font-semibold text-sm">Notifications</h3>
-      <label class="flex items-center justify-between gap-3 text-sm cursor-pointer">
-        <span class="text-slate-300">Email when ticket is updated</span>
-        <input type="checkbox" checked class="accent-cyan-500 w-4 h-4">
-      </label>
-      <label class="flex items-center justify-between gap-3 text-sm cursor-pointer">
-        <span class="text-slate-300">Weekly security summary</span>
-        <input type="checkbox" checked class="accent-cyan-500 w-4 h-4">
-      </label>
-      <label class="flex items-center justify-between gap-3 text-sm cursor-pointer">
-        <span class="text-slate-300">SMS for critical incidents</span>
-        <input type="checkbox" class="accent-cyan-500 w-4 h-4">
-      </label>
-    </div>
-    <div class="glass rounded-2xl p-5 space-y-3">
-      <h3 class="font-semibold text-sm">Password</h3>
-      <input type="password" placeholder="Current password" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
-      <input type="password" placeholder="New password" class="w-full px-3.5 py-2.5 rounded-xl bg-void-900 border border-slate-700 text-sm outline-none focus:border-cyan-500/40">
-      <button type="button" onclick="toast('Password updated (demo)')" class="btn-g px-4 py-2 rounded-xl text-xs">Update password</button>
-    </div>
-    <p class="text-[11px] text-slate-600 px-1">Need the admin console? That’s a separate staff login.</p>
-  </div>`;
-
-function changePhoto(e) {
-  const f = e.target.files && e.target.files[0];
-  if (!f) return;
-  const r = new FileReader();
-  r.onload = () => {
-    profile.avatar = r.result;
-    localStorage.setItem('ich_client_profile', JSON.stringify(profile));
-    applyProfile();
-    fillProfileForm();
-    toast('Photo updated');
-  };
-  r.readAsDataURL(f);
-}
-
-function saveProfile() {
-  profile.name = document.getElementById('p-name').value.trim();
-  profile.company = document.getElementById('p-co').value.trim();
-  profile.phone = document.getElementById('p-phone').value.trim();
-  profile.title = document.getElementById('p-title').value.trim();
-  localStorage.setItem('ich_client_profile', JSON.stringify(profile));
-  applyProfile();
-  fillProfileForm();
-  toast('Profile saved');
-}
-
-function openTicketModal() {
-  document.getElementById('ticket-modal').classList.remove('hidden');
-  document.getElementById('ticket-modal').classList.add('flex');
-}
-function closeTicketModal() {
-  document.getElementById('ticket-modal').classList.add('hidden');
-  document.getElementById('ticket-modal').classList.remove('flex');
-}
-
-function submitTicket() {
-  const subject = document.getElementById('t-subject').value.trim();
-  const description = document.getElementById('t-desc').value.trim();
-  const priority = document.getElementById('t-pri').value;
-  const category = document.getElementById('t-cat').value;
-  if (!subject || !description) {
-    toast('Please add a summary and details');
-    return;
-  }
-  const ticket = {
-    id: 'TKT-' + Date.now().toString().slice(-6),
-    subject, description, priority, category,
-    status: 'Open',
-    date: new Date().toLocaleString(),
-    customer: profile.name,
-    company: profile.company,
-    email: profile.email,
-    createdMinutesAgo: 0,
-    source: 'client_portal'
-  };
-  tickets.unshift(ticket);
-  localStorage.setItem('ich_client_tickets', JSON.stringify(tickets));
-  const shared = JSON.parse(localStorage.getItem('ich_shared_tickets') || '[]');
-  shared.unshift(ticket);
-  localStorage.setItem('ich_shared_tickets', JSON.stringify(shared));
-  closeTicketModal();
-  document.getElementById('t-subject').value = '';
-  document.getElementById('t-desc').value = '';
-  toast('Request sent — we usually reply within 2 hours');
-  go('support');
-}
-
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.remove('hidden');
-  setTimeout(() => t.classList.add('hidden'), 2800);
-}
-
-function esc(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('ich_client_in') === '1') {
-    profile = JSON.parse(localStorage.getItem('ich_client_profile') || '{}');
-    if (profile.email) boot();
-  }
-});
+})();
 </script>
 </body>
 </html>
