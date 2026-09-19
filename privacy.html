@@ -12,10 +12,42 @@
 </head>
 <body class="bg-[#050505] text-zinc-200 font-['Inter']">
 
-<!-- NAVBAR (copy from other pages, highlight nothing or Privacy) -->
+<!-- NAVBAR -->
 <nav class="navbar sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-cyan-500/20">
-  <!-- Paste the full navbar here -->
+  <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+    <a href="index.html" class="logo text-xl font-bold tracking-tight">
+      INFINITE<span class="text-cyan-400">CYBER</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="index.html" class="nav-link text-cyan-400">Home</a>
+      <a href="services.html" class="nav-link hover:text-cyan-400 transition">Services</a>
+      <a href="packages.html" class="nav-link hover:text-cyan-400 transition">Packages</a>
+      <a href="about.html" class="nav-link hover:text-cyan-400 transition">About Us</a>
+      <a href="blog.html" class="nav-link hover:text-cyan-400 transition">Blog</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400 transition">Contact</a>
+    </div>
+    <div class="hidden md:flex items-center gap-4">
+      <a href="packages.html" class="btn-primary">Get Protected Now</a>
+      <a href="contact.html" class="btn-outline">Free Consultation</a>
+    </div>
+    <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 flex flex-col gap-5 text-sm font-medium bg-black/95 border-t border-cyan-500/20">
+    <a href="index.html" class="nav-link py-2 text-cyan-400">Home</a>
+    <a href="services.html" class="nav-link py-2">Services</a>
+    <a href="packages.html" class="nav-link py-2">Packages</a>
+    <a href="about.html" class="nav-link py-2">About Us</a>
+    <a href="blog.html" class="nav-link py-2">Blog</a>
+    <a href="contact.html" class="nav-link py-2">Contact</a>
+    <div class="pt-4 flex flex-col gap-3">
+      <a href="packages.html" class="btn-primary text-center py-3">Get Protected Now</a>
+      <a href="contact.html" class="btn-outline text-center py-3">Free Consultation</a>
+    </div>
+  </div>
 </nav>
+
 
 <section class="py-20">
   <div class="max-w-4xl mx-auto px-6">
