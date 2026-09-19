@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://infinitecyberspace.vercel.app/</loc>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://infinitecyberspace.vercel.app/about.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinitecyberspace.vercel.app/services.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinitecyberspace.vercel.app/packages.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinitecyberspace.vercel.app/blog.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://infinitecyberspace.vercel.app/contact.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <!-- Add the blog post pages too if you want -->
+  <url>
+    <loc>https://infinitecyberspace.vercel.app/blog-top-5-threats.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://infinitecyberspace.vercel.app/blog-sme-cybersecurity.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://infinitecyberspace.vercel.app/blog-cyber-awareness.html</loc>
+    <priority>0.6</priority>
+  </url>
+</urlset>
