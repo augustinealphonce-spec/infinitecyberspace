@@ -7,41 +7,32 @@
     company: "Infinite Cyberspace Hub",
     aiName: "Asha",
     apiEndpoint: "/api/chat",
-    enableRealAI: false               // set to true when backend is ready
+    enableRealAI: false               // set to true when you have a real AI backend
   };
 
   // ====================== STATE ======================
-  let knowledge = null;
   let messages = [];
   let isOpen = false;
   let isTyping = false;
   let hasRated = localStorage.getItem("ich_has_rated") === "true";
-  let conversationCount = parseInt(localStorage.getItem("ich_msg_count") || "0");
+  let conversationEnded = false;
 
   let userInfo = {
     name: null,
     company: null,
-    need: null
+    need: null,
+    size: null,
+    currentTools: null
   };
 
   const savedInfo = localStorage.getItem("ich_user_info");
-  if (savedInfo) userInfo = JSON.parse(savedInfo);
-
-  const convId = localStorage.getItem("ich_conv") || crypto.randomUUID();
-  localStorage.setItem("ich_conv", convId);
-
-  // ====================== LOAD KNOWLEDGE ======================
-  async function loadKnowledge() {
-    try {
-      const res = await fetch("./ai-knowledge.json");
-      knowledge = await res.json();
-    } catch (e) {
-      knowledge = { company: { name: CONFIG.company } };
-    }
+  if (savedInfo) {
+    try { userInfo = JSON.parse(savedInfo); } catch(e) {}
   }
 
   // ====================== STYLES ======================
   function injectStyles() {
+    if (document.getElementById("ich-styles")) return;
     const css = `
       #ich-launcher {
         position: fixed; bottom: 28px; right: 28px; z-index: 99999;
@@ -144,39 +135,27 @@
       }
       #ich-send:hover { background: #22d3ee; }
 
-      /* Rating Box */
       .ich-rating-box {
-        background: #18181b;
-        border: 1px solid #27272a;
-        border-radius: 16px;
-        padding: 16px;
-        margin-top: 8px;
-        text-align: center;
+        background: #18181b; border: 1px solid #27272a;
+        border-radius: 16px; padding: 16px; margin-top: 8px; text-align: center;
       }
       .ich-stars {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin: 12px 0;
-        font-size: 28px;
-        cursor: pointer;
+        display: flex; justify-content: center; gap: 8px;
+        margin: 12px 0; font-size: 28px; cursor: pointer;
       }
-      .ich-stars span {
-        color: #3f3f46;
-        transition: color 0.2s;
-      }
-      .ich-stars span.active,
-      .ich-stars span:hover {
-        color: #fbbf24;
-      }
+      .ich-stars span { color: #3f3f46; transition: color 0.2s; }
+      .ich-stars span.active, .ich-stars span:hover { color: #fbbf24; }
     `;
     const style = document.createElement("style");
+    style.id = "ich-styles";
     style.textContent = css;
     document.head.appendChild(style);
   }
 
   // ====================== CREATE WIDGET ======================
   function createWidget() {
+    if (document.getElementById("ich-launcher")) return;
+
     const launcher = document.createElement("button");
     launcher.id = "ich-launcher";
     launcher.innerHTML = `<i class="fas fa-comment-dots"></i>`;
@@ -189,7 +168,7 @@
       <div id="ich-header">
         <div>
           <h3>Asha • Infinite Cyber</h3>
-          <p>Cybersecurity & IT Support Assistant</p>
+          <p>Always here for you • Cybersecurity & IT Support</p>
         </div>
         <button onclick="document.getElementById('ich-window').style.display='none'; document.getElementById('ich-launcher').classList.remove('open')" 
                 style="background:transparent;border:none;color:white;font-size:22px;cursor:pointer">×</button>
@@ -210,7 +189,7 @@
       }
     });
 
-    setTimeout(() => startConversation(), 600);
+    setTimeout(() => startConversation(), 700);
   }
 
   function toggle() {
@@ -273,27 +252,20 @@
 
     box.appendChild(div);
     box.scrollTop = box.scrollHeight;
-
-    // Check if we should show rating
-    conversationCount++;
-    localStorage.setItem("ich_msg_count", conversationCount);
-
-    if (!hasRated && conversationCount >= 4) {
-      setTimeout(() => showRating(), 1200);
-    }
   }
 
-  // ====================== RATING SYSTEM ======================
+  // ====================== RATING (only when conversation ends & client is satisfied) ======================
   function showRating() {
-    if (hasRated) return;
+    if (hasRated || conversationEnded) return;
+    conversationEnded = true;
 
     const box = document.getElementById("ich-messages");
     const div = document.createElement("div");
     div.className = "ich-bubble bot";
     div.innerHTML = `
       <div class="ich-rating-box">
-        <div style="font-weight:600; margin-bottom:4px;">Was I helpful?</div>
-        <div style="font-size:13px; color:#a1a1aa; margin-bottom:8px;">Your feedback helps me improve</div>
+        <div style="font-weight:600; margin-bottom:4px;">Was this conversation helpful?</div>
+        <div style="font-size:13px; color:#a1a1aa; margin-bottom:8px;">Your feedback helps me serve you better next time</div>
         <div class="ich-stars" id="ich-stars">
           <span data-value="1">★</span>
           <span data-value="2">★</span>
@@ -302,14 +274,13 @@
           <span data-value="5">★</span>
         </div>
         <div id="ich-rating-thanks" style="display:none; color:#22d3ee; margin-top:8px;">
-          Thank you! 💙
+          Thank you so much! I am always here for you.
         </div>
       </div>
     `;
     box.appendChild(div);
     box.scrollTop = box.scrollHeight;
 
-    // Star click events
     const stars = div.querySelectorAll("#ich-stars span");
     stars.forEach(star => {
       star.addEventListener("click", () => {
@@ -317,38 +288,137 @@
         stars.forEach(s => {
           s.classList.toggle("active", s.getAttribute("data-value") <= value);
         });
-
-        // Save rating
         localStorage.setItem("ich_has_rated", "true");
         localStorage.setItem("ich_rating_value", value);
         hasRated = true;
-
-        // Show thank you
         document.getElementById("ich-rating-thanks").style.display = "block";
-
-        // Optional: send to backend later
-        console.log("User rated Asha:", value, "stars");
       });
     });
   }
 
-  // ====================== CONVERSATION ======================
+  // ====================== SAVE USER INFO ======================
+  function saveUserInfo() {
+    localStorage.setItem("ich_user_info", JSON.stringify(userInfo));
+  }
+
+  // ====================== START CONVERSATION ======================
   function startConversation() {
     if (userInfo.name) {
-      botReply(`Welcome back, <strong>${userInfo.name}</strong>! 👋<br><br>How can I help you today?`, [
+      botReply(`Welcome back, <strong>${userInfo.name}</strong>.<br><br>
+      I am still here and ready to help you with cybersecurity or IT support.<br><br>
+      How can I assist you today?`, [
         { label: "IT Support", value: "I need IT support" },
-        { label: "Cybersecurity", value: "I need cybersecurity help" },
-        { label: "Packages", value: "Show me packages" },
-        { label: "Talk to human", value: "I want to speak to someone" }
+        { label: "Cybersecurity help", value: "I need cybersecurity help" },
+        { label: "View packages", value: "I want to know about packages" },
+        { label: "Talk to a human", value: "I want to speak to someone" }
       ]);
     } else {
-      botReply(`Hello! 👋<br><br>I'm <strong>Asha</strong>, your assistant from Infinite Cyberspace Hub.<br><br>
-      My name means <strong>“Life / Hope”</strong> in Swahili.<br><br>
-      I help Kenyan businesses with <strong>Cybersecurity</strong> and <strong>IT Support</strong>.<br><br>
-      May I know your name?`);
+      botReply(`Hello! Welcome to Infinite Cyberspace Hub.<br><br>
+      I am <strong>Asha</strong>, your dedicated cybersecurity and IT support specialist.<br>
+      I have been here from the beginning and I will always remain available for you.<br><br>
+      May I know your name so I can assist you better?`);
     }
   }
 
+  // ====================== MAIN LOGIC ======================
+  function processMessage(text) {
+    const lower = text.toLowerCase().trim();
+
+    // 1. Detect name
+    const nameMatch = text.match(/(?:my name is|i am|i'm|this is)\s+([A-Za-z]+)/i);
+    if (nameMatch && !userInfo.name) {
+      userInfo.name = nameMatch[1].charAt(0).toUpperCase() + nameMatch[1].slice(1);
+      saveUserInfo();
+      return `Thank you, ${userInfo.name}. It is a pleasure to meet you.<br><br>
+      Please tell me what challenge or need brought you here today. I will listen carefully before recommending anything.`;
+    }
+
+    // 2. Thanks handling
+    if (/(thank|thanks|asante|thx|ty)/i.test(lower)) {
+      const namePart = userInfo.name ? `, ${userInfo.name}` : "";
+      setTimeout(() => showRating(), 1800); // only show rating after thanks when conversation feels finished
+      return `You are most welcome${namePart}. I am always here whenever you need me.`;
+    }
+
+    // 3. Talk to human
+    if (/(human|person|agent|whatsapp|call|speak to)/i.test(lower)) {
+      return `Of course. You can reach our team instantly on WhatsApp:<br><br>
+      <a href="https://wa.me/${CONFIG.whatsapp}" target="_blank" style="color:#22d3ee; text-decoration:underline;">
+      +254 768 741 052</a><br><br>
+      They respond very quickly. I will still be here if you need me later.`;
+    }
+
+    // 4. Package request – force diagnosis first
+    if (/(package|pricing|price|plan|cost|how much)/i.test(lower) && !userInfo.need) {
+      return `I will gladly recommend the right package, but first I need to understand your situation properly so I do not give you something unnecessary.<br><br>
+      Could you please tell me:<br>
+      1. What is the main problem or goal you have right now?<br>
+      2. Roughly how many employees or devices do you have?`;
+    }
+
+    // 5. Collect needs
+    if (!userInfo.need) {
+      userInfo.need = text;
+      saveUserInfo();
+      return `Thank you for sharing that${userInfo.name ? ", " + userInfo.name : ""}.<br><br>
+      To recommend the most suitable protection, may I also know approximately how many people or devices are involved, and whether you currently use any antivirus, Microsoft 365, or Google Workspace?`;
+    }
+
+    // 6. Collect size / tools
+    if (userInfo.need && !userInfo.size) {
+      userInfo.size = text;
+      saveUserInfo();
+
+      // Now recommend based on collected info
+      return recommendPackage();
+    }
+
+    // 7. Default helpful responses
+    if (/(hello|hi|hey|good morning|good afternoon)/i.test(lower)) {
+      return `Hello${userInfo.name ? " " + userInfo.name : ""}! How can I help you today?`;
+    }
+
+    if (/(support|help|issue|problem|troubleshoot)/i.test(lower)) {
+      return `I am ready to help. Please describe the issue in as much detail as you can so I can guide you correctly.`;
+    }
+
+    // Fallback
+    return `I understand. Please share a bit more about what you need — for example the specific problem, number of users, or whether you are looking for protection packages. I am listening carefully.`;
+  }
+
+  // ====================== SMART PACKAGE RECOMMENDATION ======================
+  function recommendPackage() {
+    const need = (userInfo.need + " " + (userInfo.size || "")).toLowerCase();
+
+    let recommendation = "";
+    let reason = "";
+
+    if (/(small|few|1-10|under 10|startup|personal|home)/i.test(need)) {
+      recommendation = "Basic Protection (KES 12,900 per month)";
+      reason = `Because you mentioned a smaller setup, the Basic package already gives you solid next-generation firewall, endpoint protection, malware & ransomware shields, and monthly reports — without paying for features you may not need yet.`;
+    } 
+    else if (/(medium|20|30|50|growing|office|team)/i.test(need) || /(24\/7|monitor|soc|response)/i.test(need)) {
+      recommendation = "Standard Protection (KES 25,900 per month) — our most popular plan";
+      reason = `Based on what you described, Standard is the best fit. It includes everything in Basic plus full 24/7 SOC monitoring, advanced XDR, cloud protection, and critical response under 15 minutes. This matches businesses that need continuous protection and fast reaction.`;
+    } 
+    else {
+      recommendation = "Premium Protection (KES 38,900 per month)";
+      reason = `Given the scale and needs you shared, Premium gives you the full enterprise-grade stack: 24/7 monitoring, penetration testing, dedicated support, and employee training. This is designed for organisations that want maximum protection and proactive testing.`;
+    }
+
+    const namePart = userInfo.name ? userInfo.name + ", " : "";
+
+    setTimeout(() => {
+      // Soft invitation to rate later if they say thanks
+    }, 3000);
+
+    return `${namePart}after carefully listening to your needs, I recommend the <strong>${recommendation}</strong>.<br><br>
+    <strong>Why this package?</strong><br>
+    ${reason}<br><br>
+    Would you like me to explain the features in more detail, or shall I guide you on how to get started with Lipa na M-Pesa?`;
+  }
+
+  // ====================== HANDLE SEND ======================
   async function handleSend() {
     const input = document.getElementById("ich-input");
     const text = input.value.trim();
@@ -359,148 +429,28 @@
     messages.push({ role: "user", content: text });
 
     showTyping();
-    await new Promise(r => setTimeout(r, 700 + Math.random() * 500));
+    await new Promise(r => setTimeout(r, 800 + Math.random() * 600));
 
-    const reply = processMessage(text);
-    botReply(reply.text, reply.quick || []);
-    messages.push({ role: "assistant", content: reply.text });
-
-    localStorage.setItem("ich_user_info", JSON.stringify(userInfo));
-  }
-
-  function processMessage(text) {
-    const t = text.toLowerCase().trim();
-
-    // Collect Name
-    if (!userInfo.name) {
-      let name = text.replace(/(my name is|i am|i'm|this is|call me)/i, "").trim();
-      name = name.split(" ")[0];
-      name = name.charAt(0).toUpperCase() + name.slice(1);
-
-      if (name.length > 1 && name.length < 18) {
-        userInfo.name = name;
-        return {
-          text: `Nice to meet you, <strong>${userInfo.name}</strong>! 😊<br><br>Are you reaching out for yourself or on behalf of a company?`,
-          quick: [
-            { label: "For my company", value: "For my company" },
-            { label: "Just for myself", value: "Just for myself" }
-          ]
-        };
-      }
-      return { text: `Could you please tell me your first name?` };
+    let reply;
+    if (CONFIG.enableRealAI) {
+      // Future: call your real AI backend here
+      reply = "Real AI response will appear here.";
+    } else {
+      reply = processMessage(text);
     }
 
-    // Company
-    if (!userInfo.company && /(company|business|for my company)/.test(t)) {
-      userInfo.company = "pending";
-      return { text: `What’s the name of your company, ${userInfo.name}?` };
-    }
-
-    if (userInfo.company === "pending" && text.length > 2) {
-      userInfo.company = text;
-      return {
-        text: `Thank you! You're from <strong>${userInfo.company}</strong>.<br><br>What can I help you with today?`,
-        quick: [
-          { label: "IT Support", value: "I need IT support" },
-          { label: "Cybersecurity", value: "I need cybersecurity protection" },
-          { label: "Both", value: "I need both" },
-          { label: "Just exploring", value: "I'm just exploring" }
-        ]
-      };
-    }
-
-    // Urgent
-    if (/(hack|breach|ransomware|attack|urgent|emergency|incident)/.test(t)) {
-      return {
-        text: `${userInfo.name}, this sounds urgent.<br><br>
-        Please contact us immediately:<br>
-        <a href="https://wa.me/${CONFIG.whatsapp}?text=URGENT%20-%20${userInfo.name}" target="_blank" style="color:#22d3ee;font-weight:600">→ Open WhatsApp Now</a>`,
-        quick: [{ label: "Open WhatsApp", value: "Connect me on WhatsApp" }]
-      };
-    }
-
-    // IT Support
-    if (/(it support|technical|computer|laptop|printer|wifi|network|email|slow|not working)/.test(t)) {
-      userInfo.need = "IT Support";
-      return {
-        text: `Understood, ${userInfo.name}. You need IT Support.<br><br>
-        We offer both remote and on-site support.<br><br>
-        Would you like me to recommend the best option?`,
-        quick: [
-          { label: "Recommend best option", value: "Recommend the best option" },
-          { label: "Speak to technician", value: "I want to speak to a technician" }
-        ]
-      };
-    }
-
-    // Cybersecurity
-    if (/(cyber|security|protect|soc|firewall|endpoint)/.test(t)) {
-      userInfo.need = "Cybersecurity";
-      return {
-        text: `Got it, ${userInfo.name}. You're looking for Cybersecurity protection.<br><br>
-        Would you like me to recommend the most suitable package?`,
-        quick: [
-          { label: "Yes, recommend", value: "Recommend the best package" },
-          { label: "Show all packages", value: "Show packages" }
-        ]
-      };
-    }
-
-    // Recommendation
-    if (/(recommend|best option|best package|which one)/.test(t)) {
-      return {
-        text: `${userInfo.name}, I recommend the <strong>Standard Protection</strong> package (KES 25,900/month).<br><br>
-        It includes 24/7 SOC Monitoring, XDR, and Priority IT Support — our most popular choice.<br><br>
-        Would you like to book a free consultation?`,
-        quick: [
-          { label: "Book Free Consultation", value: "I want a free consultation" },
-          { label: "Talk on WhatsApp", value: "Connect me on WhatsApp" }
-        ]
-      };
-    }
-
-    // Packages
-    if (/(package|plan|price|pricing|cost)/.test(t)) {
-      return {
-        text: `Here are our packages, ${userInfo.name}:<br><br>
-        <strong>Basic</strong> – KES 12,900/mo<br>
-        <strong>Standard</strong> – KES 25,900/mo ★ Most Popular<br>
-        <strong>Premium</strong> – KES 38,900/mo<br><br>
-        Would you like a recommendation?`,
-        quick: [
-          { label: "Recommend for me", value: "Recommend the best package" },
-          { label: "Book consultation", value: "I want a free consultation" }
-        ]
-      };
-    }
-
-    // Talk to human
-    if (/(human|person|technician|call|whatsapp|speak|talk)/.test(t)) {
-      return {
-        text: `Of course, ${userInfo.name}.<br><br>
-        <a href="https://wa.me/${CONFIG.whatsapp}?text=Hello%2C%20my%20name%20is%20${userInfo.name}" target="_blank" style="color:#22d3ee;font-weight:600">→ Chat on WhatsApp</a><br><br>
-        Or call: <strong>+254 768 741 052</strong>`,
-        quick: [{ label: "Open WhatsApp", value: "Connect me on WhatsApp" }]
-      };
-    }
-
-    // Default
-    return {
-      text: `I'm here to help, ${userInfo.name}.<br><br>
-      Tell me if you need IT Support, Cybersecurity, or if you're exploring our services.`,
-      quick: [
-        { label: "IT Support", value: "I need IT support" },
-        { label: "Cybersecurity", value: "I need cybersecurity" },
-        { label: "Show packages", value: "Show packages" },
-        { label: "Talk to human", value: "I want to speak to someone" }
-      ]
-    };
+    botReply(reply);
   }
 
   // ====================== INIT ======================
-  document.addEventListener("DOMContentLoaded", async () => {
+  function init() {
     injectStyles();
-    await loadKnowledge();
     createWidget();
-  });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
