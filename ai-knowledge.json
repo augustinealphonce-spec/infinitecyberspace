@@ -1,0 +1,77 @@
+{
+  "company": {
+    "name": "Infinite Cyberspace Hub",
+    "founder": "Augustine Alphonse Ouma",
+    "location": "Kisumu, Kenya",
+    "phone": "+254 768 741 052",
+    "whatsapp": "254768741052",
+    "email": "infinitecyberspace.info@gmail.com",
+    "tagline": "Securing Kenya’s Digital Future"
+  },
+  "services": [
+    {
+      "id": "soc",
+      "name": "24/7 SOC Monitoring",
+      "short": "Round-the-clock threat detection with <15 min critical response"
+    },
+    {
+      "id": "zerotrust",
+      "name": "Zero-Trust & Firewall",
+      "short": "Modern identity-based access and network segmentation"
+    },
+    {
+      "id": "endpoint",
+      "name": "Endpoint & Cloud Protection",
+      "short": "EDR/XDR for devices, Microsoft 365, Azure & AWS"
+    },
+    {
+      "id": "pentest",
+      "name": "Penetration Testing",
+      "short": "Real-world attack simulations with clear remediation plans"
+    },
+    {
+      "id": "awareness",
+      "name": "Security Awareness Training",
+      "short": "Phishing simulations + practical employee training"
+    },
+    {
+      "id": "it",
+      "name": "Managed IT Support",
+      "short": "Reliable remote & on-site support, network management, backups and proactive maintenance",
+      "details": [
+        "Remote desktop support",
+        "On-site support in Kisumu and surrounding areas",
+        "Network troubleshooting & optimization",
+        "Email setup & Microsoft 365 / Google Workspace",
+        "Printer, Wi-Fi and hardware issues",
+        "Backup & disaster recovery planning",
+        "Server and workstation maintenance",
+        "Proactive monitoring to prevent downtime"
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "code": "basic",
+      "name": "Basic Protection",
+      "price": "KES 12,900 / month",
+      "best_for": "Small businesses starting their security journey",
+      "highlights": ["Firewall", "Basic EDR", "Email security", "Monthly report"]
+    },
+    {
+      "code": "standard",
+      "name": "Standard Protection",
+      "price": "KES 25,900 / month",
+      "best_for": "Growing companies that need real monitoring + priority IT support",
+      "highlights": ["Everything in Basic", "24/7 SOC", "XDR", "Priority IT Support"],
+      "popular": true
+    },
+    {
+      "code": "premium",
+      "name": "Premium Protection",
+      "price": "KES 38,900 / month",
+      "best_for": "Organizations that want full enterprise protection + dedicated support",
+      "highlights": ["Everything in Standard", "Penetration testing", "Dedicated technician", "IR retainer"]
+    }
+  ]
+}
