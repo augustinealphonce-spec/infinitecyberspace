@@ -7,7 +7,7 @@
     company: "Infinite Cyberspace Hub",
     aiName: "Asha",
     apiEndpoint: "/api/chat",
-    enableRealAI: true              
+    enableRealAI: false              
   };
 
   // ====================== STATE ======================
@@ -436,8 +436,8 @@ async function handleSend() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: messages,          // send conversation history
-          userInfo: userInfo           // optional: name, etc.
+          messages: messages,
+          userInfo: userInfo
         })
       });
 
@@ -445,20 +445,23 @@ async function handleSend() {
 
       const data = await response.json();
       const reply = data.reply || "Sorry, I could not generate a response right now.";
-
-      // Detect name from AI reply or user message if needed
       botReply(reply);
-
-      // Add AI reply to history
       messages.push({ role: "assistant", content: reply });
     } else {
-      // fallback to old rule-based
+      // Rule-based fallback (works offline / on static hosting)
       const reply = processMessage(text);
       botReply(reply);
+      messages.push({ role: "assistant", content: typeof reply === "string" ? reply : reply });
     }
   } catch (err) {
-    console.error(err);
-    botReply("I’m having trouble connecting right now. Please try again or WhatsApp us on +254 768 741 052.");
+    console.error("Chat error:", err);
+    // Always fall back to rule-based so the user is never stuck
+    try {
+      const reply = processMessage(text);
+      botReply(reply);
+    } catch (e2) {
+      botReply(`I’m having trouble connecting right now. Please try again or WhatsApp us on +254 768 741 052.`);
+    }
   }
 }
 
