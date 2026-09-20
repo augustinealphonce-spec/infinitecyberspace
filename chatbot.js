@@ -7,7 +7,7 @@
     company: "Infinite Cyberspace Hub",
     aiName: "Asha",
     apiEndpoint: "/api/chat",
-    enableRealAI: false               // set to true later when backend is ready
+    enableRealAI: false               // set to true when backend is ready
   };
 
   // ====================== STATE ======================
@@ -15,20 +15,20 @@
   let messages = [];
   let isOpen = false;
   let isTyping = false;
+  let hasRated = localStorage.getItem("ich_has_rated") === "true";
+  let conversationCount = parseInt(localStorage.getItem("ich_msg_count") || "0");
+
   let userInfo = {
     name: null,
     company: null,
     need: null
   };
 
+  const savedInfo = localStorage.getItem("ich_user_info");
+  if (savedInfo) userInfo = JSON.parse(savedInfo);
+
   const convId = localStorage.getItem("ich_conv") || crypto.randomUUID();
   localStorage.setItem("ich_conv", convId);
-
-  // Load saved user info if available
-  const savedInfo = localStorage.getItem("ich_user_info");
-  if (savedInfo) {
-    userInfo = JSON.parse(savedInfo);
-  }
 
   // ====================== LOAD KNOWLEDGE ======================
   async function loadKnowledge() {
@@ -143,6 +143,32 @@
         cursor: pointer; display: flex; align-items: center; justify-content: center;
       }
       #ich-send:hover { background: #22d3ee; }
+
+      /* Rating Box */
+      .ich-rating-box {
+        background: #18181b;
+        border: 1px solid #27272a;
+        border-radius: 16px;
+        padding: 16px;
+        margin-top: 8px;
+        text-align: center;
+      }
+      .ich-stars {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 12px 0;
+        font-size: 28px;
+        cursor: pointer;
+      }
+      .ich-stars span {
+        color: #3f3f46;
+        transition: color 0.2s;
+      }
+      .ich-stars span.active,
+      .ich-stars span:hover {
+        color: #fbbf24;
+      }
     `;
     const style = document.createElement("style");
     style.textContent = css;
@@ -184,10 +210,7 @@
       }
     });
 
-    // First message
-    setTimeout(() => {
-      startConversation();
-    }, 600);
+    setTimeout(() => startConversation(), 600);
   }
 
   function toggle() {
@@ -250,19 +273,79 @@
 
     box.appendChild(div);
     box.scrollTop = box.scrollHeight;
+
+    // Check if we should show rating
+    conversationCount++;
+    localStorage.setItem("ich_msg_count", conversationCount);
+
+    if (!hasRated && conversationCount >= 4) {
+      setTimeout(() => showRating(), 1200);
+    }
   }
 
-  // ====================== CONVERSATION FLOW ======================
+  // ====================== RATING SYSTEM ======================
+  function showRating() {
+    if (hasRated) return;
+
+    const box = document.getElementById("ich-messages");
+    const div = document.createElement("div");
+    div.className = "ich-bubble bot";
+    div.innerHTML = `
+      <div class="ich-rating-box">
+        <div style="font-weight:600; margin-bottom:4px;">Was I helpful?</div>
+        <div style="font-size:13px; color:#a1a1aa; margin-bottom:8px;">Your feedback helps me improve</div>
+        <div class="ich-stars" id="ich-stars">
+          <span data-value="1">★</span>
+          <span data-value="2">★</span>
+          <span data-value="3">★</span>
+          <span data-value="4">★</span>
+          <span data-value="5">★</span>
+        </div>
+        <div id="ich-rating-thanks" style="display:none; color:#22d3ee; margin-top:8px;">
+          Thank you! 💙
+        </div>
+      </div>
+    `;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+
+    // Star click events
+    const stars = div.querySelectorAll("#ich-stars span");
+    stars.forEach(star => {
+      star.addEventListener("click", () => {
+        const value = star.getAttribute("data-value");
+        stars.forEach(s => {
+          s.classList.toggle("active", s.getAttribute("data-value") <= value);
+        });
+
+        // Save rating
+        localStorage.setItem("ich_has_rated", "true");
+        localStorage.setItem("ich_rating_value", value);
+        hasRated = true;
+
+        // Show thank you
+        document.getElementById("ich-rating-thanks").style.display = "block";
+
+        // Optional: send to backend later
+        console.log("User rated Asha:", value, "stars");
+      });
+    });
+  }
+
+  // ====================== CONVERSATION ======================
   function startConversation() {
     if (userInfo.name) {
-      botReply(`Welcome back, <strong>${userInfo.name}</strong>! 👋<br><br>How can I help you today with cybersecurity or IT support?`, [
+      botReply(`Welcome back, <strong>${userInfo.name}</strong>! 👋<br><br>How can I help you today?`, [
         { label: "IT Support", value: "I need IT support" },
         { label: "Cybersecurity", value: "I need cybersecurity help" },
         { label: "Packages", value: "Show me packages" },
         { label: "Talk to human", value: "I want to speak to someone" }
       ]);
     } else {
-      botReply(`Hello! 👋<br><br>I'm <strong>Asha</strong>, your assistant from Infinite Cyberspace Hub.<br><br>I help Kenyan businesses with <strong>Cybersecurity</strong> and <strong>IT Support</strong>.<br><br>May I know your name?`);
+      botReply(`Hello! 👋<br><br>I'm <strong>Asha</strong>, your assistant from Infinite Cyberspace Hub.<br><br>
+      My name means <strong>“Life / Hope”</strong> in Swahili.<br><br>
+      I help Kenyan businesses with <strong>Cybersecurity</strong> and <strong>IT Support</strong>.<br><br>
+      May I know your name?`);
     }
   }
 
@@ -276,27 +359,25 @@
     messages.push({ role: "user", content: text });
 
     showTyping();
-    await new Promise(r => setTimeout(r, 700 + Math.random() * 600));
+    await new Promise(r => setTimeout(r, 700 + Math.random() * 500));
 
     const reply = processMessage(text);
     botReply(reply.text, reply.quick || []);
     messages.push({ role: "assistant", content: reply.text });
 
-    // Save user info
     localStorage.setItem("ich_user_info", JSON.stringify(userInfo));
   }
 
   function processMessage(text) {
     const t = text.toLowerCase().trim();
 
-    // ===== Step 1: Collect Name =====
+    // Collect Name
     if (!userInfo.name) {
-      // Simple name extraction
       let name = text.replace(/(my name is|i am|i'm|this is|call me)/i, "").trim();
-      name = name.split(" ")[0]; // take first word
+      name = name.split(" ")[0];
       name = name.charAt(0).toUpperCase() + name.slice(1);
 
-      if (name.length > 1 && name.length < 20) {
+      if (name.length > 1 && name.length < 18) {
         userInfo.name = name;
         return {
           text: `Nice to meet you, <strong>${userInfo.name}</strong>! 😊<br><br>Are you reaching out for yourself or on behalf of a company?`,
@@ -305,87 +386,74 @@
             { label: "Just for myself", value: "Just for myself" }
           ]
         };
-      } else {
-        return {
-          text: `Sorry, I didn’t catch your name clearly.<br><br>Could you please tell me your first name?`
-        };
       }
+      return { text: `Could you please tell me your first name?` };
     }
 
-    // ===== Step 2: Company =====
-    if (!userInfo.company && /(company|business|organization|for my company)/.test(t)) {
-      userInfo.company = "Company";
-      return {
-        text: `Got it. What’s the name of your company, ${userInfo.name}?`,
-      };
+    // Company
+    if (!userInfo.company && /(company|business|for my company)/.test(t)) {
+      userInfo.company = "pending";
+      return { text: `What’s the name of your company, ${userInfo.name}?` };
     }
 
-    if (userInfo.company === "Company" && text.length > 2) {
+    if (userInfo.company === "pending" && text.length > 2) {
       userInfo.company = text;
       return {
-        text: `Thank you! So you're from <strong>${userInfo.company}</strong>.<br><br>What can I help you with today?`,
+        text: `Thank you! You're from <strong>${userInfo.company}</strong>.<br><br>What can I help you with today?`,
         quick: [
           { label: "IT Support", value: "I need IT support" },
           { label: "Cybersecurity", value: "I need cybersecurity protection" },
-          { label: "Both", value: "I need both IT and cybersecurity" },
+          { label: "Both", value: "I need both" },
           { label: "Just exploring", value: "I'm just exploring" }
         ]
       };
     }
 
-    // ===== Main Intent Detection =====
     // Urgent
     if (/(hack|breach|ransomware|attack|urgent|emergency|incident)/.test(t)) {
       return {
-        text: `${userInfo.name}, this sounds urgent.<br><br>Please contact us immediately on WhatsApp for the fastest help:<br><br>
+        text: `${userInfo.name}, this sounds urgent.<br><br>
+        Please contact us immediately:<br>
         <a href="https://wa.me/${CONFIG.whatsapp}?text=URGENT%20-%20${userInfo.name}" target="_blank" style="color:#22d3ee;font-weight:600">→ Open WhatsApp Now</a>`,
         quick: [{ label: "Open WhatsApp", value: "Connect me on WhatsApp" }]
       };
     }
 
     // IT Support
-    if (/(it support|technical|computer|laptop|printer|wifi|network|email|outlook|slow|not working|remote|on.?site)/.test(t)) {
+    if (/(it support|technical|computer|laptop|printer|wifi|network|email|slow|not working)/.test(t)) {
       userInfo.need = "IT Support";
       return {
         text: `Understood, ${userInfo.name}. You need IT Support.<br><br>
-        We offer both <strong>remote</strong> and <strong>on-site</strong> support here in Kisumu and across Kenya.<br><br>
-        Would you like me to recommend the best option for you, or would you prefer to speak with a technician directly?`,
+        We offer both remote and on-site support.<br><br>
+        Would you like me to recommend the best option?`,
         quick: [
-          { label: "Recommend best option", value: "Recommend the best option for me" },
-          { label: "Speak to technician", value: "I want to speak to a technician" },
-          { label: "View packages", value: "Show packages" }
+          { label: "Recommend best option", value: "Recommend the best option" },
+          { label: "Speak to technician", value: "I want to speak to a technician" }
         ]
       };
     }
 
     // Cybersecurity
-    if (/(cyber|security|protect|soc|firewall|endpoint|penetration|awareness)/.test(t)) {
+    if (/(cyber|security|protect|soc|firewall|endpoint)/.test(t)) {
       userInfo.need = "Cybersecurity";
       return {
         text: `Got it, ${userInfo.name}. You're looking for Cybersecurity protection.<br><br>
-        We have three main packages designed for Kenyan businesses.<br><br>
-        Would you like me to recommend the most suitable one based on your needs?`,
+        Would you like me to recommend the most suitable package?`,
         quick: [
           { label: "Yes, recommend", value: "Recommend the best package" },
-          { label: "Show all packages", value: "Show packages" },
-          { label: "Talk to expert", value: "I want to speak to someone" }
+          { label: "Show all packages", value: "Show packages" }
         ]
       };
     }
 
-    // Recommendation request
-    if (/(recommend|best option|best package|which one|suitable)/.test(t)) {
+    // Recommendation
+    if (/(recommend|best option|best package|which one)/.test(t)) {
       return {
-        text: `${userInfo.name}, based on what you've told me, I recommend starting with the <strong>Standard Protection</strong> package (KES 25,900/month).<br><br>
-        It includes:<br>
-        • 24/7 SOC Monitoring<br>
-        • XDR Protection<br>
-        • Priority IT Support<br><br>
-        This is our most popular choice for growing businesses.<br><br>
-        Would you like to book a free consultation to discuss it further?`,
+        text: `${userInfo.name}, I recommend the <strong>Standard Protection</strong> package (KES 25,900/month).<br><br>
+        It includes 24/7 SOC Monitoring, XDR, and Priority IT Support — our most popular choice.<br><br>
+        Would you like to book a free consultation?`,
         quick: [
           { label: "Book Free Consultation", value: "I want a free consultation" },
-          { label: "Tell me about Basic", value: "Tell me about Basic package" },
           { label: "Talk on WhatsApp", value: "Connect me on WhatsApp" }
         ]
       };
@@ -394,11 +462,11 @@
     // Packages
     if (/(package|plan|price|pricing|cost)/.test(t)) {
       return {
-        text: `Here are our current packages, ${userInfo.name}:<br><br>
+        text: `Here are our packages, ${userInfo.name}:<br><br>
         <strong>Basic</strong> – KES 12,900/mo<br>
         <strong>Standard</strong> – KES 25,900/mo ★ Most Popular<br>
         <strong>Premium</strong> – KES 38,900/mo<br><br>
-        Would you like me to recommend the best one for you?`,
+        Would you like a recommendation?`,
         quick: [
           { label: "Recommend for me", value: "Recommend the best package" },
           { label: "Book consultation", value: "I want a free consultation" }
@@ -406,23 +474,20 @@
       };
     }
 
-    // Talk to human / WhatsApp
+    // Talk to human
     if (/(human|person|technician|call|whatsapp|speak|talk)/.test(t)) {
       return {
         text: `Of course, ${userInfo.name}.<br><br>
-        You can reach Augustine or the team directly here:<br><br>
         <a href="https://wa.me/${CONFIG.whatsapp}?text=Hello%2C%20my%20name%20is%20${userInfo.name}" target="_blank" style="color:#22d3ee;font-weight:600">→ Chat on WhatsApp</a><br><br>
         Or call: <strong>+254 768 741 052</strong>`,
-        quick: [
-          { label: "Open WhatsApp", value: "Connect me on WhatsApp" }
-        ]
+        quick: [{ label: "Open WhatsApp", value: "Connect me on WhatsApp" }]
       };
     }
 
-    // Default friendly reply
+    // Default
     return {
       text: `I'm here to help, ${userInfo.name}.<br><br>
-      You can tell me if you need <strong>IT Support</strong>, <strong>Cybersecurity</strong>, or if you're just exploring our services.`,
+      Tell me if you need IT Support, Cybersecurity, or if you're exploring our services.`,
       quick: [
         { label: "IT Support", value: "I need IT support" },
         { label: "Cybersecurity", value: "I need cybersecurity" },
