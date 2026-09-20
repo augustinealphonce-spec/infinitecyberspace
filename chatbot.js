@@ -7,7 +7,7 @@
     company: "Infinite Cyberspace Hub",
     aiName: "Asha",
     apiEndpoint: "/api/chat",
-    enableRealAI: false               // set to true when you have a real AI backend
+    enableRealAI: true              
   };
 
   // ====================== STATE ======================
@@ -419,28 +419,48 @@
   }
 
   // ====================== HANDLE SEND ======================
-  async function handleSend() {
-    const input = document.getElementById("ich-input");
-    const text = input.value.trim();
-    if (!text || isTyping) return;
+async function handleSend() {
+  const input = document.getElementById("ich-input");
+  const text = input.value.trim();
+  if (!text || isTyping) return;
 
-    addUserBubble(text);
-    input.value = "";
-    messages.push({ role: "user", content: text });
+  addUserBubble(text);
+  input.value = "";
+  messages.push({ role: "user", content: text });
 
-    showTyping();
-    await new Promise(r => setTimeout(r, 800 + Math.random() * 600));
+  showTyping();
 
-    let reply;
+  try {
     if (CONFIG.enableRealAI) {
-      // Future: call your real AI backend here
-      reply = "Real AI response will appear here.";
-    } else {
-      reply = processMessage(text);
-    }
+      const response = await fetch(CONFIG.apiEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: messages,          // send conversation history
+          userInfo: userInfo           // optional: name, etc.
+        })
+      });
 
-    botReply(reply);
+      if (!response.ok) throw new Error("AI request failed");
+
+      const data = await response.json();
+      const reply = data.reply || "Sorry, I could not generate a response right now.";
+
+      // Detect name from AI reply or user message if needed
+      botReply(reply);
+
+      // Add AI reply to history
+      messages.push({ role: "assistant", content: reply });
+    } else {
+      // fallback to old rule-based
+      const reply = processMessage(text);
+      botReply(reply);
+    }
+  } catch (err) {
+    console.error(err);
+    botReply("I’m having trouble connecting right now. Please try again or WhatsApp us on +254 768 741 052.");
   }
+}
 
   // ====================== INIT ======================
   function init() {
