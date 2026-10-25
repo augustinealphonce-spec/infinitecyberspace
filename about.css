@@ -1,7 +1,3 @@
-/* =============================================
-   ABOUT PAGE CSS - Luxury Liquid Glass Cyber Style
-============================================= */
-
 @import url('https://googleapis.com');
 
 :root {
@@ -49,43 +45,139 @@ h1, h2, h3, h4 {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(5, 5, 7, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(3, 7, 15, 0.42);
+  backdrop-filter: blur(48px) saturate(240%) brightness(1.15);
+  -webkit-backdrop-filter: blur(48px) saturate(240%) brightness(1.15);
+  border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+  box-shadow: 
+    0 10px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(34, 211, 238, 0.12),
+    0 0 100px rgba(34, 211, 238, 0.1);
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.logo {
-  font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: 0.15em;
-  color: var(--primary);
-  text-shadow: 0 0 20px var(--primary-glow);
+/* Stronger when scrolled */
+.navbar.scrolled {
+  background: rgba(2, 5, 12, 0.78);
+  backdrop-filter: blur(64px) saturate(280%) brightness(1.2);
+  -webkit-backdrop-filter: blur(64px) saturate(280%) brightness(1.2);
+  border-bottom-color: rgba(34, 211, 238, 0.5);
+  box-shadow: 
+    0 15px 60px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(34, 211, 238, 0.2),
+    0 0 120px rgba(34, 211, 238, 0.18);
 }
 
+/* Floating liquid capsule on large screens */
+@media (min-width: 1024px) {
+  .navbar {
+    margin: 14px 24px 0;
+    width: calc(100% - 48px);
+    border-radius: 28px;
+    border: 1px solid rgba(34, 211, 238, 0.28);
+  }
+  .navbar.scrolled {
+    margin-top: 10px;
+    border-color: rgba(34, 211, 238, 0.48);
+  }
+}
+
+/* ========== ANIMATED LIQUID LAYERS ========== */
+.liquid-layer {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  filter: blur(40px);
+  mix-blend-mode: screen;
+}
+
+.liquid-1 {
+  background: radial-gradient(
+    circle at 30% 40%,
+    rgba(34, 211, 238, 0.35) 0%,
+    transparent 50%
+  );
+  animation: liquidMove1 12s ease-in-out infinite;
+}
+
+.liquid-2 {
+  background: radial-gradient(
+    circle at 70% 60%,
+    rgba(6, 182, 212, 0.3) 0%,
+    transparent 55%
+  );
+  animation: liquidMove2 15s ease-in-out infinite;
+}
+
+.liquid-3 {
+  background: radial-gradient(
+    circle at 50% 20%,
+    rgba(165, 243, 252, 0.22) 0%,
+    transparent 45%
+  );
+  animation: liquidMove3 18s ease-in-out infinite;
+}
+
+/* Liquid movement keyframes */
+@keyframes liquidMove1 {
+  0%, 100% { transform: translate(-10%, -15%) scale(1); }
+  33%      { transform: translate(15%, 10%) scale(1.15); }
+  66%      { transform: translate(-5%, 20%) scale(0.95); }
+}
+
+@keyframes liquidMove2 {
+  0%, 100% { transform: translate(10%, 5%) scale(1.1); }
+  40%      { transform: translate(-20%, -10%) scale(0.9); }
+  70%      { transform: translate(8%, 15%) scale(1.2); }
+}
+
+@keyframes liquidMove3 {
+  0%, 100% { transform: translate(0%, 10%) scale(1); }
+  50%      { transform: translate(-15%, -20%) scale(1.25); }
+}
+
+/* ========== NAV LINKS ========== */
 .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  color: #94a3b8;
-  transition: color 0.3s ease;
 }
 
-.nav-link:hover, .nav-link.active {
-  color: #ffffff;
+.nav-link:hover {
+  color: #22d3ee;
+  text-shadow: 0 0 20px rgba(34, 211, 238, 0.7);
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: -4px;
-  left: 0;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, transparent, #22d3ee, transparent);
+  border-radius: 4px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 16px #22d3ee;
 }
 
-.nav-link:hover::after, .nav-link.active::after {
-  width: 100%;
+.nav-link:hover::after {
+  width: 110%;
+}
+
+/* Mobile hover */
+#mobile-menu .nav-link:hover {
+  background: rgba(34, 211, 238, 0.12);
+  color: #22d3ee;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.15);
 }
 
 /* ===================== PREMIUM BUTTONS ===================== */
