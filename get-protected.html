@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Get Protected Now - Infinite Cyberspace Hub</title>
   <!-- Favicon -->
-<link rel="icon" type="image/png" href="/infinite-cyberspace-favicon.png" />
-<link rel="apple-touch-icon" href="/infinite-cyberspace-favicon.png" />
-<link rel="shortcut icon" href="/infinite-cyberspace-favicon.png" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<link rel="shortcut icon" href="/favicon.png" />
 
 <!-- Canonical (important!) -->
 <link rel="canonical" href="https://infinitecyberspace.vercel.app/" />   <!-- change path for other pages, e.g. /about.html -->
@@ -15,16 +15,16 @@
 <!-- Open Graph / Social sharing -->
 <meta property="og:title" content="Infinite Cyberspace Hub | Cybersecurity & IT Solutions Kenya" />
 <meta property="og:description" content="Enterprise-grade cybersecurity, 24/7 SOC monitoring, Zero-Trust, penetration testing and IT support for Kenyan businesses. Based in Kisumu." />
-<meta property="og:url" content="https://infinitecyberspace.vercel.app/" />
+<meta property="og:url" content="https://infinitecyberspace.vercel.app/favicon.png" />
 <meta property="og:type" content="website" />
-<meta property="og:image" content="https://infinitecyberspace.vercel.app/infinite-cyberspace-favicon.png" />
+<meta property="og:image" content="https://infinitecyberspace.vercel.app/favicon.png" />
 <meta property="og:site_name" content="Infinite Cyberspace Hub" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Infinite Cyberspace Hub | Cybersecurity Kenya" />
 <meta name="twitter:description" content="Enterprise-grade cybersecurity for Kenyan businesses." />
-<meta name="twitter:image" content="https://infinitecyberspace.vercel.app/infinite-cyberspace-favicon.png" />
+<meta name="twitter:image" content="https://infinitecyberspace.vercel.app/favicon.png" />
 
 <!-- Extra helpful SEO -->
 <meta name="keywords" content="Infinite Cyberspace Hub, cybersecurity Kenya, SOC monitoring Kenya, Zero Trust Kenya, penetration testing Kisumu, IT support Kenya, cybersecurity Kisumu" />
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
    
   <!-- Favicon -->
-    <link rel="icon" type="image/png" href="infinite-cyberspace-favicon.png">
-    <link rel="apple-touch-icon" href="infinite-cyberspace-favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
     
     <link rel="stylesheet" href="your-style.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -59,19 +59,55 @@
 </head>
 <body class="bg-[#0a0a0a]">
 
-  <!-- Navbar -->
-  <nav class="navbar py-5">
-    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-      <a href="index.html" class="logo">INFINITE<span class="text-white">CYBER</span></a>
-      
-      <div class="flex items-center gap-8 text-sm">
-        <a href="services.html" class="nav-link">Services</a>
-        <a href="packages.html" class="nav-link">Packages</a>
-        <a href="about.html" class="nav-link">About Us</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-      </div>
+<!-- NAVBAR -->
+<nav class="navbar sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-cyan-500/20">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3 group">
+      <img 
+        src="logo.png" 
+        alt="Infinite Cyberspace Hub" 
+        class="h-10 md:h-12 w-auto object-contain transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.55)]"
+      />
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="index.html" class="nav-link text-cyan-400">Home</a>
+      <a href="services.html" class="nav-link hover:text-cyan-400 transition">Services</a>
+      <a href="packages.html" class="nav-link hover:text-cyan-400 transition">Packages</a>
+      <a href="about.html" class="nav-link hover:text-cyan-400 transition">About Us</a>
+      <a href="blog.html" class="nav-link hover:text-cyan-400 transition">Blog</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400 transition">Contact</a>
     </div>
-  </nav>
+
+    <!-- Desktop Buttons -->
+    <div class="hidden md:flex items-center gap-4">
+      <a href="packages.html" class="btn-primary">Get Protected Now</a>
+      <a href="contact.html" class="btn-outline">Free Consultation</a>
+    </div>
+
+    <!-- Mobile Button -->
+    <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 flex flex-col gap-5 text-sm font-medium bg-black/95 border-t border-cyan-500/20">
+    <a href="index.html" class="nav-link py-2 text-cyan-400">Home</a>
+    <a href="services.html" class="nav-link py-2">Services</a>
+    <a href="packages.html" class="nav-link py-2">Packages</a>
+    <a href="about.html" class="nav-link py-2">About Us</a>
+    <a href="blog.html" class="nav-link py-2">Blog</a>
+    <a href="contact.html" class="nav-link py-2">Contact</a>
+    <div class="pt-4 flex flex-col gap-3">
+      <a href="packages.html" class="btn-primary text-center py-3">Get Protected Now</a>
+      <a href="contact.html" class="btn-outline text-center py-3">Free Consultation</a>
+    </div>
+  </div>
+</nav>
 
   <!-- Hero / Main Section -->
   <section class="protect-hero">
