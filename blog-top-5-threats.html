@@ -39,10 +39,18 @@
 
 <!-- NAVBAR -->
 <nav class="navbar sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-cyan-500/20">
-  <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-    <a href="index.html" class="logo text-xl font-bold tracking-tight">
-      INFINITE<span class="text-cyan-400">CYBER</span>
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3 group">
+      <img 
+        src="logo.png" 
+        alt="Infinite Cyberspace Hub" 
+        class="h-10 md:h-12 w-auto object-contain transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.55)]"
+      />
     </a>
+
+    <!-- Desktop Menu -->
     <div class="hidden md:flex items-center gap-8 text-sm font-medium">
       <a href="index.html" class="nav-link text-cyan-400">Home</a>
       <a href="services.html" class="nav-link hover:text-cyan-400 transition">Services</a>
@@ -51,14 +59,20 @@
       <a href="blog.html" class="nav-link hover:text-cyan-400 transition">Blog</a>
       <a href="contact.html" class="nav-link hover:text-cyan-400 transition">Contact</a>
     </div>
+
+    <!-- Desktop Buttons -->
     <div class="hidden md:flex items-center gap-4">
       <a href="packages.html" class="btn-primary">Get Protected Now</a>
       <a href="contact.html" class="btn-outline">Free Consultation</a>
     </div>
+
+    <!-- Mobile Button -->
     <button id="menu-btn" class="md:hidden text-3xl text-cyan-400" onclick="toggleMenu()">
       <i class="fas fa-bars"></i>
     </button>
   </div>
+
+  <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 flex flex-col gap-5 text-sm font-medium bg-black/95 border-t border-cyan-500/20">
     <a href="index.html" class="nav-link py-2 text-cyan-400">Home</a>
     <a href="services.html" class="nav-link py-2">Services</a>
