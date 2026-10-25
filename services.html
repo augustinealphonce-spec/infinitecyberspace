@@ -329,6 +329,21 @@ window.addEventListener('scroll', () => {
     navbar.classList.remove('scrolled');
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  // Get current page filename (handles index.html and bare "/")
+  let path = window.location.pathname.split("/").pop() || "index.html";
+  if (path === "" || path === "/") path = "index.html";
+
+  // Select all nav links (desktop + mobile)
+  document.querySelectorAll(".nav-link").forEach(link => {
+    const href = link.getAttribute("href");
+
+    // Match exact page
+    if (href === path || (path === "index.html" && href === "index.html")) {
+      link.classList.add("active");
+    }
+  });
+});
 
 // Your existing menu toggle
 function toggleMenu() {
