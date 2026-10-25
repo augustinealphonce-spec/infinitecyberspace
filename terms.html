@@ -56,14 +56,14 @@
     </a>
 
     <!-- Desktop Menu -->
-    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-      <a href="index.html" class="nav-link text-cyan-300">Home</a>
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="packages.html" class="nav-link">Packages</a>
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="blog.html" class="nav-link">Blog</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-    </div>
+<div class="hidden md:flex items-center gap-8 text-sm font-medium">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="services.html" class="nav-link">Services</a>
+  <a href="packages.html" class="nav-link">Packages</a>
+  <a href="about.html" class="nav-link">About Us</a>
+  <a href="blog.html" class="nav-link">Blog</a>
+  <a href="contact.html" class="nav-link">Contact</a>
+</div>
 
     <!-- Desktop Buttons -->
     <div class="hidden md:flex items-center gap-3">
@@ -78,14 +78,12 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden relative z-10">
-    <div class="px-6 pb-6 pt-2 flex flex-col gap-1 text-sm font-medium">
-      <a href="index.html" class="nav-link py-3.5 px-4 rounded-2xl text-cyan-300">Home</a>
-      <a href="services.html" class="nav-link py-3.5 px-4 rounded-2xl">Services</a>
-      <a href="packages.html" class="nav-link py-3.5 px-4 rounded-2xl">Packages</a>
-      <a href="about.html" class="nav-link py-3.5 px-4 rounded-2xl">About Us</a>
-      <a href="blog.html" class="nav-link py-3.5 px-4 rounded-2xl">Blog</a>
-      <a href="contact.html" class="nav-link py-3.5 px-4 rounded-2xl">Contact</a>
+<a href="index.html" class="nav-link py-3.5 px-4 rounded-2xl">Home</a>
+<a href="services.html" class="nav-link py-3.5 px-4 rounded-2xl">Services</a>
+<a href="packages.html" class="nav-link py-3.5 px-4 rounded-2xl">Packages</a>
+<a href="about.html" class="nav-link py-3.5 px-4 rounded-2xl">About Us</a>
+<a href="blog.html" class="nav-link py-3.5 px-4 rounded-2xl">Blog</a>
+<a href="contact.html" class="nav-link py-3.5 px-4 rounded-2xl">Contact</a>
       
       <div class="pt-5 mt-3 border-t border-white/10 flex flex-col gap-3">
         <a href="packages.html" class="btn-primary text-center py-3.5">Get Protected Now</a>
@@ -238,6 +236,21 @@ window.addEventListener('scroll', () => {
   } else {
     navbar.classList.remove('scrolled');
   }
+});
+document.addEventListener("DOMContentLoaded", () => {
+  // Get current page filename (handles index.html and bare "/")
+  let path = window.location.pathname.split("/").pop() || "index.html";
+  if (path === "" || path === "/") path = "index.html";
+
+  // Select all nav links (desktop + mobile)
+  document.querySelectorAll(".nav-link").forEach(link => {
+    const href = link.getAttribute("href");
+
+    // Match exact page
+    if (href === path || (path === "index.html" && href === "index.html")) {
+      link.classList.add("active");
+    }
+  });
 });
 
 // Your existing menu toggle
