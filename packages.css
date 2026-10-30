@@ -77,13 +77,13 @@ h1, h2, h3, h4 {
 }
 
 /* Mobile version – background instead of underline */
-#mobile-menu .nav-link.active {
+.nav-link.active {
   background: rgba(34, 211, 238, 0.15);
   color: #67e8f9;
   border: 1px solid rgba(34, 211, 238, 0.25);
 }
 
-#mobile-menu .nav-link.active::after {
+.nav-link.active::after {
   display: none; /* remove underline on mobile */
 }
 
