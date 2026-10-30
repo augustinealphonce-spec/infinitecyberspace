@@ -1,4 +1,83 @@
+# Infinite Cyberspace Hub — robots.txt
+# https://infinitecyberspace.vercel.app/
+
 User-agent: *
 Allow: /
+
+# Public pages
+Allow: /index.html
+Allow: /services.html
+Allow: /packages.html
+Allow: /about.html
+Allow: /blog.html
+Allow: /blog-*.html
+Allow: /contact.html
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /free-consultation.html
+Allow: /ai-knowledge.json
+Allow: /sitemap.xml
+
+# Block internal / sensitive / non-public areas
+Disallow: /admin.html
+Disallow: /portal.html
+Disallow: /auth.js
+Disallow: /*.php$
+Disallow: /config.php
+Disallow: /initiate.php
+Disallow: /ipn.php
+Disallow: /pesapal.php
+Disallow: /request.json
+
+# Crawl budget: don’t waste time on assets as “pages”
+Disallow: /*.css$
+Disallow: /*.js$
+# Allow logo/favicon for social previews (optional override)
+Allow: /logo.png
+Allow: /favicon.png
+Allow: /infinite-cyberspace-favicon.png
+
+# Major search engines (explicit is fine; * already covers them)
+User-agent: Googlebot
+Allow: /
+Disallow: /admin.html
+Disallow: /portal.html
+Disallow: /*.php$
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin.html
+Disallow: /portal.html
+Disallow: /*.php$
+
+# Block aggressive / low-value scrapers (optional)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# AI / LLM crawlers — allow public marketing content, block private tools
+User-agent: GPTBot
+Allow: /
+Disallow: /admin.html
+Disallow: /portal.html
+Disallow: /*.php$
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /admin.html
+Disallow: /portal.html
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin.html
+Disallow: /portal.html
 
 Sitemap: https://infinitecyberspace.vercel.app/sitemap.xml
