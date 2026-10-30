@@ -370,9 +370,17 @@
 
   <script>
     // ========== CONFIG ==========
-    const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-      ? 'http://localhost:3000'
-      : 'https://YOUR-BACKEND-URL'; // ← REPLACE after backend deploy
+   const API_BASE =
+  location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000'
+    : 'https://YOUR-REAL-API.up.railway.app'; // set after deploy
+
+// In payWithMpesa catch:
+setStatus(
+  packageCode,
+  'Online M-Pesa is being finalised. WhatsApp us to activate: +254 768 741 052',
+  'error'
+);
 
     const PACKAGE_PRICES = {
       basic: 12900,
