@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/get-protected.html", "destination": "/packages.html", "permanent": true },
+    { "source": "/get-protected", "destination": "/packages.html", "permanent": true }
+  ]
+}
