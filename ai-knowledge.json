@@ -1,16 +1,43 @@
 {
+  "meta": {
+    "version": "2.0",
+    "assistant_name": "Asha",
+    "assistant_role": "Cybersecurity & IT specialist for Infinite Cyberspace Hub",
+    "language": "en",
+    "tone": "Professional, clear, calm, practical. Kenyan business context. No jargon without explanation. Never invent prices or SLAs.",
+    "rules": [
+      "Always be honest about what is and is not included in each package.",
+      "For active incidents (hack, ransomware, locked systems), prioritise WhatsApp / phone immediately.",
+      "Never ask for passwords, PINs, OTPs, or M-Pesa PINs in chat.",
+      "Prefer guiding the user to the right package or a free consultation over hard selling.",
+      "If unsure, say so and offer WhatsApp with the human team.",
+      "Use KES for all prices. Mention Lipa na M-Pesa as the primary payment method."
+    ]
+  },
+
   "company": {
     "name": "Infinite Cyberspace Hub",
+    "short_name": "ICH",
     "founder": "Augustine Alphonse Ouma",
     "location": "Kisumu, Kenya",
+    "service_area": "Kenya-wide (remote). On-site support focused on Kisumu and surrounding areas.",
     "phone": "+254 768 741 052",
     "whatsapp": "254768741052",
     "email": "infinitecyberspace.info@gmail.com",
+    "website": "https://infinitecyberspace.vercel.app/",
     "tagline": "Securing Kenya’s Digital Future",
+    "mission": "Make enterprise-grade cybersecurity practical and accessible for Kenyan businesses of every size.",
     "response_sla": {
-      "critical": "< 15 minutes",
-      "standard": "Within 2 business hours",
-      "hours": "Mon–Fri 08:00–18:00 • Sat 09:00–14:00"
+      "critical": "Target under 15 minutes (Standard & Premium packages)",
+      "general": "Within 2 business hours",
+      "hours": "Mon–Fri 08:00–18:00 • Sat 09:00–14:00",
+      "soc": "24/7 monitoring on Standard and Premium"
+    },
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/infinite-cyberspace-710296438",
+      "x": "https://x.com/InCyHub",
+      "facebook": "https://www.facebook.com/profile.php?id=61594641534151",
+      "instagram": "https://www.instagram.com/infinitecyberspace/"
     }
   },
 
@@ -18,72 +45,81 @@
     {
       "id": "soc",
       "name": "24/7 SOC Monitoring",
-      "short": "Round-the-clock threat detection with <15 min critical response",
+      "keywords": ["soc", "monitoring", "24/7", "siem", "alerts", "threat detection"],
+      "short": "Round-the-clock threat detection with target critical response under 15 minutes.",
       "details": [
-        "Real-time alerting and triage",
-        "24/7 human + technology monitoring",
-        "Critical incident response under 15 minutes",
-        "Monthly threat intelligence summary"
-      ]
+        "Continuous monitoring of endpoints, email, and cloud signals",
+        "Real-time alerts and human triage",
+        "Critical incident prioritisation",
+        "Weekly / monthly posture summaries depending on package"
+      ],
+      "who_needs_it": "Any business that cannot afford days of downtime or delayed breach discovery."
     },
     {
       "id": "zerotrust",
       "name": "Zero-Trust & Firewall",
-      "short": "Modern identity-based access and network segmentation",
+      "keywords": ["zero trust", "ztna", "firewall", "vpn", "remote access", "network"],
+      "short": "Identity-based access, segmentation, and modern perimeter controls.",
       "details": [
-        "Identity-first access control",
-        "Network micro-segmentation",
-        "Secure remote access",
-        "Least-privilege enforcement"
-      ]
+        "Least-privilege access",
+        "Network micro-segmentation where practical",
+        "Secure remote access without weak traditional VPN patterns",
+        "Firewall hardening and rule review"
+      ],
+      "who_needs_it": "Teams with remote staff, branch offices, or sensitive client data."
     },
     {
       "id": "endpoint",
       "name": "Endpoint & Cloud Protection",
-      "short": "EDR/XDR for devices, Microsoft 365, Azure & AWS",
+      "keywords": ["endpoint", "edr", "xdr", "antivirus", "ransomware", "m365", "google workspace", "cloud"],
+      "short": "EDR/XDR for devices plus Microsoft 365 / Google Workspace hardening.",
       "details": [
-        "Next-gen antivirus + EDR/XDR",
-        "Microsoft 365 & Google Workspace hardening",
-        "Cloud workload protection",
-        "Ransomware rollback capabilities"
-      ]
+        "Modern EDR/XDR with behavioural detection",
+        "Anti-ransomware controls",
+        "M365 / Google Workspace security posture",
+        "Cloud workload visibility where in scope"
+      ],
+      "who_needs_it": "Almost every SME using laptops, email, and cloud tools."
     },
     {
       "id": "pentest",
       "name": "Penetration Testing",
-      "short": "Real-world attack simulations with clear remediation plans",
+      "keywords": ["pentest", "penetration", "red team", "vulnerability", "audit"],
+      "short": "Controlled attacks that expose real weaknesses before criminals do.",
       "details": [
-        "External and internal testing",
-        "Web application & API testing",
-        "Clear, prioritised remediation roadmap",
-        "Retest after fixes"
-      ]
+        "External / internal testing options",
+        "Web application and API testing",
+        "Prioritised remediation roadmap",
+        "Retest after fixes (Premium / agreed scope)"
+      ],
+      "who_needs_it": "Firms preparing for audits, tenders, or after major system changes."
     },
     {
       "id": "awareness",
       "name": "Security Awareness Training",
-      "short": "Phishing simulations + practical employee training",
+      "keywords": ["training", "awareness", "phishing", "staff", "employees"],
+      "short": "Practical training and phishing simulations tuned to Kenyan attack patterns.",
       "details": [
-        "Localised phishing simulations (mobile money, BEC, fake invoices)",
-        "Short practical modules for Kenyan staff",
+        "Short, practical modules",
+        "Simulations using local themes (M-Pesa, KRA, supplier invoices, WhatsApp)",
         "Executive briefings",
-        "Measurable reduction in click rates"
-      ]
+        "Measurable improvement in click rates"
+      ],
+      "who_needs_it": "Any organisation where staff open email or WhatsApp for work."
     },
     {
       "id": "it",
       "name": "Managed IT Support",
-      "short": "Reliable remote & on-site support, network management, backups and proactive maintenance",
+      "keywords": ["it support", "helpdesk", "wifi", "printer", "server", "backup", "network", "email setup"],
+      "short": "Remote and on-site support so systems stay available and healthy.",
       "details": [
         "Remote desktop support",
-        "On-site support in Kisumu and surrounding areas",
-        "Network troubleshooting & optimisation",
-        "Email setup & Microsoft 365 / Google Workspace",
-        "Printer, Wi-Fi and hardware issues",
-        "Backup & disaster recovery planning",
-        "Server and workstation maintenance",
-        "Proactive monitoring to prevent downtime"
-      ]
+        "On-site support in Kisumu and surrounds",
+        "Network, Wi‑Fi, printers, email",
+        "Backup and disaster-recovery planning",
+        "Proactive maintenance"
+      ],
+      "who_needs_it": "Businesses without a full-time IT team."
     }
   ],
 
@@ -91,135 +127,324 @@
     {
       "code": "basic",
       "name": "Basic Protection",
-      "price": "KES 12,900 / month",
-      "best_for": "Small businesses and startups starting their security journey",
-      "highlights": ["Next-gen Firewall", "Basic EDR", "Email security", "Monthly report"],
-      "includes": ["Firewall configuration", "Endpoint protection", "Email filtering", "Monthly security report"]
+      "price_kes": 12900,
+      "price_display": "KES 12,900 / month",
+      "billing": "Billed monthly in advance",
+      "popular": false,
+      "best_for": "Small teams and startups building a solid security foundation.",
+      "layer": "Foundation Layer",
+      "includes": [
+        "Next-gen firewall + basic network segmentation",
+        "Endpoint detection & response (EDR) baseline",
+        "Malware, ransomware and phishing shields",
+        "Secure DNS filtering & web protection",
+        "Monthly vulnerability scan + report",
+        "Basic email security gateway",
+        "Business-hours support (Mon–Fri)"
+      ],
+      "does_not_include": [
+        "24/7 SOC monitoring",
+        "Quarterly penetration testing",
+        "Dedicated account manager"
+      ],
+      "upsell_to": "standard",
+      "cta": "Start with Basic if you need core protection and predictable monthly cost."
     },
     {
       "code": "standard",
       "name": "Standard Protection",
-      "price": "KES 25,900 / month",
-      "best_for": "Growing companies that need real monitoring + priority IT support",
-      "highlights": ["Everything in Basic", "24/7 SOC", "XDR", "Priority IT Support"],
+      "price_kes": 25900,
+      "price_display": "KES 25,900 / month",
+      "billing": "Billed monthly in advance",
       "popular": true,
-      "includes": ["Full 24/7 SOC monitoring", "Advanced XDR", "Cloud protection", "Priority remote & on-site support", "Critical response <15 min"]
+      "best_for": "Growing companies that need active monitoring and fast response.",
+      "layer": "Operations Layer",
+      "includes": [
+        "Everything in Basic",
+        "24/7 Security Operations Center (SOC)",
+        "Advanced XDR endpoint protection",
+        "Stronger email security + anti-phishing",
+        "Cloud protection (Microsoft 365 / Google Workspace)",
+        "Real-time threat intelligence signals",
+        "Weekly posture reports + alerts",
+        "Incident response for critical issues (target <15 min)",
+        "Priority support + dedicated WhatsApp channel"
+      ],
+      "does_not_include": [
+        "Quarterly penetration testing (Premium)",
+        "Full dedicated technician retainer (Premium)"
+      ],
+      "upsell_to": "premium",
+      "cta": "Most clients choose Standard for 24/7 monitoring and priority response."
     },
     {
       "code": "premium",
       "name": "Premium Protection",
-      "price": "KES 38,900 / month",
-      "best_for": "Organisations that want full enterprise protection + dedicated support",
-      "highlights": ["Everything in Standard", "Penetration testing", "Dedicated technician", "IR retainer"],
-      "includes": ["Quarterly penetration testing", "Dedicated support contact", "Incident response retainer", "Advanced awareness training", "Executive reporting"]
+      "price_kes": 38900,
+      "price_display": "KES 38,900 / month",
+      "billing": "Billed monthly in advance",
+      "popular": false,
+      "best_for": "Organisations that want full enterprise-style coverage and a dedicated relationship.",
+      "layer": "Command Layer",
+      "includes": [
+        "Everything in Standard",
+        "Quarterly penetration testing",
+        "Dedicated incident response retainer",
+        "Employee security training (quarterly)",
+        "Dedicated technician / account manager",
+        "Custom Zero-Trust architecture review",
+        "Executive security briefings",
+        "24/7 priority hotline"
+      ],
+      "does_not_include": [],
+      "upsell_to": null,
+      "cta": "Choose Premium when security is mission-critical and you want proactive testing plus a dedicated contact."
     }
   ],
+
+  "payment": {
+    "methods": ["Lipa na M-Pesa (primary)", "Bank transfer on request"],
+    "how_to_pay": [
+      "Open Packages page on the website",
+      "Enter full name, work email, company (optional), and M-Pesa phone number",
+      "Tap Pay — an STK prompt should appear on your phone",
+      "Enter M-Pesa PIN to complete",
+      "After confirmation, subscription activation and login details are sent by email/SMS"
+    ],
+    "note": "Do not share M-Pesa PIN or OTP with anyone, including chat support.",
+    "support_if_stuck": "If the STK prompt does not appear or payment status is unclear, WhatsApp +254 768 741 052 with the M-Pesa message."
+  },
+
+  "qualification": {
+    "questions": [
+      "How many staff or devices need protection?",
+      "Do you use Microsoft 365, Google Workspace, or both?",
+      "Have you had any security incidents or near-misses in the last 12 months?",
+      "Do you need on-site support in Kisumu, or is remote enough?",
+      "Is 24/7 monitoring important for your operations?"
+    ],
+    "recommend_basic_if": [
+      "Fewer than ~10 users",
+      "Budget-sensitive startup",
+      "No recent incidents",
+      "Business-hours support is enough"
+    ],
+    "recommend_standard_if": [
+      "Growing team",
+      "Uses cloud email heavily",
+      "Wants 24/7 monitoring",
+      "Cannot afford slow response to incidents"
+    ],
+    "recommend_premium_if": [
+      "Handles sensitive client or financial data",
+      "Needs penetration testing on a schedule",
+      "Wants a dedicated technical contact",
+      "Preparing for audits, tenders, or partner security reviews"
+    ]
+  },
+
+  "objections": [
+    {
+      "objection": "Too expensive",
+      "reply": "A single successful ransomware or BEC incident often costs more than a year of protection. Basic starts at KES 12,900/month for foundational controls. We can also start with a free consultation and prioritise the highest-risk gaps first."
+    },
+    {
+      "objection": "We are too small to be targeted",
+      "reply": "Attackers often prefer smaller organisations because defences are weaker. Kenyan SMEs are routinely hit by phishing, BEC, and ransomware. Size does not equal safety."
+    },
+    {
+      "objection": "We already have antivirus",
+      "reply": "Classic antivirus alone is not enough against modern phishing, cloud account takeover, and ransomware. Packages combine endpoint protection, email controls, monitoring, and response — the layers that actually stop real incidents."
+    },
+    {
+      "objection": "Can we try before we commit?",
+      "reply": "Yes. Start with a free consultation. We review your situation and recommend practical next steps with no obligation."
+    },
+    {
+      "objection": "We need something custom",
+      "reply": "Packages are modular starting points. For custom scopes (extra sites, special compliance, larger environments), book a consultation and we design a fit-for-purpose stack."
+    }
+  ],
+
+  "urgency_playbook": {
+    "triggers": ["hack", "breach", "ransomware", "encrypted", "locked out", "compromised", "urgent", "emergency", "stolen laptop", "fraud", "unauthorised transfer"],
+    "immediate_reply": "This sounds time-sensitive. Please contact our team on WhatsApp or call +254 768 741 052 right away so a human can help. Do not pay any ransom or share passwords in this chat.",
+    "whatsapp_prefill": "URGENT: Possible security incident. I need immediate help from Infinite Cyberspace Hub."
+  },
 
   "local_threats": [
     {
       "id": "bec",
       "name": "Business Email Compromise (BEC)",
-      "description": "Attackers impersonate directors or suppliers and request urgent payments or changes to bank details. Extremely common in Kenya.",
-      "impact": "Direct financial loss, often KES 100,000 – several million",
-      "prevention": ["Multi-factor authentication on email", "Payment verification callbacks", "Staff training on invoice fraud"]
+      "description": "Attackers impersonate directors or suppliers and request urgent payments or bank detail changes. Very common in Kenya.",
+      "impact": "Direct financial loss — often from tens of thousands to millions of KES",
+      "prevention": ["MFA on email", "Callback verification for payment changes", "Staff training on invoice fraud"]
     },
     {
       "id": "mobile_money",
       "name": "Mobile Money & SIM-Swap Fraud",
-      "description": "Fraudsters take over M-Pesa or bank-linked numbers through social engineering or SIM swaps.",
+      "description": "Social engineering or SIM swap to take over M-Pesa or bank-linked numbers.",
       "impact": "Immediate loss of funds and account takeover",
-      "prevention": ["Strong PIN + biometric locks", "Avoid sharing OTPs", "Monitor unusual SIM activity"]
+      "prevention": ["Never share OTP/PIN", "Report SIM issues fast", "Monitor unusual M-Pesa activity"]
     },
     {
       "id": "ransomware",
-      "name": "Ransomware Targeting SMEs",
-      "description": "Increasingly targeting Kenyan SMEs and schools. Files are encrypted and a ransom demanded in crypto.",
-      "impact": "Business downtime, data loss, possible regulatory issues",
-      "prevention": ["Reliable offline backups", "EDR/XDR with rollback", "Network segmentation", "Staff awareness"]
+      "name": "Ransomware targeting SMEs",
+      "description": "Files encrypted; attackers demand crypto payment. SMEs and schools are frequent targets.",
+      "impact": "Downtime, data loss, recovery cost, possible regulatory issues",
+      "prevention": ["Offline/immutable backups", "EDR/XDR", "Segmentation", "Awareness training"]
     },
     {
       "id": "phishing",
-      "name": "Sophisticated Phishing & Fake Invoices",
-      "description": "Highly targeted emails and WhatsApp messages impersonating banks, KRA, suppliers or internal staff.",
-      "impact": "Credential theft, malware installation, financial fraud",
-      "prevention": ["Email security gateway", "Regular phishing simulations", "Clear reporting culture"]
+      "name": "Phishing & fake invoices",
+      "description": "Emails and WhatsApp messages mimicking banks, KRA, suppliers, or internal staff.",
+      "impact": "Credential theft, malware, fraud",
+      "prevention": ["Email security gateway", "Phishing simulations", "Clear reporting culture"]
     },
     {
       "id": "insider",
-      "name": "Insider Threats & Privileged Access Abuse",
-      "description": "Disgruntled or careless staff misusing access, or former employees retaining credentials.",
-      "impact": "Data leakage, sabotage, compliance breaches",
-      "prevention": ["Least privilege", "Access reviews", "Offboarding process", "Activity monitoring"]
+      "name": "Insider threats & access abuse",
+      "description": "Careless or malicious use of access; former staff retaining credentials.",
+      "impact": "Data leakage, sabotage, compliance failures",
+      "prevention": ["Least privilege", "Access reviews", "Proper offboarding", "Monitoring"]
+    }
+  ],
+
+  "industries": [
+    {
+      "name": "SMEs & trading",
+      "focus": "Email fraud, ransomware, basic endpoint and backup hygiene"
+    },
+    {
+      "name": "Professional services",
+      "focus": "Client confidentiality, secure remote access, MFA, Zero-Trust patterns"
+    },
+    {
+      "name": "NGOs & education",
+      "focus": "Phishing reduction, awareness, cloud hardening, donor/partner trust"
+    },
+    {
+      "name": "Healthcare & clinics",
+      "focus": "Patient data protection, access control, backup and incident readiness"
+    },
+    {
+      "name": "Finance-adjacent / fintech partners",
+      "focus": "Strong authentication, monitoring, incident response, audit readiness"
     }
   ],
 
   "case_studies": [
     {
       "id": "cs1",
-      "title": "Kisumu SME – Ransomware Recovery",
-      "industry": "Trading & Distribution",
-      "challenge": "Ransomware encrypted critical accounting and inventory systems overnight.",
-      "solution": "Rapid incident response + restored from clean backups + deployed XDR and 24/7 monitoring.",
-      "outcome": "Full recovery within 18 hours. No ransom paid. Ongoing Standard Protection package."
+      "title": "Kisumu SME — Ransomware recovery",
+      "industry": "Trading & distribution",
+      "challenge": "Ransomware encrypted accounting and inventory systems overnight.",
+      "solution": "Incident response, restore from clean backups, deploy XDR and ongoing monitoring.",
+      "outcome": "Recovery within about 18 hours. No ransom paid. Moved to Standard Protection."
     },
     {
       "id": "cs2",
-      "title": "Regional NGO – Phishing & BEC Reduction",
-      "industry": "Non-Profit",
-      "challenge": "Multiple near-miss BEC attempts and high staff click rates on phishing emails.",
-      "solution": "Customised awareness programme + phishing simulations + email security hardening.",
-      "outcome": "Click rate dropped from 28% to under 4% in 90 days. Zero successful BEC incidents since."
+      "title": "Regional NGO — Phishing & BEC reduction",
+      "industry": "Non-profit",
+      "challenge": "Near-miss BEC attempts and high staff click rates.",
+      "solution": "Awareness programme, phishing simulations, email security hardening.",
+      "outcome": "Click rate fell from ~28% to under 4% in 90 days. No successful BEC since."
     },
     {
       "id": "cs3",
-      "title": "Growing Professional Services Firm – Zero-Trust Rollout",
-      "industry": "Professional Services",
-      "challenge": "Remote staff accessing sensitive client data over insecure connections.",
-      "solution": "Phased Zero-Trust architecture, MFA everywhere, secure remote access, and managed endpoints.",
-      "outcome": "Secure hybrid working model with full visibility and reduced risk of data exposure."
+      "title": "Professional services — Zero-Trust rollout",
+      "industry": "Professional services",
+      "challenge": "Remote staff accessing sensitive client data over weak setups.",
+      "solution": "Phased Zero-Trust, MFA everywhere, secure remote access, managed endpoints.",
+      "outcome": "Secure hybrid working with better visibility and lower exposure risk."
     }
   ],
 
   "faq": [
     {
-      "q": "How quickly do you respond to critical incidents?",
-      "a": "Critical security incidents are prioritised with a target response under 15 minutes during monitored hours. Our Standard and Premium packages include 24/7 SOC coverage."
+      "q": "How fast do you respond to critical incidents?",
+      "a": "Critical incidents on Standard and Premium packages target response under 15 minutes during monitored coverage. 24/7 SOC is included on Standard and Premium."
     },
     {
-      "q": "Do you support on-site visits in Kisumu?",
-      "a": "Yes. We provide on-site support across Kisumu and surrounding areas for hardware, network, and complex issues that cannot be resolved remotely."
+      "q": "Do you do on-site support in Kisumu?",
+      "a": "Yes. Remote support is primary; on-site is available in Kisumu and surrounding areas when needed."
     },
     {
-      "q": "Can we start with a free consultation?",
-      "a": "Absolutely. We offer a free initial consultation to understand your environment and recommend the most practical next steps — with no obligation."
+      "q": "Is there a free consultation?",
+      "a": "Yes. A free 20–30 minute consultation to understand risks and recommend practical next steps — no obligation."
     },
     {
-      "q": "Do you work with Microsoft 365 and Google Workspace?",
-      "a": "Yes. We specialise in hardening both platforms, implementing MFA, secure collaboration, and continuous monitoring."
+      "q": "Do you support Microsoft 365 and Google Workspace?",
+      "a": "Yes. We harden both, implement MFA, improve collaboration security, and monitor where the package includes it."
     },
     {
-      "q": "What is the difference between Basic, Standard and Premium?",
-      "a": "Basic gives foundational protection. Standard adds 24/7 monitoring and priority support (most popular). Premium adds penetration testing, dedicated support and an incident response retainer."
+      "q": "Basic vs Standard vs Premium?",
+      "a": "Basic = foundation (firewall, EDR baseline, email basics, business-hours support). Standard = adds 24/7 SOC, stronger XDR/cloud/email, priority response (most popular). Premium = adds quarterly pentests, dedicated contact, IR retainer, executive briefings."
     },
     {
       "q": "How do we pay?",
-      "a": "We accept Lipa na M-Pesa and bank transfer. Monthly billing is available for all packages."
+      "a": "Primarily Lipa na M-Pesa from the Packages page (STK prompt on your phone). Bank transfer available on request. Never share your PIN in chat."
     },
     {
-      "q": "Is the chatbot a real person?",
-      "a": "I am Asha, an AI specialist trained on Infinite Cyberspace Hub’s knowledge and local Kenyan threat landscape. For complex or urgent matters I will guide you to our human team via WhatsApp."
+      "q": "Can we change or cancel later?",
+      "a": "Monthly packages. Changes and notice periods follow our Terms of Service — typically 30 days written notice for termination of monthly packages."
+    },
+    {
+      "q": "Do you guarantee we will never be breached?",
+      "a": "No honest provider can. We reduce risk significantly with layered controls and fast response. Absolute guarantees are marketing fiction."
+    },
+    {
+      "q": "Who is Asha?",
+      "a": "Asha is the on-site AI assistant trained on Infinite Cyberspace Hub knowledge and local threat patterns. For complex or urgent issues she routes you to the human team on WhatsApp."
+    },
+    {
+      "q": "Where are you based?",
+      "a": "Kisumu, Kenya. We serve clients across Kenya remotely, with on-site support focused on Kisumu and nearby areas."
     }
   ],
 
   "consultation": {
     "title": "Free Cybersecurity Consultation",
-    "description": "A 20–30 minute discussion to understand your current risks and recommend practical next steps.",
-    "whatsapp_prefill": "Hello Infinite Cyberspace Hub, I would like to book a free cybersecurity consultation. My name is ",
+    "duration": "20–30 minutes",
+    "description": "No-obligation discussion of your current risks and practical next steps.",
     "benefits": [
-      "Clear picture of your current risk level",
-      "Practical recommendations (no unnecessary upsell)",
-      "Understanding of which package (if any) fits best",
-      "Direct access to our technical team"
+      "Clearer view of your risk level",
+      "Practical recommendations without unnecessary upsell",
+      "Guidance on which package (if any) fits",
+      "Direct path to the technical team"
+    ],
+    "whatsapp_prefill": "Hello Infinite Cyberspace Hub, I would like to book a free cybersecurity consultation. My name is "
+  },
+
+  "escalation": {
+    "always_offer_whatsapp_when": [
+      "User asks for a human",
+      "Active or suspected incident",
+      "Payment or billing confusion",
+      "Custom enterprise requirements",
+      "Legal or compliance deep-dive"
+    ],
+    "whatsapp_number_display": "+254 768 741 052",
+    "default_prefill": "Hello Infinite Cyberspace Hub, Asha referred me from the website chatbot."
+  },
+
+  "quick_replies_catalog": {
+    "main_menu": [
+      "Show all services",
+      "Show packages",
+      "I need IT support",
+      "Free consultation",
+      "Speak to human"
+    ],
+    "after_package": [
+      "Compare Basic vs Standard",
+      "How do I pay?",
+      "Free consultation",
+      "Open WhatsApp"
+    ],
+    "after_incident_hint": [
+      "Open WhatsApp now",
+      "Call +254 768 741 052"
     ]
   }
 }
