@@ -463,24 +463,63 @@
         submitBtn.textContent = 'Submit Support Ticket';
       }
     });
-    <script>
-// Intensify on scroll
-window.addEventListener('scroll', () => {
-  const navbar = document.querySelector('.navbar');
-  if (window.scrollY > 12) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
-});
-
-// Your existing menu toggle
-function toggleMenu() {
-  const menu = document.getElementById('mobile-menu');
-  menu.classList.toggle('hidden');
-}
-</script>
   </script>
+  <script>
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.getElementById('menu-btn');
+    if (!menu) return;
+
+    menu.classList.toggle('hidden');
+
+    // Optional: swap hamburger ↔ close icon
+    const icon = btn && btn.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    }
+  }
+
+  // Close menu when a mobile link is clicked
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      if (menu && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+        const icon = document.querySelector('#menu-btn i');
+        if (icon) {
+          icon.classList.add('fa-bars');
+          icon.classList.remove('fa-times');
+        }
+      }
+    });
+  });
+
+  // Navbar scrolled state
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+    if (window.scrollY > 12) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Active nav link highlight
+  document.addEventListener('DOMContentLoaded', () => {
+    let path = window.location.pathname.split('/').pop() || 'index.html';
+    if (path === '' || path === '/') path = 'index.html';
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      if (href === path || (path === 'index.html' && href === 'index.html')) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
 <script src="chatbot.js"></script>
 </body>
