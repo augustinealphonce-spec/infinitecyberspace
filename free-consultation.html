@@ -1,189 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Consultation - Infinite Cyberspace Hub</title>
-  <!-- Favicon -->
-<link rel="icon" type="image/png" href="/favicon.png" />
-<link rel="apple-touch-icon" href="/favicon.png" />
-<link rel="shortcut icon" href="/favicon.png" />
-
-<!-- Canonical (important!) -->
-<link rel="canonical" href="https://infinitecyberspace.vercel.app/" />   <!-- change path for other pages, e.g. /about.html -->
-
-<!-- Open Graph / Social sharing -->
-<meta property="og:title" content="Infinite Cyberspace Hub | Cybersecurity & IT Solutions Kenya" />
-<meta property="og:description" content="Enterprise-grade cybersecurity, 24/7 SOC monitoring, Zero-Trust, penetration testing and IT support for Kenyan businesses. Based in Kisumu." />
-<meta property="og:url" content="https://infinitecyberspace.vercel.app/" />
-<meta property="og:type" content="website" />
-<meta property="og:image" content="https://infinitecyberspace.vercel.app/favicon.png" />
-<meta property="og:site_name" content="Infinite Cyberspace Hub" />
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Infinite Cyberspace Hub | Cybersecurity Kenya" />
-<meta name="twitter:description" content="Enterprise-grade cybersecurity for Kenyan businesses." />
-<meta name="twitter:image" content="https://infinitecyberspace.vercel.app/favicon.png" />
-
-<!-- Extra helpful SEO -->
-<meta name="keywords" content="Infinite Cyberspace Hub, cybersecurity Kenya, SOC monitoring Kenya, Zero Trust Kenya, penetration testing Kisumu, IT support Kenya, cybersecurity Kisumu" />
-<meta name="author" content="Infinite Cyberspace Hub" />
-<meta name="robots" content="index, follow" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Cybersecurity Consultation | Infinite Cyberspace Hub</title>
+  <link rel="canonical" href="https://infinitecyberspace.vercel.app/free-consultation.html" />
+  <meta name="description" content="Book a free 20–30 minute cybersecurity consultation for your Kenyan business. Kisumu-based team, practical advice, no obligation." />
+  <meta property="og:title" content="Free Consultation | Infinite Cyberspace Hub" />
+  <meta property="og:url" content="https://infinitecyberspace.vercel.app/free-consultation.html" />
+  <meta property="og:image" content="https://infinitecyberspace.vercel.app/logo.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/consultation.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-   
-  <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="apple-touch-icon" href="favicon.png">
-    
-    <link rel="stylesheet" href="your-style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Security Headers via Meta Tags -->
-<meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://splitforms.com;
-  style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-  font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-  img-src 'self' data: https: blob:;
-  connect-src 'self' https://splitforms.com;
-  frame-ancestors 'none';
-  base-uri 'self';
-  form-action 'self' https://splitforms.com;
-">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="X-Frame-Options" content="DENY">
+  <link rel="stylesheet" href="packages.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-[#0a0a0a]">
+<body class="bg-[#050505] text-zinc-200 font-['Inter']">
 
-<!-- NAVBAR -->
-<nav class="navbar sticky top-0 z-50 w-full">
-  <!-- Animated liquid layers -->
-  <div class="liquid-layer liquid-1"></div>
-  <div class="liquid-layer liquid-2"></div>
-  <div class="liquid-layer liquid-3"></div>
+  <!-- paste same navbar as index.html (without text-cyan-300 hardcode on Home only) -->
 
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
-    
-    <!-- LOGO -->
-    <a href="index.html" class="flex items-center gap-3 group">
-      <img 
-        src="logo.png" 
-        alt="Infinite Cyberspace Hub" 
-        class="h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105 group-hover:drop-shadow-[0_0_24px_rgba(34,211,238,0.8)]"
-      />
-    </a>
-
-    <!-- Desktop Menu -->
-    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-      <a href="index.html" class="nav-link text-cyan-300">Home</a>
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="packages.html" class="nav-link">Packages</a>
-      <a href="about.html" class="nav-link">About Us</a>
-      <a href="blog.html" class="nav-link">Blog</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-    </div>
-
-    <!-- Desktop Buttons -->
-    <div class="hidden md:flex items-center gap-3">
-      <a href="packages.html" class="btn-primary">Get Protected Now</a>
-      <a href="contact.html" class="btn-outline">Free Consultation</a>
-    </div>
-
-    <!-- Mobile Button -->
-    <button id="menu-btn" class="md:hidden text-2xl text-cyan-300 p-2.5 rounded-xl hover:bg-white/10 transition-all duration-300" onclick="toggleMenu()">
-      <i class="fas fa-bars"></i>
-    </button>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden relative z-10">
-    <div class="px-6 pb-6 pt-2 flex flex-col gap-1 text-sm font-medium">
-      <a href="index.html" class="nav-link py-3.5 px-4 rounded-2xl text-cyan-300">Home</a>
-      <a href="services.html" class="nav-link py-3.5 px-4 rounded-2xl">Services</a>
-      <a href="packages.html" class="nav-link py-3.5 px-4 rounded-2xl">Packages</a>
-      <a href="about.html" class="nav-link py-3.5 px-4 rounded-2xl">About Us</a>
-      <a href="blog.html" class="nav-link py-3.5 px-4 rounded-2xl">Blog</a>
-      <a href="contact.html" class="nav-link py-3.5 px-4 rounded-2xl">Contact</a>
-      
-      <div class="pt-5 mt-3 border-t border-white/10 flex flex-col gap-3">
-        <a href="packages.html" class="btn-primary text-center py-3.5">Get Protected Now</a>
-        <a href="contact.html" class="btn-outline text-center py-3.5">Free Consultation</a>
-      </div>
-    </div>
-  </div>
-</nav>
-
-  <section class="consult-hero">
-    <div class="max-w-4xl mx-auto px-6 w-full">
-      <div class="form-container mx-auto max-w-2xl">
-        
-        <div class="text-center mb-10">
-          <h1 class="text-5xl font-bold mb-4">Free Security Consultation</h1>
-          <p class="text-zinc-400 text-lg">
-            Let's assess your current security and build a protection plan tailored for your business
-          </p>
+  <section class="relative py-16 md:py-24">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-transparent to-transparent pointer-events-none"></div>
+    <div class="max-w-2xl mx-auto px-6 relative z-10">
+      <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-sm font-medium mb-6">
+          <i class="fas fa-comments"></i> 20–30 min · No obligation
         </div>
-
-        <form action="#" method="POST">
-          <div class="grid md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label class="block text-sm text-zinc-400 mb-2">Full Name *</label>
-              <input type="text" class="input-field" placeholder="John Doe" required>
-            </div>
-            <div>
-              <label class="block text-sm text-zinc-400 mb-2">Company Name</label>
-              <input type="text" class="input-field" placeholder="Your Company Ltd">
-            </div>
-          </div>
-
-          <div class="mb-6">
-            <label class="block text-sm text-zinc-400 mb-2">Business Email *</label>
-            <input type="email" class="input-field" placeholder="you@company.co.ke" required>
-          </div>
-
-          <div class="mb-6">
-            <label class="block text-sm text-zinc-400 mb-2">Phone Number *</label>
-            <input type="tel" class="input-field" placeholder="+254 712 345 678" required>
-          </div>
-
-          <div class="mb-8">
-            <label class="block text-sm text-zinc-400 mb-2">What are your biggest security concerns?</label>
-            <textarea class="input-field h-32 resize-y" placeholder="E.g., Ransomware protection, employee training, cloud security, etc..."></textarea>
-          </div>
-
-          <button type="submit" class="submit-consult w-full flex items-center justify-center gap-3">
-            <i class="fas fa-shield-alt"></i>
-            Book My Free Consultation
-          </button>
-
-          <p class="text-center text-xs text-zinc-500 mt-6">
-            Your information is secure. We respect your privacy.
-          </p>
-        </form>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent">
+          Free Security Consultation
+        </h1>
+        <p class="text-zinc-400 text-lg">
+          Tell us about your environment. We’ll outline practical next steps — packages only if they fit.
+        </p>
       </div>
+
+      <div id="consult-success" class="hidden rounded-2xl border border-cyan-500/30 bg-cyan-500/10 p-8 text-center">
+        <h2 class="text-xl font-bold text-cyan-300 mb-2">Request received</h2>
+        <p class="text-zinc-400 mb-4">We’ll contact you shortly. For urgent issues, WhatsApp us now.</p>
+        <a id="consult-wa" href="#" class="inline-flex items-center gap-2 text-green-400 font-semibold hover:underline">
+          <i class="fab fa-whatsapp"></i> WhatsApp +254 768 741 052
+        </a>
+      </div>
+
+      <form id="consult-form" class="space-y-5 rounded-2xl border border-zinc-700/70 bg-zinc-950/60 p-6 md:p-8">
+        <!-- Use your real Splitforms access key -->
+        <input type="hidden" name="access_key" value="82fb0ce9253b465cbb8c35121241ebcd" />
+        <input type="hidden" name="subject" value="Free Consultation Request – Infinite Cyberspace Hub" />
+        <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm text-zinc-400 mb-1.5">Full name *</label>
+            <input name="name" required class="w-full rounded-xl bg-black/50 border border-zinc-700 px-4 py-3 focus:border-cyan-500 outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-zinc-400 mb-1.5">Company</label>
+            <input name="company" class="w-full rounded-xl bg-black/50 border border-zinc-700 px-4 py-3 focus:border-cyan-500 outline-none" />
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm text-zinc-400 mb-1.5">Work email *</label>
+            <input type="email" name="email" required class="w-full rounded-xl bg-black/50 border border-zinc-700 px-4 py-3 focus:border-cyan-500 outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-zinc-400 mb-1.5">Phone / WhatsApp *</label>
+            <input type="tel" name="phone" required class="w-full rounded-xl bg-black/50 border border-zinc-700 px-4 py-3 focus:border-cyan-500 outline-none" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-400 mb-1.5">Team size</label>
+          <select name="team_size" class="w-full rounded-xl bg-black/50 border border-zinc-700 px-4 py-3 focus:border-cyan-500 outline-none">
+            <option value="">Select…</option>
+            <option>1–10</option>
+            <option>11–50</option>
+            <option>51–200</option>
+            <option>200+</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-400 mb-1.5">Biggest concerns</label>
+          <textarea name="concerns" rows="4" placeholder="Ransomware, phishing, M365, compliance…" class="w-full rounded-xl bg-black/50 border border-zinc-700 px-4 py-3 focus:border-cyan-500 outline-none"></textarea>
+        </div>
+        <label class="flex items-start gap-3 text-sm text-zinc-400">
+          <input type="checkbox" name="consent" required class="mt-1" />
+          <span>I agree to the <a href="privacy.html" class="text-cyan-400 hover:underline">Privacy Policy</a>.</span>
+        </label>
+        <p id="consult-error" class="hidden text-red-400 text-sm text-center"></p>
+        <button type="submit" id="consult-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 rounded-xl transition">
+          Book free consultation
+        </button>
+        <p class="text-center text-xs text-zinc-500">
+          Prefer chat?
+          <a href="https://wa.me/254768741052?text=Hello%20Infinite%20Cyberspace%20Hub%2C%20I%20want%20a%20free%20consultation." class="text-green-400 hover:underline">WhatsApp us</a>
+        </p>
+      </form>
     </div>
   </section>
 
-</body>
-  <script>
-// Intensify on scroll
-window.addEventListener('scroll', () => {
-  const navbar = document.querySelector('.navbar');
-  if (window.scrollY > 12) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
-});
+  <!-- footer same as other pages -->
 
-// Your existing menu toggle
-function toggleMenu() {
-  const menu = document.getElementById('mobile-menu');
-  menu.classList.toggle('hidden');
-}
-</script>
+  <script src="site.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('consult-form');
+      if (!form) return;
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('consult-btn');
+        const err = document.getElementById('consult-error');
+        err.classList.add('hidden');
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        try {
+          const res = await fetch('https://splitforms.com/api/submit', {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' }
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.success) throw new Error(data.message || 'Submit failed');
+          form.classList.add('hidden');
+          document.getElementById('consult-success').classList.remove('hidden');
+          const name = form.name.value || 'Client';
+          document.getElementById('consult-wa').href =
+            'https://wa.me/254768741052?text=' +
+            encodeURIComponent('Hello, I just requested a free consultation. Name: ' + name);
+        } catch (ex) {
+          err.textContent = 'Could not send. Please WhatsApp +254 768 741 052.';
+          err.classList.remove('hidden');
+          btn.disabled = false;
+          btn.textContent = 'Book free consultation';
+        }
+      });
+    });
+  </script>
+  <script src="chatbot.js" defer></script>
+</body>
 </html>
